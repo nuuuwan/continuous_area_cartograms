@@ -19,7 +19,7 @@ class DNC:
         self.topo_path = topo_path
         self.id_to_value = id_to_value
 
-    # Helpers
+
     @cached_property
     def topo(self):
         data = JSONFile(self.topo_path).read()
