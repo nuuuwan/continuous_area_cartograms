@@ -156,29 +156,26 @@ class DNC:
 
     # testing
     def log_vars(dnc):
-        log.debug('Polygon[0]')
-        polygon = dnc.polygons[0]
-        log.debug(f'  id = {polygon.id}')
-        log.debug(f'  value = {polygon.value}')
-        log.debug(f'  centroid = {polygon.centroid}')
-        log.debug(f'  area = {polygon.area}')
+        log.debug(f'total_area = {dnc.polygon_group.total_area}')
+        log.debug(f'total_value = {dnc.polygon_group.total_value}')
 
-        log.debug('PolygonGroup')
-        log.debug(f'  total_area = {dnc.polygon_group.total_area}')
-        log.debug(f'  total_value = {dnc.polygon_group.total_value}')
+        print()
+        for grouped_polygon in dnc.grouped_polygons:
+            log.debug(f'id = {grouped_polygon.id}')
+            log.debug(f'  value = {grouped_polygon.value}')
+            log.debug(f'  centroid = {grouped_polygon.centroid}')
+            log.debug(f'  area = {grouped_polygon.area}')
 
-        log.debug('GroupedPolygon[0]')
-        grouped_polygon = dnc.grouped_polygons[0]
-        log.debug(f'  desired = {grouped_polygon.desired}')
-        log.debug(f'  mass = {grouped_polygon.mass}')
-        log.debug(f'  size_error = {grouped_polygon.size_error}')
+            log.debug(f'  desired = {grouped_polygon.desired}')
+            log.debug(f'  mass = {grouped_polygon.mass}')
+            log.debug(f'  size_error = {grouped_polygon.size_error}')
 
-        log.debug('GroupPolygonGroup')
+        print()
         log.debug(
-            f'  mean_size_error = {dnc.group_polygon_group.mean_size_error}'
+            f'mean_size_error = {dnc.group_polygon_group.mean_size_error}'
         )
         log.debug(
-            '  force_reduction_factor = '
+            'force_reduction_factor = '
             + f'{dnc.group_polygon_group.force_reduction_factor}'
         )
 
@@ -189,8 +186,21 @@ def test_from_topojson():
 
 
 def test_from_ents():
-    ents = Ent.list_from_type(EntType.DISTRICT)
-    dnc = DNC.from_ents(ents, {})
+    ents = [
+        ent
+        for ent in Ent.list_from_type(EntType.DISTRICT)
+        if ent.id in ['LK-11', 'LK-12', 'LK-13', 'LK-91', 'LK-92']
+    ]
+    id_to_value = {}
+    total_population = sum(ent.population for ent in ents)
+    for ent in ents:
+        population = ent.population
+        value = (population / total_population) ** 2
+        log.debug(f'{ent.id} = {value}')
+        id_to_value[ent.id] = value
+
+    dnc = DNC.from_ents(ents, id_to_value)
+    dnc.log_vars()
     dnc.run()
 
 
