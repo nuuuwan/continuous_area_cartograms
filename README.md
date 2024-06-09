@@ -4,9 +4,13 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ## Examples
 
-![example-2a](images/ents.district/animated.gif)
+### Provinces of Sri Lanka :sri_lanka:
 
 ![example-2b](images/ents.province/animated.gif)
+
+### Districts of Sri Lanka :sri_lanka:
+
+![example-2a](images/ents.district/animated.gif)
 
 ## Procedure described in paper
 
