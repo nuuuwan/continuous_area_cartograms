@@ -16,6 +16,8 @@ log = Log('DNC')
 
 
 class DNC:
+    VELOCITY_FACTOR = 2
+
     def __init__(self, id_to_shapely_polygons, id_to_value):
         self.id_to_shapely_polygons = id_to_shapely_polygons
         self.id_to_value = id_to_value
@@ -103,9 +105,9 @@ class DNC:
         )
         for grouped_polygon in self.grouped_polygons:
             log2_error = grouped_polygon.log2_error
-            if log2_error > 0.5:
+            if log2_error > 0.1:
                 emoji = '🔴'
-            elif log2_error > -0.5:
+            elif log2_error > -0.1:
                 emoji = '🟢'
             else:
                 emoji = '🔵'
@@ -141,7 +143,9 @@ class DNC:
                     # "Using Fij and angles, calculate vector sum"
                     # "Multiply by ForceReductionFactor"
                     frf = self.group_polygon_group.force_reduction_factor
-                    k = frf * fij
+                    # Note: The VELOCITY_FACTOR is not in the original DNC
+                    # algorithm
+                    k = frf * fij * DNC.VELOCITY_FACTOR
                     dx += k * math.cos(angle)
                     dy += k * math.sin(angle)
                 # Move coordinate accordingly

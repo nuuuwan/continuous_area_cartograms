@@ -28,6 +28,6 @@ def from_custom():
 
 
 if __name__ == "__main__":
-    # from_ents(EntType.PROVINCE)
-    # from_ents(EntType.DISTRICT)
-    from_custom()
+    # from_ent_type(EntType.PROVINCE)
+    from_ent_type(EntType.DISTRICT)
+    # from_custom()
