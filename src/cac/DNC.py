@@ -9,92 +9,9 @@ from shapely.geometry import Point as ShapelyPoint
 from utils import JSONFile, Log
 
 import topojson
+from cac.core import GroupedPolygon, GroupPolygonGroup, Polygon, PolygonGroup
 
 log = Log('DNC')
-
-
-class Polygon:
-    def __init__(
-        self,
-        id,
-        shapely_polygon,
-        value,
-    ):
-        self.id = id
-        self.shapely_polygon = shapely_polygon
-        self.value = value
-
-    @cached_property
-    def area(self):
-        # "Calculate area and centroid (using current boundaries) - 1"
-        return self.shapely_polygon.area
-
-    @cached_property
-    def centroid(self):
-        # "Calculate area and centroid (using current boundaries) - 2"
-        return self.shapely_polygon.centroid
-
-    @cached_property
-    def radius(self):
-        # "Radius = SquareRoot (Area/pi)"
-        return math.sqrt(self.area / math.pi)
-
-
-class PolygonGroup:
-    def __init__(self, polygons):
-        self.polygons = polygons
-
-    @cached_property
-    def total_area(self):
-        # "Sum areas into TotalArea"
-        return sum(polygon.area for polygon in self.polygons)
-
-    @cached_property
-    def total_value(self):
-        # "Sum PolygonValue into TotalValue"
-        return sum(polygon.value for polygon in self.polygons)
-
-
-class GroupedPolygon(Polygon, PolygonGroup):
-    def __init__(self, polygon, polygon_group):
-        Polygon.__init__(
-            self, polygon.id, polygon.shapely_polygon, polygon.value
-        )
-        PolygonGroup.__init__(self, polygon_group.polygons)
-
-    @cached_property
-    def desired(self):
-        # "Desired = (TotalArea * (PolygonValue / TotalValue))"
-        return self.total_area * self.value / self.total_value
-
-    @cached_property
-    def mass(self):
-        # Mass = SquareRoot (Desired / pi) - SquareRoot (Area / pi)
-        return math.sqrt(self.desired / math.pi) - self.radius
-
-    @cached_property
-    def size_error(self):
-        # "SizeError = Max(Area, Desired) / Min(Area, Desired)"
-        return max(self.area, self.desired) / min(self.area, self.desired)
-
-
-class GroupPolygonGroup:
-    def __init__(self, grouped_polygons):
-        self.grouped_polygons = grouped_polygons
-
-    @cached_property
-    def mean_size_error(self):
-        s = sum(
-            grouped_polygon.size_error
-            for grouped_polygon in self.grouped_polygons
-        )
-        n = len(self.grouped_polygons)
-        return s / n
-
-    @cached_property
-    def force_reduction_factor(self):
-        # "ForceReductionFactor = 1 / (1 + Mean (SizeError))"
-        return 1 / (1 + self.mean_size_error)
 
 
 class DNC:
