@@ -182,24 +182,27 @@ def test_from_topojson():
     #     lambda gdf: gdf['prov_c'],
     #     {},
     # )
-    
+
     dnc = DNC.from_topojson(
         os.path.join('topojson', 'Districts.json'),
         lambda gdf: gdf['dis_c'],
         {},
     )
-    
+
     # dnc = DNC.from_topojson(
     #     os.path.join('topojson', 'DSDivisions.json'),
     #     lambda gdf: gdf['dsd_c'],
     #     {},
     # )
-    
-    DNC.save_image(list(dnc.id_to_shapely_polygons.values()), os.path.join(
-        'images', 'original.topojson.png'
-    ))
+
+    DNC.save_image(
+        list(dnc.id_to_shapely_polygons.values()),
+        os.path.join('images', 'original.topojson.png'),
+    )
     shapely_polygons = dnc.run()
-    DNC.save_image(shapely_polygons, os.path.join('images', 'converted.topojson.png'))
+    DNC.save_image(
+        shapely_polygons, os.path.join('images', 'converted.topojson.png')
+    )
 
 
 def test_from_ents():
@@ -218,13 +221,15 @@ def test_from_ents():
 
     dnc = DNC.from_ents(ents, id_to_value)
 
-
-
-    DNC.save_image(list(dnc.id_to_shapely_polygons.values()), os.path.join(
-        'images', 'original.ents.png'
-    ))
+    DNC.save_image(
+        list(dnc.id_to_shapely_polygons.values()),
+        os.path.join('images', 'original.ents.png'),
+    )
     shapely_polygons = dnc.run()
-    DNC.save_image(shapely_polygons, os.path.join('images', 'converted.ents.png'))
+    DNC.save_image(
+        shapely_polygons, os.path.join('images', 'converted.ents.png')
+    )
+
 
 if __name__ == "__main__":
     # test_from_topojson()
