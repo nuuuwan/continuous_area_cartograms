@@ -139,16 +139,12 @@ class DNC:
             new_shapely_polygon = ShapelyPolygon(new_points)
             new_shapely_polygons.append(new_shapely_polygon)
 
-        topo = topojson.Topology(new_shapely_polygons)
-        JSONFile(os.path.join('topojson', 'converted.json')).write(
-            topo.to_json()
-        )
-        gdf = topo.to_gdf()
-        DNC.save_image(gdf, os.path.join('images', 'converted.png'))
+        return new_shapely_polygons
 
     # render
     @staticmethod
-    def save_image(gdf, image_path):
+    def save_image(shapely_polygons, image_path):
+        gdf = topojson.Topology(shapely_polygons).to_gdf()
         plt.close()
         gdf.plot()
         plt.savefig(image_path, dpi=300)
@@ -199,7 +195,11 @@ def test_from_topojson():
     #     {},
     # )
     
-    dnc.run()
+    DNC.save_image(list(dnc.id_to_shapely_polygons.values()), os.path.join(
+        'images', 'original.topojson.png'
+    ))
+    shapely_polygons = dnc.run()
+    DNC.save_image(shapely_polygons, os.path.join('images', 'converted.topojson.png'))
 
 
 def test_from_ents():
@@ -217,10 +217,15 @@ def test_from_ents():
         id_to_value[ent.id] = value
 
     dnc = DNC.from_ents(ents, id_to_value)
-    dnc.log_vars()
-    dnc.run()
 
+
+
+    DNC.save_image(list(dnc.id_to_shapely_polygons.values()), os.path.join(
+        'images', 'original.ents.png'
+    ))
+    shapely_polygons = dnc.run()
+    DNC.save_image(shapely_polygons, os.path.join('images', 'converted.ents.png'))
 
 if __name__ == "__main__":
-    test_from_topojson()
-    # test_from_ents()
+    # test_from_topojson()
+    test_from_ents()
