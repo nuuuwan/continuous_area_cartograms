@@ -2,6 +2,7 @@ import math
 import os
 from functools import cached_property
 
+from gig import Ent, EntType
 from matplotlib import pyplot as plt
 from shapely import MultiPolygon as ShapelyMultiPolygon
 from shapely import Polygon as ShapelyPolygon
@@ -15,45 +16,60 @@ log = Log('DNC')
 
 
 class DNC:
-    def __init__(self, topo_path, id_to_value):
-        self.topo_path = topo_path
+    def __init__(self, id_to_shapely_polygons, id_to_value):
+        self.id_to_shapely_polygons = id_to_shapely_polygons
         self.id_to_value = id_to_value
 
+    # loaders
+    @staticmethod
+    def extract_shapely_polygon(geometry):
+        if isinstance(geometry, ShapelyPolygon):
+            return geometry
 
-    @cached_property
-    def topo(self):
-        data = JSONFile(self.topo_path).read()
+        if isinstance(geometry, ShapelyMultiPolygon):
+            return max(
+                geometry.geoms,
+                key=lambda polygon: polygon.area,
+            )
+
+        raise ValueError(f'Unknown geometry type {type(geometry)}')
+
+    @staticmethod
+    def from_topojson(topojson_path, id_to_value):
+        data = JSONFile(topojson_path).read()
         objects = data['objects']
         objects_name = list(objects.keys())[0]
         geometries = objects[objects_name]['geometries']
         n_geometries = len(geometries)
-        log.debug(f'Read {n_geometries} {objects_name} from {self.topo_path}')
+        log.debug(f'Read {n_geometries} {objects_name} from {topojson_path}')
         topo = topojson.Topology(data, object_name=objects_name)
-        return topo
+        gdf = topo.to_gdf()
+        geometries = gdf['geometry']
+        id_nums = gdf['dis_c']
 
+        id_to_shapely_polygons = {}
+        for geometry, id_num in zip(geometries, id_nums):
+            id = 'LK-' + str(id_num)
+            shapely_polygon = DNC.extract_shapely_polygon(geometry)
+            id_to_shapely_polygons[id] = shapely_polygon
+
+        return DNC(id_to_shapely_polygons, id_to_value)
+
+    @staticmethod
+    def from_ents(ents, id_to_value):
+        id_to_shapely_polygons = {}
+        for ent in ents:
+            gdf = ent.geo()
+
+            shapely_polygon = DNC.extract_shapely_polygon(gdf['geometry'][0])
+            id_to_shapely_polygons[ent.id] = shapely_polygon
+        return DNC(id_to_shapely_polygons, id_to_value)
+
+    # shapes
     @cached_property
     def polygons(self):
-        geometries = self.gdf['geometry']
-        id_nums = self.gdf['dis_c']
-
-        shapely_polygons = []
-        ids = []
-        for geometry, id_num in zip(geometries, id_nums):
-            if isinstance(geometry, ShapelyPolygon):
-                shapely_polygon = geometry
-            elif isinstance(geometry, ShapelyMultiPolygon):
-                shapely_polygon = max(
-                    geometry.geoms,
-                    key=lambda polygon: polygon.area,
-                )
-            else:
-                raise ValueError(f'Unknown geometry type {type(geometry)}')
-            id = 'LK-' + str(id_num)
-            shapely_polygons.append(shapely_polygon)
-            ids.append(id)
-
         polygons = []
-        for id, shapely_polygon in zip(ids, shapely_polygons):
+        for id, shapely_polygon in self.id_to_shapely_polygons.items():
             polygon = Polygon(
                 id, shapely_polygon, self.id_to_value.get(id, 1)
             )
@@ -78,7 +94,7 @@ class DNC:
     def group_polygon_group(self):
         return GroupPolygonGroup(self.grouped_polygons)
 
-    # Algorithms
+    # algorithm
     def run(self):
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
@@ -130,11 +146,7 @@ class DNC:
         gdf = topo.to_gdf()
         DNC.save_image(gdf, os.path.join('images', 'converted.png'))
 
-    # Render
-    @cached_property
-    def gdf(self):
-        return self.topo.to_gdf()
-
+    # render
     @staticmethod
     def save_image(gdf, image_path):
         plt.close()
@@ -142,36 +154,45 @@ class DNC:
         plt.savefig(image_path, dpi=300)
         log.info(f'Wrote {image_path}')
 
+    # testing
+    def log_vars(dnc):
+        log.debug('Polygon[0]')
+        polygon = dnc.polygons[0]
+        log.debug(f'  id = {polygon.id}')
+        log.debug(f'  value = {polygon.value}')
+        log.debug(f'  centroid = {polygon.centroid}')
+        log.debug(f'  area = {polygon.area}')
+
+        log.debug('PolygonGroup')
+        log.debug(f'  total_area = {dnc.polygon_group.total_area}')
+        log.debug(f'  total_value = {dnc.polygon_group.total_value}')
+
+        log.debug('GroupedPolygon[0]')
+        grouped_polygon = dnc.grouped_polygons[0]
+        log.debug(f'  desired = {grouped_polygon.desired}')
+        log.debug(f'  mass = {grouped_polygon.mass}')
+        log.debug(f'  size_error = {grouped_polygon.size_error}')
+
+        log.debug('GroupPolygonGroup')
+        log.debug(
+            f'  mean_size_error = {dnc.group_polygon_group.mean_size_error}'
+        )
+        log.debug(
+            '  force_reduction_factor = '
+            + f'{dnc.group_polygon_group.force_reduction_factor}'
+        )
+
+
+def test_from_topojson():
+    dnc = DNC.from_topojson(os.path.join('topojson', 'Districts.json'), {})
+    dnc.run()
+
+
+def test_from_ents():
+    ents = Ent.list_from_type(EntType.DISTRICT)
+    dnc = DNC.from_ents(ents, {})
+    dnc.run()
+
 
 if __name__ == "__main__":
-    topo_path = os.path.join('topojson', 'Districts.json')
-    dnc = DNC(topo_path, {'LK-11': 1})
-    DNC.save_image(dnc.gdf, os.path.join('images', 'original.png'))
-
-    log.debug('Polygon[0]')
-    polygon = dnc.polygons[0]
-    log.debug(f'  id = {polygon.id}')
-    log.debug(f'  value = {polygon.value}')
-    log.debug(f'  centroid = {polygon.centroid}')
-    log.debug(f'  area = {polygon.area}')
-
-    log.debug('PolygonGroup')
-    log.debug(f'  total_area = {dnc.polygon_group.total_area}')
-    log.debug(f'  total_value = {dnc.polygon_group.total_value}')
-
-    log.debug('GroupedPolygon[0]')
-    grouped_polygon = dnc.grouped_polygons[0]
-    log.debug(f'  desired = {grouped_polygon.desired}')
-    log.debug(f'  mass = {grouped_polygon.mass}')
-    log.debug(f'  size_error = {grouped_polygon.size_error}')
-
-    log.debug('GroupPolygonGroup')
-    log.debug(
-        f'  mean_size_error = {dnc.group_polygon_group.mean_size_error}'
-    )
-    log.debug(
-        '  force_reduction_factor = '
-        + f'{dnc.group_polygon_group.force_reduction_factor}'
-    )
-
-    dnc.run()
+    test_from_ents()
