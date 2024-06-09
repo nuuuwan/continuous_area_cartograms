@@ -4,9 +4,9 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ## Examples
 
-![example-2a](images/ent.district/animated.gif)
+![example-2a](images/ents.district/animated.gif)
 
-![example-2b](images/ent.province/animated.gif)
+![example-2b](images/ents.province/animated.gif)
 
 ## Procedure described in paper
 
