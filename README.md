@@ -15,7 +15,7 @@ For each iteration (user controls when done)
     Sum areas into TotalArea
     
     For each polygon
-        Desired = (TotalArea * (PolygonValueATotalValue))
+        Desired = (TotalArea * (PolygonValue / TotalValue))
         Radius = SquareRoot (Area/pi)
         Mass = SquareRoot (Desired/pi) - SquareRoot (Area/pi)
         SizeError = Max(Area, Desired) / Min(Area, Desired)
@@ -34,3 +34,5 @@ For each iteration (user controls when done)
             Move coordinate accordingly
         Write distorted line to output and plot result
 ```
+
+In code, we will refer to this as the *DNC Algorithm*, after its authors.
