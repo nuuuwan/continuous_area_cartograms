@@ -1,6 +1,7 @@
 import math
 import os
-from functools import cached_property
+import random
+from functools import cache, cached_property
 
 from gig import Ent, EntType
 from matplotlib import pyplot as plt
@@ -143,10 +144,25 @@ class DNC:
 
     # render
     @staticmethod
+    @cache
+    def get_random_color(i):
+        return random.choice(
+            [
+                '#800',
+                '#f80',
+                '#ff0',
+                '#080',
+                '#000',
+            ]
+        )
+
+    @staticmethod
     def save_image(shapely_polygons, image_path):
-        gdf = topojson.Topology(shapely_polygons).to_gdf()
         plt.close()
-        gdf.plot()
+        ax = plt.gca()
+        for i, shapely_polygon in enumerate(shapely_polygons):
+            gdf = topojson.Topology(shapely_polygon).to_gdf()
+            gdf.plot(ax=ax, color=DNC.get_random_color(i))
         plt.savefig(image_path, dpi=300)
         log.info(f'Wrote {image_path}')
 
@@ -232,5 +248,5 @@ def test_from_ents():
 
 
 if __name__ == "__main__":
-    # test_from_topojson()
+    test_from_topojson()
     test_from_ents()
