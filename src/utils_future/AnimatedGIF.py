@@ -8,15 +8,17 @@ log = Log('AnimatedGIF')
 
 
 class AnimatedGIF:
-    def __init__(self, animated_gif_path, duration=200):
+    def __init__(self, animated_gif_path, duration=200, loop=0):
         self.animated_gif_path = animated_gif_path
         self.duration = duration
+        self.loop = loop
 
     def write(self, image_path_list):
+        image_path_list2 = image_path_list + image_path_list[::-1]
         with iio2.get_writer(
-            self.animated_gif_path, mode='I', duration=self.duration
+            self.animated_gif_path, mode='I', duration=self.duration,loop=self.loop
         ) as writer:
-            for image_path in image_path_list:
+            for image_path in image_path_list2:
                 image = iio3.imread(image_path)
                 writer.append_data(image)
             n = len(image_path_list)
@@ -25,7 +27,7 @@ class AnimatedGIF:
 
 if __name__ == "__main__":
     n = 10
-    dir_path = os.path.join('images', 'ents.provinces')
+    dir_path = os.path.join('images', 'ents.province')
     image_path_list = [
         os.path.join(dir_path, f'{i}.png') for i in range(0, n + 1)
     ]
