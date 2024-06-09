@@ -1,6 +1,5 @@
 import math
 import os
-import random
 from functools import cache, cached_property
 
 from gig import Ent, EntType
@@ -12,6 +11,7 @@ from utils import JSONFile, Log
 
 import topojson
 from cac.core import GroupedPolygon, GroupPolygonGroup, Polygon, PolygonGroup
+from utils_future import AnimatedGIF
 
 log = Log('DNC')
 
@@ -76,7 +76,6 @@ class DNC:
             )
             polygons.append(polygon)
 
-        polygons.sort(key=lambda polygon: polygon.id)
         return polygons
 
     @cached_property
@@ -96,12 +95,26 @@ class DNC:
         return GroupPolygonGroup(self.grouped_polygons)
 
     # algorithm
-    def run(self):
+    def run_single(self):
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
+        log.debug(
+            f'mean_size_error = {self.group_polygon_group.mean_size_error:.4f}'
+        )
+        for grouped_polygon in self.grouped_polygons:
+            log2_error = grouped_polygon.log2_error
+            if log2_error > 1.5:
+                emoji = '🔴'
+            elif log2_error > 0.5:
+                emoji = '🟢'
+            else:
+                emoji = '🔵'
+            log.debug(
+                f'  {grouped_polygon.id} '
+                + f'{log2_error:.2f} '.rjust(10) + emoji
+            )
         for polygon in self.grouped_polygons:
-            log.debug(f'Processing {polygon.id}...')
             new_points = []
             for point in polygon.shapely_polygon.exterior.coords:
                 dx, dy = 0, 0
@@ -122,11 +135,8 @@ class DNC:
                     else:
                         # "Fij = Mass * (Distance ^ 2 / Radius ^ 2)
                         #     * (4 - 3 * (Distance / Radius))"
-                        fij = (
-                            polygon0.mass
-                            * (distance**2 / polygon0.radius**2)
-                            * (4 - 3 * (distance / polygon0.radius))
-                        )
+                        q = distance / polygon0.radius
+                        fij = polygon0.mass * (q**2) * (4 - 3 * q)
 
                     # "Using Fij and angles, calculate vector sum"
                     # "Multiply by ForceReductionFactor"
@@ -142,28 +152,80 @@ class DNC:
 
         return new_shapely_polygons
 
+    def run(self, file_label, n=1):
+        assert file_label
+        assert n > 0
+
+        dir_path = os.path.join(
+            'images',
+            file_label,
+        )
+        os.makedirs(dir_path, exist_ok=True)
+
+        dnc = self
+        shapely_polygons = list(dnc.id_to_shapely_polygons.values())
+        image_path_list = []
+        for i in range(n):
+            log.debug(f'run: {i=}')
+
+            image_path = os.path.join(dir_path, f'{i}.png')
+            DNC.save_image(
+                dnc.grouped_polygons,
+                image_path,
+            )
+            image_path_list.append(image_path)
+
+            shapely_polygons = dnc.run_single()
+            ids = list(dnc.id_to_shapely_polygons.keys())
+            id_to_shapely_polygons = {
+                id: shapely_polygon
+                for id, shapely_polygon in zip(ids, shapely_polygons)
+            }
+            dnc = DNC(id_to_shapely_polygons, dnc.id_to_value)
+
+        image_path = os.path.join(dir_path, f'{n}.png')
+        DNC.save_image(
+            dnc.grouped_polygons,
+            image_path,
+        )
+        image_path_list.append(image_path)
+
+        animated_gif_path = os.path.join(dir_path, 'animated.gif')
+        AnimatedGIF(animated_gif_path).write(image_path_list)
+
+        return shapely_polygons
+
     # render
     @staticmethod
     @cache
-    def get_random_color(i):
-        return random.choice(
-            [
-                '#800',
-                '#f80',
-                '#ff0',
-                '#080',
-                '#000',
-            ]
-        )
+    def get_color(log2_error):
+        log2_error = max(min(log2_error, 1), -1)
+        p = (log2_error + 1) / 2
+        r, g, b = [int(c * 255) for c in plt.cm.jet(p)[:3]]
+        return f'#{r:02x}{g:02x}{b:02x}'
 
     @staticmethod
-    def save_image(shapely_polygons, image_path):
+    def save_image(grouped_polygons, image_path):
         plt.close()
         ax = plt.gca()
-        for i, shapely_polygon in enumerate(shapely_polygons):
+        for i, grouped_polygon in enumerate(grouped_polygons):
+            shapely_polygon = grouped_polygon.shapely_polygon
+            log2_error = grouped_polygon.log2_error
             gdf = topojson.Topology(shapely_polygon).to_gdf()
-            gdf.plot(ax=ax, color=DNC.get_random_color(i))
-        plt.savefig(image_path, dpi=300)
+            gdf.plot(
+                ax=ax,
+                facecolor=DNC.get_color(log2_error),
+                edgecolor="black",
+                linewidth=0.1,
+            )
+
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.grid(False)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+
+        plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
 
     # testing
@@ -192,61 +254,4 @@ class DNC:
         )
 
 
-def test_from_topojson():
-    # dnc = DNC.from_topojson(
-    #     os.path.join('topojson', 'Provinces.json'),
-    #     lambda gdf: gdf['prov_c'],
-    #     {},
-    # )
 
-    dnc = DNC.from_topojson(
-        os.path.join('topojson', 'Districts.json'),
-        lambda gdf: gdf['dis_c'],
-        {},
-    )
-
-    # dnc = DNC.from_topojson(
-    #     os.path.join('topojson', 'DSDivisions.json'),
-    #     lambda gdf: gdf['dsd_c'],
-    #     {},
-    # )
-
-    DNC.save_image(
-        list(dnc.id_to_shapely_polygons.values()),
-        os.path.join('images', 'original.topojson.png'),
-    )
-    shapely_polygons = dnc.run()
-    DNC.save_image(
-        shapely_polygons, os.path.join('images', 'converted.topojson.png')
-    )
-
-
-def test_from_ents():
-    ents = [
-        ent
-        for ent in Ent.list_from_type(EntType.DISTRICT)
-        if ent.id in ['LK-11', 'LK-12', 'LK-13', 'LK-91', 'LK-92']
-    ]
-    id_to_value = {}
-    total_population = sum(ent.population for ent in ents)
-    for ent in ents:
-        population = ent.population
-        value = (population / total_population) ** 2
-        log.debug(f'{ent.id} = {value}')
-        id_to_value[ent.id] = value
-
-    dnc = DNC.from_ents(ents, id_to_value)
-
-    DNC.save_image(
-        list(dnc.id_to_shapely_polygons.values()),
-        os.path.join('images', 'original.ents.png'),
-    )
-    shapely_polygons = dnc.run()
-    DNC.save_image(
-        shapely_polygons, os.path.join('images', 'converted.ents.png')
-    )
-
-
-if __name__ == "__main__":
-    test_from_topojson()
-    test_from_ents()

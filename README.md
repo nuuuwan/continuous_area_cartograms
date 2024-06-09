@@ -2,6 +2,12 @@
 
 Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
 
+## Examples
+
+![example-2a][images/ent.district/animated.gif]
+
+![example-2b][images/ent.province/animated.gif]
+
 ## Procedure described in paper
 
 ```pseudocode

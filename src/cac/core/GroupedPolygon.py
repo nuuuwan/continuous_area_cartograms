@@ -30,3 +30,8 @@ class GroupedPolygon(Polygon, PolygonGroup):
     def size_error(self):
         # "SizeError = Max(Area, Desired) / Min(Area, Desired)"
         return max(self.area, self.desired) / min(self.area, self.desired)
+
+    @cached_property
+    def log2_error(self):
+        e = self.area / self.desired
+        return math.log2(e)
