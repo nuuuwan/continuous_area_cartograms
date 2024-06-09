@@ -23,7 +23,7 @@ class GroupedPolygon(Polygon, PolygonGroup):
 
     @cached_property
     def mass(self):
-        # Mass = SquareRoot (Desired / pi) - SquareRoot (Area / pi)
+        # Mass = √ (Desired / 𝜋) - √ (Area / 𝜋)
         return math.sqrt(self.desired / math.pi) - self.radius
 
     @cached_property

@@ -29,5 +29,5 @@ class Polygon:
 
     @cached_property
     def radius(self):
-        # "Radius = SquareRoot (Area/pi)"
+        # "Radius = √ (Area/pi)"
         return math.sqrt(self.area / math.pi)
