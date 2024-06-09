@@ -145,7 +145,7 @@ class DNC:
 
 if __name__ == "__main__":
     topo_path = os.path.join('topojson', 'Districts.json')
-    dnc = DNC(topo_path, {'LK-11': 100})
+    dnc = DNC(topo_path, {'LK-11': 1})
     DNC.save_image(dnc.gdf, os.path.join('images', 'original.png'))
 
     log.debug('Polygon[0]')

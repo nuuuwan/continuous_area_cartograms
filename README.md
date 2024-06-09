@@ -16,8 +16,8 @@ For each iteration (user controls when done)
     
     For each polygon
         Desired = (TotalArea * (PolygonValue / TotalValue))
-        Radius = SquareRoot (Area/pi)
-        Mass = SquareRoot (Desired/pi) - SquareRoot (Area/pi)
+        Radius = √ (Area / 𝜋)
+        Mass = √ (Desired / 𝜋) - √ (Area / 𝜋)
         SizeError = Max(Area, Desired) / Min(Area, Desired)
     ForceReductionFactor = 1 / (1 + Mean (SizeError))
 
