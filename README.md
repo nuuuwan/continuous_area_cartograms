@@ -12,6 +12,10 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ![example-2a](images/ents.district/animated.gif)
 
+### Polling Divisions in Colombo, Sri Lanka
+
+![example-2a](images/ents.pd.colombo/animated.gif)
+
 ## Procedure described in paper
 
 ```pseudocode

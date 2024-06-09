@@ -104,9 +104,9 @@ class DNC:
         )
         for grouped_polygon in self.grouped_polygons:
             log2_error = grouped_polygon.log2_error
-            if log2_error > 1.5:
+            if log2_error > 0.5:
                 emoji = '🔴'
-            elif log2_error > 0.5:
+            elif log2_error > -0.5:
                 emoji = '🟢'
             else:
                 emoji = '🔵'
@@ -215,7 +215,7 @@ class DNC:
             gdf.plot(
                 ax=ax,
                 facecolor=DNC.get_color(log2_error),
-                edgecolor="black",
+                edgecolor="white",
                 linewidth=0.1,
             )
 
