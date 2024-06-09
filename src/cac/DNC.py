@@ -2,7 +2,6 @@ import math
 import os
 from functools import cache, cached_property
 
-from gig import Ent, EntType
 from matplotlib import pyplot as plt
 from shapely import MultiPolygon as ShapelyMultiPolygon
 from shapely import Polygon as ShapelyPolygon
@@ -112,7 +111,8 @@ class DNC:
                 emoji = '🔵'
             log.debug(
                 f'  {grouped_polygon.id} '
-                + f'{log2_error:.2f} '.rjust(10) + emoji
+                + f'{log2_error:.2f} '.rjust(10)
+                + emoji
             )
         for polygon in self.grouped_polygons:
             new_points = []
@@ -252,6 +252,3 @@ class DNC:
             'force_reduction_factor = '
             + f'{dnc.group_polygon_group.force_reduction_factor}'
         )
-
-
-

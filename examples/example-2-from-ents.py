@@ -1,7 +1,7 @@
-import os
-from utils import Log
 from gig import Ent, EntType
+
 from cac import DNC
+
 
 def from_ents(ents, label):
     id_to_value = {}
@@ -14,15 +14,20 @@ def from_ents(ents, label):
     dnc = DNC.from_ents(ents, id_to_value)
     dnc.run(file_label=f"ents.{label}", n=10)
 
+
 def from_ent_type(ent_type):
     ents = [ent for ent in Ent.list_from_type(ent_type)]
     return from_ents(ents, ent_type.name)
 
+
 def from_custom():
-    ents = [ent for ent in Ent.list_from_type(EntType.PD) if 'EC-01' in ent.id]
+    ents = [
+        ent for ent in Ent.list_from_type(EntType.PD) if 'EC-01' in ent.id
+    ]
     return from_ents(ents, 'pd.colombo')
+
 
 if __name__ == "__main__":
     # from_ents(EntType.PROVINCE)
-    # from_ents(EntType.DISTRICT) 
+    # from_ents(EntType.DISTRICT)
     from_custom()

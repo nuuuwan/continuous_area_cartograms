@@ -16,7 +16,10 @@ class AnimatedGIF:
     def write(self, image_path_list):
         image_path_list2 = image_path_list + image_path_list[::-1]
         with iio2.get_writer(
-            self.animated_gif_path, mode='I', duration=self.duration,loop=self.loop
+            self.animated_gif_path,
+            mode='I',
+            duration=self.duration,
+            loop=self.loop,
         ) as writer:
             for image_path in image_path_list2:
                 image = iio3.imread(image_path)
