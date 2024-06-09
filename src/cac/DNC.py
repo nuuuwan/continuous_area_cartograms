@@ -35,7 +35,7 @@ class DNC:
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
     @staticmethod
-    def from_topojson(topojson_path, id_to_value):
+    def from_topojson(topojson_path, get_ids, id_to_value):
         data = JSONFile(topojson_path).read()
         objects = data['objects']
         objects_name = list(objects.keys())[0]
@@ -45,7 +45,7 @@ class DNC:
         topo = topojson.Topology(data, object_name=objects_name)
         gdf = topo.to_gdf()
         geometries = gdf['geometry']
-        id_nums = gdf['dis_c']
+        id_nums = get_ids(gdf)
 
         id_to_shapely_polygons = {}
         for geometry, id_num in zip(geometries, id_nums):
@@ -181,7 +181,24 @@ class DNC:
 
 
 def test_from_topojson():
-    dnc = DNC.from_topojson(os.path.join('topojson', 'Districts.json'), {})
+    # dnc = DNC.from_topojson(
+    #     os.path.join('topojson', 'Provinces.json'),
+    #     lambda gdf: gdf['prov_c'],
+    #     {},
+    # )
+    
+    dnc = DNC.from_topojson(
+        os.path.join('topojson', 'Districts.json'),
+        lambda gdf: gdf['dis_c'],
+        {},
+    )
+    
+    # dnc = DNC.from_topojson(
+    #     os.path.join('topojson', 'DSDivisions.json'),
+    #     lambda gdf: gdf['dsd_c'],
+    #     {},
+    # )
+    
     dnc.run()
 
 
@@ -205,4 +222,5 @@ def test_from_ents():
 
 
 if __name__ == "__main__":
-    test_from_ents()
+    test_from_topojson()
+    # test_from_ents()
