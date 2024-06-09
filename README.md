@@ -6,15 +6,19 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ### Provinces of Sri Lanka :sri_lanka:
 
-![example-2b](images/ents.province/animated.gif)
+![example-2](images/ents.province/animated.gif)
 
 ### Districts of Sri Lanka :sri_lanka:
 
-![example-2a](images/ents.district/animated.gif)
+![example-2](images/ents.district/animated.gif)
+
+### Polling Divisions in the Western Province, Sri Lanka
+
+![example-2](images/ents.pd.western/animated.gif)
 
 ### Polling Divisions in Colombo, Sri Lanka
 
-![example-2a](images/ents.pd.colombo/animated.gif)
+![example-2](images/ents.pd.colombo/animated.gif)
 
 ## Procedure described in paper
 

@@ -16,7 +16,7 @@ log = Log('DNC')
 
 
 class DNC:
-    VELOCITY_FACTOR = 2
+    VELOCITY_FACTOR = 1
 
     def __init__(self, id_to_shapely_polygons, id_to_value):
         self.id_to_shapely_polygons = id_to_shapely_polygons

@@ -19,15 +19,17 @@ def from_ent_type(ent_type):
     ents = [ent for ent in Ent.list_from_type(ent_type)]
     return from_ents(ents, ent_type.name)
 
-
-def from_custom():
-    ents = [
-        ent for ent in Ent.list_from_type(EntType.PD) if 'EC-01' in ent.id
-    ]
+def custom_colombo():
+    ents = [ent for ent in Ent.list_from_type(EntType.PD) if 'EC-01'in ent.id]
     return from_ents(ents, 'pd.colombo')
 
+def custom_western():
+    ents = [ent for ent in Ent.list_from_type(EntType.PD) if ent.id[3:5] in ['01', '02', '03']]
+    return from_ents(ents, 'pd.western')
 
 if __name__ == "__main__":
     # from_ent_type(EntType.PROVINCE)
-    from_ent_type(EntType.DISTRICT)
-    # from_custom()
+    # from_ent_type(EntType.DISTRICT)
+    # from_ent_type(EntType.PD)
+    # custom_colombo()
+    custom_western()
