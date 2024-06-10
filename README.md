@@ -8,8 +8,8 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 
 ### TODOs before deployment
 
-* Simplify and improve the API, which is still a little janky
 * Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.
+* Simplify and improve the API, which is still a little disorganized
 * Improve [examples](src/cac/examples)
 * Generate some more complex examples, and possibly run them on a bigger processor on the cloud
 
