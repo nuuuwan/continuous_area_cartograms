@@ -72,9 +72,9 @@ class DNCRunner:
         i_iter = 0
         # "For each iteration (user controls when done)"
         while True:
-            log.debug('-' * 32)
+            cls.log_line()
             log.debug(f'{i_iter=}')
-            log.debug('-' * 32)
+            cls.log_line()
 
             image_path = os.path.join(dir_output, f'{i_iter}.png')
             cls.save_image(
