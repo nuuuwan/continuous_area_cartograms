@@ -2,18 +2,6 @@
 
 Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
 
-## Usage
-
-I plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly. You might also find the following [examples](examples) useful.
-
-### TODOs before deployment
-
-* Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.
-* Simplify and improve the API, which is still a little disorganized
-* Add options to save polygons, as topojson etc
-* Improve [examples](src/cac/examples)
-* Generate some more complex examples, and possibly run them on a bigger processor on the cloud
-
 ## Examples
 
 ### [example_1_from_topojson.py](examples/example_1_from_topojson.py)
@@ -29,6 +17,18 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 ![examples\example_3_pds.py](example_images/example_3_pds/animated.gif)
 
 See more [Examples](README.examples.long.md).
+
+## Usage
+
+I plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly. You might also find the following [examples](examples) useful.
+
+### TODOs before deployment
+
+* Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.
+* Simplify and improve the API, which is still a little disorganized
+* Add options to save polygons, as topojson etc
+* Improve [examples](src/cac/examples)
+* Generate some more complex examples, and possibly run them on a bigger processor on the cloud
 
 ## Algorithm described in [paper](paper.pdf)
 
