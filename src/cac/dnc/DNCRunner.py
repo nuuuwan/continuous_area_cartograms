@@ -15,22 +15,9 @@ class DNCRunner:
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
-        log.debug(
-            f'mean_size_error = {self.group_polygon_group.mean_size_error:.4f}'
-        )
-        for grouped_polygon in self.grouped_polygons:
-            log2_error = grouped_polygon.log2_error
-            if log2_error > 0.1:
-                emoji = '🔴'
-            elif log2_error > -0.1:
-                emoji = '🟢'
-            else:
-                emoji = '🔵'
-            log.debug(
-                f'  {grouped_polygon.id} '
-                + f'{log2_error:.2f} '.rjust(10)
-                + emoji
-            )
+
+        self.log_error()
+
         for polygon in self.grouped_polygons:
             new_points = []
             for point in polygon.shapely_polygon.exterior.coords:
