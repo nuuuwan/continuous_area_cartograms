@@ -6,10 +6,9 @@ def main():
     from cac import DNC
 
     ents = Ent.list_from_type(EntType.DISTRICT)
-    total_population = sum([ent.population for ent in ents])
     id_to_value = {}
     for ent in ents:
-        id_to_value[ent.id] = ent.population / total_population
+        id_to_value[ent.id] = ent.population
 
     dnc = DNC.from_ents(ents, id_to_value)
     dir_output = os.path.join(

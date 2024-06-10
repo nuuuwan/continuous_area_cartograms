@@ -35,3 +35,7 @@ class GroupedPolygon(Polygon, PolygonGroup):
     def log2_error(self):
         e = self.area / self.desired
         return math.log2(e)
+
+    @cached_property
+    def actual(self):
+        return self.value * self.area / self.desired
