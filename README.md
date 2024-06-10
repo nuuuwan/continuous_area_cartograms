@@ -59,7 +59,7 @@ For each iteration (user controls when done)
                     If (Distance > Radius of polygon)
                         Fij = Mas * (Radius / Distance)
                     Else
-                        Fij = Mass * (Distance ^ 2 / Radius ^ 2) * (4 - 3 * (Distance / Radius))
+                        Fij = Mass * (Distance² / Radius²) * (4 - 3 * (Distance / Radius))
             Using Fij and angles, calculate vector sum
             Multiply by ForceReductionFactor
             Move coordinate accordingly

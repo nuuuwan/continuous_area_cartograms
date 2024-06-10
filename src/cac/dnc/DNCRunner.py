@@ -37,7 +37,7 @@ class DNCRunner:
                         fij = polygon0.mass * (polygon0.radius / distance)
                     # "Else"
                     else:
-                        # "Fij = Mass * (Distance ^ 2 / Radius ^ 2)
+                        # "Fij = Mass * (Distance² / Radius²)
                         #     * (4 - 3 * (Distance / Radius))"
                         q = distance / polygon0.radius
                         fij = polygon0.mass * (q**2) * (4 - 3 * q)
@@ -57,10 +57,11 @@ class DNCRunner:
 
         return new_shapely_polygons
 
-    def run(self, file_label, n=1):
+    
+    def run(self, file_label, n_iterations=1):
         cls = self.__class__
         assert file_label
-        assert n > 0
+        assert n_iterations > 0
 
         dir_path = os.path.join(
             'images',
@@ -71,10 +72,11 @@ class DNCRunner:
         dnc = self
         shapely_polygons = list(dnc.id_to_shapely_polygons.values())
         image_path_list = []
-        for i in range(n):
-            log.debug(f'run: {i=}')
+        # "For each iteration (user controls when done)"
+        for i_iteration in range(n_iterations):
+            log.debug(f'run: {i_iteration=}')
 
-            image_path = os.path.join(dir_path, f'{i}.png')
+            image_path = os.path.join(dir_path, f'{i_iteration}.png')
             cls.save_image(
                 dnc.grouped_polygons,
                 image_path,
@@ -89,7 +91,7 @@ class DNCRunner:
             }
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
 
-        image_path = os.path.join(dir_path, f'{n}.png')
+        image_path = os.path.join(dir_path, f'{n_iterations}.png')
         cls.save_image(
             dnc.grouped_polygons,
             image_path,

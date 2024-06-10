@@ -12,7 +12,7 @@ def from_ents(ents, label):
         id_to_value[ent.id] = value
 
     dnc = DNC.from_ents(ents, id_to_value)
-    dnc.run(file_label=f"ents.{label}", n=10)
+    dnc.run(file_label=f"ents.{label}", n_iterations=10)
 
 
 def from_ent_type(ent_type):
