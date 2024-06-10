@@ -63,3 +63,11 @@ For each iteration (user controls when done)
 ```
 
 In code, we will refer to this as the *DNC Algorithm*, after its authors.
+
+### Intuition
+
+The intuition behind DNC, is as follows:
+
+Our map is a collection of polygons, each representing a region. Some polygons need to be expanded, while others need to be contracted.
+
+Every polygon influences how every point in every polygon is moved to achieve the expansion/contraction. Hence, the algorithm is *O(nm)*, where *n = number of polygons* and *m = number of points in each polygon*.
