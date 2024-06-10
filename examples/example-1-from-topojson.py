@@ -12,4 +12,4 @@ if __name__ == "__main__":
         {},
     )
 
-    dnc.run(file_label=f"topojson.{file_name}")
+    DNC.run(dnc, file_label=f"topojson.{file_name}")

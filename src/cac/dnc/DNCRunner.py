@@ -11,14 +11,13 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
-    def run_single(self):
+    @staticmethod
+    def run_single(dnc):
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
 
-        self.log_error()
-
-        for polygon in self.grouped_polygons:
+        for polygon in dnc.grouped_polygons:
             new_points = []
             point_set = set()
             for point in polygon.shapely_polygon.exterior.coords:
@@ -28,7 +27,7 @@ class DNCRunner:
                 point_set.add(point)
                 dx, dy = 0, 0
                 # "For each polygon centroid"
-                for polygon0 in self.grouped_polygons:
+                for polygon0 in dnc.grouped_polygons:
                     centroid0 = polygon0.centroid
 
                     # "Find angle, Distance from centroid to coordinate"
@@ -49,7 +48,7 @@ class DNCRunner:
 
                     # "Using Fij and angles, calculate vector sum"
                     # "Multiply by ForceReductionFactor"
-                    frf = self.group_polygon_group.force_reduction_factor
+                    frf = dnc.group_polygon_group.force_reduction_factor
 
                     k = frf * fij
                     dx += k * math.cos(angle)
@@ -62,11 +61,9 @@ class DNCRunner:
 
         return new_shapely_polygons
 
-    
-    def run(self, file_label, n_iterations=1):
-        cls = self.__class__
-        assert file_label
-        assert n_iterations > 0
+    @staticmethod
+    def run(dnc0, file_label):
+        cls = dnc0.__class__
 
         dir_path = os.path.join(
             'images',
@@ -74,11 +71,12 @@ class DNCRunner:
         )
         os.makedirs(dir_path, exist_ok=True)
 
-        dnc = self
+        dnc = dnc0
         shapely_polygons = list(dnc.id_to_shapely_polygons.values())
         image_path_list = []
+        i_iteration = 0
         # "For each iteration (user controls when done)"
-        for i_iteration in range(n_iterations):
+        while True:
             log.debug(f'run: {i_iteration=}')
 
             image_path = os.path.join(dir_path, f'{i_iteration}.png')
@@ -88,22 +86,20 @@ class DNCRunner:
             )
             image_path_list.append(image_path)
 
-            shapely_polygons = dnc.run_single()
+            dnc.log_error()
+            if dnc.group_polygon_group.is_reasonably_complete:
+                break
+
+            shapely_polygons = cls.run_single(dnc)
             ids = list(dnc.id_to_shapely_polygons.keys())
             id_to_shapely_polygons = {
                 id: shapely_polygon
                 for id, shapely_polygon in zip(ids, shapely_polygons)
             }
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
-
-        image_path = os.path.join(dir_path, f'{n_iterations}.png')
-        cls.save_image(
-            dnc.grouped_polygons,
-            image_path,
-        )
-        image_path_list.append(image_path)
+            i_iteration += 1
 
         animated_gif_path = os.path.join(dir_path, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)
 
-        return shapely_polygons
+        return dnc
