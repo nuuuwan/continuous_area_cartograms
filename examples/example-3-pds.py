@@ -20,4 +20,4 @@ if __name__ == "__main__":
     }
 
     dnc = DNC.from_ents(ents, id_to_value)
-    dnc.run(file_label=f"pds", n=10)
+    dnc.run(file_label="pds", n=10)
