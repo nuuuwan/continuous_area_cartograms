@@ -30,12 +30,12 @@ jobs:
       - name: STEP 1. run_all_examples.py
         run: |
           export PYTHONPATH="$PYTHONPATH:./src"
-          python workflows/run_all_examples.py.py
+          python workflows/run_all_examples.py
 
       - name: STEP 1. build_readme_examples.py
         run: |
           export PYTHONPATH="$PYTHONPATH:./src"
-          python workflows/build_readme_examples.py.py
+          python workflows/build_readme_examples.py
 
       - name: Push to github repo
         run: |
