@@ -37,8 +37,9 @@ def custom_western():
 
 
 if __name__ == "__main__":
-    from_ent_type(EntType.PROVINCE)
-    from_ent_type(EntType.DISTRICT)
-    from_ent_type(EntType.PD)
+    # from_ent_type(EntType.PROVINCE)
+    # from_ent_type(EntType.DISTRICT)
+    # from_ent_type(EntType.PD)
+    # custom_western()
     custom_colombo()
-    custom_western()
+    

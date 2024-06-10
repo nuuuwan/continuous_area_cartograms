@@ -20,16 +20,21 @@ class DNCRunner:
 
         for polygon in self.grouped_polygons:
             new_points = []
+            point_set = set()
             for point in polygon.shapely_polygon.exterior.coords:
+                # Don't repeat points already processed
+                if point in point_set:
+                    continue
+                point_set.add(point)
                 dx, dy = 0, 0
                 # "For each polygon centroid"
                 for polygon0 in self.grouped_polygons:
-                    centroid = polygon0.centroid
+                    centroid0 = polygon0.centroid
 
                     # "Find angle, Distance from centroid to coordinate"
-                    distance = centroid.distance(ShapelyPoint(point))
+                    distance = centroid0.distance(ShapelyPoint(point))
                     angle = math.atan2(
-                        point[1] - centroid.y, point[0] - centroid.x
+                        point[1] - centroid0.y, point[0] - centroid0.x
                     )
                     # "If (Distance > Radius of polygon)"
                     if distance > polygon0.radius:
