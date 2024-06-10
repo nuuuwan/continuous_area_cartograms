@@ -22,22 +22,25 @@ class DNCLogger:
         return '✅'
 
     def get_id_to_log2_error(self):
-        items = {
-            grouped_polygon.id: grouped_polygon.log2_error
-            for grouped_polygon in self.grouped_polygons
-        }.items()
-
         return dict(
             sorted(
-                items,
+                [
+                    [grouped_polygon.id, grouped_polygon.log2_error]
+                    for grouped_polygon in self.grouped_polygons
+                ],
                 key=lambda x: abs(x[1]),
+                reverse=True,
             )
         )
 
     def log_error(self):
         id_to_log2_error = self.get_id_to_log2_error()
         MAX_DISPLAY = 10
-        for id, log2_error in list(id_to_log2_error.items())[:MAX_DISPLAY]:
+        items = list(id_to_log2_error.items())
+        if len(items) > MAX_DISPLAY:
+            log.warn(f'({MAX_DISPLAY} highest errors)')
+            items = items[:MAX_DISPLAY]
+        for id, log2_error in items:
             emoji = self.get_emoji(log2_error)
             log.debug(f' {id} ' + f'{log2_error:.2f} '.rjust(10) + emoji)
 
