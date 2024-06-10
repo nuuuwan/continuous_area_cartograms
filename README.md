@@ -28,11 +28,11 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 
 ### TODOs before deployment
 
-* Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.
-* Simplify and improve the API, which is still a little disorganized
-* Add options to save polygons, as topojson etc
-* Improve [examples](src/cac/examples)
-* Generate some more complex examples, and possibly run them on a bigger processor on the cloud
+* Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.  Replace basic python arithmetic operators with parallel numpy operations.
+* Simplify and improve the API, which is still a little disorganized. Use GeoDataFram as the base data type. Ents and TopoJson can be derivative.
+* Add options to save polygons, as GDF,TopoJSON etc
+* Improve [examples](src/cac/examples). Have single examples folder, with sub-folders for data, source and images.
+* Generate some more complex examples.
 
 ## Algorithm described in [paper](paper.pdf)
 
