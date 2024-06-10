@@ -1,0 +1,115 @@
+import math
+import os
+
+from shapely import Polygon as ShapelyPolygon
+from shapely.geometry import Point as ShapelyPoint
+from utils import Log
+
+from utils_future import AnimatedGIF
+
+log = Log('DNCRunner')
+
+
+class DNCRunner:
+    def run_single(self):
+        # "For each boundary line; Read coordinate chain"
+        #     "For each coordinate pair"
+        new_shapely_polygons = []
+        log.debug(
+            f'mean_size_error = {self.group_polygon_group.mean_size_error:.4f}'
+        )
+        for grouped_polygon in self.grouped_polygons:
+            log2_error = grouped_polygon.log2_error
+            if log2_error > 0.1:
+                emoji = '🔴'
+            elif log2_error > -0.1:
+                emoji = '🟢'
+            else:
+                emoji = '🔵'
+            log.debug(
+                f'  {grouped_polygon.id} '
+                + f'{log2_error:.2f} '.rjust(10)
+                + emoji
+            )
+        for polygon in self.grouped_polygons:
+            new_points = []
+            for point in polygon.shapely_polygon.exterior.coords:
+                dx, dy = 0, 0
+                # "For each polygon centroid"
+                for polygon0 in self.grouped_polygons:
+                    centroid = polygon0.centroid
+
+                    # "Find angle, Distance from centroid to coordinate"
+                    distance = centroid.distance(ShapelyPoint(point))
+                    angle = math.atan2(
+                        point[1] - centroid.y, point[0] - centroid.x
+                    )
+                    # "If (Distance > Radius of polygon)"
+                    if distance > polygon0.radius:
+                        # "Fij = Mas * (Radius / Distance)"
+                        fij = polygon0.mass * (polygon0.radius / distance)
+                    # "Else"
+                    else:
+                        # "Fij = Mass * (Distance ^ 2 / Radius ^ 2)
+                        #     * (4 - 3 * (Distance / Radius))"
+                        q = distance / polygon0.radius
+                        fij = polygon0.mass * (q**2) * (4 - 3 * q)
+
+                    # "Using Fij and angles, calculate vector sum"
+                    # "Multiply by ForceReductionFactor"
+                    frf = self.group_polygon_group.force_reduction_factor
+
+                    k = frf * fij
+                    dx += k * math.cos(angle)
+                    dy += k * math.sin(angle)
+                # Move coordinate accordingly
+                new_point = (point[0] + dx, point[1] + dy)
+                new_points.append(new_point)
+            new_shapely_polygon = ShapelyPolygon(new_points)
+            new_shapely_polygons.append(new_shapely_polygon)
+
+        return new_shapely_polygons
+
+    def run(self, file_label, n=1):
+        cls = self.__class__
+        assert file_label
+        assert n > 0
+
+        dir_path = os.path.join(
+            'images',
+            file_label,
+        )
+        os.makedirs(dir_path, exist_ok=True)
+
+        dnc = self
+        shapely_polygons = list(dnc.id_to_shapely_polygons.values())
+        image_path_list = []
+        for i in range(n):
+            log.debug(f'run: {i=}')
+
+            image_path = os.path.join(dir_path, f'{i}.png')
+            cls.save_image(
+                dnc.grouped_polygons,
+                image_path,
+            )
+            image_path_list.append(image_path)
+
+            shapely_polygons = dnc.run_single()
+            ids = list(dnc.id_to_shapely_polygons.keys())
+            id_to_shapely_polygons = {
+                id: shapely_polygon
+                for id, shapely_polygon in zip(ids, shapely_polygons)
+            }
+            dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
+
+        image_path = os.path.join(dir_path, f'{n}.png')
+        cls.save_image(
+            dnc.grouped_polygons,
+            image_path,
+        )
+        image_path_list.append(image_path)
+
+        animated_gif_path = os.path.join(dir_path, 'animated.gif')
+        AnimatedGIF(animated_gif_path).write(image_path_list)
+
+        return shapely_polygons
