@@ -12,7 +12,7 @@ def main():
     }
     ents = Ent.list_from_id_list(id_to_value.keys())
 
-    dnc = DNC.from_ents(ents, id_to_value)
+    dnc = DNC.from_ents(ents=ents, id_to_value=id_to_value)
     dnc.run(
         dir_output=os.path.join(
             'example_images',

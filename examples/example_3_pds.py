@@ -22,11 +22,12 @@ def main():
     }
 
     dnc = DNC.from_ents(ents, id_to_value)
+    dir_output = os.path.join(
+        'example_images',
+        os.path.basename(__file__)[:-3],
+    )
     dnc.run(
-        dir_output=os.path.join(
-            'example_images',
-            os.basename(__file__)[:-3],
-        )
+        dir_output=dir_output
     )
 
 

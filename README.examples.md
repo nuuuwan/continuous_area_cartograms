@@ -2,6 +2,8 @@
 
 ## [example_1_from_topojson.py](examples/example_1_from_topojson.py)
 
+![examples\example_1_from_topojson.py](example_images\example_1_from_topojson\animated.gif)
+
 ```python
     import os
 
@@ -22,6 +24,8 @@
 ```
 
 ## [example_2_from_ents.py](examples/example_2_from_ents.py)
+
+![examples\example_2_from_ents.py](example_images\example_2_from_ents\animated.gif)
 
 ```python
     import os
@@ -47,62 +51,9 @@
 
 ```
 
-## [example_3_from_ents_complex.py](examples/example_3_from_ents_complex.py)
+## [example_3_pds.py](examples/example_3_pds.py)
 
-```python
-
-from gig import Ent, EntType
-
-from cac import DNC
-
-
-def from_ents(ents, label):
-    id_to_value = {}
-    total_population = sum(ent.population for ent in ents)
-    for ent in ents:
-        population = ent.population
-        value = population / total_population
-        id_to_value[ent.id] = value
-
-    dnc = DNC.from_ents(ents, id_to_value)
-    dnc.run(
-        dir_output=os.path.join(
-            'example_images',
-            os.basename(__file__)[:-3] + '.' + label,
-        )
-    )
-
-
-def from_ent_type(ent_type):
-    ents = [ent for ent in Ent.list_from_type(ent_type)]
-    return from_ents(ents, ent_type.name + 's')
-
-
-def custom_colombo():
-    ents = [
-        ent for ent in Ent.list_from_type(EntType.PD) if 'EC-01' in ent.id
-    ]
-    return from_ents(ents, 'pds.colombo')
-
-
-def custom_western():
-    ents = [
-        ent
-        for ent in Ent.list_from_type(EntType.PD)
-        if ent.id in ['EC-01', 'EC-02', 'EC-03']
-    ]
-    return from_ents(ents, 'pds.western')
-
-
-def main():
-    for ent_type in [EntType.PROVINCE, EntType.DISTRICT, EntType.PD]:
-        from_ent_type(ent_type)
-    custom_western()
-    custom_colombo()
-
-```
-
-## [example_4_pds.py](examples/example_4_pds.py)
+![examples\example_3_pds.py](example_images\example_3_pds\animated.gif)
 
 ```python
     import os
@@ -128,11 +79,12 @@ def main():
     }
 
     dnc = DNC.from_ents(ents, id_to_value)
+    dir_output = os.path.join(
+        'example_images',
+        os.basename(__file__)[:-3],
+    )
     dnc.run(
-        dir_output=os.path.join(
-            'example_images',
-            os.basename(__file__)[:-3],
-        )
+        dir_output=dir_output
     )
 
 ```

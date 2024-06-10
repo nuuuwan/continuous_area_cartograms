@@ -69,12 +69,14 @@ class DNCRunner:
         dnc = dnc0
         shapely_polygons = list(dnc.id_to_shapely_polygons.values())
         image_path_list = []
-        i_iteration = 0
+        i_iter = 0
         # "For each iteration (user controls when done)"
         while True:
-            log.debug(f'run: {i_iteration=}')
-
-            image_path = os.path.join(dir_output, f'{i_iteration}.png')
+            log.debug('-' * 32)
+            log.debug(f'{i_iter=}')
+            log.debug('-' * 32)
+            
+            image_path = os.path.join(dir_output, f'{i_iter}.png')
             cls.save_image(
                 dnc.grouped_polygons,
                 image_path,
@@ -94,7 +96,7 @@ class DNCRunner:
                 for id, shapely_polygon in zip(ids, shapely_polygons)
             }
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
-            i_iteration += 1
+            i_iter += 1
 
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)
