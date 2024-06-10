@@ -12,7 +12,7 @@ def main():
         example_2_from_ents,
         example_3_from_ents_by_population,
         example_4_pds,
-    ][2:3]:
+    ]:
         log.info(f'Running {mod.__name__}')
         mod.main()
 
