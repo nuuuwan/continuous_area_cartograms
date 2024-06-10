@@ -30,6 +30,8 @@ class DNCRenderer:
                 edgecolor="white",
                 linewidth=0.1,
             )
+            x,y=shapely_polygon.centroid.coords[0]
+            plt.text(x,y, f'{log2_error:.2f}',horizontalalignment='center',verticalalignment='center')
 
         ax.set_xticks([])
         ax.set_yticks([])

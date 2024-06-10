@@ -14,10 +14,10 @@ class DNCLogger:
     def get_emoji(log2_error):
         k = GroupPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
         if log2_error > k:
-            return '🔴'
+            return '🟥'
 
         if log2_error < -k:
-            return '🔵'
+            return '🟦'
 
         return '✅'
 
