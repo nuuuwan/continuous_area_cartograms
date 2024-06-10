@@ -1,6 +1,6 @@
-from functools import cache
 
 import topojson
+from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
 from utils import Log
 
@@ -9,7 +9,14 @@ log = Log('DNCRenderer')
 
 class DNCRenderer:
     @staticmethod
-    @cache
+    def get_foreground_color(background_color):
+        rgba = mcolors.to_rgba(background_color)
+        luminance = 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
+        if luminance < 0.5:
+            return 'white'
+        return 'black'
+
+    @staticmethod
     def get_color(log2_error):
         log2_error = max(min(log2_error, 1), -1)
         p = (log2_error + 1) / 2
@@ -24,18 +31,23 @@ class DNCRenderer:
             shapely_polygon = grouped_polygon.shapely_polygon
             log2_error = grouped_polygon.log2_error
             gdf = topojson.Topology(shapely_polygon).to_gdf()
+            background_color = DNCRenderer.get_color(log2_error)
             gdf.plot(
                 ax=ax,
-                facecolor=DNCRenderer.get_color(log2_error),
+                facecolor=background_color,
                 edgecolor="white",
                 linewidth=0.1,
             )
 
+            foreground_color = DNCRenderer.get_foreground_color(
+                background_color
+            )
             x, y = shapely_polygon.centroid.coords[0]
             plt.text(
                 x,
                 y,
                 f'{log2_error:.2f}',
+                color=foreground_color,
                 fontsize=3,
                 horizontalalignment='center',
                 verticalalignment='center',
