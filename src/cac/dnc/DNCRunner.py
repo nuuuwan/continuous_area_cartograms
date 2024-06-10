@@ -1,6 +1,7 @@
 import math
 import os
 import tempfile
+import time
 
 from shapely import Polygon as ShapelyPolygon
 from shapely.geometry import Point as ShapelyPoint
@@ -72,6 +73,7 @@ class DNCRunner:
         i_iter = 0
         # "For each iteration (user controls when done)"
         while True:
+            t_start = time.time()
             cls.log_line()
             log.debug(f'{i_iter=}')
             cls.log_line()
@@ -97,6 +99,8 @@ class DNCRunner:
             }
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
             i_iter += 1
+            dt = time.time() - t_start
+            log.debug(f'{dt=:.2f}s')
 
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)
