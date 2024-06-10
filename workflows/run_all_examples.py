@@ -1,10 +1,7 @@
 from utils import Log
 
-from examples import (
-    example_1_from_topojson,
-    example_2_from_ents,
-    example_3_pds,
-)
+from examples import (example_1_from_topojson, example_2_from_ents,
+                      example_3_pds)
 
 log = Log('_run_all_examples')
 

@@ -14,7 +14,9 @@ def build_single(file_name, show_code):
         'example_images',
         file_name[:-3],
     )
-    animated_gif_path = os.path.join(dir_output, 'animated.gif').replace('\\', '/')
+    animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
+        '\\', '/'
+    )
 
     md_lines = [
         f'### [{file_name}]({file_path_unix})',
