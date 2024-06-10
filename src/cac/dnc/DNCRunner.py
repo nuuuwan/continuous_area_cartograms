@@ -100,7 +100,7 @@ class DNCRunner:
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
             i_iter += 1
             dt = time.time() - t_start
-            log.debug(f'{dt=:.2f}s')
+            log.debug(f'⏱️{dt=:.2f}s')
 
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)
