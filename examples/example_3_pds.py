@@ -26,9 +26,7 @@ def main():
         'example_images',
         os.path.basename(__file__)[:-3],
     )
-    dnc.run(
-        dir_output=dir_output
-    )
+    dnc.run(dir_output=dir_output)
 
 
 if __name__ == "__main__":

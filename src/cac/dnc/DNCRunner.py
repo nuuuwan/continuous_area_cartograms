@@ -75,7 +75,7 @@ class DNCRunner:
             log.debug('-' * 32)
             log.debug(f'{i_iter=}')
             log.debug('-' * 32)
-            
+
             image_path = os.path.join(dir_output, f'{i_iter}.png')
             cls.save_image(
                 dnc.grouped_polygons,

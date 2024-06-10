@@ -15,23 +15,19 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 
 ## Examples
 
-### Provinces of Sri Lanka
+### [example_1_from_topojson.py](examples/example_1_from_topojson.py)
 
-![example-2](images/ents.province/animated.gif)
+![examples\example_1_from_topojson.py](example_images\example_1_from_topojson\animated.gif)
 
-### Districts of Sri Lanka
+### [example_2_from_ents.py](examples/example_2_from_ents.py)
 
-![example-2](images/ents.district/animated.gif)
+![examples\example_2_from_ents.py](example_images\example_2_from_ents\animated.gif)
 
-### Polling Divisions in the Western Province, Sri Lanka
+### [example_3_pds.py](examples/example_3_pds.py)
 
-![example-2](images/ents.pd.western/animated.gif)
+![examples\example_3_pds.py](example_images\example_3_pds\animated.gif)
 
-### Polling Divisions in Colombo, Sri Lanka
-
-![example-2](images/ents.pd.colombo/animated.gif)
-
-More example [images](images).
+See more [Examples](README.examples.long.md).
 
 ## Algorithm described in [paper](paper.pdf)
 
