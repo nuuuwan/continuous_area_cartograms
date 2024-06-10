@@ -7,6 +7,7 @@ log = Log('GroupPolygonGroup')
 
 class GroupPolygonGroup:
     MIN_ABS_LOG2_ERROR_FOR_COMPLETION = 0.1
+
     def __init__(self, grouped_polygons):
         self.grouped_polygons = grouped_polygons
 

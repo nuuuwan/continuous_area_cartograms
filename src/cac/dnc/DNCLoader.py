@@ -22,7 +22,9 @@ class DNCLoader:
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
     @classmethod
-    def from_topojson(cls, topojson_path, get_ids, id_to_value):
+    def from_topojson(cls, topojson_path, get_ids, id_to_value=None):
+        if id_to_value is None:
+            id_to_value = {}
         data = JSONFile(topojson_path).read()
         objects = data['objects']
         objects_name = list(objects.keys())[0]

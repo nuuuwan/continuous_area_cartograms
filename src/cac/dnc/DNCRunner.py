@@ -1,5 +1,6 @@
 import math
 import os
+import tempfile
 
 from shapely import Polygon as ShapelyPolygon
 from shapely.geometry import Point as ShapelyPoint
@@ -62,14 +63,8 @@ class DNCRunner:
         return new_shapely_polygons
 
     @staticmethod
-    def run(dnc0, file_label):
+    def run_all(dnc0, dir_output):
         cls = dnc0.__class__
-
-        dir_path = os.path.join(
-            'images',
-            file_label,
-        )
-        os.makedirs(dir_path, exist_ok=True)
 
         dnc = dnc0
         shapely_polygons = list(dnc.id_to_shapely_polygons.values())
@@ -79,7 +74,7 @@ class DNCRunner:
         while True:
             log.debug(f'run: {i_iteration=}')
 
-            image_path = os.path.join(dir_path, f'{i_iteration}.png')
+            image_path = os.path.join(dir_output, f'{i_iteration}.png')
             cls.save_image(
                 dnc.grouped_polygons,
                 image_path,
@@ -90,7 +85,9 @@ class DNCRunner:
             if dnc.group_polygon_group.is_reasonably_complete:
                 break
 
-            shapely_polygons = cls.run_single(dnc)
+            shapely_polygons = cls.run_single(
+                dnc,
+            )
             ids = list(dnc.id_to_shapely_polygons.keys())
             id_to_shapely_polygons = {
                 id: shapely_polygon
@@ -99,7 +96,14 @@ class DNCRunner:
             dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
             i_iteration += 1
 
-        animated_gif_path = os.path.join(dir_path, 'animated.gif')
+        animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)
 
         return dnc
+
+    def run(self, dir_output=None):
+        if dir_output is None:
+            dir_output = tempfile.mkdtemp()
+        else:
+            os.makedirs(dir_output, exist_ok=True)
+        self.__class__.run_all(self, dir_output)

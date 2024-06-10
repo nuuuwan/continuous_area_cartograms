@@ -11,11 +11,11 @@ class DNCLogger:
         for grouped_polygon in self.grouped_polygons:
             log2_error = grouped_polygon.log2_error
             if log2_error > 0.1:
-                emoji = '🔴'
+                emoji = '📈'
             elif log2_error > -0.1:
-                emoji = '🟢'
+                emoji = '✅'
             else:
-                emoji = '🔵'
+                emoji = '📉'
             log.debug(
                 f' {grouped_polygon.id} '
                 + f'{log2_error:.2f} '.rjust(10)
