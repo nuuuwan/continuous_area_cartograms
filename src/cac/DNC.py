@@ -2,13 +2,13 @@ import math
 import os
 from functools import cache, cached_property
 
+import topojson
 from matplotlib import pyplot as plt
 from shapely import MultiPolygon as ShapelyMultiPolygon
 from shapely import Polygon as ShapelyPolygon
 from shapely.geometry import Point as ShapelyPoint
 from utils import JSONFile, Log
 
-import topojson
 from cac.core import GroupedPolygon, GroupPolygonGroup, Polygon, PolygonGroup
 from utils_future import AnimatedGIF
 
