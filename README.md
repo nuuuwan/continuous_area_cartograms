@@ -2,6 +2,17 @@
 
 Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
 
+## Usage
+
+I plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly. You might also find the following [examples](examples) useful.
+
+### TODOs before deployment
+
+* Simplify and improve the API, which is still a little janky
+* Speed-up DAC algorithm, which is still too slow for maps with >20 polygons.
+* Improve [examples](src/cac/examples)
+* Generate some more complex examples, and possibly run them on a bigger processor on the cloud
+
 ## Examples
 
 ### Provinces of Sri Lanka
@@ -20,7 +31,9 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ![example-2](images/ents.pd.colombo/animated.gif)
 
-## Procedure described in paper
+More example [images](images).
+
+## Algorithm described in [paper](paper.pdf)
 
 ```pseudocode
 For each polygon
