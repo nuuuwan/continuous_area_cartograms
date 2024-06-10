@@ -1,26 +1,41 @@
 from utils import Log
 
+from cac.core import GroupPolygonGroup
+
 log = Log('DNCLogger')
 
 
 class DNCLogger:
-    def log_error(self):
-        log.debug(
-            f'mean_size_error = {self.group_polygon_group.mean_size_error:.4f}'
-        )
-        for grouped_polygon in self.grouped_polygons:
-            log2_error = grouped_polygon.log2_error
-            if log2_error > 0.1:
-                emoji = '📈'
-            elif log2_error > -0.1:
-                emoji = '✅'
-            else:
-                emoji = '📉'
-            log.debug(
-                f' {grouped_polygon.id} '
-                + f'{log2_error:.2f} '.rjust(10)
-                + emoji
+    @staticmethod
+    def get_emoji(log2_error):
+        k = GroupPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
+        if log2_error > k:
+            return '🔴'
+
+        if log2_error < -k:
+            return '🔵'
+
+        return '✅'
+
+    def get_id_to_log2_error(self):
+        items = {
+            grouped_polygon.id: grouped_polygon.log2_error
+            for grouped_polygon in self.grouped_polygons
+        }.items()
+
+        return dict(
+            sorted(
+                items,
+                key=lambda x: abs(x[1]),
             )
+        )
+
+    def log_error(self):
+        id_to_log2_error = self.get_id_to_log2_error()
+        MAX_DISPLAY = 10
+        for id, log2_error in list(id_to_log2_error.items())[:MAX_DISPLAY]:
+            emoji = self.get_emoji(log2_error)
+            log.debug(f' {id} ' + f'{log2_error:.2f} '.rjust(10) + emoji)
 
     def log_vars(self):
         log.debug(f'total_area = {self.polygon_group.total_area}')
