@@ -12,9 +12,9 @@ class Number:
     @cache
     def get_humanized(x):
         if x > 1_000_000:
-            return f'{x/1_000_000:,.1f}M'
+            return f'{x/1_000_000.0:,.2f}M'
         if x > 1_000:
-            return f'{x/1_000:,.1f}K'
+            return f'{x/1_000.0:,.0f}K'
         if x > 1:
             return f'{x:,.0f}'
-        return f'{x:.2g}'
+        return f'{x:.3f}'

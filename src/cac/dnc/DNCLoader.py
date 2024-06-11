@@ -1,75 +1,40 @@
+import geopandas as gpd
+import pandas as pd
 import topojson
-from shapely import MultiPolygon as ShapelyMultiPolygon
-from shapely import Polygon as ShapelyPolygon
 from utils import JSONFile, Log
 
 log = Log('DNCLoader')
 
 
 class DNCLoader:
-    # loaders
-    @staticmethod
-    def extract_shapely_polygon_base(geometry):
-        if isinstance(geometry, ShapelyPolygon):
-            return geometry
-
-        if isinstance(geometry, ShapelyMultiPolygon):
-            return max(
-                geometry.geoms,
-                key=lambda polygon: polygon.area,
-            )
-
-        raise ValueError(f'Unknown geometry type {type(geometry)}')
-
-    @staticmethod
-    def extract_shapely_polygon(geometry, tolerance=0.001):
-        shapely_polygon = DNCLoader.extract_shapely_polygon_base(geometry)
-        # The simplify method uses the Douglas-Peucker algorithm, which works
-        # by iteratively removing points from the shape's boundary until all
-        # remaining points are at least tolerance distance away from the
-        # original boundary.
-        if tolerance > 0:
-            shapely_polygon = shapely_polygon.simplify(tolerance)
-        return shapely_polygon
-
     @classmethod
-    def from_topojson(cls, topojson_path, get_ids, id_to_value=None):
-        if id_to_value is None:
-            id_to_value = {}
+    def from_topojson(cls, topojson_path, values):
         data = JSONFile(topojson_path).read()
-        objects = data['objects']
-        objects_name = list(objects.keys())[0]
-        geometries = objects[objects_name]['geometries']
-        n_geometries = len(geometries)
-        log.debug(f'Read {n_geometries} {objects_name} from {topojson_path}')
-        topo = topojson.Topology(data, object_name=objects_name)
+        object_name = list(data['objects'].keys())[0]
+        topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
-        geometries = gdf['geometry']
-        id_nums = get_ids(gdf)
-
-        id_to_shapely_polygons = {}
-        for geometry, id_num in zip(geometries, id_nums):
-            id = 'LK-' + str(id_num)
-            shapely_polygon = cls.extract_shapely_polygon(geometry)
-            id_to_shapely_polygons[id] = shapely_polygon
-
-        return cls(id_to_shapely_polygons, id_to_value)
+        return cls(gdf, values)
 
     @classmethod
-    def from_ents(cls, ents, id_to_value):
-        id_to_shapely_polygons = {}
+    def from_ents(cls, ents, values):
+        gdfs = []
         for ent in ents:
             gdf = ent.geo()
+            gdfs.append(gdf)
+            cls.extract_shapely_polygon(gdf['geometry'][0])
 
-            shapely_polygon = cls.extract_shapely_polygon(gdf['geometry'][0])
-            id_to_shapely_polygons[ent.id] = shapely_polygon
-        return cls(id_to_shapely_polygons, id_to_value)
+        combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
+        print(combined_gdf.columns)
+
+        return cls(combined_gdf, values)
+
+    @staticmethod
+    def get_gdf_from_shapely_polygons(shapely_polygons):
+        gdf = gpd.GeoDataFrame()
+        gdf['geometry'] = shapely_polygons
+        return gdf
 
     @classmethod
     def from_dnc(cls, dnc, shapely_polygons):
-        ids = list(dnc.id_to_shapely_polygons.keys())
-        id_to_shapely_polygons = {
-            id: shapely_polygon
-            for id, shapely_polygon in zip(ids, shapely_polygons)
-        }
-        return cls(id_to_shapely_polygons, dnc.id_to_value)
+        gdf = DNCLoader.get_gdf_from_shapely_polygons(shapely_polygons)
+        return cls(gdf, dnc.values)

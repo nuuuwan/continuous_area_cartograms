@@ -3,15 +3,9 @@ def main():
 
     from cac import DNC
 
-    id_to_value = {
-        'LK-1': 3,
-    }
-    # The size of the other provinces default to 1
-
     dnc = DNC.from_topojson(
         topojson_path=os.path.join('example_data', 'Provinces.json'),
-        get_ids=lambda gdf: gdf['prov_c'],
-        id_to_value=id_to_value,
+        values=[3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     )
 
     dnc.run(

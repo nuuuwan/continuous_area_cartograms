@@ -9,12 +9,12 @@ def main():
         'government-elections-parliamentary', 'regions-ec', '2020'
     )
     ents = [ent for ent in Ent.list_from_type(EntType.PD)]
-    id_to_value = {}
+    values = []
     for ent in ents:
         row = ent.gig(gig_table_last_election)
-        id_to_value[ent.id] = row.electors
+        values.append(row.electors)
 
-    dnc = DNC.from_ents(ents, id_to_value)
+    dnc = DNC.from_ents(ents, values)
     dir_output = os.path.join(
         'example_images',
         os.path.basename(__file__)[:-3],

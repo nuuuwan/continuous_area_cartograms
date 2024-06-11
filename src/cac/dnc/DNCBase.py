@@ -1,5 +1,8 @@
 from functools import cached_property
 
+from geopandas import GeoDataFrame
+from shapely import MultiPolygon as ShapelyMultiPolygon
+from shapely import Polygon as ShapelyPolygon
 from utils import Log
 
 from cac.core import GroupedPolygon, GroupedPolygonGroup, Polygon, PolygonGroup
@@ -8,18 +11,52 @@ log = Log('DNCBase')
 
 
 class DNCBase:
-    def __init__(self, id_to_shapely_polygons, id_to_value):
-        self.id_to_shapely_polygons = id_to_shapely_polygons
-        self.id_to_value = id_to_value
+    def __init__(self, gdf: GeoDataFrame, values: list[float]):
+        self.gdf = gdf
+        self.values = values
 
-    # shapes
+    @staticmethod
+    def extract_shapely_polygon_base(geometry):
+        if isinstance(geometry, ShapelyPolygon):
+            return geometry
+
+        if isinstance(geometry, ShapelyMultiPolygon):
+            return max(
+                geometry.geoms,
+                key=lambda polygon: polygon.area,
+            )
+
+        raise ValueError(f'Unknown geometry type {type(geometry)}')
+
+    @staticmethod
+    def extract_shapely_polygon(geometry, tolerance=0.001):
+        shapely_polygon = DNCBase.extract_shapely_polygon_base(geometry)
+        # The simplify method uses the Douglas-Peucker algorithm, which works
+        # by iteratively removing points from the shape's boundary until all
+        # remaining points are at least tolerance distance away from the
+        # original boundary.
+        if tolerance > 0:
+            shapely_polygon = shapely_polygon.simplify(tolerance)
+        return shapely_polygon
+
+    # shapely
+    @cached_property
+    def shapely_polygons(self):
+        return [
+            DNCBase.extract_shapely_polygon(geo)
+            for geo in self.gdf['geometry']
+        ]
+
+    @cached_property
+    def values(self):
+        return [self.values[i] for i in range(len(self.gdf))]
+
+    # core shapes
     @cached_property
     def polygons(self):
         polygons = []
-        for id, shapely_polygon in self.id_to_shapely_polygons.items():
-            polygon = Polygon(
-                id, shapely_polygon, self.id_to_value.get(id, 1)
-            )
+        for shapely_polygon, value in zip(self.shapely_polygons, self.values):
+            polygon = Polygon(id, shapely_polygon, value)
             polygons.append(polygon)
 
         return polygons

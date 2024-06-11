@@ -28,12 +28,12 @@ class DNCLogger:
 
         return '✅'
 
-    def get_id_to_log2_error(self):
+    def get_sorted_i_to_log2_error(self):
         return dict(
             sorted(
                 [
-                    [grouped_polygon.id, grouped_polygon.log2_error]
-                    for grouped_polygon in self.grouped_polygons
+                    [i, grouped_polygon.log2_error]
+                    for i, grouped_polygon in enumerate(self.grouped_polygons)
                 ],
                 key=lambda x: abs(x[1]),
                 reverse=True,
@@ -41,9 +41,9 @@ class DNCLogger:
         )
 
     def log_error(self):
-        id_to_log2_error = self.get_id_to_log2_error()
+        i_to_log2_error = self.get_sorted_i_to_log2_error()
         MAX_DISPLAY = 10
-        items = list(id_to_log2_error.items())
+        items = list(i_to_log2_error.items())
         if len(items) > MAX_DISPLAY:
             log.warn(f'({MAX_DISPLAY} highest errors)')
             items = items[:MAX_DISPLAY]
@@ -51,7 +51,9 @@ class DNCLogger:
             emoji = self.get_emoji(log2_error)
             n_emojis = int(math.ceil(abs(log2_error)))
             emojis = n_emojis * emoji
-            log.debug(f' {id} ' + f'{log2_error:.2f} '.rjust(10) + emojis)
+            log.debug(
+                f' {id} '.rjust(4) + f'{log2_error:.2f} '.rjust(10) + emojis
+            )
 
     def log_vars(self):
         log.debug(f'total_area = {self.polygon_group.total_area}')

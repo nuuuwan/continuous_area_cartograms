@@ -5,16 +5,11 @@ def main():
 
     from cac import DNC
 
-    id_to_value = {
-        'LK-11': 3,
-        'LK-12': 2,
-        'LK-13': 1,
-    }
-    ents = Ent.list_from_id_list(id_to_value.keys())
-
-    dnc = DNC.from_ents(ents=ents, id_to_value=id_to_value)
+    ents = Ent.list_from_id_list(['LK-11', 'LK-12', 'LK-13'])
+    values = [3, 2, 1]
+    dnc = DNC.from_ents(ents, values)
     dnc.run(
-        dir_output=os.path.join(
+        os.path.join(
             'example_images',
             'example_2_from_ents',
         )

@@ -6,11 +6,11 @@ def main():
     from cac import DNC
 
     ents = Ent.list_from_type(EntType.DISTRICT)
-    id_to_value = {}
+    values = []
     for ent in ents:
-        id_to_value[ent.id] = ent.population
+        values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, id_to_value)
+    dnc = DNC.from_ents(ents, values)
     dir_output = os.path.join(
         'example_images',
         os.path.basename(__file__)[:-3],

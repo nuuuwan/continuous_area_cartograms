@@ -29,7 +29,7 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 ### TODOs before deployment
 
 * Implement derivations like HexBin
-* Simplify and improve the API, which is still a little disorganized. Use GeoDataFrame(GDF) as the base data type. Ents and TopoJson can be derivative. Replace "id_to_value" with just a list of values.
+* Simplify and improve the API, which is still a little disorganized.
 * Add options to save polygons, as GDF, TopoJSON etc
 * Improve [examples](src/cac/examples). Have single examples folder, with sub-folders for data, source and images.
 * Generate some more complex examples.

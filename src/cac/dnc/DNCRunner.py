@@ -62,7 +62,7 @@ class DNCRunner:
         cls = dnc0.__class__
         dnc = dnc0
         dnc.log_complexity()
-        shapely_polygons = list(dnc.id_to_shapely_polygons.values())
+
         image_path_list = []
         i_iter = 0
         # "For each iteration (user controls when done)"
