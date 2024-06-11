@@ -1,4 +1,3 @@
-
 import topojson
 from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
