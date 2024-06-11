@@ -39,6 +39,11 @@ class DNCBase:
             shapely_polygon = shapely_polygon.simplify(tolerance)
         return shapely_polygon
 
+    # serializers
+    def save_gdf(self, gdf_path):
+        self.gdf.to_file(gdf_path, driver='GeoJSON')
+        log.info(f'Wrote gdf to {gdf_path}')
+
     # shapely
     @cached_property
     def shapely_polygons(self):

@@ -8,10 +8,6 @@ log = Log('DNCLogger')
 
 
 class DNCLogger:
-    @staticmethod
-    def log_np(label, x):
-        print(label + ".shape", ' ➡️ ', x.shape)
-        raise Exception('🛑 Stopped!')
 
     @staticmethod
     def log_line():
@@ -52,7 +48,7 @@ class DNCLogger:
             n_emojis = int(math.ceil(abs(log2_error)))
             emojis = n_emojis * emoji
             log.debug(
-                f' {id} '.rjust(4) + f'{log2_error:.2f} '.rjust(10) + emojis
+                f' {id} '.rjust(10) + f'{log2_error:.2f} '.rjust(10) + emojis.rjust(10)
             )
 
     def log_vars(self):

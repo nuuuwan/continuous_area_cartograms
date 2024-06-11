@@ -28,7 +28,7 @@ class DNCLoader:
             cls.extract_shapely_polygon(gdf['geometry'][0])
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
-        print(combined_gdf.columns)
+
 
         return cls(combined_gdf, values)
 

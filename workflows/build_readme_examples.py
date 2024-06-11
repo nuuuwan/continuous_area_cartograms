@@ -5,8 +5,9 @@ from utils import File, Log
 log = Log('build_readme_examples')
 
 
-def build_code(file_path):
-    py_lines = File(file_path).read_lines()
+def build_code(dir_path):
+    py_path = os.path.join(dir_path, 'source.py')
+    py_lines = File(py_path).read_lines()
     md_lines = (
         [
             '```python',
@@ -21,28 +22,24 @@ def build_code(file_path):
     return md_lines
 
 
-def build_single(file_name, show_code):
-    log.debug(f'Processing {file_name}')
-    file_path = os.path.join('examples', file_name)
-    file_path_unix = file_path.replace('\\', '/')
-
-    dir_output = os.path.join(
-        'example_images',
-        file_name[:-3],
-    )
+def build_single(dir_name, show_code):
+    log.debug(f'Processing {dir_name}')
+    dir_path = os.path.join('examples', dir_name)
+    dir_path_unix = dir_path.replace('\\', '/')
+    dir_output = os.path.join(dir_path, 'output')
     animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
         '\\', '/'
     )
-
+    label = dir_name.replace('_', ' ').title()
     md_lines = [
-        f'### [{file_name}]({file_path_unix})',
+        f'### [{label}]({dir_path_unix})',
         '',
-        f'![{file_path}]({animated_gif_path})',
+        f'![{label}]({animated_gif_path})',
         '',
     ]
 
     if show_code:
-        md_lines.extend(build_code(file_path))
+        md_lines.extend(build_code(dir_path))
 
     return md_lines
 
@@ -54,10 +51,12 @@ def build_all(show_code, md_path):
         '## Examples',
         '',
     ]
-    for file_name in os.listdir('examples'):
-        if not file_name.startswith('example_'):
+    for dir_name in os.listdir('examples'):
+        if not os.path.isdir(os.path.join('examples', dir_name)):
             continue
-        md_lines.extend(build_single(file_name, show_code))
+        if not dir_name.startswith('example_'):
+            continue
+        md_lines.extend(build_single(dir_name, show_code))
 
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')

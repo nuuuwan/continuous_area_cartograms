@@ -2,24 +2,18 @@
 
 ## Examples
 
-### [example_1_from_topojson.py](examples/example_1_from_topojson.py)
+### [Example 1 From Topojson](examples/example_1_from_topojson)
 
-![examples\example_1_from_topojson.py](example_images/example_1_from_topojson/animated.gif)
+![Example 1 From Topojson](examples/example_1_from_topojson/output/animated.gif)
 
 ```python
     import os
 
     from cac import DNC
 
-    id_to_value = {
-        'LK-1': 3,
-    }
-    # The size of the other provinces default to 1
-
     dnc = DNC.from_topojson(
         topojson_path=os.path.join('example_data', 'Provinces.json'),
-        get_ids=lambda gdf: gdf['prov_c'],
-        id_to_value=id_to_value,
+        values=[3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     )
 
     dnc.run(
@@ -31,9 +25,9 @@
 
 ```
 
-### [example_2_from_ents.py](examples/example_2_from_ents.py)
+### [Example 2 From Ents](examples/example_2_from_ents)
 
-![examples\example_2_from_ents.py](example_images/example_2_from_ents/animated.gif)
+![Example 2 From Ents](examples/example_2_from_ents/output/animated.gif)
 
 ```python
     import os
@@ -42,26 +36,21 @@
 
     from cac import DNC
 
-    id_to_value = {
-        'LK-11': 3,
-        'LK-12': 2,
-        'LK-13': 1,
-    }
-    ents = Ent.list_from_id_list(id_to_value.keys())
-
-    dnc = DNC.from_ents(ents=ents, id_to_value=id_to_value)
+    ents = Ent.list_from_id_list(['LK-11', 'LK-12', 'LK-13'])
+    values = [3, 2, 1]
+    dnc = DNC.from_ents(ents, values)
     dnc.run(
-        dir_output=os.path.join(
-            'example_images',
-            'example_2_from_ents',
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
         )
     )
 
 ```
 
-### [example_3_from_ents_by_population.py](examples/example_3_from_ents_by_population.py)
+### [Example 3 From Ents By Population](examples/example_3_from_ents_by_population)
 
-![examples\example_3_from_ents_by_population.py](example_images/example_3_from_ents_by_population/animated.gif)
+![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.gif)
 
 ```python
     import os
@@ -71,12 +60,11 @@
     from cac import DNC
 
     ents = Ent.list_from_type(EntType.DISTRICT)
-    total_population = sum([ent.population for ent in ents])
-    id_to_value = {}
+    values = []
     for ent in ents:
-        id_to_value[ent.id] = ent.population / total_population
+        values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, id_to_value)
+    dnc = DNC.from_ents(ents, values)
     dir_output = os.path.join(
         'example_images',
         os.path.basename(__file__)[:-3],
@@ -85,9 +73,9 @@
 
 ```
 
-### [example_4_pds.py](examples/example_4_pds.py)
+### [Example 4 Pds](examples/example_4_pds)
 
-![examples\example_4_pds.py](example_images/example_4_pds/animated.gif)
+![Example 4 Pds](examples/example_4_pds/output/animated.gif)
 
 ```python
     import os
@@ -100,19 +88,12 @@
         'government-elections-parliamentary', 'regions-ec', '2020'
     )
     ents = [ent for ent in Ent.list_from_type(EntType.PD)]
-    id_to_value_num = {}
+    values = []
     for ent in ents:
         row = ent.gig(gig_table_last_election)
-        electors = row.electors
-        id_to_value_num[ent.id] = electors
+        values.append(row.electors)
 
-    total_electors = sum(id_to_value_num.values())
-    id_to_value = {
-        id: electors / total_electors
-        for id, electors in id_to_value_num.items()
-    }
-
-    dnc = DNC.from_ents(ents, id_to_value)
+    dnc = DNC.from_ents(ents, values)
     dir_output = os.path.join(
         'example_images',
         os.path.basename(__file__)[:-3],

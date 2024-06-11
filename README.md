@@ -4,21 +4,21 @@ Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* b
 
 ## Examples
 
-### [example_1_from_topojson.py](examples/example_1_from_topojson.py)
+### [Example 1 From Topojson](examples/example_1_from_topojson)
 
-![examples\example_1_from_topojson.py](example_images/example_1_from_topojson/animated.gif)
+![Example 1 From Topojson](examples/example_1_from_topojson/output/animated.gif)
 
-### [example_2_from_ents.py](examples/example_2_from_ents.py)
+### [Example 2 From Ents](examples/example_2_from_ents)
 
-![examples\example_2_from_ents.py](example_images/example_2_from_ents/animated.gif)
+![Example 2 From Ents](examples/example_2_from_ents/output/animated.gif)
 
-### [example_3_from_ents_by_population.py](examples/example_3_from_ents_by_population.py)
+### [Example 3 From Ents By Population](examples/example_3_from_ents_by_population)
 
-![examples\example_3_from_ents_by_population.py](example_images/example_3_from_ents_by_population/animated.gif)
+![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.gif)
 
-### [example_4_pds.py](examples/example_4_pds.py)
+### [Example 4 Pds](examples/example_4_pds)
 
-![examples\example_4_pds.py](example_images/example_4_pds/animated.gif)
+![Example 4 Pds](examples/example_4_pds/output/animated.gif)
 
 See more [Examples](README.examples.long.md).
 

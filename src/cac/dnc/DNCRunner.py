@@ -66,13 +66,18 @@ class DNCRunner:
 
         image_path_list = []
         i_iter = 0
-        # "For each iteration (user controls when done)"
         t_start = time.time()
         while True:
             t_lap_start = time.time()
-            image_path = os.path.join(dir_output, f'{i_iter}.png')
+
+            # save image
+            image_path = os.path.join(dir_output, 'images', f'{i_iter}.png')
             image_path = dnc.save_image(image_path)
             image_path_list.append(image_path)
+
+            # save gdf
+            gdf_path = os.path.join(dir_output, 'geojson', f'{i_iter}.json')
+            dnc.save_gdf(gdf_path)
 
             dnc.log_error()
             if dnc.grouped_polygon_group.is_reasonably_complete:
@@ -99,4 +104,7 @@ class DNCRunner:
             dir_output = tempfile.mkdtemp()
         else:
             os.makedirs(dir_output, exist_ok=True)
+        os.makedirs(os.path.join(dir_output, 'geojson'), exist_ok=True)
+        os.makedirs(os.path.join(dir_output, 'images'), exist_ok=True)
+        
         return self.__class__.run_all(self, dir_output)
