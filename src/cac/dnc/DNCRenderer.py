@@ -80,7 +80,11 @@ class DNCRenderer:
         DNCRenderer.remove_grids(ax)
 
     @staticmethod
-    def save_image(grouped_polygons, image_path):
+    def _save_image(grouped_polygons, image_path):
         DNCRenderer.render_all(grouped_polygons)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
+
+    def save_image(self, image_path):
+        DNCRenderer._save_image(self.grouped_polygons, image_path)
+        return image_path

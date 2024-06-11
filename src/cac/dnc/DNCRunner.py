@@ -14,7 +14,7 @@ log = Log('DNCRunner')
 
 class DNCRunner:
     @staticmethod
-    def run_single(dnc):  # noqa
+    def run_single(dnc):
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
@@ -63,29 +63,6 @@ class DNCRunner:
 
         return new_shapely_polygons
 
-    @classmethod
-    def save_image_for_iter(cls, dnc, dir_output, i_iter):
-        image_path = os.path.join(dir_output, f'{i_iter}.png')
-        cls.save_image(
-            dnc.grouped_polygons,
-            image_path,
-        )
-        return image_path
-
-    @classmethod
-    def build_new_dnc(cls, dnc, shapely_polygons):
-        ids = list(dnc.id_to_shapely_polygons.keys())
-        id_to_shapely_polygons = {
-            id: shapely_polygon
-            for id, shapely_polygon in zip(ids, shapely_polygons)
-        }
-        return cls(id_to_shapely_polygons, dnc.id_to_value)
-
-    @staticmethod
-    def save_animated_gif(image_path_list, dir_output):
-        animated_gif_path = os.path.join(dir_output, 'animated.gif')
-        AnimatedGIF(animated_gif_path).write(image_path_list)
-
     @staticmethod
     def run_all(dnc0, dir_output):
         cls = dnc0.__class__
@@ -98,7 +75,8 @@ class DNCRunner:
         t_start = time.time()
         while True:
             t_lap_start = time.time()
-            image_path = cls.save_image_for_iter(dnc, dir_output, i_iter)
+            image_path = os.path.join(dir_output, f'{i_iter}.png')
+            image_path = dnc.save_image(image_path)
             image_path_list.append(image_path)
 
             dnc.log_error()
@@ -106,7 +84,7 @@ class DNCRunner:
                 break
 
             shapely_polygons = cls.run_single(dnc)
-            dnc = cls.build_new_dnc(dnc, shapely_polygons)
+            dnc = cls.from_dnc(dnc, shapely_polygons)
 
             t_now = time.time()
             dt_all = t_now - t_start
@@ -114,7 +92,8 @@ class DNCRunner:
             log.debug(f'⏱️{i_iter=}, {dt_all=:.2f}s, {dt_iter=:.2f}s')
             i_iter += 1
 
-        DNCRunner.save_animated_gif(image_path_list, dir_output)
+        animated_gif_path = os.path.join(dir_output, 'animated.gif')
+        AnimatedGIF(animated_gif_path).write(image_path_list)
         return dnc
 
     def run(self, dir_output=None):

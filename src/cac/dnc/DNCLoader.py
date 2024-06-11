@@ -64,3 +64,12 @@ class DNCLoader:
             shapely_polygon = cls.extract_shapely_polygon(gdf['geometry'][0])
             id_to_shapely_polygons[ent.id] = shapely_polygon
         return cls(id_to_shapely_polygons, id_to_value)
+
+    @classmethod
+    def from_dnc(cls, dnc, shapely_polygons):
+        ids = list(dnc.id_to_shapely_polygons.keys())
+        id_to_shapely_polygons = {
+            id: shapely_polygon
+            for id, shapely_polygon in zip(ids, shapely_polygons)
+        }
+        return cls(id_to_shapely_polygons, dnc.id_to_value)
