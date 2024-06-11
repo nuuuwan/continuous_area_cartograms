@@ -63,49 +63,58 @@ class DNCRunner:
 
         return new_shapely_polygons
 
+    @classmethod
+    def save_image_for_iter(cls, dnc, dir_output, i_iter):
+        image_path = os.path.join(dir_output, f'{i_iter}.png')
+        cls.save_image(
+            dnc.grouped_polygons,
+            image_path,
+        )
+        return image_path
+
+    @classmethod
+    def build_new_dnc(cls, dnc, shapely_polygons):
+        ids = list(dnc.id_to_shapely_polygons.keys())
+        id_to_shapely_polygons = {
+            id: shapely_polygon
+            for id, shapely_polygon in zip(ids, shapely_polygons)
+        }
+        return cls(id_to_shapely_polygons, dnc.id_to_value)
+
+    @staticmethod
+    def save_animated_gif(image_path_list, dir_output):
+        animated_gif_path = os.path.join(dir_output, 'animated.gif')
+        AnimatedGIF(animated_gif_path).write(image_path_list)
+
     @staticmethod
     def run_all(dnc0, dir_output):
         cls = dnc0.__class__
-
         dnc = dnc0
         dnc.log_complexity()
         shapely_polygons = list(dnc.id_to_shapely_polygons.values())
         image_path_list = []
         i_iter = 0
         # "For each iteration (user controls when done)"
+        t_start = time.time()
         while True:
-            t_start = time.time()
-            cls.log_line()
-            log.debug(f'{i_iter=}')
-            cls.log_line()
-
-            image_path = os.path.join(dir_output, f'{i_iter}.png')
-            cls.save_image(
-                dnc.grouped_polygons,
-                image_path,
-            )
+            t_lap_start = time.time()
+            image_path = cls.save_image_for_iter(dnc, dir_output, i_iter)
             image_path_list.append(image_path)
 
             dnc.log_error()
             if dnc.grouped_polygon_group.is_reasonably_complete:
                 break
 
-            shapely_polygons = cls.run_single(
-                dnc,
-            )
-            ids = list(dnc.id_to_shapely_polygons.keys())
-            id_to_shapely_polygons = {
-                id: shapely_polygon
-                for id, shapely_polygon in zip(ids, shapely_polygons)
-            }
-            dnc = cls(id_to_shapely_polygons, dnc.id_to_value)
+            shapely_polygons = cls.run_single(dnc)
+            dnc = cls.build_new_dnc(dnc, shapely_polygons)
+
+            t_now = time.time()
+            dt_all = t_now - t_start
+            dt_iter = t_now - t_lap_start
+            log.debug(f'⏱️{i_iter=}, {dt_all=:.2f}s, {dt_iter=:.2f}s')
             i_iter += 1
-            dt = time.time() - t_start
-            log.debug(f'⏱️{dt=:.2f}s')
 
-        animated_gif_path = os.path.join(dir_output, 'animated.gif')
-        AnimatedGIF(animated_gif_path).write(image_path_list)
-
+        DNCRunner.save_animated_gif(image_path_list, dir_output)
         return dnc
 
     def run(self, dir_output=None):

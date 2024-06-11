@@ -3,6 +3,8 @@ from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
 from utils import Log
 
+from utils_future import Number
+
 log = Log('DNCRenderer')
 
 
@@ -43,10 +45,11 @@ class DNCRenderer:
 
         foreground_color = DNCRenderer.get_foreground_color(background_color)
         x, y = shapely_polygon.centroid.coords[0]
+        actual = grouped_polygon.actual
         plt.text(
             x,
             y,
-            f'{log2_error:.2f}',
+            Number(actual).humanized(),
             color=foreground_color,
             fontsize=3,
             horizontalalignment='center',
