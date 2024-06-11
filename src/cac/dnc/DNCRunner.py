@@ -1,11 +1,9 @@
-import math
 import os
 import tempfile
 import time
 
 import numpy as np
 from shapely import Polygon as ShapelyPolygon
-from shapely.geometry import Point as ShapelyPoint
 from utils import Log
 
 from utils_future import AnimatedGIF
@@ -14,6 +12,8 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
+    MAX_ITERATIONS = 30
+
     @staticmethod
     def run_single_optimized(dnc):
         # all
@@ -58,57 +58,6 @@ class DNCRunner:
         return [ShapelyPolygon(Pi) for Pi in newP]
 
     @staticmethod
-    @DeprecationWarning
-    def run_single_legacy(dnc):  # noqa
-        # "For each boundary line; Read coordinate chain"
-        #     "For each coordinate pair"
-        new_shapely_polygons = []
-
-        for polygon in dnc.grouped_polygons:
-            new_points = []
-            point_set = set()
-            for point in polygon.shapely_polygon.exterior.coords:
-                # Don't repeat points already processed
-                if point in point_set:
-                    continue
-                point_set.add(point)
-                dx, dy = 0, 0
-                # "For each polygon centroid"
-                for polygon0 in dnc.grouped_polygons:
-                    centroid0 = polygon0.centroid
-
-                    # "Find angle, Distance from centroid to coordinate"
-                    distance = centroid0.distance(ShapelyPoint(point))
-                    angle = math.atan2(
-                        point[1] - centroid0.y, point[0] - centroid0.x
-                    )
-                    # "If (Distance > Radius of polygon)"
-                    if distance > polygon0.radius:
-                        # "Fij = Mas * (Radius / Distance)"
-                        fij = polygon0.mass * (polygon0.radius / distance)
-                    # "Else"
-                    else:
-                        # "Fij = Mass * (Distance² / Radius²)
-                        #     * (4 - 3 * (Distance / Radius))"
-                        q = distance / polygon0.radius
-                        fij = polygon0.mass * (q**2) * (4 - 3 * q)
-
-                    # "Using Fij and angles, calculate vector sum"
-                    # "Multiply by ForceReductionFactor"
-                    frf = dnc.grouped_polygon_group.force_reduction_factor
-
-                    k = frf * fij
-                    dx += k * math.cos(angle)
-                    dy += k * math.sin(angle)
-                # Move coordinate accordingly
-                new_point = (point[0] + dx, point[1] + dy)
-                new_points.append(new_point)
-            new_shapely_polygon = ShapelyPolygon(new_points)
-            new_shapely_polygons.append(new_shapely_polygon)
-
-        return new_shapely_polygons
-
-    @staticmethod
     def run_all(dnc0, dir_output):
         cls = dnc0.__class__
         dnc = dnc0
@@ -136,6 +85,11 @@ class DNCRunner:
             dt_iter = t_now - t_lap_start
             log.debug(f'⏱️{i_iter=}, {dt_all=:.2f}s, {dt_iter=:.2f}s')
             i_iter += 1
+            if i_iter >= DNCRunner.MAX_ITERATIONS:
+                log.warning(
+                    f'MAX_ITERATIONS({DNCRunner.MAX_ITERATIONS}) reached.'
+                )
+                break
 
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write(image_path_list)

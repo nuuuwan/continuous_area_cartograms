@@ -1,3 +1,4 @@
+import math
 from utils import Log
 
 from cac.core import GroupedPolygonGroup
@@ -47,7 +48,9 @@ class DNCLogger:
             items = items[:MAX_DISPLAY]
         for id, log2_error in items:
             emoji = self.get_emoji(log2_error)
-            log.debug(f' {id} ' + f'{log2_error:.2f} '.rjust(10) + emoji)
+            n_emojis = int(math.ceil(abs(log2_error)))
+            emojis = n_emojis * emoji
+            log.debug(f' {id} ' + f'{log2_error:.2f} '.rjust(10) + emojis)
 
     def log_vars(self):
         log.debug(f'total_area = {self.polygon_group.total_area}')
