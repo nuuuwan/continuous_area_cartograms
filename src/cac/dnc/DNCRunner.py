@@ -55,7 +55,8 @@ class DNCRunner:
 
             newP.append(Pi)
 
-        return [ShapelyPolygon(Pi) for Pi in newP]
+        shapely_polygons = [ShapelyPolygon(Pi) for Pi in newP]
+        return dnc.__class__.from_dnc(dnc, shapely_polygons)
 
     @staticmethod
     def run_all(dnc0, dir_output):
@@ -76,9 +77,7 @@ class DNCRunner:
             dnc.log_error()
             if dnc.grouped_polygon_group.is_reasonably_complete:
                 break
-
-            shapely_polygons = cls.run_single_optimized(dnc)
-            dnc = cls.from_dnc(dnc, shapely_polygons)
+            dnc = cls.run_single_optimized(dnc)
 
             t_now = time.time()
             dt_all = t_now - t_start
@@ -100,4 +99,4 @@ class DNCRunner:
             dir_output = tempfile.mkdtemp()
         else:
             os.makedirs(dir_output, exist_ok=True)
-        self.__class__.run_all(self, dir_output)
+        return self.__class__.run_all(self, dir_output)
