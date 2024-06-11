@@ -7,9 +7,9 @@ log = Log('DNCLogger')
 
 class DNCLogger:
     @staticmethod
-    def log_np(x):
-        print(x, x.shape)
-        raise Exception('🛑')
+    def log_np(label, x):
+        print(label + ".shape", ' ➡️ ', x.shape)
+        raise Exception('🛑 Stopped!')
 
     @staticmethod
     def log_line():

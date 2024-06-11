@@ -16,10 +16,6 @@ log = Log('DNCRunner')
 class DNCRunner:
     @staticmethod
     def run_single_optimized(dnc):
-        # "For each boundary line; Read coordinate chain"
-        #     "For each coordinate pair"
-        new_shapely_polygons = []
-
         # all
         frf = dnc.grouped_polygon_group.force_reduction_factor
 
@@ -33,37 +29,37 @@ class DNCRunner:
         R = np.array([polygon0.radius for polygon0 in dnc.grouped_polygons])
         M = np.array([polygon0.mass for polygon0 in dnc.grouped_polygons])
 
-        for polygon in dnc.grouped_polygons:  # i (polygons to modify)
-            Pi = []
-            P_i = polygon.np_points
-            T_i = P_i[np.newaxis, :, :] - C[:, np.newaxis, :]
+        P = np.array(
+            [polygon.np_points for polygon in dnc.grouped_polygons],
+            dtype=object,
+        )
+
+        newP = []
+        for Pi in P:  # i (polygons to modify)
+            T_i = Pi[np.newaxis, :, :] - C[:, np.newaxis, :]
             D_i = np.linalg.norm(T_i, axis=2).transpose()
             A_i = np.arctan2(T_i[:, :, 1], T_i[:, :, 0]).transpose()
 
-            for Pij, D_ij, A_ij in zip(P_i, D_i, A_i):  # j (points)
-                dPij = (
-                    np.sum(
-                        np.where(
-                            D_ij > R,
-                            M * (R / D_ij),
-                            M * (D_ij**2 / R**2) * (4 - 3 * (D_ij / R)),
-                        )
-                        * np.array([np.cos(A_ij), np.sin(A_ij)]),
-                        axis=1,
+            Pi += (
+                np.sum(
+                    np.where(
+                        D_i > R,
+                        M * (R / D_i),
+                        M * (D_i**2 / R**2) * (4 - 3 * (D_i / R)),
                     )
-                    * frf
-                )
+                    * np.array([np.cos(A_i), np.sin(A_i)]),
+                    axis=2,
+                ).transpose()
+                * frf
+            )
 
-                # Move coordinate accordingly
-                Pij += dPij
-                Pi.append(Pij)
-            new_shapely_polygon = ShapelyPolygon(Pi)
-            new_shapely_polygons.append(new_shapely_polygon)
+            newP.append(Pi)
 
-        return new_shapely_polygons
+        return [ShapelyPolygon(Pi) for Pi in newP]
 
     @staticmethod
-    def run_single(dnc):
+    @DeprecationWarning
+    def run_single_legacy(dnc):  # noqa
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
