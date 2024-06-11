@@ -14,7 +14,7 @@ log = Log('DNCRunner')
 
 class DNCRunner:
     @staticmethod
-    def run_single(dnc):
+    def run_single(dnc):  # noqa
         # "For each boundary line; Read coordinate chain"
         #     "For each coordinate pair"
         new_shapely_polygons = []
