@@ -5,6 +5,22 @@ from utils import File, Log
 log = Log('build_readme_examples')
 
 
+def build_code(file_path):
+    py_lines = File(file_path).read_lines()
+    md_lines = (
+        [
+            '```python',
+        ]
+        + py_lines[1:-4]
+        + [
+            '```',
+        ]
+    )
+
+    md_lines.extend([''])
+    return md_lines
+
+
 def build_single(file_name, show_code):
     log.debug(f'Processing {file_name}')
     file_path = os.path.join('examples', file_name)
@@ -26,17 +42,8 @@ def build_single(file_name, show_code):
     ]
 
     if show_code:
-        py_lines = File(file_path).read_lines()
-        md_lines.extend(
-            [
-                '```python',
-            ]
-            + py_lines[1:-4]
-            + [
-                '```',
-            ]
-        )
-        md_lines.extend([''])
+        md_lines.extend(build_code(file_path))
+
     return md_lines
 
 
