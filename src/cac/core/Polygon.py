@@ -1,6 +1,7 @@
 import math
 from functools import cached_property
 
+import numpy as np
 from utils import Log
 
 log = Log('Polygon')
@@ -35,3 +36,7 @@ class Polygon:
     @cached_property
     def n_points(self):
         return len(self.shapely_polygon.exterior.coords)
+
+    @cached_property
+    def np_points(self):
+        return np.array(self.shapely_polygon.exterior.coords)

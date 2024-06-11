@@ -1,7 +1,8 @@
 utils-nuuuwan
 gig-nuuuwan
-topojson
+numpy
 shapely
+topojson
 geopandas
 matplotlib
 imageio

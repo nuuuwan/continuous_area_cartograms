@@ -7,6 +7,11 @@ log = Log('DNCLogger')
 
 class DNCLogger:
     @staticmethod
+    def log_np(x):
+        print(x, x.shape)
+        raise Exception('🛑')
+
+    @staticmethod
     def log_line():
         log.debug('-' * 64)
 

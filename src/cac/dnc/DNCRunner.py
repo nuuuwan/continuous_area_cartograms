@@ -3,6 +3,7 @@ import os
 import tempfile
 import time
 
+import numpy as np
 from shapely import Polygon as ShapelyPolygon
 from shapely.geometry import Point as ShapelyPoint
 from utils import Log
@@ -13,6 +14,54 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
+    @staticmethod
+    def run_single_optimized(dnc):
+        # "For each boundary line; Read coordinate chain"
+        #     "For each coordinate pair"
+        new_shapely_polygons = []
+
+        # all
+        frf = dnc.grouped_polygon_group.force_reduction_factor
+
+        # h (polygons in map)
+        C = np.array(
+            [
+                np.array([polygon0.centroid.x, polygon0.centroid.y])
+                for polygon0 in dnc.grouped_polygons
+            ]
+        )
+        R = np.array([polygon0.radius for polygon0 in dnc.grouped_polygons])
+        M = np.array([polygon0.mass for polygon0 in dnc.grouped_polygons])
+
+        for polygon in dnc.grouped_polygons:  # i (polygons to modify)
+            Pi = []
+            P_i = polygon.np_points
+            T_i = P_i[np.newaxis, :, :] - C[:, np.newaxis, :]
+            D_i = np.linalg.norm(T_i, axis=2).transpose()
+            A_i = np.arctan2(T_i[:, :, 1], T_i[:, :, 0]).transpose()
+
+            for Pij, D_ij, A_ij in zip(P_i, D_i, A_i):  # j (points)
+                dPij = (
+                    np.sum(
+                        np.where(
+                            D_ij > R,
+                            M * (R / D_ij),
+                            M * (D_ij**2 / R**2) * (4 - 3 * (D_ij / R)),
+                        )
+                        * np.array([np.cos(A_ij), np.sin(A_ij)]),
+                        axis=1,
+                    )
+                    * frf
+                )
+
+                # Move coordinate accordingly
+                Pij += dPij
+                Pi.append(Pij)
+            new_shapely_polygon = ShapelyPolygon(Pi)
+            new_shapely_polygons.append(new_shapely_polygon)
+
+        return new_shapely_polygons
+
     @staticmethod
     def run_single(dnc):
         # "For each boundary line; Read coordinate chain"
@@ -83,7 +132,7 @@ class DNCRunner:
             if dnc.grouped_polygon_group.is_reasonably_complete:
                 break
 
-            shapely_polygons = cls.run_single(dnc)
+            shapely_polygons = cls.run_single_optimized(dnc)
             dnc = cls.from_dnc(dnc, shapely_polygons)
 
             t_now = time.time()
