@@ -31,3 +31,7 @@ class Polygon:
     def radius(self):
         # "Radius = √ (Area/pi)"
         return math.sqrt(self.area / math.pi)
+
+    @cached_property
+    def n_points(self):
+        return len(self.shapely_polygon.exterior.coords)

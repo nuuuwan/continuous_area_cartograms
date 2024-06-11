@@ -65,3 +65,11 @@ class DNCLogger:
             'force_reduction_factor = '
             + f'{self.group_polygon_group.force_reduction_factor}'
         )
+
+    def log_complexity(self):
+        n_polygons = self.polygon_group.n_polygons
+        n_points = self.polygon_group.n_points
+        complexity = n_polygons * n_points
+        log.debug(f'{n_polygons=:,}')
+        log.debug(f'{n_points=:,}')
+        log.debug(f'{complexity=:,}')

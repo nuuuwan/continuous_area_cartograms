@@ -18,3 +18,11 @@ class PolygonGroup:
     def total_value(self):
         # "Sum PolygonValue into TotalValue"
         return sum(polygon.value for polygon in self.polygons)
+
+    @cached_property
+    def n_polygons(self):
+        return len(self.polygons)
+
+    @cached_property
+    def n_points(self):
+        return sum(polygon.n_points for polygon in self.polygons)
