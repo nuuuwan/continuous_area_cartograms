@@ -9,7 +9,7 @@ log = Log('DNCLoader')
 class DNCLoader:
     # loaders
     @staticmethod
-    def extract_shapely_polygon(geometry):
+    def extract_shapely_polygon_base(geometry):
         if isinstance(geometry, ShapelyPolygon):
             return geometry
 
@@ -20,6 +20,17 @@ class DNCLoader:
             )
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
+
+    @staticmethod
+    def extract_shapely_polygon(geometry, tolerance=0.001):
+        shapely_polygon = DNCLoader.extract_shapely_polygon_base(geometry)
+        # The simplify method uses the Douglas-Peucker algorithm, which works
+        # by iteratively removing points from the shape's boundary until all
+        # remaining points are at least tolerance distance away from the
+        # original boundary.
+        if tolerance > 0:
+            shapely_polygon = shapely_polygon.simplify(tolerance)
+        return shapely_polygon
 
     @classmethod
     def from_topojson(cls, topojson_path, get_ids, id_to_value=None):
