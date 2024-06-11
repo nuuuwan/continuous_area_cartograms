@@ -79,6 +79,12 @@ class DNCRunner:
             gdf_path = os.path.join(dir_output, 'geojson', f'{i_iter}.json')
             dnc.save_gdf(gdf_path)
 
+            # save hexbin
+            hexbin_path = os.path.join(
+                dir_output, 'images-hexbin', f'{i_iter}.png'
+            )
+            dnc.save_hexbin(hexbin_path)
+
             dnc.log_error()
             if dnc.grouped_polygon_group.is_reasonably_complete:
                 break
@@ -104,7 +110,10 @@ class DNCRunner:
             dir_output = tempfile.mkdtemp()
         else:
             os.makedirs(dir_output, exist_ok=True)
-        os.makedirs(os.path.join(dir_output, 'geojson'), exist_ok=True)
-        os.makedirs(os.path.join(dir_output, 'images'), exist_ok=True)
-        
+
+        for child_dir_name in ['geojson', 'images', 'images-hexbin']:
+            os.makedirs(
+                os.path.join(dir_output, child_dir_name), exist_ok=True
+            )
+
         return self.__class__.run_all(self, dir_output)

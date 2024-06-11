@@ -29,7 +29,6 @@ class DNCLoader:
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
 
-
         return cls(combined_gdf, values)
 
     @staticmethod

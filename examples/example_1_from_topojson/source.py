@@ -4,7 +4,9 @@ def main():
     from cac import DNC
 
     dnc = DNC.from_topojson(
-        topojson_path=os.path.join(os.path.dirname(__file__),'topojson_data' ,'Provinces.json'),
+        topojson_path=os.path.join(
+            os.path.dirname(__file__), 'topojson_data', 'Provinces.json'
+        ),
         values=[3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     )
 
@@ -14,7 +16,6 @@ def main():
             'output',
         )
     )
-
 
 
 if __name__ == "__main__":
