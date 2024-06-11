@@ -50,7 +50,7 @@ class DNCRunner:
 
                     # "Using Fij and angles, calculate vector sum"
                     # "Multiply by ForceReductionFactor"
-                    frf = dnc.group_polygon_group.force_reduction_factor
+                    frf = dnc.grouped_polygon_group.force_reduction_factor
 
                     k = frf * fij
                     dx += k * math.cos(angle)
@@ -87,7 +87,7 @@ class DNCRunner:
             image_path_list.append(image_path)
 
             dnc.log_error()
-            if dnc.group_polygon_group.is_reasonably_complete:
+            if dnc.grouped_polygon_group.is_reasonably_complete:
                 break
 
             shapely_polygons = cls.run_single(

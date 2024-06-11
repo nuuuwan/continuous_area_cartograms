@@ -1,6 +1,6 @@
 from utils import Log
 
-from cac.core import GroupPolygonGroup
+from cac.core import GroupedPolygonGroup
 
 log = Log('DNCLogger')
 
@@ -12,7 +12,7 @@ class DNCLogger:
 
     @staticmethod
     def get_emoji(log2_error):
-        k = GroupPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
+        k = GroupedPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
         if log2_error > k:
             return '🟥'
 
@@ -59,11 +59,11 @@ class DNCLogger:
             log.debug(f'  size_error = {grouped_polygon.size_error}')
 
         log.debug(
-            f'mean_size_error = {self.group_polygon_group.mean_size_error}'
+            f'mean_size_error = {self.grouped_polygon_group.mean_size_error}'
         )
         log.debug(
             'force_reduction_factor = '
-            + f'{self.group_polygon_group.force_reduction_factor}'
+            + f'{self.grouped_polygon_group.force_reduction_factor}'
         )
 
     def log_complexity(self):

@@ -2,7 +2,12 @@ from functools import cached_property
 
 from utils import Log
 
-from cac.core import GroupedPolygon, GroupPolygonGroup, Polygon, PolygonGroup
+from cac.core import (
+    GroupedPolygon,
+    GroupedPolygonGroup,
+    Polygon,
+    PolygonGroup,
+)
 
 log = Log('DNCBase')
 
@@ -37,5 +42,5 @@ class DNCBase:
         ]
 
     @cached_property
-    def group_polygon_group(self):
-        return GroupPolygonGroup(self.grouped_polygons)
+    def grouped_polygon_group(self):
+        return GroupedPolygonGroup(self.grouped_polygons)

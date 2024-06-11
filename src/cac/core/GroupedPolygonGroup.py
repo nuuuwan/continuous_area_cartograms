@@ -2,10 +2,10 @@ from functools import cached_property
 
 from utils import Log
 
-log = Log('GroupPolygonGroup')
+log = Log('GroupedPolygonGroup')
 
 
-class GroupPolygonGroup:
+class GroupedPolygonGroup:
     MIN_ABS_LOG2_ERROR_FOR_COMPLETION = 0.1
 
     def __init__(self, grouped_polygons):
