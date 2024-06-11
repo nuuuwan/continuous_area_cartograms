@@ -11,7 +11,6 @@ class Number:
     @staticmethod
     @cache
     def get_humanized(x):
-
         if x > 1_000_000:
             return f'{x/1_000_000:,.1f}M'
         if x > 1_000:

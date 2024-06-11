@@ -33,6 +33,7 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 * Improve [examples](src/cac/examples). Have single examples folder, with sub-folders for data, source and images.
 * Generate some more complex examples.
 
+
 ## Algorithm described in [paper](paper.pdf)
 
 ```pseudocode
