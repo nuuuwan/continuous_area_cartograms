@@ -79,7 +79,7 @@ class DNCRunner:
             gdf_path = os.path.join(dir_output, 'geojson', f'{i_iter}.json')
             dnc.save_gdf(gdf_path)
 
-            # save hexbin
+            # save hexbin - SHOULD BE MOVED!
             hexbin_path = os.path.join(
                 dir_output, 'images-hexbin', f'{i_iter}.png'
             )
