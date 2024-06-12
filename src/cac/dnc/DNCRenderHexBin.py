@@ -1,17 +1,22 @@
 import math
-
+import random
+import numpy as np
 import topojson
 from matplotlib import patches
 from matplotlib import pyplot as plt
 from shapely.geometry import Point
+from shapely import affinity
 from utils import Log
 
 log = Log('DNCRenderHexBin')
 
 
 class DNCRenderHexBin:
+    SCALE_FACTOR = 0.9
+
     @staticmethod
     def get_points(shapely_polygon, dim):
+        shapely_polygon = affinity.scale(shapely_polygon, xfact=DNCRenderHexBin.SCALE_FACTOR, yfact=DNCRenderHexBin.SCALE_FACTOR, origin=shapely_polygon.centroid)
         bounds = shapely_polygon.bounds
         minx, miny, maxx, maxy = bounds
 
@@ -62,7 +67,7 @@ class DNCRenderHexBin:
             ]
         )
         total_value = 220
-        dim = math.sqrt(total_area / total_value)
+        dim = math.sqrt(total_area / total_value) * DNCRenderHexBin.SCALE_FACTOR
         log.debug(f'{total_value=:,}, {dim=:4f}')
 
         for shapely_polygon in shapely_polygons:
