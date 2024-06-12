@@ -1,8 +1,12 @@
-import math
 
+import math
+import random
+import numpy as np
 import topojson
+from matplotlib import patches
 from matplotlib import pyplot as plt
-from shapely.geometry import Point as ShapelyPoint
+from shapely.geometry import Point
+from shapely import affinity
 from utils import Log
 
 log = Log('DNCRenderHexBin')
@@ -10,57 +14,84 @@ log = Log('DNCRenderHexBin')
 
 class DNCRenderHexBin:
     @staticmethod
-    def get_points(shapely_polygon, n):
-        minx, miny, maxx, maxy = shapely_polygon.bounds
-        polygon_area = shapely_polygon.area
-        dim = math.sqrt(polygon_area / n)
+    def get_points(shapely_polygon, dim):
+        bounds = shapely_polygon.bounds
+        minx, miny, maxx, maxy = bounds
+
+        x_min = int(minx / dim) * dim
+        y_min = int(miny / dim) * dim
 
         points = []
-        x = minx + dim / 2
-        while x <= maxx - dim / 2:
-            y = miny + dim / 2
-            while y <= maxy - dim / 2:
-                random_point = ShapelyPoint(x, y)
-                if shapely_polygon.contains(random_point):
-                    points.append(random_point)
-                    if len(points) == n:
-                        break
+        x = x_min
+        while x <= maxx:
+            y = y_min
+            ix = int(round(x / dim,0))
+
+            if ix % 2 == 1:
+                y += dim / 2
+       
+            while y <= maxy:
+                point = Point(x, y)
+                if shapely_polygon.contains(point):
+                    points.append(point)
                 y += dim
-            if len(points) == n:
-                break
             x += dim
+
         return points
+
+
+    @staticmethod
+    def render_polygon_shape(shapely_polygon, ax):
+        gdf = topojson.Topology(shapely_polygon).to_gdf()
+        gdf.plot(
+            ax=ax,
+            facecolor="#fff0",
+            edgecolor="black",
+            linewidth=0.1,
+        )
 
     def save_hexbin(self, hexbin_path):
         width = 10
-        height = int(width * 4 / 3)
+        height = int(width * 1.4)
         plt.close()
         fig, ax = plt.subplots()
         fig.set_size_inches(width, height)
-        x, y = [], []
-        for shapely_polygon, value in zip(self.shapely_polygons, self.values):
-            n = max(1, int(round(value / 100_000, 0)))
-            points = DNCRenderHexBin.get_points(shapely_polygon, n)
-            x += [point.x for point in points]
-            y += [point.y for point in points]
-            gdf = topojson.Topology(shapely_polygon).to_gdf()
-            gdf.plot(
-                ax=ax,
-                facecolor='#fff',
-                edgecolor="#000",
-                linewidth=1,
-            )
+        
+        shapely_polygons = self.shapely_polygons
+        
+        total_area = sum([shapely_polygon.area for shapely_polygon in self.shapely_polygons])
+        total_value = 220
+        dim = math.sqrt(total_area / total_value)
+        log.debug(f'{total_value=:,}, {dim=:4f}')
 
-        grid_m = 2
-        hb = plt.hexbin(
-            x,
-            y,
-            gridsize=(width * grid_m, height * grid_m),
-            cmap='Blues',
-            alpha=0.8,
-        )
-        fig.colorbar(hb, ax=ax)
+        for shapely_polygon in shapely_polygons:
+            DNCRenderHexBin.render_polygon_shape(shapely_polygon, ax)
+
+        n_polygons = len(shapely_polygons)
+        actual_total_value = 0
+        for i_polygon, shapely_polygon in enumerate(shapely_polygons):
+            points = DNCRenderHexBin.get_points(shapely_polygon, dim)
+            color = plt.cm.hsv(i_polygon / n_polygons)
+            for point in points:
+                polygon_patch = patches.RegularPolygon(
+                    (point.x, point.y),
+                    numVertices=6,
+                    radius=dim / 2,
+                    orientation=math.pi / 2,
+                    facecolor=color,
+                    edgecolor="#000",
+                    alpha=0.25,
+                )
+                ax.add_patch(polygon_patch)
+
+           
+            actual_total_value += len(points)
+        log.debug(f'{actual_total_value=:,}')
+
         self.remove_grids(ax)
 
         plt.savefig(hexbin_path)
         log.info(f'Wrote {hexbin_path}')
+
+        # import sys
+        # sys.exit(-1)

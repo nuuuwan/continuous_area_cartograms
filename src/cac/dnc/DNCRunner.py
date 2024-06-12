@@ -75,15 +75,13 @@ class DNCRunner:
             file_id = f'{i_iter:03}'
             image_path = os.path.join(dir_image, f'{file_id}.png')
             dnc.save_image(image_path)
-            
+
             # save gdf
             gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
             dnc.save_gdf(gdf_path)
 
-            # save hexbin 
-            hexbin_path = os.path.join(
-                dir_hexbin, f'{file_id}.png'
-            )
+            # save hexbin
+            hexbin_path = os.path.join(dir_hexbin, f'{file_id}.png')
             dnc.save_hexbin(hexbin_path)
 
             dnc.log_error()
@@ -102,10 +100,11 @@ class DNCRunner:
                 )
                 break
 
-  
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
-        AnimatedGIF(os.path.join(dir_output, 'animated.hexbin.gif')).write(dir_hexbin)
-        
+        AnimatedGIF(os.path.join(dir_output, 'animated.hexbin.gif')).write(
+            dir_hexbin
+        )
+
         return dnc
 
     def run(self, dir_output=None):
