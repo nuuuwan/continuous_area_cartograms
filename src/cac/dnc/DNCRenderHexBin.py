@@ -29,8 +29,6 @@ class DNCRenderHexBin:
             if len(points) == n:
                 break
             x += dim
-
-        log.debug(f'{n}, {len(points)}')
         return points
 
     def save_hexbin(self, hexbin_path):
@@ -41,7 +39,7 @@ class DNCRenderHexBin:
         fig.set_size_inches(width, height)
         x, y = [], []
         for shapely_polygon, value in zip(self.shapely_polygons, self.values):
-            n = int(round(value / 100_000, 0))
+            n = max(1, int(round(value / 100_000, 0)))
             points = DNCRenderHexBin.get_points(shapely_polygon, n)
             x += [point.x for point in points]
             y += [point.y for point in points]
