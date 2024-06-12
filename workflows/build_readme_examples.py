@@ -30,7 +30,7 @@ def build_single(dir_name, show_code):
     animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
         '\\', '/'
     )
-    animated_hexbin_gif_path = os.path.join(dir_output, 'animated_hexbin.gif').replace(
+    animated_hexbin_gif_path = os.path.join(dir_output, 'animated.hexbin.gif').replace(
         '\\', '/'
     )   
 
