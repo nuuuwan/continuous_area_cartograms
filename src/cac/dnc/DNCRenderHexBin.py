@@ -12,7 +12,7 @@ log = Log('DNCRenderHexBin')
 
 
 class DNCRenderHexBin:
-    SCALE_FACTOR = 0.9
+    SCALE_FACTOR = 1
 
     @staticmethod
     def get_points(shapely_polygon, dim):
