@@ -15,7 +15,7 @@ class DNCRenderHexBin:
         x = [point.x for point in centroids]
         y = [point.y for point in centroids]
 
-        plt.hexbin(x, y, gridsize=(9, 16), cmap='Blues')
+        plt.hexbin(x, y, gridsize=10, cmap='Blues')
 
         self.remove_grids(plt.gca())
 
