@@ -1,12 +1,9 @@
-
 import math
-import random
-import numpy as np
+
 import topojson
 from matplotlib import patches
 from matplotlib import pyplot as plt
 from shapely.geometry import Point
-from shapely import affinity
 from utils import Log
 
 log = Log('DNCRenderHexBin')
@@ -25,11 +22,11 @@ class DNCRenderHexBin:
         x = x_min
         while x <= maxx:
             y = y_min
-            ix = int(round(x / dim,0))
+            ix = int(round(x / dim, 0))
 
             if ix % 2 == 1:
                 y += dim / 2
-       
+
             while y <= maxy:
                 point = Point(x, y)
                 if shapely_polygon.contains(point):
@@ -38,7 +35,6 @@ class DNCRenderHexBin:
             x += dim
 
         return points
-
 
     @staticmethod
     def render_polygon_shape(shapely_polygon, ax):
@@ -56,10 +52,15 @@ class DNCRenderHexBin:
         plt.close()
         fig, ax = plt.subplots()
         fig.set_size_inches(width, height)
-        
+
         shapely_polygons = self.shapely_polygons
-        
-        total_area = sum([shapely_polygon.area for shapely_polygon in self.shapely_polygons])
+
+        total_area = sum(
+            [
+                shapely_polygon.area
+                for shapely_polygon in self.shapely_polygons
+            ]
+        )
         total_value = 220
         dim = math.sqrt(total_area / total_value)
         log.debug(f'{total_value=:,}, {dim=:4f}')
@@ -84,7 +85,6 @@ class DNCRenderHexBin:
                 )
                 ax.add_patch(polygon_patch)
 
-           
             actual_total_value += len(points)
         log.debug(f'{actual_total_value=:,}')
 

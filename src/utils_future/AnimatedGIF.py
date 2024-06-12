@@ -24,9 +24,9 @@ class AnimatedGIF:
         return self.write_from_image_path_list(x)
 
     def write_from_dir_path(self, dir_path):
-        image_path_list = sorted([
-            os.path.join(dir_path, f) for f in os.listdir(dir_path)
-        ])
+        image_path_list = sorted(
+            [os.path.join(dir_path, f) for f in os.listdir(dir_path)]
+        )
         self.write_from_image_path_list(image_path_list)
 
     def write_from_image_path_list(self, image_path_list):
