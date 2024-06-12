@@ -64,24 +64,25 @@ class DNCRunner:
         dnc = dnc0
         dnc.log_complexity()
 
-        image_path_list = []
         i_iter = 0
         t_start = time.time()
+        dir_image = os.path.join(dir_output, 'images')
+        dir_hexbin = os.path.join(dir_output, 'images-hexbin')
         while True:
             t_lap_start = time.time()
 
             # save image
-            image_path = os.path.join(dir_output, 'images', f'{i_iter}.png')
-            image_path = dnc.save_image(image_path)
-            image_path_list.append(image_path)
-
+            file_id = f'{i_iter:03}'
+            image_path = os.path.join(dir_image, f'{file_id}.png')
+            dnc.save_image(image_path)
+            
             # save gdf
-            gdf_path = os.path.join(dir_output, 'geojson', f'{i_iter}.json')
+            gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
             dnc.save_gdf(gdf_path)
 
-            # save hexbin - SHOULD BE MOVED!
+            # save hexbin 
             hexbin_path = os.path.join(
-                dir_output, 'images-hexbin', f'{i_iter}.png'
+                dir_hexbin, f'{file_id}.png'
             )
             dnc.save_hexbin(hexbin_path)
 
@@ -101,8 +102,10 @@ class DNCRunner:
                 )
                 break
 
-        animated_gif_path = os.path.join(dir_output, 'animated.gif')
-        AnimatedGIF(animated_gif_path).write(image_path_list)
+  
+        AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
+        AnimatedGIF(os.path.join(dir_output, 'animated.hexbin.gif')).write(dir_hexbin)
+        
         return dnc
 
     def run(self, dir_output=None):

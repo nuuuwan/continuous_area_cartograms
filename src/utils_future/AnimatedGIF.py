@@ -13,7 +13,24 @@ class AnimatedGIF:
         self.duration = duration
         self.loop = loop
 
-    def write(self, image_path_list):
+    def write(self, x):
+        if isinstance(x, str):
+            if not os.path.isdir(x):
+                raise ValueError(f'{x} is not a directory')
+            return self.write_from_dir_path(x)
+            
+        if not isinstance(x, list):
+            raise ValueError(f'{x} is not a list')
+        return self.write_from_image_path_list(x)
+
+    def write_from_dir_path(self, dir_path):
+        image_path_list = [
+            os.path.join(dir_path, f) for f in os.listdir(dir_path)
+        ]
+        image_path_list.sort()
+        self.write_from_image_path_list(image_path_list)
+
+    def write_from_image_path_list(self, image_path_list):
         image_path_list2 = image_path_list + image_path_list[::-1]
         with iio2.get_writer(
             self.animated_gif_path,
