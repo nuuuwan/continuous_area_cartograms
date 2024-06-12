@@ -6,20 +6,24 @@
 
 ![Example 1 From Topojson](examples/example_1_from_topojson/output/animated.gif)
 
+![Example 1 From Topojson](examples/example_1_from_topojson/output/animated_hexbin.gif)
+
 ```python
     import os
 
     from cac import DNC
 
     dnc = DNC.from_topojson(
-        topojson_path=os.path.join('example_data', 'Provinces.json'),
+        topojson_path=os.path.join(
+            os.path.dirname(__file__), 'topojson_data', 'Provinces.json'
+        ),
         values=[3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     )
 
     dnc.run(
-        dir_output=os.path.join(
-            'example_images',
-            'example_1_from_topojson',
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
         )
     )
 
@@ -28,6 +32,8 @@
 ### [Example 2 From Ents](examples/example_2_from_ents)
 
 ![Example 2 From Ents](examples/example_2_from_ents/output/animated.gif)
+
+![Example 2 From Ents](examples/example_2_from_ents/output/animated_hexbin.gif)
 
 ```python
     import os
@@ -52,6 +58,8 @@
 
 ![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.gif)
 
+![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated_hexbin.gif)
+
 ```python
     import os
 
@@ -65,17 +73,20 @@
         values.append(ent.population)
 
     dnc = DNC.from_ents(ents, values)
-    dir_output = os.path.join(
-        'example_images',
-        os.path.basename(__file__)[:-3],
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
     )
-    dnc.run(dir_output)
 
 ```
 
 ### [Example 4 Pds](examples/example_4_pds)
 
 ![Example 4 Pds](examples/example_4_pds/output/animated.gif)
+
+![Example 4 Pds](examples/example_4_pds/output/animated_hexbin.gif)
 
 ```python
     import os
@@ -94,10 +105,11 @@
         values.append(row.electors)
 
     dnc = DNC.from_ents(ents, values)
-    dir_output = os.path.join(
-        'example_images',
-        os.path.basename(__file__)[:-3],
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
     )
-    dnc.run(dir_output)
 
 ```
