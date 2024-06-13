@@ -2,7 +2,9 @@
 
 ### [Build From Ents](examples/build_from_ents)
 
-<img src="build_from_ents/output/animated.gif" width="240px" align="center" />
+<p align="center">
+  <img src="build_from_ents/output/animated.gif" width="240px" />
+</p>
 
 ```python
     import os
@@ -25,7 +27,9 @@
 
 ### [Build From Polygons](examples/build_from_polygons)
 
-<img src="build_from_polygons/output/animated.gif" width="240px" align="center" />
+<p align="center">
+  <img src="build_from_polygons/output/animated.gif" width="240px" />
+</p>
 
 ```python
     import os
@@ -50,7 +54,9 @@
 
 ### [Build From Topojson](examples/build_from_topojson)
 
-<img src="build_from_topojson/output/animated.gif" width="240px" align="center" />
+<p align="center">
+  <img src="build_from_topojson/output/animated.gif" width="240px" />
+</p>
 
 ```python
     import os
@@ -75,7 +81,9 @@
 
 ### [Lk Districts By Population](examples/lk_districts_by_population)
 
-<img src="lk_districts_by_population/output/animated.gif" width="240px" align="center" />
+<p align="center">
+  <img src="lk_districts_by_population/output/animated.gif" width="240px" />
+</p>
 
 ```python
     import os
@@ -101,7 +109,9 @@
 
 ### [Lk Pds By Electors](examples/lk_pds_by_electors)
 
-<img src="lk_pds_by_electors/output/animated.gif" width="240px" align="center" />
+<p align="center">
+  <img src="lk_pds_by_electors/output/animated.gif" width="240px" />
+</p>
 
 ```python
     import os

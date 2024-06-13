@@ -36,7 +36,9 @@ def build_single(dir_name, show_code):
     md_lines = [
         f'### [{label}]({dir_path_unix})',
         '',
-        f'<img src="{animated_gif_path}" width="240px" align="center" />',
+        '<p align="center">',
+        f'  <img src="{animated_gif_path}" width="240px" />',
+        '</p>',
         '',
     ]
 
