@@ -25,8 +25,8 @@ class DNCRunner:
 
         new_Point = []
         for Point_i in Point:
-            Delta_i = Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :]
-            Delta_i = np.array(Delta_i.tolist())
+            Delta_i = np.array(Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :], dtype=np.float64)
+
 
             Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
             Angle_i = np.arctan2(

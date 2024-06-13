@@ -35,7 +35,7 @@ class DNCProperties:
     def Centroid(self) -> np.ndarray:
         return np.array(
             [
-                np.array([polygon.centroid.x, polygon.centroid.y])
+                np.array([polygon.centroid.x, polygon.centroid.y], dtype=np.float64)
                 for polygon in self.polygons
             ]
         )
