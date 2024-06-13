@@ -44,8 +44,10 @@ pip install continuous_area_cartograms-nuuuwan
 
 ## Examples
 
+In this example, we take a simple map consisting of four squares of equal area, and modify it such that one square ends up 4 times has large as the others.
+
 <p align="center">
-  <img src="examples/build_from_polygons/output/animated.gif" width="240px" />
+  <img src="examples/build_from_polygons/output/images/000.png" width="240px" />
 </p>
 
 First, construct a **DNC object**, providing the regions (as shapely Polygons) and their corresponding values.
@@ -120,11 +122,19 @@ Output:
 [<POLYGON ((0.032 0.232, 0.142 0.979, 0.68 1.32, 0.587 0.078, 0.032 0.232))>, <POLYGON ((0.587 0.078, 0.68 1.32, 1.922 1.413, 2.122 -0.122, 0.587 0.078))>, <POLYGON ((0.142 0.979, 0.112 1.888, 1.021 1.858, 0.68 1.32, 0.142 0.979))>, <POLYGON ((0.68 1.32, 1.021 1.858, 1.768 1.968, 1.922 1.413, 0.68 1.32))>]
 ```
 
-The output directory stores the following content:
+<p align="center">
+  <img src="examples/build_from_polygons/output/images/013.png" width="240px" />
+</p>
+
+The output directory (*dir_output*) stores the following content:
 
 * geojson: GeoJSON files for each step of the algorithm
 * images: Rendered images for each step of the algorithm
 * animated.gif: Images combined into an animated GIF
+
+<p align="center">
+  <img src="examples/build_from_polygons/output/animated.gif" width="240px" />
+</p>
 
 Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
 
@@ -147,11 +157,6 @@ Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](htt
 ```
 
 For more details and source code, see [examples/README.md](examples/README.md).
-
-### TODOs before PyPI deployment
-
-* Simplify and improve the API, which is still a little disorganized.
-* Generate some more complex examples.
 
 ## The [Algorithm](references/paper.pdf)
 
