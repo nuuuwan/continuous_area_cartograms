@@ -27,7 +27,7 @@ def build_single(dir_name, show_code):
     dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
     dir_output = os.path.join(dir_path, 'output')
-    animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
+    animated_gif_path = os.path.join(dir_name, 'output', 'animated.gif').replace(
         '\\', '/'
     )
 
