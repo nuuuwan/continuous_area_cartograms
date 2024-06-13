@@ -1,6 +1,6 @@
 # Continuous Area Cartograms
 
-<img src="examples/example_3_from_ents_by_population/output/animated.gif" width="48" />
+<img src="examples/example_3_from_ents_by_population/output/animated.gif" width="240px" />
 
 ## Background
 
