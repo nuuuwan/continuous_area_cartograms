@@ -15,8 +15,8 @@ log = Log('DNCRunner')
 class DNCRunner:
     MAX_ITERATIONS = 10
 
-    @staticmethod
-    def run_single_optimized(dnc):
+    @classmethod
+    def run_single_optimized(cls, dnc):
         force_reduction_factor = dnc.force_reduction_factor
         Centroid = dnc.Centroid
         Radius = dnc.Radius
@@ -49,11 +49,10 @@ class DNCRunner:
             new_Point.append(Point_i)
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
-        return dnc.__class__.from_dnc(dnc, polygons)
+        return cls(polygons, dnc.values)
 
-    @staticmethod
-    def run_all(dnc0, dir_output):
-        cls = dnc0.__class__
+    @classmethod
+    def run_all(cls, dnc0, dir_output):
         dnc = dnc0
         dnc.log_complexity()
 
@@ -71,7 +70,7 @@ class DNCRunner:
 
             # save gdf
             gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
-            dnc.save_gdf(gdf_path)
+            dnc.to_gdf().to_file(gdf_path, driver='GeoJSON')
 
             dnc.log_error()
             if dnc.is_reasonably_complete:
@@ -91,7 +90,7 @@ class DNCRunner:
 
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
 
-        return dnc
+        return dnc.polygons
 
     def run(self, dir_output=None):
         if dir_output is None:
