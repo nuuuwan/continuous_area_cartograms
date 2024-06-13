@@ -53,10 +53,6 @@ class DNCBase:
             for geo in self.gdf['geometry']
         ]
 
-    @cached_property
-    def values(self):
-        return [self.values[i] for i in range(len(self.gdf))]
-
     # core shapes
     @cached_property
     def polygons(self):
