@@ -2,7 +2,7 @@ from functools import cached_property
 
 from geopandas import GeoDataFrame
 from shapely import MultiPolygon as ShapelyMultiPolygon
-from shapely import Polygon as ShapelyPolygon
+from shapely import Polygon
 from utils import Log
 
 log = Log('DNCBase')
@@ -15,8 +15,8 @@ class DNCBase:
         self.values = values
 
     @staticmethod
-    def extract_shapely_polygon_base(geometry):
-        if isinstance(geometry, ShapelyPolygon):
+    def extract_polygon_base(geometry):
+        if isinstance(geometry, Polygon):
             return geometry
 
         if isinstance(geometry, ShapelyMultiPolygon):
@@ -29,15 +29,15 @@ class DNCBase:
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
     @staticmethod
-    def extract_shapely_polygon(geometry, tolerance=0.001):
-        shapely_polygon = DNCBase.extract_shapely_polygon_base(geometry)
+    def extract_polygon(geometry, tolerance=0.001):
+        polygon = DNCBase.extract_polygon_base(geometry)
         # The simplify method uses the Douglas-Peucker algorithm, which works
         # by iteratively removing points from the shape's boundary until all
         # remaining points are at least tolerance distance away from the
         # original boundary.
         if tolerance > 0:
-            shapely_polygon = shapely_polygon.simplify(tolerance)
-        return shapely_polygon
+            polygon = polygon.simplify(tolerance)
+        return polygon
 
     # serializers
     def save_gdf(self, gdf_path):
@@ -46,8 +46,5 @@ class DNCBase:
 
     # shapely
     @cached_property
-    def shapely_polygons(self):
-        return [
-            DNCBase.extract_shapely_polygon(geo)
-            for geo in self.gdf['geometry']
-        ]
+    def polygons(self):
+        return [DNCBase.extract_polygon(geo) for geo in self.gdf['geometry']]

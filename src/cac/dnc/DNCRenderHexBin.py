@@ -14,14 +14,14 @@ class DNCRenderHexBin:
     SCALE_FACTOR = 1
 
     @staticmethod
-    def get_points(shapely_polygon, dim):
-        shapely_polygon = affinity.scale(
-            shapely_polygon,
+    def get_points(polygon, dim):
+        polygon = affinity.scale(
+            polygon,
             xfact=DNCRenderHexBin.SCALE_FACTOR,
             yfact=DNCRenderHexBin.SCALE_FACTOR,
-            origin=shapely_polygon.centroid,
+            origin=polygon.centroid,
         )
-        bounds = shapely_polygon.bounds
+        bounds = polygon.bounds
         minx, miny, maxx, maxy = bounds
 
         x_min = int(minx / dim) * dim
@@ -38,7 +38,7 @@ class DNCRenderHexBin:
 
             while y <= maxy:
                 point = Point(x, y)
-                if shapely_polygon.contains(point):
+                if polygon.contains(point):
                     points.append(point)
                 y += dim
             x += dim
@@ -46,8 +46,8 @@ class DNCRenderHexBin:
         return points
 
     @staticmethod
-    def render_polygon_shape(shapely_polygon, ax):
-        gdf = topojson.Topology(shapely_polygon).to_gdf()
+    def render_polygon_shape(polygon, ax):
+        gdf = topojson.Topology(polygon).to_gdf()
         gdf.plot(
             ax=ax,
             facecolor="#fff0",
@@ -62,27 +62,22 @@ class DNCRenderHexBin:
         fig, ax = plt.subplots()
         fig.set_size_inches(width, height)
 
-        shapely_polygons = self.shapely_polygons
+        polygons = self.polygons
 
-        total_area = sum(
-            [
-                shapely_polygon.area
-                for shapely_polygon in self.shapely_polygons
-            ]
-        )
+        total_area = sum([polygon.area for polygon in self.polygons])
         total_value = 220
         dim = (
             math.sqrt(total_area / total_value) * DNCRenderHexBin.SCALE_FACTOR
         )
         log.debug(f'{total_value=:,}, {dim=:4f}')
 
-        for shapely_polygon in shapely_polygons:
-            DNCRenderHexBin.render_polygon_shape(shapely_polygon, ax)
+        for polygon in polygons:
+            DNCRenderHexBin.render_polygon_shape(polygon, ax)
 
-        n_polygons = len(shapely_polygons)
+        n_polygons = len(polygons)
         actual_total_value = 0
-        for i_polygon, shapely_polygon in enumerate(shapely_polygons):
-            points = DNCRenderHexBin.get_points(shapely_polygon, dim)
+        for i_polygon, polygon in enumerate(polygons):
+            points = DNCRenderHexBin.get_points(polygon, dim)
             color = plt.cm.hsv(i_polygon / n_polygons)
             for point in points:
                 polygon_patch = patches.RegularPolygon(

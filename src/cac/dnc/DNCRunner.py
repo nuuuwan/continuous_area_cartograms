@@ -4,7 +4,7 @@ import tempfile
 import time
 
 import numpy as np
-from shapely import Polygon as ShapelyPolygon
+from shapely import Polygon
 from utils import Log
 
 from utils_future import AnimatedGIF
@@ -48,8 +48,8 @@ class DNCRunner:
 
             new_Point.append(Point_i)
 
-        shapely_polygons = [ShapelyPolygon(Point_i) for Point_i in new_Point]
-        return dnc.__class__.from_dnc(dnc, shapely_polygons)
+        polygons = [Polygon(Point_i) for Point_i in new_Point]
+        return dnc.__class__.from_dnc(dnc, polygons)
 
     @staticmethod
     def run_all(dnc0, dir_output):

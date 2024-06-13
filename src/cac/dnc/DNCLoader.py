@@ -21,19 +21,19 @@ class DNCLoader:
         for ent in ents:
             gdf = ent.geo()
             gdfs.append(gdf)
-            cls.extract_shapely_polygon(gdf['geometry'][0])
+            cls.extract_polygon(gdf['geometry'][0])
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
 
         return cls(combined_gdf, values)
 
     @staticmethod
-    def get_gdf_from_shapely_polygons(shapely_polygons):
+    def get_gdf_from_polygons(polygons):
         gdf = gpd.GeoDataFrame()
-        gdf['geometry'] = shapely_polygons
+        gdf['geometry'] = polygons
         return gdf
 
     @classmethod
-    def from_dnc(cls, dnc, shapely_polygons):
-        gdf = DNCLoader.get_gdf_from_shapely_polygons(shapely_polygons)
+    def from_dnc(cls, dnc, polygons):
+        gdf = DNCLoader.get_gdf_from_polygons(polygons)
         return cls(gdf, dnc.values)

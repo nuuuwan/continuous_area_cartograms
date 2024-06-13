@@ -17,17 +17,14 @@ class DNCProperties:
 
     @cached_property
     def n_polygons(self):
-        return len(self.shapely_polygons)
+        return len(self.polygons)
 
     # Dependent on individual polygons
 
     @cached_property
     def Point(self) -> np.ndarray:
         return np.array(
-            [
-                np.array(polygon.exterior.coords)
-                for polygon in self.shapely_polygons
-            ],
+            [np.array(polygon.exterior.coords) for polygon in self.polygons],
             dtype=object,
         )
 
@@ -36,13 +33,13 @@ class DNCProperties:
         return np.array(
             [
                 np.array([polygon.centroid.x, polygon.centroid.y])
-                for polygon in self.shapely_polygons
+                for polygon in self.polygons
             ]
         )
 
     @cached_property
     def Area(self) -> np.ndarray:
-        return np.array([polygon.area for polygon in self.shapely_polygons])
+        return np.array([polygon.area for polygon in self.polygons])
 
     @cached_property
     def Radius(self) -> np.ndarray:
@@ -51,10 +48,7 @@ class DNCProperties:
     @cached_property
     def n_points(self):
         return sum(
-            [
-                len(polygon.exterior.coords)
-                for polygon in self.shapely_polygons
-            ]
+            [len(polygon.exterior.coords) for polygon in self.polygons]
         )
 
     # Dependent on all polygons

@@ -25,8 +25,8 @@ class DNCRenderer:
         return f'#{r:02x}{g:02x}{b:02x}'
 
     @staticmethod
-    def render_polygon_shape(shapely_polygon, log2_error, ax):
-        gdf = topojson.Topology(shapely_polygon).to_gdf()
+    def render_polygon_shape(polygon, log2_error, ax):
+        gdf = topojson.Topology(polygon).to_gdf()
         background_color = DNCRenderer.get_color(log2_error)
         gdf.plot(
             ax=ax,
@@ -36,10 +36,10 @@ class DNCRenderer:
         )
 
     @staticmethod
-    def render_polygon_text(shapely_polygon, actual_value, log2_error):
+    def render_polygon_text(polygon, actual_value, log2_error):
         background_color = DNCRenderer.get_color(log2_error)
         foreground_color = DNCRenderer.get_foreground_color(background_color)
-        x, y = shapely_polygon.centroid.coords[0]
+        x, y = polygon.centroid.coords[0]
         plt.text(
             x,
             y,
@@ -51,11 +51,9 @@ class DNCRenderer:
         )
 
     @staticmethod
-    def render_polygon(shapely_polygon, actual_value, log2_error, ax):
-        DNCRenderer.render_polygon_shape(shapely_polygon, log2_error, ax)
-        DNCRenderer.render_polygon_text(
-            shapely_polygon, actual_value, log2_error
-        )
+    def render_polygon(polygon, actual_value, log2_error, ax):
+        DNCRenderer.render_polygon_shape(polygon, log2_error, ax)
+        DNCRenderer.render_polygon_text(polygon, actual_value, log2_error)
 
     @staticmethod
     def remove_grids(ax):
@@ -67,29 +65,27 @@ class DNCRenderer:
 
     @staticmethod
     def render_all(
-        shapely_polygons,
+        polygons,
         ActualValue,
         Log2Error,
     ):
         plt.close()
         ax = plt.gca()
-        for shapely_polygon, actual_value, log2_error in zip(
-            shapely_polygons, ActualValue, Log2Error
+        for polygon, actual_value, log2_error in zip(
+            polygons, ActualValue, Log2Error
         ):
-            DNCRenderer.render_polygon(
-                shapely_polygon, actual_value, log2_error, ax
-            )
+            DNCRenderer.render_polygon(polygon, actual_value, log2_error, ax)
         DNCRenderer.remove_grids(ax)
 
     @staticmethod
-    def _save_image(shapely_polygons, ActualValue, Log2Error, image_path):
-        DNCRenderer.render_all(shapely_polygons, ActualValue, Log2Error)
+    def _save_image(polygons, ActualValue, Log2Error, image_path):
+        DNCRenderer.render_all(polygons, ActualValue, Log2Error)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
 
     def save_image(self, image_path):
         DNCRenderer._save_image(
-            self.shapely_polygons,
+            self.polygons,
             self.ActualValue,
             self.Log2Error,
             image_path,
