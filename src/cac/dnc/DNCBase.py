@@ -21,6 +21,7 @@ class DNCBase:
             return geometry
 
         if isinstance(geometry, ShapelyMultiPolygon):
+            # TODO: Support MultiPolygon
             return max(
                 geometry.geoms,
                 key=lambda polygon: polygon.area,
