@@ -24,33 +24,33 @@ class DNCLoader:
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
     @classmethod
-    def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float]):
+    def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
         polygons = [cls.extract_polygon_base(g) for g in geometry]
-        return cls(polygons, values)
+        return cls(polygons, values,**kwargs)
 
     @classmethod
-    def from_geojson(cls, geojson_path: str, values: list[float]):
+    def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
         gdf = gpd.read_file(geojson_path)
-        return cls.from_gdf(gdf, values)
+        return cls.from_gdf(gdf, values,**kwargs)
 
     @classmethod
-    def from_topojson(cls, topojson_path: str, values: list[float]):
+    def from_topojson(cls, topojson_path: str, values: list[float], **kwargs):
         data = JSONFile(topojson_path).read()
         object_name = list(data['objects'].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
-        return cls.from_gdf(gdf, values)
+        return cls.from_gdf(gdf, values,**kwargs)
 
     @classmethod
-    def from_ents(cls, ents: list[Ent], values: list[float]):
+    def from_ents(cls, ents: list[Ent], values: list[float], **kwargs):
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
             gdfs.append(gdf)
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
-        return cls.from_gdf(combined_gdf, values)
+        return cls.from_gdf(combined_gdf, values,**kwargs)
 
     def to_gdf(self):
         return gpd.GeoDataFrame(
@@ -60,11 +60,12 @@ class DNCLoader:
             }
         )
 
-    def from_dnc(self, polygons):
+    def from_dnc(self, polygons, **kwargs):
         return self.__class__(
             polygons,
             self.values,
             self.preprocess_tolerance,
             self.min_log2_error,
             self.max_iterations,
+           **kwargs,
         )

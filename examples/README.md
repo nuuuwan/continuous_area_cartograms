@@ -118,6 +118,64 @@
 
 ```
 
+### [Cmb Pds By Population](examples/cmb_pds_by_population)
+
+<p align="center">
+  <img src="cmb_pds_by_population/output/animated.gif" width="240px" />
+</p>
+
+```python
+    import os
+
+    from gig import Ent, EntType
+
+    from cac import DNC
+
+    ents = Ent.list_from_type(EntType.PD)
+    ents = [ent for ent in ents if ent.ed_id == 'EC-01']
+    values = []
+    for ent in ents:
+        values.append(ent.population)
+
+    dnc = DNC.from_ents(ents, values)
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
+    )
+
+```
+
+### [Cmc Gnds By Population](examples/cmc_gnds_by_population)
+
+<p align="center">
+  <img src="cmc_gnds_by_population/output/animated.gif" width="240px" />
+</p>
+
+```python
+    import os
+
+    from gig import Ent, EntType
+
+    from cac import DNC
+
+    ents = Ent.list_from_type(EntType.GND)
+    ents = [ent for ent in ents if ent.dsd_id in ['LK-1103', 'LK-1127']]
+    values = []
+    for ent in ents:
+        values.append(ent.population)
+
+    dnc = DNC.from_ents(ents, values, preprocess_tolerance=0.0)
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
+    )
+
+```
+
 ### [Lk Districts By Population](examples/lk_districts_by_population)
 
 <p align="center">

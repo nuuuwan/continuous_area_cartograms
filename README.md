@@ -3,6 +3,10 @@
 <p align="center">
   <img src="examples/build_from_polygons/output/animated.gif" width="240px" />
 
+  <img src="cmc_gnds_by_population/output/animated.gif" width="240px" />
+
+  <img src="cmb_pds_by_population/output/animated.gif" width="240px" />
+
   <img src="examples/build_from_ents/output/animated.gif" width="240px" />
 
   <img src="examples/build_from_topojson/output/animated.gif" width="240px" />
