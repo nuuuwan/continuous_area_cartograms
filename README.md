@@ -144,9 +144,9 @@ For more details and source code, see [examples/README.md](examples/README.md).
 
 ## Install
 
-We plan to deploy this as a PyPI package soon.
-
-For now you may clone/fork the repository, install the dependencies, and run the code directly.
+```
+pip install continuous_area_cartograms-nuuuwan
+```
 
 ### TODOs before PyPI deployment
 
