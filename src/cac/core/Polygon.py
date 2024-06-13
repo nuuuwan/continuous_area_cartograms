@@ -20,17 +20,14 @@ class Polygon:
 
     @cached_property
     def area(self):
-        # "Calculate area and centroid (using current boundaries) (1)"
         return self.shapely_polygon.area
 
     @cached_property
     def centroid(self):
-        # "Calculate area and centroid (using current boundaries) (2)"
         return self.shapely_polygon.centroid
 
     @cached_property
     def radius(self):
-        # "Radius = √ (Area/pi)"
         return math.sqrt(self.area / math.pi)
 
     @cached_property
