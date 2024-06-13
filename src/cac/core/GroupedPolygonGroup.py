@@ -12,9 +12,9 @@ class GroupedPolygonGroup:
         self.grouped_polygons = grouped_polygons
 
     @cached_property
-    def E(self) -> float:
+    def E(self) -> np.ndarray:
         return np.array([
-            grouped_polygon.area
+            grouped_polygon.size_error
             for grouped_polygon in self.grouped_polygons
         ])
 
@@ -24,6 +24,7 @@ class GroupedPolygonGroup:
 
     @cached_property
     def force_reduction_factor(self)-> float:
+        print(self.mean_size_error)
         return 1 / (1 + self.mean_size_error)
 
     @cached_property
