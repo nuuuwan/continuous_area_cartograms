@@ -45,11 +45,11 @@ class DNCRenderer:
 
         foreground_color = DNCRenderer.get_foreground_color(background_color)
         x, y = shapely_polygon.centroid.coords[0]
-        actual = grouped_polygon.actual
+        actual_value = grouped_polygon.actual_value
         plt.text(
             x,
             y,
-            Number(actual).humanized(),
+            Number(actual_value).humanized(),
             color=foreground_color,
             fontsize=3,
             horizontalalignment='center',
