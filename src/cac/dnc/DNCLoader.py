@@ -8,10 +8,6 @@ log = Log('DNCLoader')
 
 class DNCLoader:
     @classmethod
-    def from_gdf(cls, gdf, values):
-        return cls(gdf, values)
-
-    @classmethod
     def from_topojson(cls, topojson_path, values):
         data = JSONFile(topojson_path).read()
         object_name = list(data['objects'].keys())[0]

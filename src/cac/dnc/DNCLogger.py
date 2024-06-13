@@ -9,10 +9,6 @@ log = Log('DNCLogger')
 
 class DNCLogger:
     @staticmethod
-    def log_line():
-        log.debug('-' * 64)
-
-    @staticmethod
     def get_emoji(log2_error):
         k = GroupedPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
         if log2_error > k:
@@ -51,28 +47,6 @@ class DNCLogger:
                 + f'{log2_error:.2f} '.rjust(10)
                 + emojis.rjust(10)
             )
-
-    def log_vars(self):
-        log.debug(f'total_area = {self.polygon_group.total_area}')
-        log.debug(f'total_value = {self.polygon_group.total_value}')
-
-        for grouped_polygon in self.grouped_polygons:
-            log.debug(f'id = {grouped_polygon.id}')
-            log.debug(f'  value = {grouped_polygon.value}')
-            log.debug(f'  centroid = {grouped_polygon.centroid}')
-            log.debug(f'  area = {grouped_polygon.area}')
-
-            log.debug(f'  desired = {grouped_polygon.desired}')
-            log.debug(f'  mass = {grouped_polygon.mass}')
-            log.debug(f'  size_error = {grouped_polygon.size_error}')
-
-        log.debug(
-            f'mean_size_error = {self.grouped_polygon_group.mean_size_error}'
-        )
-        log.debug(
-            'force_reduction_factor = '
-            + f'{self.grouped_polygon_group.force_reduction_factor}'
-        )
 
     def log_complexity(self):
         n_polygons = self.polygon_group.n_polygons
