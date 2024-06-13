@@ -30,17 +30,12 @@ def build_single(dir_name, show_code):
     animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
         '\\', '/'
     )
-    animated_hexbin_gif_path = os.path.join(
-        dir_output, 'animated.hexbin.gif'
-    ).replace('\\', '/')
 
     label = dir_name.replace('_', ' ').title()
     md_lines = [
         f'### [{label}]({dir_path_unix})',
         '',
-        f'![{label}]({animated_gif_path})',
-        '',
-        f'![{label}]({animated_hexbin_gif_path})',
+        f'<img src="{animated_gif_path}" width="240px" />',
         '',
     ]
 
