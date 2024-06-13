@@ -16,7 +16,6 @@ class DNCRunner:
 
     @staticmethod
     def run_single_optimized(dnc):
-        # all
         frf = dnc.force_reduction_factor
         C = dnc.C
         R = dnc.R
