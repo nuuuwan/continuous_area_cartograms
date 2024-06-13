@@ -5,6 +5,7 @@ from utils import File, Log
 log = Log('build_readme_examples')
 DIR_EXAMPLES = 'examples'
 
+
 def build_code(dir_path):
     py_path = os.path.join(dir_path, 'source.py')
     py_lines = File(py_path).read_lines()
@@ -26,10 +27,10 @@ def build_single(dir_name, show_code):
     log.debug(f'Processing {dir_name}')
     dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
-    dir_output = os.path.join(dir_path, 'output')
-    animated_gif_path = os.path.join(dir_name, 'output', 'animated.gif').replace(
-        '\\', '/'
-    )
+    os.path.join(dir_path, 'output')
+    animated_gif_path = os.path.join(
+        dir_name, 'output', 'animated.gif'
+    ).replace('\\', '/')
 
     label = dir_name.replace('_', ' ').title()
     md_lines = [
@@ -64,5 +65,4 @@ def build_all(show_code, md_path):
 
 
 if __name__ == "__main__":
-    build_all(True,  os.path.join(DIR_EXAMPLES, 'README.md') )
-
+    build_all(True, os.path.join(DIR_EXAMPLES, 'README.md'))
