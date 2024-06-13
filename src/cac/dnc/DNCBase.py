@@ -5,13 +5,12 @@ from shapely import MultiPolygon as ShapelyMultiPolygon
 from shapely import Polygon as ShapelyPolygon
 from utils import Log
 
-from cac.core import GroupedPolygon, Polygon, PolygonGroup
-
 log = Log('DNCBase')
 
 
 class DNCBase:
     def __init__(self, gdf: GeoDataFrame, values: list[float]):
+        assert len(gdf) == len(values)
         self.gdf = gdf
         self.values = values
 
@@ -51,26 +50,4 @@ class DNCBase:
         return [
             DNCBase.extract_shapely_polygon(geo)
             for geo in self.gdf['geometry']
-        ]
-
-    # core shapes
-    @cached_property
-    def polygons(self):
-        polygons = []
-        for shapely_polygon, value in zip(self.shapely_polygons, self.values):
-            polygon = Polygon(id, shapely_polygon, value)
-            polygons.append(polygon)
-
-        return polygons
-
-    @cached_property
-    def polygon_group(self):
-        return PolygonGroup(self.polygons)
-
-    @cached_property
-    def grouped_polygons(self):
-        polygon_group = self.polygon_group
-        return [
-            GroupedPolygon(polygon, polygon_group)
-            for polygon in self.polygons
         ]

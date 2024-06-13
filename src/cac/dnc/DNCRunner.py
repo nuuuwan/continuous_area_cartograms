@@ -13,38 +13,42 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
-    MAX_ITERATIONS = 30
+    MAX_ITERATIONS = 10
 
     @staticmethod
     def run_single_optimized(dnc):
-        frf = dnc.force_reduction_factor
-        C = dnc.C
-        R = dnc.R
-        M = dnc.M
-        P = dnc.P
+        force_reduction_factor = dnc.force_reduction_factor
+        Centroid = dnc.Centroid
+        Radius = dnc.Radius
+        Mass = dnc.Mass
+        Point = dnc.Point
 
-        newP = []
-        for Pi in P:  # i (polygons to modify)
-            T_i = Pi[np.newaxis, :, :] - C[:, np.newaxis, :]
-            D_i = np.linalg.norm(T_i, axis=2).transpose()
-            A_i = np.arctan2(T_i[:, :, 1], T_i[:, :, 0]).transpose()
+        new_Point = []
+        for Point_i in Point:  
+            Delta_i = Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :]
+            Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
+            Angle_i = np.arctan2(
+                Delta_i[:, :, 1], Delta_i[:, :, 0]
+            ).transpose()
 
-            Pi += (
+            Point_i += (
                 np.sum(
                     np.where(
-                        D_i > R,
-                        M * (R / D_i),
-                        M * (D_i**2 / R**2) * (4 - 3 * (D_i / R)),
+                        Distance_i > Radius,
+                        Mass * (Radius / Distance_i),
+                        Mass
+                        * (Distance_i**2 / Radius**2)
+                        * (4 - 3 * (Distance_i / Radius)),
                     )
-                    * np.array([np.cos(A_i), np.sin(A_i)]),
+                    * np.array([np.cos(Angle_i), np.sin(Angle_i)]),
                     axis=2,
                 ).transpose()
-                * frf
+                * force_reduction_factor
             )
 
-            newP.append(Pi)
+            new_Point.append(Point_i)
 
-        shapely_polygons = [ShapelyPolygon(Pi) for Pi in newP]
+        shapely_polygons = [ShapelyPolygon(Point_i) for Point_i in new_Point]
         return dnc.__class__.from_dnc(dnc, shapely_polygons)
 
     @staticmethod
@@ -56,7 +60,7 @@ class DNCRunner:
         i_iter = 0
         t_start = time.time()
         dir_image = os.path.join(dir_output, 'images')
-        dir_hexbin = os.path.join(dir_output, 'images-hexbin')
+
         while True:
             t_lap_start = time.time()
 
@@ -68,10 +72,6 @@ class DNCRunner:
             # save gdf
             gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
             dnc.save_gdf(gdf_path)
-
-            # save hexbin
-            hexbin_path = os.path.join(dir_hexbin, f'{file_id}.png')
-            dnc.save_hexbin(hexbin_path)
 
             dnc.log_error()
             if dnc.is_reasonably_complete:
@@ -90,9 +90,6 @@ class DNCRunner:
                 break
 
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
-        AnimatedGIF(os.path.join(dir_output, 'animated.hexbin.gif')).write(
-            dir_hexbin
-        )
 
         return dnc
 
@@ -103,7 +100,7 @@ class DNCRunner:
             shutil.rmtree(dir_output, ignore_errors=True)
             os.makedirs(dir_output, exist_ok=True)
 
-        for child_dir_name in ['geojson', 'images', 'images-hexbin']:
+        for child_dir_name in ['geojson', 'images']:
             os.makedirs(
                 os.path.join(dir_output, child_dir_name), exist_ok=True
             )

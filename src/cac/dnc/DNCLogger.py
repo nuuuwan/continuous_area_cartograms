@@ -23,8 +23,8 @@ class DNCLogger:
         return dict(
             sorted(
                 [
-                    [i, grouped_polygon.log2_error]
-                    for i, grouped_polygon in enumerate(self.grouped_polygons)
+                    [i, log2_error]
+                    for i, log2_error in enumerate(self.Log2Error)
                 ],
                 key=lambda x: abs(x[1]),
                 reverse=True,
@@ -49,8 +49,8 @@ class DNCLogger:
             )
 
     def log_complexity(self):
-        n_polygons = self.polygon_group.n_polygons
-        n_points = self.polygon_group.n_points
+        n_polygons = self.n_polygons
+        n_points = self.n_points
         complexity = n_polygons * n_points
         log.debug(f'{n_polygons=:,}')
         log.debug(f'{n_points=:,}')
