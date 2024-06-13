@@ -2,7 +2,7 @@
 
 <img src="examples/example_3_from_ents_by_population/output/animated.gif" width="240px" />
 
-*An animation of a True-Scale Map of Sri Lanka's Administrative districts, morphing into a Continous Area Cargogram representing population*
+> An animation of a True-Scale Map of Sri Lanka's Administrative districts, morphing into a Continous Area Cartograms representing population
 
 ## Background
 
