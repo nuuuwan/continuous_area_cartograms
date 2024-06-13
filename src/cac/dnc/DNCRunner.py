@@ -17,22 +17,11 @@ class DNCRunner:
     @staticmethod
     def run_single_optimized(dnc):
         # all
-        frf = dnc.grouped_polygon_group.force_reduction_factor
-
-        # h (polygons in map)
-        C = np.array(
-            [
-                np.array([polygon0.centroid.x, polygon0.centroid.y])
-                for polygon0 in dnc.grouped_polygons
-            ]
-        )
-        R = np.array([polygon0.radius for polygon0 in dnc.grouped_polygons])
-        M = np.array([polygon0.mass for polygon0 in dnc.grouped_polygons])
-
-        P = np.array(
-            [polygon.np_points for polygon in dnc.grouped_polygons],
-            dtype=object,
-        )
+        frf = dnc.force_reduction_factor
+        C = dnc.C
+        R = dnc.R
+        M = dnc.M
+        P = dnc.P
 
         newP = []
         for Pi in P:  # i (polygons to modify)
@@ -85,7 +74,7 @@ class DNCRunner:
             dnc.save_hexbin(hexbin_path)
 
             dnc.log_error()
-            if dnc.grouped_polygon_group.is_reasonably_complete:
+            if dnc.is_reasonably_complete:
                 break
             dnc = cls.run_single_optimized(dnc)
 

@@ -2,7 +2,7 @@ import math
 
 from utils import Log
 
-from cac.core import GroupedPolygonGroup
+from cac.dnc.DNCProperties import DNCProperties
 
 log = Log('DNCLogger')
 
@@ -10,7 +10,7 @@ log = Log('DNCLogger')
 class DNCLogger:
     @staticmethod
     def get_emoji(log2_error):
-        k = GroupedPolygonGroup.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
+        k = DNCProperties.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
         if log2_error > k:
             return '🟥'
 

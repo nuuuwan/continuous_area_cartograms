@@ -5,7 +5,7 @@ from shapely import MultiPolygon as ShapelyMultiPolygon
 from shapely import Polygon as ShapelyPolygon
 from utils import Log
 
-from cac.core import GroupedPolygon, GroupedPolygonGroup, Polygon, PolygonGroup
+from cac.core import GroupedPolygon, Polygon, PolygonGroup
 
 log = Log('DNCBase')
 
@@ -79,6 +79,3 @@ class DNCBase:
             for polygon in self.polygons
         ]
 
-    @cached_property
-    def grouped_polygon_group(self):
-        return GroupedPolygonGroup(self.grouped_polygons)
