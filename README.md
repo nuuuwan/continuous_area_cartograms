@@ -22,11 +22,81 @@ Cartograms are especially useful for providing a visual representation of statis
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
-## Example images and code
+## Examples
 
-See [Examples](examples/README.md).
+<p align="center">
+  <img src="build_from_polygons/output/animated.gif" width="240px" />
+</p>
 
-## Usage
+First, construct a **DNC object**, providing the regions (as shapely Polygons) and their corresponding values.
+
+Second, call **run** which returns a new polygon, appropriately modified.
+
+```python
+    import os
+
+    from shapely import Polygon
+
+    from cac import DNC
+
+    polygons = [
+        Polygon(
+            [
+                (0, 0),
+                (0, 1),
+                (1, 1),
+                (1, 0),
+                (0, 0),
+            ]
+        ),
+        Polygon(
+            [
+                (1, 0),
+                (1, 1),
+                (2, 1),
+                (2, 0),
+                (1, 0),
+            ]
+        ),
+        Polygon(
+            [
+                (0, 1),
+                (0, 2),
+                (1, 2),
+                (1, 1),
+                (0, 1),
+            ]
+        ),
+        Polygon(
+            [
+                (1, 1),
+                (1, 2),
+                (2, 2),
+                (2, 1),
+                (1, 1),
+            ]
+        ),
+    ]
+
+    dnc = DNC(
+        polygons,
+        [1, 4, 1, 1],
+    )
+
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
+    )
+
+```
+
+Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
+
+For more details and source code, see [examples/README.md](examples/README.md).
+
+## Install
 
 We plan to deploy this as a PyPI package soon.
 
