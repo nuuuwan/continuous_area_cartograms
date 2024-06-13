@@ -24,7 +24,10 @@ class DNCProperties:
     @cached_property
     def Point(self) -> np.ndarray:
         return np.array(
-            [np.array(polygon.exterior.coords) for polygon in self.shapely_polygons],
+            [
+                np.array(polygon.exterior.coords)
+                for polygon in self.shapely_polygons
+            ],
             dtype=object,
         )
 
@@ -83,12 +86,15 @@ class DNCProperties:
 
     @cached_property
     def is_reasonably_complete(self) -> bool:
-        return np.all(np.abs(self.Log2Error) <= DNCProperties.MIN_ABS_LOG2_ERROR_FOR_COMPLETION)
-            
+        return np.all(
+            np.abs(self.Log2Error)
+            <= DNCProperties.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
+        )
+
     @cached_property
     def total_area(self) -> float:
         return sum(self.Area)
 
     @cached_property
     def ActualValue(self) -> np.ndarray:
-        return  self.Area * self.total_value / self.total_area
+        return self.Area * self.total_value / self.total_area
