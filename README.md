@@ -1,6 +1,6 @@
 # Continuous Area Cartograms
 
-![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.gif = 250x250)
+<img src="examples/example_3_from_ents_by_population/output/animated.gif" width="48" />
 
 ## Background
 
