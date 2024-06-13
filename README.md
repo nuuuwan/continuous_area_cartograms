@@ -24,13 +24,13 @@ This repository Implements *[An Algorithm to Construct Continuous Area Cartogram
 
 ## Example images and code
 
-See [Examples](README.examples.long.md).
+See [Examples](README.examples.md).
 
 ## Usage
 
-We plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly.
+We plan to deploy this as a PyPI package soon.
 
-You might also find the following [examples](examples) useful.
+For now you may clone/fork the repository, install the dependencies, and run the code directly.
 
 ### TODOs before PyPI deployment
 

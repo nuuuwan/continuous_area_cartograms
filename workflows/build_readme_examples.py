@@ -69,5 +69,5 @@ def build_all(show_code, md_path):
 
 
 if __name__ == "__main__":
-    build_all(True, 'README.example.long.md')
-    build_all(False, 'README.example.short.md')
+    build_all(True, 'README.examples.md')
+
