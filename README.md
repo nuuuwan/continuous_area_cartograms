@@ -20,7 +20,7 @@ Cartograms are especially useful for providing a visual representation of statis
 
 ## This Repository
 
-This repository Implements *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
+This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
 ## Example images and code
 
