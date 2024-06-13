@@ -4,7 +4,7 @@ import numpy as np
 
 
 class DNCProperties:
-    MIN_ABS_LOG2_ERROR_FOR_COMPLETION = 0.1
+    MIN_ABS_LOG2_ERROR_FOR_COMPLETION = 0.01
 
     # Independent of Polygons
     @cached_property
@@ -24,7 +24,10 @@ class DNCProperties:
     @cached_property
     def Point(self) -> np.ndarray:
         return np.array(
-            [np.array(polygon.exterior.coords) for polygon in self.polygons],
+            [
+                np.array(polygon.exterior.coords, dtype=np.float64)
+                for polygon in self.polygons
+            ],
             dtype=object,
         )
 

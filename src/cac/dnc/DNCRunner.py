@@ -13,7 +13,7 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
-    MAX_ITERATIONS = 10
+    MAX_ITERATIONS = 30
 
     @classmethod
     def run_single_optimized(cls, dnc):
@@ -26,6 +26,8 @@ class DNCRunner:
         new_Point = []
         for Point_i in Point:
             Delta_i = Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :]
+            Delta_i = np.array(Delta_i.tolist())
+
             Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
             Angle_i = np.arctan2(
                 Delta_i[:, :, 1], Delta_i[:, :, 0]

@@ -1,13 +1,52 @@
 def main():
     import os
 
+    from shapely import Polygon
+
     from cac import DNC
 
-    dnc = DNC.from_topojson(
-        topojson_path=os.path.join(
-            os.path.dirname(__file__), 'topojson_data', 'Provinces.json'
+    polygons = [
+        Polygon(
+            [
+                (0, 0),
+                (0, 1),
+                (1, 1),
+                (1, 0),
+                (0, 0),
+            ]
         ),
-        values=[1, 1, 3, 1, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
+        Polygon(
+            [
+                (1, 0),
+                (1, 1),
+                (2, 1),
+                (2, 0),
+                (1, 0),
+            ]
+        ),
+        Polygon(
+            [
+                (0, 1),
+                (0, 2),
+                (1, 2),
+                (1, 1),
+                (0, 1),
+            ]
+        ),
+        Polygon(
+            [
+                (1, 1),
+                (1, 2),
+                (2, 2),
+                (2, 1),
+                (1, 1),
+            ]
+        ),
+    ]
+
+    dnc = DNC(
+        polygons,
+        [1, 4, 1, 1],
     )
 
     dnc.run(
