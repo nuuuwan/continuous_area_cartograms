@@ -27,12 +27,12 @@ class DNCLoader:
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
         polygons = [cls.extract_polygon_base(g) for g in geometry]
-        return cls(polygons, values,**kwargs)
+        return cls(polygons, values, **kwargs)
 
     @classmethod
     def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
         gdf = gpd.read_file(geojson_path)
-        return cls.from_gdf(gdf, values,**kwargs)
+        return cls.from_gdf(gdf, values, **kwargs)
 
     @classmethod
     def from_topojson(cls, topojson_path: str, values: list[float], **kwargs):
@@ -40,7 +40,7 @@ class DNCLoader:
         object_name = list(data['objects'].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
-        return cls.from_gdf(gdf, values,**kwargs)
+        return cls.from_gdf(gdf, values, **kwargs)
 
     @classmethod
     def from_ents(cls, ents: list[Ent], values: list[float], **kwargs):
@@ -50,7 +50,7 @@ class DNCLoader:
             gdfs.append(gdf)
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
-        return cls.from_gdf(combined_gdf, values,**kwargs)
+        return cls.from_gdf(combined_gdf, values, **kwargs)
 
     def to_gdf(self):
         return gpd.GeoDataFrame(
@@ -67,5 +67,5 @@ class DNCLoader:
             self.preprocess_tolerance,
             self.min_log2_error,
             self.max_iterations,
-           **kwargs,
+            **kwargs,
         )

@@ -97,16 +97,48 @@ Second, call **run** which returns a new polygon, appropriately modified.
         [1, 4, 1, 1],
     )
 
-    dnc.run(
-        os.path.join(
+    new_polygon = dnc.run(
+        dir_output=os.path.join(
             os.path.dirname(__file__),
             'output',
         )
     )
 
+    print(new_polygon)
+
 ```
 
+Output:
+
+```bash
+[<POLYGON ((0.032 0.232, 0.142 0.979, 0.68 1.32, 0.587 0.078, 0.032 0.232))>, <POLYGON ((0.587 0.078, 0.68 1.32, 1.922 1.413, 2.122 -0.122, 0.587 0.078))>, <POLYGON ((0.142 0.979, 0.112 1.888, 1.021 1.858, 0.68 1.32, 0.142 0.979))>, <POLYGON ((0.68 1.32, 1.021 1.858, 1.768 1.968, 1.922 1.413, 0.68 1.32))>]
+```
+
+The output directory stores the following content:
+
+* geojson: GeoJSON files for each step of the algorithm
+* images: Rendered images for each step of the algorithm
+* animated.gif: Images combined into an animated GIF
+
 Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
+
+```python
+    @classmethod
+    def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
+        ...
+
+    @classmethod
+    def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
+        ...
+
+    @classmethod
+    def from_topojson(cls, topojson_path: str, values: list[float], **kwargs):
+        ...
+
+    @classmethod
+    def from_ents(cls, ents: list[Ent], values: list[float], **kwargs):
+        ...
+```
 
 For more details and source code, see [examples/README.md](examples/README.md).
 
