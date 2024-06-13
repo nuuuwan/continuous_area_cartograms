@@ -1,6 +1,8 @@
 # Continuous Area Cartograms
 
 <p align="center">
+  <img src="examples/build_from_polygons/output/animated.gif" width="240px" />
+
   <img src="examples/build_from_ents/output/animated.gif" width="240px" />
 
   <img src="examples/build_from_topojson/output/animated.gif" width="240px" />
