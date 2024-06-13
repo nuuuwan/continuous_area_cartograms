@@ -1,45 +1,38 @@
 # Continuous Area Cartograms
 
-Implements *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
-
-## Examples
-
-### [Example 1 From Topojson](examples/example_1_from_topojson)
-
-![Example 1 From Topojson](examples/example_1_from_topojson/output/animated.gif)
-
-![Example 1 From Topojson](examples/example_1_from_topojson/output/animated.hexbin.gif)
-
-### [Example 2 From Ents](examples/example_2_from_ents)
-
-![Example 2 From Ents](examples/example_2_from_ents/output/animated.gif)
-
-![Example 2 From Ents](examples/example_2_from_ents/output/animated.hexbin.gif)
-
-### [Example 3 From Ents By Population](examples/example_3_from_ents_by_population)
-
 ![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.gif)
 
-![Example 3 From Ents By Population](examples/example_3_from_ents_by_population/output/animated.hexbin.gif)
+## Background
 
-### [Example 4 Pds](examples/example_4_pds)
+### What is a Cartogram?
 
-![Example 4 Pds](examples/example_4_pds/output/animated.gif)
+A cartogram is a map in which some thematic mapping variable, such as population or Gross Domestic Product (GDP), is substituted for land area or distance. The geometry or space of the map is distorted in order to convey the information of this alternate variable. Cartograms help to visualize the relative sizes of the variables in a way that a traditional map does not, making them useful tools in geographical statistics.
 
-![Example 4 Pds](examples/example_4_pds/output/animated.hexbin.gif)
+### What is a Continuous Area Cartogram (CAC)?
 
-See more [Examples](README.examples.long.md).
+A Continuous Area Cartogram (CAC) is a type of cartogram where the map is distorted gradually and smoothly to reflect a specific variable while maintaining the contiguous nature of regions. Unlike other cartograms that might use non-contiguous shapes or overlapping regions, CACs ensure that all areas are mapped to contiguous regions, preserving neighboring relationships. This makes them more recognizable and easier to understand in terms of geographical layout.
+
+### Why are Cartograms Useful?
+
+Cartograms are especially useful for providing a visual representation of statistical data, allowing for easy comparisons and understanding of geographic distributions of data. They highlight disparities and patterns that might be overlooked in standard map representations. For example, a cartogram can make it visually apparent how much larger the population of one city is compared to another, despite the actual geographic size being smaller.
+
+## This Repository
+
+This repository Implements *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
+
+## Example images and code
+
+See [Examples](README.examples.long.md).
 
 ## Usage
 
-I plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly. You might also find the following [examples](examples) useful.
+We plan to deploy this as a PyPI package, but for now you can clone the repository, install the dependencies, and run the code directly.
 
-### TODOs before deployment
+You might also find the following [examples](examples) useful.
 
-* Implement derivations like HexBin
+### TODOs before PyPI deployment
+
 * Simplify and improve the API, which is still a little disorganized.
-* Add options to save polygons, as GDF, TopoJSON etc
-* Improve [examples](src/cac/examples). Have single examples folder, with sub-folders for data, source and images.
 * Generate some more complex examples.
 
 ## Algorithm described in [paper](references/paper.pdf)
