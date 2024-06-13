@@ -78,4 +78,3 @@ class DNCBase:
             GroupedPolygon(polygon, polygon_group)
             for polygon in self.polygons
         ]
-

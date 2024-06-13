@@ -31,7 +31,6 @@ class DNCProperties:
                 return False
         return True
 
-
     @cached_property
     def C(self):
         return np.array(
@@ -44,16 +43,14 @@ class DNCProperties:
     @cached_property
     def R(self):
         return np.array([polygon.radius for polygon in self.grouped_polygons])
-    
 
     @cached_property
     def M(self):
         return np.array([polygon.mass for polygon in self.grouped_polygons])
-    
+
     @cached_property
     def P(self):
         return np.array(
             [polygon.np_points for polygon in self.grouped_polygons],
             dtype=object,
         )
-        
