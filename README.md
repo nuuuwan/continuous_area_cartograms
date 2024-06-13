@@ -1,7 +1,13 @@
 # Continuous Area Cartograms
 
 <p align="center">
+  <img src="examples/build_from_ents/output/animated.gif" width="240px" />
+
+  <img src="examples/build_from_topojson/output/animated.gif" width="240px" />
+
   <img src="examples/lk_districts_by_population/output/animated.gif" width="240px" />
+
+  <img src="examples/lk_pds_by_electors/output/animated.gif" width="240px" />
 </p>
 
 > An animation of a True-Scale Map of Sri Lanka's Administrative districts, morphing into a Continous Area Cartograms representing population
@@ -95,16 +101,6 @@ Second, call **run** which returns a new polygon, appropriately modified.
 ```
 
 Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
-
-<p align="center">
-  <img src="examples/build_from_ents/output/animated.gif" width="240px" />
-
-  <img src="examples/build_from_topojson/output/animated.gif" width="240px" />
-
-  <img src="examples/lk_districts_by_population/output/animated.gif" width="240px" />
-
-  <img src="examples/lk_pds_by_electors/output/animated.gif" width="240px" />
-</p>
 
 For more details and source code, see [examples/README.md](examples/README.md).
 
