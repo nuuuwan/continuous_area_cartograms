@@ -3,7 +3,7 @@ import os
 from utils import File, Log
 
 log = Log('build_readme_examples')
-
+DIR_EXAMPLES = 'examples'
 
 def build_code(dir_path):
     py_path = os.path.join(dir_path, 'source.py')
@@ -24,7 +24,7 @@ def build_code(dir_path):
 
 def build_single(dir_name, show_code):
     log.debug(f'Processing {dir_name}')
-    dir_path = os.path.join('examples', dir_name)
+    dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
     dir_output = os.path.join(dir_path, 'output')
     animated_gif_path = os.path.join(dir_output, 'animated.gif').replace(
@@ -52,8 +52,8 @@ def build_all(show_code, md_path):
         '## Examples',
         '',
     ]
-    for dir_name in os.listdir('examples'):
-        if not os.path.isdir(os.path.join('examples', dir_name)):
+    for dir_name in os.listdir(DIR_EXAMPLES):
+        if not os.path.isdir(os.path.join(DIR_EXAMPLES, dir_name)):
             continue
         if not dir_name.startswith('example_'):
             continue
@@ -64,5 +64,5 @@ def build_all(show_code, md_path):
 
 
 if __name__ == "__main__":
-    build_all(True, 'README.examples.md')
+    build_all(True,  os.path.join(DIR_EXAMPLES, 'README.md') )
 

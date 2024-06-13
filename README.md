@@ -24,7 +24,7 @@ This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which t
 
 ## Example images and code
 
-See [Examples](README.examples.md).
+See [Examples](examples/README.md).
 
 ## Usage
 
