@@ -1,4 +1,5 @@
 import os
+import shutil
 import tempfile
 import time
 
@@ -99,6 +100,7 @@ class DNCRunner:
         if dir_output is None:
             dir_output = tempfile.mkdtemp()
         else:
+            shutil.rmtree(dir_output, ignore_errors=True)
             os.makedirs(dir_output, exist_ok=True)
 
         for child_dir_name in ['geojson', 'images', 'images-hexbin']:
