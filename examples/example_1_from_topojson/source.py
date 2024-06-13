@@ -7,7 +7,7 @@ def main():
         topojson_path=os.path.join(
             os.path.dirname(__file__), 'topojson_data', 'Provinces.json'
         ),
-        values=[1, 1, 3, 1, 1, 1, 1, 1, 1, 1], # LK-11 - Western Province
+        values=[1, 1, 3, 1, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
     )
 
     dnc.run(
