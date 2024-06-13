@@ -36,6 +36,12 @@ Cartograms are especially useful for providing a visual representation of statis
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
+## Install
+
+```bash
+pip install continuous_area_cartograms-nuuuwan
+```
+
 ## Examples
 
 <p align="center">
@@ -141,12 +147,6 @@ Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](htt
 ```
 
 For more details and source code, see [examples/README.md](examples/README.md).
-
-## Install
-
-```
-pip install continuous_area_cartograms-nuuuwan
-```
 
 ### TODOs before PyPI deployment
 
