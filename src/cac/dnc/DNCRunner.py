@@ -13,8 +13,6 @@ log = Log('DNCRunner')
 
 
 class DNCRunner:
-    MAX_ITERATIONS = 30
-
     @classmethod
     def run_single_optimized(cls, dnc):
         force_reduction_factor = dnc.force_reduction_factor
@@ -25,8 +23,10 @@ class DNCRunner:
 
         new_Point = []
         for Point_i in Point:
-            Delta_i = np.array(Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :], dtype=np.float64)
-
+            Delta_i = np.array(
+                Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :],
+                dtype=np.float64,
+            )
 
             Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
             Angle_i = np.arctan2(
@@ -51,7 +51,7 @@ class DNCRunner:
             new_Point.append(Point_i)
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
-        return cls(polygons, dnc.values)
+        return dnc.from_dnc(polygons)
 
     @classmethod
     def run_all(cls, dnc0, dir_output):
@@ -84,10 +84,8 @@ class DNCRunner:
             dt_iter = t_now - t_lap_start
             log.debug(f'⏱️{i_iter=}, {dt_all=:.2f}s, {dt_iter=:.2f}s')
             i_iter += 1
-            if i_iter >= DNCRunner.MAX_ITERATIONS:
-                log.warning(
-                    f'MAX_ITERATIONS({DNCRunner.MAX_ITERATIONS}) reached.'
-                )
+            if i_iter >= dnc.max_iterations:
+                log.warning(f'MAX_ITERATIONS({dnc.max_iterations}) reached.')
                 break
 
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)

@@ -32,7 +32,7 @@ class AnimatedGIF:
     def write_from_image_path_list(self, image_path_list):
         image_path_list2 = image_path_list + image_path_list[::-1]
         n = len(image_path_list)
-        duration = self.total_duration / n 
+        duration = self.total_duration / n
         with iio2.get_writer(
             self.animated_gif_path,
             mode='I',

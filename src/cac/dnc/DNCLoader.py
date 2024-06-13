@@ -59,3 +59,12 @@ class DNCLoader:
                 'value': self.values,
             }
         )
+
+    def from_dnc(self, polygons):
+        return self.__class__(
+            polygons,
+            self.values,
+            self.preprocess_tolerance,
+            self.min_log2_error,
+            self.max_iterations,
+        )

@@ -2,19 +2,16 @@ import math
 
 from utils import Log
 
-from cac.dnc.DNCProperties import DNCProperties
-
 log = Log('DNCLogger')
 
 
 class DNCLogger:
     @staticmethod
-    def get_emoji(log2_error):
-        k = DNCProperties.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
-        if log2_error > k:
+    def get_emoji(log2_error, min_log2_error):
+        if log2_error > min_log2_error:
             return '🟥'
 
-        if log2_error < -k:
+        if log2_error < -min_log2_error:
             return '🟦'
 
         return '✅'
@@ -35,11 +32,12 @@ class DNCLogger:
         i_to_log2_error = self.get_sorted_i_to_log2_error()
         MAX_DISPLAY = 10
         items = list(i_to_log2_error.items())
-        if len(items) > MAX_DISPLAY:
-            log.warn(f'({MAX_DISPLAY} highest errors)')
+        n_all = len(items)
+        if n_all > MAX_DISPLAY:
+            log.warn(f'({MAX_DISPLAY:,}/{n_all:,} highest errors)')
             items = items[:MAX_DISPLAY]
         for id, log2_error in items:
-            emoji = self.get_emoji(log2_error)
+            emoji = self.get_emoji(log2_error, self.min_log2_error)
             n_emojis = int(math.ceil(abs(log2_error)))
             emojis = n_emojis * emoji
             log.debug(

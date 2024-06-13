@@ -4,8 +4,6 @@ import numpy as np
 
 
 class DNCProperties:
-    MIN_ABS_LOG2_ERROR_FOR_COMPLETION = 0.01
-
     # Independent of Polygons
     @cached_property
     def total_value(self) -> float:
@@ -35,7 +33,9 @@ class DNCProperties:
     def Centroid(self) -> np.ndarray:
         return np.array(
             [
-                np.array([polygon.centroid.x, polygon.centroid.y], dtype=np.float64)
+                np.array(
+                    [polygon.centroid.x, polygon.centroid.y], dtype=np.float64
+                )
                 for polygon in self.polygons
             ]
         )
@@ -83,10 +83,7 @@ class DNCProperties:
 
     @cached_property
     def is_reasonably_complete(self) -> bool:
-        return np.all(
-            np.abs(self.Log2Error)
-            <= DNCProperties.MIN_ABS_LOG2_ERROR_FOR_COMPLETION
-        )
+        return np.all(np.abs(self.Log2Error) <= self.min_log2_error)
 
     @cached_property
     def total_area(self) -> float:
