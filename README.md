@@ -1,6 +1,6 @@
 # Continuous Area Cartograms
 
-Implements *[An Algorithm to Construct Continuous Area Cartograms](paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
+Implements *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)* by Dougenik, Chrisman, and Niemeyer (1985).
 
 ## Examples
 
@@ -42,7 +42,7 @@ I plan to deploy this as a PyPI package, but for now you can clone the repositor
 * Improve [examples](src/cac/examples). Have single examples folder, with sub-folders for data, source and images.
 * Generate some more complex examples.
 
-## Algorithm described in [paper](paper.pdf)
+## Algorithm described in [paper](references/paper.pdf)
 
 ```pseudocode
 For each polygon

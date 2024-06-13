@@ -1,0 +1,105 @@
+of ⁨8⁩
+
+ProlmslonalGeographer, 37(t), t985, 75-81
+9 Copyrfgfit 1985 by Association of American Geograpfiers
+AN ALGORITHM TO CONSTRUCT CONTINUOUS AREA CARTOGRAMS'
+James A. Dougenik Nicholas R. Chrisman Duane R. Niemeyer
+Bedford, MA University of Wisconsin Reading, MA
+Madison
+Continuous area cartograms distort planimetric maps to produce a desired set of areas while presenting the topo
+of the original map. We present a computer algorithm which achieves the result iterativety with high accuracy. T
+approach uses a model of forces exerted from each polygon centroid, acting on coordinates in inverse propo
+to distance. This algorithm can handle more realistic descriptions of polygon boundaries than previous algori
+and manual methods, thus enhancing visual recognition. Key Words: cartograms, thematic cartography, computer
+cartography, transformations, distortion of maps.
+Cartograms are controversial in part because they are difficult to construct and the results
+seen to date are crude or imprecise or both. They also may communicate poorly to some
+audiences. Our computer algorithm attempts to redress the balance by providing a new ap-
+proach to constructing precise cartograms.
+Definition
+A cartogram is a map purposely distorted so that its spatial properties represent quantities
+not directly associated with position on the globe. As thematic maps, cartograms emphasize
+the distribution of a variable by changing the area (or lengths) of objects on the map. There
+are two broad categories of cartograms, linear and area [for a more complete discussion see
+2]. Linear cartograms express one-dimensional quantities by altering the distance component
+of maps while area cartograms use two-dimensional distortions to represent thematic infor-
+mation. Since the two forms have distinct methods of construction, we will concentrate on
+the area case exclusively. Within area cartograms the largest distinction concerns continuity,
+they can easily be produced by sacrificing continuity and surrounding all zones with varying
+amounts of blank space [i.e. 3]. Despite this alternative, the traditional form of a cartogram
+remains the continuous area technique discussed as long ago as 1934 by Raisz [4]. Considering
+the long-term interest in continuous area cartograms, we believe that an effective computer
+algorithm to construct them is desired. Our approach maintains continuity, and preserves
+many local features of cartographic lines that provide visual clues to the identity of the distorted
+objects.
+Ctironology of Cartogram Algorithms
+The only previous publication presenting an algorithm for continuous area cartograms was
+produced by Tobler in 1973 [6). He used a two step process to first fix the base map to a
+continuous surface representing the thematic variable, then to project the map on that surface
+onto a new plane introducing some distortion. The projection is specified by minimizing the
+Jacobian determinant of the surface as an approximation of the new areas, but the new areas
+relate to a cellular grid, not the original polygons. Through successive iterations involving a
+quadratic function of differences between desired and actual areas, the approximation is im-
+proved.
+The quadratic method provides d new area for each cell, but it does not assure that the
+projection is a continuous function. Tobler describes the final convergence of the method as
+• The authors performed this research while employed at the Harvard tJniversity-Laboratorv tor Computer Graphics and
+Spatial Analysis, The algorithm was written by Oougenik in summer o( 1981 and results were displayed as a poster at Harvard
+Computer Graphics Week 1981. A draft of this paper was presented at Harvard Graphics Week 1982 Phillip Muehrcko provided
+comments on a draft. The comments of the reviewers, Poh-Chin Lai and D R F. Taylor, are also gratelully ackn
+Funds from the University of Wisconsin-Madison Graduate School assisted in preparing the manuscript
+75
+76 THE PROFESSIONAL GEOGRAPHER
+slow because a topological test is needed so that cell corners do not cross cell boundaries. In
+the example (a U.S. state cartogram of 1970 population) in his paper, convergence is far from
+complete after 99 iterations. The areas achieved only show a correlation coefficient of .6 with
+the areas intended which implies an explanation of only 36 percent of the variance. This result
+shows distortion in the correct direction, but the result is a cartogram of a different variable
+from the one intended.
+The insufficient accuracy of Tobler's results led Chrisman to outline a new approach using
+a rubber sheet distortion (7). The cartogram process was applied directly to the topological
+structure of the map, not through an intermediary surface. Each polygon exerted a force on
+the adjacent boundary nodes, producing a vector result, when summed for all adjacent poly-
+gons, that displaced the node's position. The force was proposed to be proportional to the
+signed square root of the difference between current and desired area. The square root trans-
+formation converts a ratio of areas to a ratio of positions. The force was proposed to act from
+a polygon center" on the nodes of that polygon's boundary. All the forces of polygons
+adjacent to a node are summed to displace the node to a new location. Like Tobler, Chrisman
+planned an iterative cycle with new areas and coordinates replacing the previous ones.
+The Proposed Algorithm
+Dougenik first attempted to implement Chrisman's ideas in 1981 and discovered difficulties
+which led to the algorithm presented here. Both previous approaches produced forces acting
+only on a topological neighborhood and with no concept of distance decay. Dougenik rec-
+ognized the utility of force field concepts, particularly the distance decay function as applied
+to electrical, gravitational or even social phenomena. The numerator of the polygon force was
+defined as Chrisman did, but he introduced a denominator of distance (see formula 1). In
+close proximity to a centroid, the new distance weighted force is strong. Further away it
+diminishes, but the force is never ignored. The distance decay concept substitutes for the
+topological locality suggested by Chrisman. The sum of all forces (from all polygons) is exerted
+on each coordinate of the map causing it to be displaced. The resulting boundaries avoid
+topological damage because the distortion field is smooth and twice differentiable. The overall
+effect produces large distortions in shape, but the property of differentiability preserves con-
+formality in each small area of the map.
+F,, = 'Pi - q,' P, d,, (1)
+where: F.i = force exerted by polygon j on point i
+Pi = square root (actual area)/square root (n)
+q, = square root (desired area)/square root (TT)
+d,| = distance from centroid of j to point i
+actual area is measured for a polygon and normalized by the sum of the actual areas.
+desired area is the thematic variable, also normalized by its sum.
+In the implementation of formula 1, other problems surfaced. When a coordinate was very
+near a polygon center, the force exerted was tremendously large. An adjustment was em-
+ployed, patterned on the interpolation search procedure in SYMAP where Shepard attaches a
+linear function with a continuous derivative to the tail of the distance decay function (5). The
+ad)ustment shown in formula 2 only attects distances less than the "radius" of the polygon.
+(The term p defined above serves as a radius, considering the polygon to be as compact as
+possible.)
+Foi d,| greater than p, use Fornwla (1)
+For d,| less than or equal to p^:
+f., = (P, - q,) ( ('•p, - 3d,|)/P|) (df/pf) (2)
+The adjustment in formula (2) makes the combined functions continuous and differentiable
+at the point of crossover, and it also provides a zero value when the distance goes to zero.
+While formula (2) provides the strength of the displacement, the direction of the vector is
+determined by the line connecting the centroid to the point. A positive value ot the force
+moves the point away from the centroid, and a negative force pulls towards it.
+Unlike Tobler's method, this procedure makes no checks for topological boundary viola-
