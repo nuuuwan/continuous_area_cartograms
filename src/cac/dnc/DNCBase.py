@@ -24,14 +24,13 @@ class DNCBase:
         log.debug(
             dict(
                 preprocess_tolerance=preprocess_tolerance,
-            min_log2_error=min_log2_error,
-            max_iterations=max_iterations,
+                min_log2_error=min_log2_error,
+                max_iterations=max_iterations,
             )
         )
         self.preprocess_tolerance = preprocess_tolerance
         self.min_log2_error = min_log2_error
         self.max_iterations = max_iterations
-        
 
     @staticmethod
     def preprocess(polygon, tolerance):
