@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/europe_by_gdp_md_est">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/europe_by_gdp_md_est/output/animated.gif" height="320px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/europe_by_gdp_md_est/output/animated.gif" height="240px" />
   </a>
 
 </p>
