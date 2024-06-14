@@ -23,7 +23,7 @@ class DNCLoader:
     @classmethod
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
-        min_p_area = 0.01
+        min_p_area = kwargs.get('min_p_area', 0.01)
         
         polygons_for_dnc = []
         values_for_dnc = []
