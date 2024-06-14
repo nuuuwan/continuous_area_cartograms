@@ -2,8 +2,8 @@
 
 <p align="center">
 
-  <a href="examples/lk_pds_by_electors">
-    <img src="examples/lk_pds_by_electors/output/animated.gif" height="320px" />
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/lk_pds_by_electors">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/output/animated.gif" height="320px" />
   </a>
 
 </p>
