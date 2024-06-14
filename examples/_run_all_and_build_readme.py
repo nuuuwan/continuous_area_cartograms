@@ -58,9 +58,7 @@ def get_readme_lines_for_example(
     dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
     os.path.join(dir_path, 'output')
-    animated_gif_path = os.path.join(
-        dir_name, 'output', 'animated.gif'
-    ).replace('\\', '/')
+
 
     label = dir_name.replace('_', ' ').title()
     md_lines = (
@@ -77,6 +75,16 @@ def get_readme_lines_for_example(
     )
 
     md_lines.extend(build_code(dir_path))
+
+    md_path = os.path.join(DIR_EXAMPLES, dir_name,'README.md')
+    File(md_path).write_lines(md_lines)
+    log.info(f'Wrote {md_path}')
+
+    run_system(f'git add "{md_path}')
+    run_system(
+        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
+    )
+
     return md_lines
 
 
