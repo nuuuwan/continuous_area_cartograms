@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <a href="build_from_polygons">
+  <a href="examples/build_from_polygons">
     <img src="examples/build_from_polygons/output/animated.gif" height="320px" />
   </a>
 
