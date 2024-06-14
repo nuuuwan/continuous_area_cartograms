@@ -1,3 +1,5 @@
+import math
+
 import topojson
 from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
@@ -36,24 +38,29 @@ class DNCRenderer:
         )
 
     @staticmethod
-    def render_polygon_text(polygon, actual_value, log2_error):
+    def render_polygon_text(polygon, actual_value, log2_error, total_area):
         background_color = DNCRenderer.get_color(log2_error)
         foreground_color = DNCRenderer.get_foreground_color(background_color)
         x, y = polygon.centroid.coords[0]
+        p_area = polygon.area / total_area
+        BASE_FONT_SIZE = 15
+        font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         plt.text(
             x,
             y,
             Number(actual_value).humanized(),
             color=foreground_color,
-            fontsize=3,
+            fontsize=font_size,
             horizontalalignment='center',
             verticalalignment='center',
         )
 
     @staticmethod
-    def render_polygon(polygon, actual_value, log2_error, ax):
+    def render_polygon(polygon, actual_value, log2_error, total_area, ax):
         DNCRenderer.render_polygon_shape(polygon, log2_error, ax)
-        DNCRenderer.render_polygon_text(polygon, actual_value, log2_error)
+        DNCRenderer.render_polygon_text(
+            polygon, actual_value, log2_error, total_area
+        )
 
     @staticmethod
     def remove_grids(ax):
@@ -71,10 +78,13 @@ class DNCRenderer:
     ):
         plt.close()
         ax = plt.gca()
+        total_area = sum([polygon.area for polygon in polygons])
         for polygon, actual_value, log2_error in zip(
             polygons, ActualValue, Log2Error
         ):
-            DNCRenderer.render_polygon(polygon, actual_value, log2_error, ax)
+            DNCRenderer.render_polygon(
+                polygon, actual_value, log2_error, total_area, ax
+            )
         DNCRenderer.remove_grids(ax)
 
     @staticmethod
