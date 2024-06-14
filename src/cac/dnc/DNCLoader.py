@@ -52,6 +52,8 @@ class DNCLoader:
             labels = gdf['name']
         elif 'id' in gdf:
             labels = gdf['id']
+        if labels is None:
+            labels = [str(i) for i in range(len(geometry))]
 
         min_p_area = kwargs.get('min_p_area', 0.01)
 
@@ -81,6 +83,7 @@ class DNCLoader:
         object_name = list(data['objects'].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
+        gdf.to_file('Provinces.geo.json', driver='GeoJSON')
         return cls.from_gdf(gdf, values, **kwargs)
 
     @classmethod
