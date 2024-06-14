@@ -34,7 +34,7 @@ class DNCLogger:
         items = list(i_to_log2_error.items())
         n_all = len(items)
         if n_all > MAX_DISPLAY:
-            log.warn(f'({MAX_DISPLAY:,}/{n_all:,} highest errors)')
+            log.warn(f'({MAX_DISPLAY:,}/{n_all:,} highest log2_errors)')
             items = items[:MAX_DISPLAY]
         for id, log2_error in items:
             emoji = self.get_emoji(log2_error, self.min_log2_error)
@@ -45,6 +45,7 @@ class DNCLogger:
                 + f'{log2_error:.2f} '.rjust(10)
                 + emojis.rjust(10)
             )
+        log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error}:.4f')
 
     def log_complexity(self):
         n_polygons = self.n_polygons
