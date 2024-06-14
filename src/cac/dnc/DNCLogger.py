@@ -56,7 +56,7 @@ class DNCLogger:
             + DNCLogger.format_log2_error(self.mean_abs_log2_error)
         )
         log.debug(
-            '✅ = ' + DNCLogger.format_log2_error(-self.min_log2_error) + ' to ' + DNCLogger.format_log2_error(self.min_log2_error) _
+            '✅ = ' + DNCLogger.format_log2_error(-self.min_log2_error) + ' to ' + DNCLogger.format_log2_error(self.min_log2_error) 
         )
 
     def log_complexity(self):
