@@ -8,7 +8,7 @@ class DNCBase:
     def __init__(
         self,
         polygons: list[Polygon],
-        values: list[float],
+        values=None,
         labels=None,
         preprocess_tolerance=0.001,
         min_log2_error=0.1,
@@ -21,6 +21,8 @@ class DNCBase:
         ]
 
         # values
+        if values is None:
+            values = [1 for _ in range(len(polygons))]
         self.values = values
 
         # labels

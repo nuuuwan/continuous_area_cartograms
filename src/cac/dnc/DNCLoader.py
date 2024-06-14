@@ -43,7 +43,7 @@ class DNCLoader:
         return [filtered_polygons, values_for_shape, labels_for_shape]
 
     @classmethod
-    def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
+    def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float]=None, **kwargs):
         geometry = gdf['geometry']
 
         # labels
@@ -55,6 +55,10 @@ class DNCLoader:
         if labels is None:
             labels = [str(i) for i in range(len(geometry))]
 
+        # values
+        if values is None:
+            values = [1 for _ in range(len(geometry))]
+        
         min_p_area = kwargs.get('min_p_area', 0.01)
 
         polygons_for_dnc = []
@@ -73,12 +77,12 @@ class DNCLoader:
         return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
 
     @classmethod
-    def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
+    def from_geojson(cls, geojson_path: str, values: list[float]=None, **kwargs):
         gdf = gpd.read_file(geojson_path)
         return cls.from_gdf(gdf, values, **kwargs)
 
     @classmethod
-    def from_topojson(cls, topojson_path: str, values: list[float], **kwargs):
+    def from_topojson(cls, topojson_path: str, values: list[float]=None, **kwargs):
         data = JSONFile(topojson_path).read()
         object_name = list(data['objects'].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
@@ -87,7 +91,7 @@ class DNCLoader:
         return cls.from_gdf(gdf, values, **kwargs)
 
     @classmethod
-    def from_ents(cls, ents: list[Ent], values: list[float], **kwargs):
+    def from_ents(cls, ents: list[Ent], values: list[float]=None, **kwargs):
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
