@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="europe_by_gdp_md_est">
-    <img src="europe_by_gdp_md_est/output/animated.gif" height="320px" />
+    <img src="examples/europe_by_gdp_md_est/output/animated.gif" height="320px" />
   </a>
 
 </p>
