@@ -94,6 +94,7 @@ def get_readme_lines_for_example(
     run_system(
         'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
     )
+    run_system('git push origin main')
 
     return md_lines
 
@@ -114,6 +115,7 @@ def build_readme(dir_names):
     run_system(
         'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
     )
+    run_system('git push origin main')
 
 
 def build_example_gallery(dir_names):
@@ -141,6 +143,7 @@ def build_example_gallery(dir_names):
     run_system(
         'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
     )
+    run_system('git push origin main')
 
 
 def run_all(dir_names, force_build):
@@ -158,6 +161,7 @@ def run_all(dir_names, force_build):
             'git commit -m '
             + f'"🤖 [_run_all_and_build_readme.py] {dir_name}"'
         )
+        run_system('git push origin main')
 
 
 def process_all(force_build):
