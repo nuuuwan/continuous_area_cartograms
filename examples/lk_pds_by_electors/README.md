@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <a href="lk_pds_by_electors">
+  <a href="examples/lk_pds_by_electors">
     <img src="examples/lk_pds_by_electors/output/animated.gif" height="320px" />
   </a>
 
