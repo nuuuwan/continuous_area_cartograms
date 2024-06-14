@@ -2,8 +2,8 @@
 
 <p align="center">
 
-  <a href="examples/lk_districts_by_population">
-    <img src="examples/lk_districts_by_population/output/animated.gif" height="320px" />
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/lk_districts_by_population">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" height="320px" />
   </a>
 
 </p>
