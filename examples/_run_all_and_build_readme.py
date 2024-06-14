@@ -79,6 +79,36 @@ def build_readme(dir_names):
     )
 
 
+def build_example_gallery(dir_names):
+    md_lines = [
+        '# Example Gallery',
+        '',
+        '<p align="center">',
+    ]
+
+    for dir_name in dir_names:
+        animated_gif_path = os.path.join(
+            DIR_EXAMPLES, dir_name, 'output', 'animated.gif'
+        ).replace('\\', '/')
+        md_lines.append(f'  <img src="{animated_gif_path}" height="240px" />')
+
+    md_lines.extend(
+        [
+            '</p>',
+            '',
+        ]
+    )
+
+    md_path = os.path.join('README.example_gallery.md')
+    File(md_path).write_lines(md_lines)
+    log.info(f'Wrote {md_path}')
+
+    run_system(f'git add "{md_path}')
+    run_system(
+        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
+    )
+
+
 def run_all(dir_names, force_build):
     for dir_name in dir_names:
         output_path = os.path.join(DIR_EXAMPLES, dir_name, 'output')
@@ -98,6 +128,7 @@ def run_all(dir_names, force_build):
 
 def process_all(force_build):
     dir_names = get_dir_names()
+    build_example_gallery(dir_names)
     build_readme(dir_names)
     run_all(dir_names, force_build)
 
