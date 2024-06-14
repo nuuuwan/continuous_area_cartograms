@@ -35,7 +35,7 @@ class DNCRenderer:
             ax=ax,
             facecolor=background_color,
             edgecolor="white",
-            linewidth=1,
+            linewidth=0.2,
         )
 
     @staticmethod
