@@ -59,5 +59,6 @@ def main():
 
     print(new_polygon)
 
+
 if __name__ == "__main__":
     main()
