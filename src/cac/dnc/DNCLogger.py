@@ -44,9 +44,9 @@ class DNCLogger:
         for label, log2_error in items:
             emoji = self.get_emoji(log2_error, self.min_log2_error)
             log.debug(
-                f'{label})'.rjust(8)
+                f'{label}'.rjust(24)
                 + DNCLogger.format_log2_error(log2_error).rjust(12)
-                + emoji.rjust(8)
+                + emoji.rjust(12)
             )
         log.debug(
             'mean(desired/actual value)='

@@ -22,11 +22,20 @@ class DNCLoader:
     @classmethod
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
+        
+        # labels
+        labels = None
+        if 'name' in gdf:
+            labels = gdf['name']
+        elif 'id' in gdf:
+            labels = gdf['id']
+        
         min_p_area = kwargs.get('min_p_area', 0.01)
 
         polygons_for_dnc = []
         values_for_dnc = []
-        for value, shape in zip(values, geometry):
+        labels_for_dnc = []
+        for shape, value, label in zip(geometry, values, labels):
             polygons = DNCLoader.extract_polygons(shape)
 
             total_area = sum([polygon.area for polygon in polygons])
@@ -41,7 +50,12 @@ class DNCLoader:
             ]
             polygons_for_dnc.extend(filtered_polygons)
             values_for_dnc.extend(values_for_shape)
-        return cls(polygons_for_dnc, values_for_dnc, **kwargs)
+            if len(filtered_polygons) == 1:
+                labels_for_dnc.append(label)
+            else:
+                labels_for_dnc.extend([f'{label}-{i}' for i in range(len(filtered_polygons))])
+
+        return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
 
     @classmethod
     def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
@@ -64,6 +78,8 @@ class DNCLoader:
             gdfs.append(gdf)
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
+        combined_gdf['id'] = [ent.id for ent in ents]
+        combined_gdf['name'] = [ent.name for ent in ents]
         return cls.from_gdf(combined_gdf, values, **kwargs)
 
     def to_gdf(self):
