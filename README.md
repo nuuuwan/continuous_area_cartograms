@@ -1,21 +1,21 @@
 # Continuous Area Cartograms
 
 <p align="center">
-  <img src="examples/build_from_polygons/output/animated.gif" height="50%" />
+  <img src="examples/build_from_polygons/output/animated.gif" height="50vh" />
 
-  <img src="examples/cmc_gnds_by_population/output/animated.gif" height="50%" />
+  <img src="examples/cmc_gnds_by_population/output/animated.gif" height="50vh" />
 
-  <img src="examples/cmb_pds_by_population/output/animated.gif" height="50%" />
+  <img src="examples/cmb_pds_by_population/output/animated.gif" height="50vh" />
 
-  <img src="examples/build_from_ents/output/animated.gif" height="50%" />
+  <img src="examples/build_from_ents/output/animated.gif" height="50vh" />
 
-  <img src="examples/build_from_topojson/output/animated.gif" height="50%" />
+  <img src="examples/build_from_topojson/output/animated.gif" height="50vh" />
 
-  <img src="examples/lk_districts_by_population/output/animated.gif" height="50%" />
+  <img src="examples/lk_districts_by_population/output/animated.gif" height="50vh" />
 
-  <img src="examples/lk_pds_by_electors/output/animated.gif" height="50%" />
+  <img src="examples/lk_pds_by_electors/output/animated.gif" height="50vh" />
 
-  <img src="examples/world_countries_by_population/output/animated.gif" height="50%" />
+  <img src="examples/world_countries_by_population/output/animated.gif" height="50vh" />
 </p>
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
@@ -47,7 +47,7 @@ pip install continuous_area_cartograms-nuuuwan
 In this example, we take a simple map consisting of four squares of equal area, and modify it such that one square ends up 4 times has large as the others.
 
 <p align="center">
-  <img src="examples/build_from_polygons/output/images/000.png" height="50%" />
+  <img src="examples/build_from_polygons/output/images/000.png" height="50vh" />
 </p>
 
 First, construct a **DNC object**, providing the regions (as shapely Polygons) and their corresponding values.
@@ -123,7 +123,7 @@ Output:
 ```
 
 <p align="center">
-  <img src="examples/build_from_polygons/output/images/013.png" height="50%" />
+  <img src="examples/build_from_polygons/output/images/013.png" height="50vh" />
 </p>
 
 The output directory (*dir_output*) stores the following content:
@@ -133,7 +133,7 @@ The output directory (*dir_output*) stores the following content:
 * animated.gif: Images combined into an animated GIF
 
 <p align="center">
-  <img src="examples/build_from_polygons/output/animated.gif" height="50%" />
+  <img src="examples/build_from_polygons/output/animated.gif" height="50vh" />
 </p>
 
 Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
