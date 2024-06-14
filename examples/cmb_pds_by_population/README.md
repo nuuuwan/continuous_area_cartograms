@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <a href="cmb_pds_by_population">
+  <a href="examples/cmb_pds_by_population">
     <img src="examples/cmb_pds_by_population/output/animated.gif" height="320px" />
   </a>
 
