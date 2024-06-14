@@ -16,7 +16,9 @@
   <img src="examples/lk_pds_by_electors/output/animated.gif" width="240px" />
 </p>
 
-> An animation of a True-Scale Map of Sri Lanka's Administrative districts, morphing into a Continous Area Cartograms representing population
+This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
+
+We refer to the algorithm as the *DNC Algorithm*, after its authors.
 
 ## Background
 
@@ -31,10 +33,6 @@ A Continuous Area Cartogram (CAC) is a type of cartogram where the map is distor
 ### Why are Cartograms Useful?
 
 Cartograms are especially useful for providing a visual representation of statistical data, allowing for easy comparisons and understanding of geographic distributions of data. They highlight disparities and patterns that might be overlooked in standard map representations. For example, a cartogram can make it visually apparent how much larger the population of one city is compared to another, despite the actual geographic size being smaller.
-
-## This Repository
-
-This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
 ## Install
 
@@ -190,10 +188,6 @@ For each iteration (user controls when done)
             Move coordinate accordingly
         Write distorted line to output and plot result
 ```
-
-In code, we will refer to this as the *DNC Algorithm*, after its authors.
-
-### Intuition
 
 The intuition behind DNC, is as follows:
 
