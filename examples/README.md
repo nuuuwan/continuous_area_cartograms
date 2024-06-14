@@ -29,6 +29,37 @@
 
 ```
 
+### [Build From Geojson](examples/build_from_geojson)
+
+<p align="center">
+
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_geojson">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_geojson/output/animated.gif" height="240px" />
+  </a>
+
+</p>
+
+```python
+    import os
+
+    from cac import DNC
+
+    dnc = DNC.from_geojson(
+        geojson_path=os.path.join(
+            os.path.dirname(__file__), 'geojson_data', 'Provinces.geo.json'
+        ),
+        values=[1, 1, 3, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
+    )
+
+    dnc.run(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
+    )
+
+```
+
 ### [Build From Polygons](examples/build_from_polygons)
 
 <p align="center">
@@ -99,8 +130,6 @@
     )
 
     print(new_polygon)
-
-    # [<POLYGON ((0.032 0.232, 0.142 0.979, 0.68 1.32, 0.587 0.078, 0.032 0.232))>, <POLYGON ((0.587 0.078, 0.68 1.32, 1.922 1.413, 2.122 -0.122, 0.587 0.078))>, <POLYGON ((0.142 0.979, 0.112 1.888, 1.021 1.858, 0.68 1.32, 0.142 0.979))>, <POLYGON ((0.68 1.32, 1.021 1.858, 1.768 1.968, 1.922 1.413, 0.68 1.32))>]
 
 ```
 
