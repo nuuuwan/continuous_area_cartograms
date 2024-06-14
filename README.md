@@ -10,15 +10,11 @@
   <img src="examples/build_from_ents/output/animated.gif" width="240px" />
 
   <img src="examples/build_from_topojson/output/animated.gif" width="240px" />
-</p>
 
-<p align="center">
   <img src="examples/lk_districts_by_population/output/animated.gif" width="240px" />
 
   <img src="examples/lk_pds_by_electors/output/animated.gif" width="240px" />
- </p>
 
-<p align="center">
   <img src="world_countries_by_population/output/animated.gif" width="480px" />
 </p>
 
