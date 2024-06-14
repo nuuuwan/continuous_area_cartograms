@@ -59,7 +59,6 @@ def get_readme_lines_for_example(
     dir_path_unix = dir_path.replace('\\', '/')
     os.path.join(dir_path, 'output')
 
-
     label = dir_name.replace('_', ' ').title()
     md_lines = (
         [
@@ -76,7 +75,7 @@ def get_readme_lines_for_example(
 
     md_lines.extend(build_code(dir_path))
 
-    md_path = os.path.join(DIR_EXAMPLES, dir_name,'README.md')
+    md_path = os.path.join(DIR_EXAMPLES, dir_name, 'README.md')
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
