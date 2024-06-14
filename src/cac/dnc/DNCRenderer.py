@@ -46,7 +46,7 @@ class DNCRenderer:
         foreground_color = DNCRenderer.get_foreground_color(background_color)
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / total_area
-        BASE_FONT_SIZE = 15
+        BASE_FONT_SIZE = 12
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         if font_size < 1:
             return
