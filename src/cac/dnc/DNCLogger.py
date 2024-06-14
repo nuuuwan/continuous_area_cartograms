@@ -41,9 +41,9 @@ class DNCLogger:
             n_emojis = int(math.ceil(abs(log2_error)))
             emojis = n_emojis * emoji
             log.debug(
-                f' {id} '.rjust(10)
-                + f'{log2_error:.2f} '.rjust(10)
-                + emojis.rjust(10)
+                f' {id} '.rjust(6)
+                + f'{log2_error:.2f} '.rjust(6)
+                + emojis.ljust(6)
             )
         log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error:.4f}')
 

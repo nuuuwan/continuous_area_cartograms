@@ -72,7 +72,7 @@ class DNCProperties:
     @cached_property
     def Log2Error(self) -> np.ndarray:
         return np.log2(self.Area / self.Desired)
-    
+
     @cached_property
     def mean_abs_log2_error(self) -> float:
         return np.mean(np.abs(self.Log2Error))
