@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="cmc_gnds_by_population">
-    <img src="cmc_gnds_by_population/output/animated.gif" height="320px" />
+    <img src="examples/cmc_gnds_by_population/output/animated.gif" height="320px" />
   </a>
 
 </p>
