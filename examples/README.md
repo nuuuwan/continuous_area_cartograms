@@ -3,7 +3,7 @@
 ### [Build From Ents](examples/build_from_ents)
 
 <p align="center">
-<img src="build_from_ents/output/animated.gif" height="320px" />
+  <img src="build_from_ents/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -28,7 +28,7 @@
 ### [Build From Polygons](examples/build_from_polygons)
 
 <p align="center">
-<img src="build_from_polygons/output/animated.gif" height="320px" />
+  <img src="build_from_polygons/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -98,7 +98,7 @@
 ### [Build From Topojson](examples/build_from_topojson)
 
 <p align="center">
-<img src="build_from_topojson/output/animated.gif" height="320px" />
+  <img src="build_from_topojson/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -125,7 +125,7 @@
 ### [Cmb Pds By Population](examples/cmb_pds_by_population)
 
 <p align="center">
-<img src="cmb_pds_by_population/output/animated.gif" height="320px" />
+  <img src="cmb_pds_by_population/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -154,7 +154,7 @@
 ### [Cmc Gnds By Population](examples/cmc_gnds_by_population)
 
 <p align="center">
-<img src="cmc_gnds_by_population/output/animated.gif" height="320px" />
+  <img src="cmc_gnds_by_population/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -183,7 +183,7 @@
 ### [Europe By Gdp Md Est](examples/europe_by_gdp_md_est)
 
 <p align="center">
-<img src="europe_by_gdp_md_est/output/animated.gif" height="320px" />
+  <img src="europe_by_gdp_md_est/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -216,7 +216,7 @@
 ### [Lk Districts By Population](examples/lk_districts_by_population)
 
 <p align="center">
-<img src="lk_districts_by_population/output/animated.gif" height="320px" />
+  <img src="lk_districts_by_population/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -244,7 +244,7 @@
 ### [Lk Pds By Electors](examples/lk_pds_by_electors)
 
 <p align="center">
-<img src="lk_pds_by_electors/output/animated.gif" height="320px" />
+  <img src="lk_pds_by_electors/output/animated.gif" height="320px" />
 </p>
 
 ```python
@@ -276,7 +276,7 @@
 ### [World Countries By Population](examples/world_countries_by_population)
 
 <p align="center">
-<img src="world_countries_by_population/output/animated.gif" height="320px" />
+  <img src="world_countries_by_population/output/animated.gif" height="320px" />
 </p>
 
 ```python
