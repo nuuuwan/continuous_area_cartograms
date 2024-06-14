@@ -74,7 +74,7 @@ class DNCRenderer:
     @staticmethod
     def render_legend(ax):
         handles = []
-        for log2_error in [-1, -0.5, 0, 0.5, 1]:
+        for log2_error in [-1, -0.5, -0.25, 0, 0.25, 0.5, 1]:
             label = f'{2**log2_error:.0%}'
             label += {
                 -1: ' (too small)',
@@ -84,7 +84,9 @@ class DNCRenderer:
             background_color = DNCRenderer.get_color(log2_error)
             patch = mpatches.Patch(color=background_color, label=label)
             handles.append(patch)
-        ax.legend(handles=handles, fontsize=3, loc="upper right")
+        ax.legend(
+            handles=handles, fontsize=3, loc="upper right", frameon=False
+        )
 
     @staticmethod
     def render_all(
