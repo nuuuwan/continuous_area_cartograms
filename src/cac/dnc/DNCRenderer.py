@@ -87,7 +87,7 @@ class DNCRenderer:
             patch = mpatches.Patch(color=background_color, label=label)
             handles.append(patch)
         ax.legend(
-            handles=handles, fontsize=3, loc="upper right", frameon=False
+            handles=handles, fontsize=3, loc="best", frameon=False
         )
 
     @staticmethod
