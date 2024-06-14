@@ -68,12 +68,18 @@ def build_readme(dir_names):
     log.info(f'Wrote {md_path}')
 
 
+def run_system(cmd):
+    log.info(f'🤖 {cmd}')
+    os.system(cmd)
+
+
 def run_all(dir_names):
     for dir_name in dir_names:
         py_path = os.path.join(DIR_EXAMPLES, dir_name, 'source.py')
         py_cmd = f'python {py_path}'
-        log.info(py_cmd)
-        os.system(py_cmd)
+        run_system(py_cmd)
+    run_system('git add examples')
+    run_system('git commit - m "🤖 Update examples"')
 
 
 def process_all():
