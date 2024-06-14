@@ -47,6 +47,11 @@
   </a>
 
 
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/lk_province_by_religion">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_province_by_religion/output/animated.gif" height="240px" />
+  </a>
+
+
   <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/world_countries_by_gdp_md_est">
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/output/animated.gif" height="240px" />
   </a>
