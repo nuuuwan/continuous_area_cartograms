@@ -15,7 +15,7 @@
 
   <img src="examples/lk_pds_by_electors/output/animated.gif" width="240px" />
 
-  <img src="world_countries_by_population/output/animated.gif" width="480px" />
+  <img src="examples/world_countries_by_population/output/animated.gif" width="480px" />
 </p>
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
