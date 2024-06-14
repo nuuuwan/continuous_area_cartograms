@@ -11,6 +11,19 @@ def run_system(cmd):
     log.info(f'🤖 {cmd}')
     os.system(cmd)
 
+def render_animated_gif(dir_name):
+    animated_gif_path = os.path.join(
+        dir_name, 'output', 'animated.gif'
+    ).replace('\\', '/')
+
+    md_lines = [
+        '',
+        f'  <a href="{dir_name}">',
+        f'    <img src="{animated_gif_path}" height="320px" />',
+        '  </a>',
+        '',
+    ]
+    return md_lines
 
 def get_dir_names():
     dir_names = []
@@ -52,7 +65,9 @@ def get_readme_lines_for_example(
         f'### [{label}]({dir_path_unix})',
         '',
         '<p align="center">',
-        f'  <img src="{animated_gif_path}" width="240px" />',
+    ] + render_animated_gif(
+        dir_name
+    ) + [
         '</p>',
         '',
     ]
@@ -87,10 +102,11 @@ def build_example_gallery(dir_names):
     ]
 
     for dir_name in dir_names:
-        animated_gif_path = os.path.join(
-            DIR_EXAMPLES, dir_name, 'output', 'animated.gif'
-        ).replace('\\', '/')
-        md_lines.append(f'  <img src="{animated_gif_path}" height="240px" />')
+        md_lines.extend(
+            render_animated_gif(
+                os.path.join(DIR_EXAMPLES, dir_name)
+            )
+        )
 
     md_lines.extend(
         [
