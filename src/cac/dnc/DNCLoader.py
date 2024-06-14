@@ -15,7 +15,6 @@ class DNCLoader:
             return [geometry]
 
         if isinstance(geometry, MultiPolygon):
-       
             return geometry.geoms
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
@@ -24,17 +23,17 @@ class DNCLoader:
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
         min_p_area = kwargs.get('min_p_area', 0.01)
-        
+
         polygons_for_dnc = []
         values_for_dnc = []
         for value, shape in zip(values, geometry):
-            polygons = DNCLoader.extract_polygons(shape) 
-            
-            total_area =sum([polygon.area for polygon in polygons])
+            polygons = DNCLoader.extract_polygons(shape)
+
+            total_area = sum([polygon.area for polygon in polygons])
             min_area = total_area * min_p_area
             filtered_polygons = [
                 polygon for polygon in polygons if polygon.area > min_area
-            ]           
+            ]
             total_area = sum([polygon.area for polygon in filtered_polygons])
             values_for_shape = [
                 value * polygon.area / total_area

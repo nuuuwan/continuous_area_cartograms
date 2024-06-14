@@ -86,9 +86,7 @@ class DNCRenderer:
             background_color = DNCRenderer.get_color(log2_error)
             patch = mpatches.Patch(color=background_color, label=label)
             handles.append(patch)
-        ax.legend(
-            handles=handles, fontsize=3, loc="best", frameon=False
-        )
+        ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
 
     @staticmethod
     def render_all(
