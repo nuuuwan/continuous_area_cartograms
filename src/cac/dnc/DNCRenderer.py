@@ -1,6 +1,6 @@
 import math
 
-import topojson
+import geopandas
 from matplotlib import colors as mcolors
 from matplotlib import patches as mpatches
 from matplotlib import pyplot as plt
@@ -29,11 +29,10 @@ class DNCRenderer:
 
     @staticmethod
     def render_polygon_shape(polygon, log2_error, ax):
-        gdf = topojson.Topology(polygon).to_gdf()
-        background_color = DNCRenderer.get_color(log2_error)
+        gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=ax,
-            facecolor=background_color,
+            facecolor=DNCRenderer.get_color(log2_error),
             edgecolor="white",
             linewidth=0.2,
         )
