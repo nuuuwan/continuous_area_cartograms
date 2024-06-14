@@ -15,7 +15,11 @@ class DNCLoader:
             return [geometry]
 
         if isinstance(geometry, MultiPolygon):
-            return geometry.geoms
+            return sorted(
+                geometry.geoms, 
+                key=lambda polygon: polygon.area,
+                reverse=True,
+            )
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
@@ -53,7 +57,7 @@ class DNCLoader:
             if len(filtered_polygons) == 1:
                 labels_for_dnc.append(label)
             else:
-                labels_for_dnc.extend([f'{label}-{i}' for i in range(len(filtered_polygons))])
+                labels_for_dnc.extend([f'{label}-{i+1}' for i in range(len(filtered_polygons))])
 
         return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
 
