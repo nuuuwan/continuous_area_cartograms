@@ -16,10 +16,11 @@ def render_animated_gif(dir_name):
     animated_gif_path = os.path.join(
         DIR_EXAMPLES, dir_name, 'output', 'animated.gif'
     ).replace('\\', '/')
-    dir_name_unix = dir_name.replace('\\', '/')
+    dir_path = os.path.join(DIR_EXAMPLES, dir_name)
+    dir_path_unix = dir_path.replace('\\', '/')
     md_lines = [
         '',
-        f'  <a href="{dir_name_unix}">',
+        f'  <a href="{dir_path_unix}">',
         f'    <img src="{animated_gif_path}" height="320px" />',
         '  </a>',
         '',
@@ -113,9 +114,7 @@ def build_example_gallery(dir_names):
     ]
 
     for dir_name in dir_names:
-        md_lines.extend(
-            render_animated_gif(os.path.join(DIR_EXAMPLES, dir_name))
-        )
+        md_lines.extend(render_animated_gif(dir_name))
 
     md_lines.extend(
         [
