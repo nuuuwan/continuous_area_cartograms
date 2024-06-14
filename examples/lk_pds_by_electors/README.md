@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="lk_pds_by_electors">
-    <img src="lk_pds_by_electors/output/animated.gif" height="320px" />
+    <img src="examples/lk_pds_by_electors/output/animated.gif" height="320px" />
   </a>
 
 </p>
