@@ -6,6 +6,14 @@ log = Log('build_readme_examples')
 DIR_EXAMPLES = 'examples'
 
 
+def get_dir_names():
+    dir_names = []
+    for dir_name in os.listdir(DIR_EXAMPLES):
+        if os.path.isdir(os.path.join(DIR_EXAMPLES, dir_name)):
+            dir_names.append(dir_name)
+    return dir_names
+
+
 def build_code(dir_path):
     py_path = os.path.join(dir_path, 'source.py')
     py_lines = File(py_path).read_lines()
@@ -23,10 +31,9 @@ def build_code(dir_path):
     return md_lines
 
 
-def process_single(
+def get_readme_lines_for_example(
     dir_name,
 ):
-    log.debug(f'Processing {dir_name}')
     dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
     os.path.join(dir_path, 'output')
@@ -48,18 +55,32 @@ def process_single(
     return md_lines
 
 
-def process_all(md_path):
+def build_readme(dir_names):
     md_lines = [
         '# Examples',
         '',
     ]
-    for dir_name in os.listdir(DIR_EXAMPLES):
-        if os.path.isdir(os.path.join(DIR_EXAMPLES, dir_name)):
-            md_lines.extend(process_single(dir_name))
+    for dir_name in dir_names:
+        md_lines.extend(get_readme_lines_for_example(dir_name))
 
+    md_path = os.path.join(DIR_EXAMPLES, 'README.md')
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
 
+def run_all(dir_names):
+    for dir_name in dir_names:
+        py_path = os.path.join(DIR_EXAMPLES, dir_name, 'source.py')
+        py_cmd = f'python {py_path}'
+        log.info(py_cmd)
+        os.system(py_cmd)
+
+
+def process_all():
+    dir_names = get_dir_names()
+    build_readme(dir_names)
+    run_all(dir_names)
+
+
 if __name__ == "__main__":
-    process_all(os.path.join(DIR_EXAMPLES, 'README.md'))
+    process_all()
