@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <a href="build_from_topojson">
+  <a href="examples/build_from_topojson">
     <img src="examples/build_from_topojson/output/animated.gif" height="320px" />
   </a>
 
