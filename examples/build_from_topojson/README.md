@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="build_from_topojson">
-    <img src="build_from_topojson/output/animated.gif" height="320px" />
+    <img src="examples/build_from_topojson/output/animated.gif" height="320px" />
   </a>
 
 </p>
