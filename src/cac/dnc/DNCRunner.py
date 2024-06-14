@@ -53,7 +53,7 @@ class DNCRunner:
         if dnc.do_shrink:
             dnc = cls.shrink(dnc)
         return dnc
-    
+
     @classmethod
     def shrink(cls, dnc, min_p=0.5, shrink_factor=0.1):
         new_polygons = []
@@ -62,7 +62,7 @@ class DNCRunner:
         for polygon, value in zip(dnc.polygons, dnc.values):
             p = (value / total_value) / (polygon.area / total_area)
             if p < min_p:
-                scale_factor = p ** shrink_factor
+                scale_factor = p**shrink_factor
                 polygon = affinity.scale(polygon, scale_factor, scale_factor)
             new_polygons.append(polygon)
         return dnc.from_dnc(new_polygons)

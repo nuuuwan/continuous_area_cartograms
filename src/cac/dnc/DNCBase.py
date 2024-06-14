@@ -1,6 +1,6 @@
 from shapely import Polygon
 from utils import Log
-from shapely import affinity
+
 log = Log('DNCBase')
 
 
@@ -40,14 +40,13 @@ class DNCBase:
                 preprocess_tolerance=preprocess_tolerance,
                 min_log2_error=min_log2_error,
                 max_iterations=max_iterations,
-                do_shrink=do_shrink
+                do_shrink=do_shrink,
             )
         )
         self.preprocess_tolerance = preprocess_tolerance
         self.min_log2_error = min_log2_error
         self.max_iterations = max_iterations
         self.do_shrink = do_shrink
-
 
     @staticmethod
     def preprocess(polygon, tolerance):
@@ -58,6 +57,3 @@ class DNCBase:
         if tolerance > 0:
             polygon = polygon.simplify(tolerance=tolerance)
         return polygon
-
-
-    
