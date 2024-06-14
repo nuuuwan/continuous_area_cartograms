@@ -27,7 +27,6 @@ class DNCRunner:
                 Point_i[np.newaxis, :, :] - Centroid[:, np.newaxis, :],
                 dtype=np.float64,
             )
-
             Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
             Angle_i = np.arctan2(
                 Delta_i[:, :, 1], Delta_i[:, :, 0]
@@ -47,7 +46,6 @@ class DNCRunner:
                 ).transpose()
                 * force_reduction_factor
             )
-
             new_Point.append(Point_i)
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
