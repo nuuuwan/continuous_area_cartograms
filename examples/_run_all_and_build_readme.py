@@ -1,9 +1,15 @@
 import os
+import sys
 
 from utils import File, Log
 
 log = Log('build_readme_examples')
 DIR_EXAMPLES = 'examples'
+
+
+def run_system(cmd):
+    log.info(f'🤖 {cmd}')
+    os.system(cmd)
 
 
 def get_dir_names():
@@ -67,14 +73,19 @@ def build_readme(dir_names):
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
+    run_system(f'git add "{md_path}')
+    run_system(
+        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
+    )
 
-def run_system(cmd):
-    log.info(f'🤖 {cmd}')
-    os.system(cmd)
 
-
-def run_all(dir_names):
+def run_all(dir_names, force_build):
     for dir_name in dir_names:
+        output_path = os.path.join(DIR_EXAMPLES, dir_name, 'output')
+        if not force_build and os.path.exists(output_path):
+            log.warning(f'Output exists for {dir_name}. Skipping...')
+            continue
+
         py_path = os.path.join(DIR_EXAMPLES, dir_name, 'source.py')
         py_cmd = f'python {py_path}'
         run_system(py_cmd)
@@ -85,11 +96,12 @@ def run_all(dir_names):
         )
 
 
-def process_all():
+def process_all(force_build):
     dir_names = get_dir_names()
     build_readme(dir_names)
-    run_all(dir_names)
+    run_all(dir_names, force_build)
 
 
 if __name__ == "__main__":
-    process_all()
+    force_build = len(sys.argv) > 1 and sys.argv[1] == 'force_build'
+    process_all(force_build)
