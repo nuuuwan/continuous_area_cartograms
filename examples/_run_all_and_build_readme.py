@@ -83,8 +83,7 @@ def run_all(dir_names):
             'git commit -m '
             + f'"🤖 [_run_all_and_build_readme.py] {dir_name}"'
         )
-        break
-
+        
 
 def process_all():
     dir_names = get_dir_names()
