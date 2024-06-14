@@ -2,6 +2,7 @@ import math
 
 import topojson
 from matplotlib import colors as mcolors
+from matplotlib import patches as mpatches
 from matplotlib import pyplot as plt
 from utils import Log
 
@@ -71,6 +72,19 @@ class DNCRenderer:
             spine.set_visible(False)
 
     @staticmethod
+    def render_legend(ax):
+        handles = []
+        for log2_error in [-1, -0.5, 0, 0.5, 1]:
+            label = f'{2**log2_error:.0%}'
+            label += {-1: ' (too small)', 1: ' (too large)'}.get(
+                log2_error, ''
+            )
+            background_color = DNCRenderer.get_color(log2_error)
+            patch = mpatches.Patch(color=background_color, label=label)
+            handles.append(patch)
+        ax.legend(handles=handles, fontsize="x-small", loc="lower right")
+
+    @staticmethod
     def render_all(
         polygons,
         ActualValue,
@@ -85,6 +99,7 @@ class DNCRenderer:
             DNCRenderer.render_polygon(
                 polygon, actual_value, log2_error, total_area, ax
             )
+        DNCRenderer.render_legend(ax)
         DNCRenderer.remove_grids(ax)
 
     @staticmethod
