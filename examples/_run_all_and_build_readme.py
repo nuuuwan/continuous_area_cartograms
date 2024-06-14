@@ -23,7 +23,7 @@ def build_code(dir_path):
     return md_lines
 
 
-def build_single(dir_name, show_code):
+def process_single(dir_name, show_code):
     log.debug(f'Processing {dir_name}')
     dir_path = os.path.join(DIR_EXAMPLES, dir_name)
     dir_path_unix = dir_path.replace('\\', '/')
@@ -48,18 +48,18 @@ def build_single(dir_name, show_code):
     return md_lines
 
 
-def build_all(show_code, md_path):
+def process_all(show_code, md_path):
     md_lines = [
         '# Examples',
         '',
     ]
     for dir_name in os.listdir(DIR_EXAMPLES):
         if os.path.isdir(os.path.join(DIR_EXAMPLES, dir_name)):
-            md_lines.extend(build_single(dir_name, show_code))
+            md_lines.extend(process_single(dir_name, show_code))
 
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
 
 if __name__ == "__main__":
-    build_all(True, os.path.join(DIR_EXAMPLES, 'README.md'))
+    process_all(True, os.path.join(DIR_EXAMPLES, 'README.md'))
