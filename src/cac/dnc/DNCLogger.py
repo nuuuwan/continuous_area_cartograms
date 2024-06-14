@@ -9,6 +9,7 @@ class DNCLogger:
     @staticmethod
     def format_log2_error(x):
         return f'{(2**x):.1%}'
+
     @staticmethod
     def get_emoji(log2_error, min_log2_error):
         if log2_error > min_log2_error:
@@ -55,7 +56,7 @@ class DNCLogger:
             + DNCLogger.format_log2_error(self.mean_abs_log2_error)
         )
         log.debug(
-           '✅ = ' + DNCLogger.format_log2_error(-self.min_log2_error) + ' to ' + DNCLogger.format_log2_error(self.min_log2_error) _ 
+            '✅ = ' + DNCLogger.format_log2_error(-self.min_log2_error) + ' to ' + DNCLogger.format_log2_error(self.min_log2_error) _
         )
 
     def log_complexity(self):
