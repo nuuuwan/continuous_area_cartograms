@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="world_countries_by_population">
-    <img src="world_countries_by_population/output/animated.gif" height="320px" />
+    <img src="examples/world_countries_by_population/output/animated.gif" height="320px" />
   </a>
 
 </p>
