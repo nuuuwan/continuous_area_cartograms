@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_polygons">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" height="320px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" height="240px" />
   </a>
 
 </p>
