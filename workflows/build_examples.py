@@ -83,7 +83,6 @@ def get_readme_lines_for_example(
             '',
         ]
     )
-
     md_lines.extend(build_code(dir_path))
 
     md_path = os.path.join(DIR_EXAMPLES, dir_name, 'README.md')
