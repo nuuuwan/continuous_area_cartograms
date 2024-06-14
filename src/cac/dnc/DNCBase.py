@@ -9,16 +9,27 @@ class DNCBase:
         self,
         polygons: list[Polygon],
         values: list[float],
+        labels=None,
         preprocess_tolerance=0.001,
         min_log2_error=0.1,
         max_iterations=30,
     ):
-        assert len(polygons) == len(values)
+        # polygons
         self.polygons = [
             DNCBase.preprocess(polygon, tolerance=preprocess_tolerance)
             for polygon in polygons
         ]
+
+        # values
         self.values = values
+
+        # labels
+        if labels is None:
+            labels = [str(i) for i in range(len(polygons))]
+        self.labels = labels
+
+        # validations
+        assert len(self.polygons) == len(self.values) == len(self.labels)
 
         # optional options
         log.debug(

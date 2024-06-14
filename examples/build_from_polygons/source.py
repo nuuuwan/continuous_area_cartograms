@@ -47,6 +47,7 @@ def main():
     dnc = DNC(
         polygons,
         [1, 4, 1, 1],
+        ['A', 'B', 'C', 'D'],
     )
 
     new_polygon = dnc.run(

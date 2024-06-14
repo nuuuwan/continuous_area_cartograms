@@ -39,7 +39,9 @@ class DNCRenderer:
         )
 
     @staticmethod
-    def render_polygon_text(polygon, actual_value, log2_error, total_area):
+    def render_polygon_text(
+        polygon, label, actual_value, log2_error, total_area
+    ):
         background_color = DNCRenderer.get_color(log2_error)
         foreground_color = DNCRenderer.get_foreground_color(background_color)
         x, y = polygon.centroid.coords[0]
@@ -48,10 +50,11 @@ class DNCRenderer:
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         if font_size < 1:
             return
+        text = f'{label}\n{Number(actual_value).humanized()}'
         plt.text(
             x,
             y,
-            Number(actual_value).humanized(),
+            text,
             color=foreground_color,
             fontsize=font_size,
             horizontalalignment='center',
@@ -59,10 +62,12 @@ class DNCRenderer:
         )
 
     @staticmethod
-    def render_polygon(polygon, actual_value, log2_error, total_area, ax):
+    def render_polygon(
+        polygon, label, actual_value, log2_error, total_area, ax
+    ):
         DNCRenderer.render_polygon_shape(polygon, log2_error, ax)
         DNCRenderer.render_polygon_text(
-            polygon, actual_value, log2_error, total_area
+            polygon, label, actual_value, log2_error, total_area
         )
 
     @staticmethod
@@ -91,30 +96,32 @@ class DNCRenderer:
     @staticmethod
     def render_all(
         polygons,
+        labels,
         ActualValue,
         Log2Error,
     ):
         plt.close()
         ax = plt.gca()
         total_area = sum([polygon.area for polygon in polygons])
-        for polygon, actual_value, log2_error in zip(
-            polygons, ActualValue, Log2Error
+        for polygon, label, actual_value, log2_error in zip(
+            polygons, labels, ActualValue, Log2Error
         ):
             DNCRenderer.render_polygon(
-                polygon, actual_value, log2_error, total_area, ax
+                polygon, label, actual_value, log2_error, total_area, ax
             )
         DNCRenderer.render_legend(ax)
         DNCRenderer.remove_grids(ax)
 
     @staticmethod
-    def _save_image(polygons, ActualValue, Log2Error, image_path):
-        DNCRenderer.render_all(polygons, ActualValue, Log2Error)
+    def _save_image(polygons, labels, ActualValue, Log2Error, image_path):
+        DNCRenderer.render_all(polygons, labels, ActualValue, Log2Error)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
 
     def save_image(self, image_path):
         DNCRenderer._save_image(
             self.polygons,
+            self.labels,
             self.ActualValue,
             self.Log2Error,
             image_path,

@@ -78,6 +78,7 @@ class DNCLoader:
         return self.__class__(
             polygons,
             self.values,
+            self.labels,
             self.preprocess_tolerance,
             self.min_log2_error,
             self.max_iterations,

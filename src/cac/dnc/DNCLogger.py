@@ -1,5 +1,3 @@
-import math
-
 from utils import Log
 
 log = Log('DNCLogger')
@@ -20,12 +18,12 @@ class DNCLogger:
 
         return '✅'
 
-    def get_sorted_i_to_log2_error(self):
+    def get_sorted_label_to_log2_error(self):
         return dict(
             sorted(
                 [
-                    [i, log2_error]
-                    for i, log2_error in enumerate(self.Log2Error)
+                    [label, log2_error]
+                    for label, log2_error in zip(self.labels, self.Log2Error)
                 ],
                 key=lambda x: abs(x[1]),
                 reverse=True,
@@ -33,9 +31,9 @@ class DNCLogger:
         )
 
     def log_error(self):
-        i_to_log2_error = self.get_sorted_i_to_log2_error()
+        label_to_log2_error = self.get_sorted_label_to_log2_error()
         MAX_DISPLAY = 10
-        items = list(i_to_log2_error.items())
+        items = list(label_to_log2_error.items())
         n_all = len(items)
         if n_all > MAX_DISPLAY:
             log.warn(
@@ -43,11 +41,10 @@ class DNCLogger:
                 + 'highest desired/actual value)'
             )
             items = items[:MAX_DISPLAY]
-        for id, log2_error in items:
+        for label, log2_error in items:
             emoji = self.get_emoji(log2_error, self.min_log2_error)
-            int(math.ceil(abs(log2_error)))
             log.debug(
-                f'{id})'.rjust(8)
+                f'{label})'.rjust(8)
                 + DNCLogger.format_log2_error(log2_error).rjust(12)
                 + emoji.rjust(8)
             )
