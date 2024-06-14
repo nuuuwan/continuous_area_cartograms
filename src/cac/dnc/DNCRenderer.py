@@ -93,18 +93,15 @@ class DNCRenderer:
             handles.append(patch)
         ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
 
-    @staticmethod
-    def render_all(
-        polygons,
-        labels,
-        ActualValue,
-        Log2Error,
-    ):
+    def render_all(self):
         plt.close()
         ax = plt.gca()
-        total_area = sum([polygon.area for polygon in polygons])
+        total_area = self.total_area
         for polygon, label, actual_value, log2_error in zip(
-            polygons, labels, ActualValue, Log2Error
+            self.polygons,
+            self.labels,
+            self.ActualValue,
+            self.Log2Error,
         ):
             DNCRenderer.render_polygon(
                 polygon, label, actual_value, log2_error, total_area, ax
@@ -113,11 +110,6 @@ class DNCRenderer:
         DNCRenderer.remove_grids(ax)
 
     def save_image(self, image_path):
-        DNCRenderer.render_all(
-            self.polygons,
-            self.labels,
-            self.ActualValue,
-            self.Log2Error,
-        )
+        self.render_all()
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
