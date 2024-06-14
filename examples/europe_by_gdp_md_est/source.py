@@ -15,7 +15,6 @@ def main():
     dnc = DNC.from_gdf(
         gdf,
         values,
-
     )
     dnc.run(
         os.path.join(
