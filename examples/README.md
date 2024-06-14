@@ -4,8 +4,8 @@
 
 <p align="center">
 
-<a href=build_from_ents>  <img src="build_from_ents/output/animated.gif" height="320px" />
-</a>
+  <a href=build_from_ents>    <img src="build_from_ents/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -32,8 +32,8 @@
 
 <p align="center">
 
-<a href=build_from_polygons>  <img src="build_from_polygons/output/animated.gif" height="320px" />
-</a>
+  <a href=build_from_polygons>    <img src="build_from_polygons/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -105,8 +105,8 @@
 
 <p align="center">
 
-<a href=build_from_topojson>  <img src="build_from_topojson/output/animated.gif" height="320px" />
-</a>
+  <a href=build_from_topojson>    <img src="build_from_topojson/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -135,8 +135,8 @@
 
 <p align="center">
 
-<a href=cmb_pds_by_population>  <img src="cmb_pds_by_population/output/animated.gif" height="320px" />
-</a>
+  <a href=cmb_pds_by_population>    <img src="cmb_pds_by_population/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -167,8 +167,8 @@
 
 <p align="center">
 
-<a href=cmc_gnds_by_population>  <img src="cmc_gnds_by_population/output/animated.gif" height="320px" />
-</a>
+  <a href=cmc_gnds_by_population>    <img src="cmc_gnds_by_population/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -199,8 +199,8 @@
 
 <p align="center">
 
-<a href=europe_by_gdp_md_est>  <img src="europe_by_gdp_md_est/output/animated.gif" height="320px" />
-</a>
+  <a href=europe_by_gdp_md_est>    <img src="europe_by_gdp_md_est/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -235,8 +235,8 @@
 
 <p align="center">
 
-<a href=lk_districts_by_population>  <img src="lk_districts_by_population/output/animated.gif" height="320px" />
-</a>
+  <a href=lk_districts_by_population>    <img src="lk_districts_by_population/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -266,8 +266,8 @@
 
 <p align="center">
 
-<a href=lk_pds_by_electors>  <img src="lk_pds_by_electors/output/animated.gif" height="320px" />
-</a>
+  <a href=lk_pds_by_electors>    <img src="lk_pds_by_electors/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
@@ -301,8 +301,8 @@
 
 <p align="center">
 
-<a href=world_countries_by_population>  <img src="world_countries_by_population/output/animated.gif" height="320px" />
-</a>
+  <a href=world_countries_by_population>    <img src="world_countries_by_population/output/animated.gif" height="320px" />
+  </a>
 
 </p>
 
