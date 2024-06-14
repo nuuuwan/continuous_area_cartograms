@@ -7,6 +7,11 @@
   </a>
 
 
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_geojson">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_geojson/output/animated.gif" height="240px" />
+  </a>
+
+
   <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_polygons">
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" height="240px" />
   </a>
