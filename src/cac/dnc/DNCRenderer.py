@@ -46,6 +46,8 @@ class DNCRenderer:
         p_area = polygon.area / total_area
         BASE_FONT_SIZE = 15
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
+        if font_size < 1:
+            return
         plt.text(
             x,
             y,

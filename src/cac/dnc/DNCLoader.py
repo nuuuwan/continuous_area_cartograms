@@ -10,24 +10,32 @@ log = Log('DNCLoader')
 
 class DNCLoader:
     @staticmethod
-    def extract_polygon_base(geometry):
+    def extract_polygons(geometry) -> list[Polygon]:
         if isinstance(geometry, Polygon):
-            return geometry
+            return [geometry]
 
         if isinstance(geometry, MultiPolygon):
-            # TODO: Support MultiPolygon
-            return max(
-                geometry.geoms,
-                key=lambda polygon: polygon.area,
-            )
+       
+            return geometry.geoms
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
     @classmethod
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
-        polygons = [cls.extract_polygon_base(g) for g in geometry]
-        return cls(polygons, values, **kwargs)
+        
+        polygons_for_dnc = []
+        values_for_dnc = []
+        for value, shape in zip(values, geometry):
+            polygons = DNCLoader.extract_polygons(shape) 
+            total_area =sum([polygon.area for polygon in polygons])   
+            values_for_shape = [
+                value * polygon.area / total_area
+                for polygon in polygons
+            ]
+            polygons_for_dnc.extend(polygons)
+            values_for_dnc.extend(values_for_shape)
+        return cls(polygons_for_dnc, values_for_dnc, **kwargs)
 
     @classmethod
     def from_geojson(cls, geojson_path: str, values: list[float], **kwargs):
