@@ -21,7 +21,7 @@
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values)
+    dnc = DNC.from_ents(ents, values, preprocess_tolerance=0.0000001)
     dnc.run(
         os.path.join(
             os.path.dirname(__file__),
