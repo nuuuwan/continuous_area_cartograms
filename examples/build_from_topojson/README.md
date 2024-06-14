@@ -2,8 +2,8 @@
 
 <p align="center">
 
-  <a href="examples/build_from_topojson">
-    <img src="examples/build_from_topojson/output/animated.gif" height="320px" />
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_topojson">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_topojson/output/animated.gif" height="320px" />
   </a>
 
 </p>
