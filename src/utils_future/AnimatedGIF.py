@@ -8,9 +8,9 @@ log = Log('AnimatedGIF')
 
 
 class AnimatedGIF:
-    def __init__(self, animated_gif_path, total_duration=10, loop=0):
+    def __init__(self, animated_gif_path, total_duration_s=5, loop=0):
         self.animated_gif_path = animated_gif_path
-        self.total_duration = total_duration
+        self.total_duration_s = total_duration_s
         self.loop = loop
 
     def write(self, x):
@@ -32,11 +32,11 @@ class AnimatedGIF:
     def write_from_image_path_list(self, image_path_list):
         image_path_list2 = image_path_list + image_path_list[::-1]
         n = len(image_path_list)
-        duration = self.total_duration / n
+        duration_ms = 1_000 * self.total_duration_s / n
         with iio2.get_writer(
             self.animated_gif_path,
             mode='I',
-            duration=duration,
+            duration=duration_ms,
             loop=self.loop,
         ) as writer:
             for image_path in image_path_list2:
