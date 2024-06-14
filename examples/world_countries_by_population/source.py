@@ -14,8 +14,7 @@ def main():
     dnc = DNC.from_gdf(
         gdf_world,
         values,
-        min_log2_error=0.1,
-        max_iterations=100,
+        do_shrink=True,
     )
     dnc.run(
         os.path.join(

@@ -4,7 +4,7 @@ import tempfile
 import time
 
 import numpy as np
-from shapely import Polygon
+from shapely import Polygon, affinity
 from utils import Log
 
 from utils_future import AnimatedGIF
@@ -49,7 +49,23 @@ class DNCRunner:
             new_Point.append(Point_i)
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
-        return dnc.from_dnc(polygons)
+        dnc = dnc.from_dnc(polygons)
+        if dnc.do_shrink:
+            dnc = cls.shrink(dnc)
+        return dnc
+    
+    @classmethod
+    def shrink(cls, dnc, min_p=0.5, shrink_factor=0.1):
+        new_polygons = []
+        total_area = dnc.total_area
+        total_value = dnc.total_value
+        for polygon, value in zip(dnc.polygons, dnc.values):
+            p = (value / total_value) / (polygon.area / total_area)
+            if p < min_p:
+                scale_factor = p ** shrink_factor
+                polygon = affinity.scale(polygon, scale_factor, scale_factor)
+            new_polygons.append(polygon)
+        return dnc.from_dnc(new_polygons)
 
     @classmethod
     def run_all(cls, dnc0, dir_output):

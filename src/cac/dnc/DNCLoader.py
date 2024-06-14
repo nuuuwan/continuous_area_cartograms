@@ -124,5 +124,6 @@ class DNCLoader:
             self.preprocess_tolerance,
             self.min_log2_error,
             self.max_iterations,
+            self.do_shrink,
             **kwargs,
         )
