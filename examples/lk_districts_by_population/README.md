@@ -3,7 +3,7 @@
 <p align="center">
 
   <a href="lk_districts_by_population">
-    <img src="lk_districts_by_population/output/animated.gif" height="320px" />
+    <img src="examples/lk_districts_by_population/output/animated.gif" height="320px" />
   </a>
 
 </p>
