@@ -23,6 +23,25 @@ class DNCLoader:
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
 
+    @staticmethod
+    def get_shape_vars(shape, value, label, min_p_area):
+        polygons = DNCLoader.extract_polygons(shape)
+        total_area = sum([polygon.area for polygon in polygons])
+        min_area = total_area * min_p_area
+        filtered_polygons = [
+            polygon for polygon in polygons if polygon.area > min_area
+        ]
+        total_area = sum([polygon.area for polygon in filtered_polygons])
+        values_for_shape = [
+            value * polygon.area / total_area for polygon in filtered_polygons
+        ]
+        labels_for_shape = [
+            (f'{label}-{i+1}' if (i > 0) else label)
+            for i in range(len(filtered_polygons))
+        ]
+
+        return [filtered_polygons, values_for_shape, labels_for_shape]
+
     @classmethod
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
@@ -40,26 +59,14 @@ class DNCLoader:
         values_for_dnc = []
         labels_for_dnc = []
         for shape, value, label in zip(geometry, values, labels):
-            polygons = DNCLoader.extract_polygons(shape)
-
-            total_area = sum([polygon.area for polygon in polygons])
-            min_area = total_area * min_p_area
-            filtered_polygons = [
-                polygon for polygon in polygons if polygon.area > min_area
-            ]
-            total_area = sum([polygon.area for polygon in filtered_polygons])
-            values_for_shape = [
-                value * polygon.area / total_area
-                for polygon in filtered_polygons
-            ]
+            (
+                filtered_polygons,
+                values_for_shape,
+                labels_for_shape,
+            ) = DNCLoader.get_shape_vars(shape, value, label, min_p_area)
             polygons_for_dnc.extend(filtered_polygons)
             values_for_dnc.extend(values_for_shape)
-            if len(filtered_polygons) == 1:
-                labels_for_dnc.append(label)
-            else:
-                labels_for_dnc.extend(
-                    [f'{label}-{i+1}' for i in range(len(filtered_polygons))]
-                )
+            labels_for_dnc.extend(labels_for_shape)
 
         return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
 
