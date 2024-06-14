@@ -45,7 +45,7 @@ class DNCLogger:
                 + f'{log2_error:.2f} '.rjust(10)
                 + emojis.rjust(10)
             )
-        log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error}:.4f')
+        log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error:.4f}')
 
     def log_complexity(self):
         n_polygons = self.n_polygons
