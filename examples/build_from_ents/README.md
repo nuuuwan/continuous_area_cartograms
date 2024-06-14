@@ -2,7 +2,7 @@
 
 <p align="center">
 
-  <a href="build_from_ents">
+  <a href="examples/build_from_ents">
     <img src="examples/build_from_ents/output/animated.gif" height="320px" />
   </a>
 
