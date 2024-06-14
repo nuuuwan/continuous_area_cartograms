@@ -14,12 +14,12 @@ def run_system(cmd):
 
 def render_animated_gif(dir_name):
     animated_gif_path = os.path.join(
-        dir_name, 'output', 'animated.gif'
+        DIR_EXAMPLES, dir_name, 'output', 'animated.gif'
     ).replace('\\', '/')
-
+    dir_name_unix = dir_name.replace('\\', '/')
     md_lines = [
         '',
-        f'  <a href="{dir_name}">',
+        f'  <a href="{dir_name_unix}">',
         f'    <img src="{animated_gif_path}" height="320px" />',
         '  </a>',
         '',
