@@ -48,8 +48,8 @@ class DNCLogger:
             int(math.ceil(abs(log2_error)))
             log.debug(
                 f'{id})'.rjust(8)
-                + DNCLogger.format_log2_error(log2_error).rjust(8)
-                + emoji.rjust(4)
+                + DNCLogger.format_log2_error(log2_error).rjust(12)
+                + emoji.rjust(8)
             )
         log.debug(
             'mean(desired/actual value)='
