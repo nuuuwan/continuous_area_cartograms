@@ -31,7 +31,7 @@ def render_animated_gif(dir_name):
     md_lines = [
         '',
         f'  <a href="{url_example}">',
-        f'    <img src="{url_animated_gif}" height="320px" />',
+        f'    <img src="{url_animated_gif}" height="240px" />',
         '  </a>',
         '',
     ]
