@@ -78,8 +78,12 @@ def run_all(dir_names):
         py_path = os.path.join(DIR_EXAMPLES, dir_name, 'source.py')
         py_cmd = f'python {py_path}'
         run_system(py_cmd)
-    run_system('git add examples')
-    run_system('git commit - m "🤖 Update examples"')
+        run_system(f'git add "examples/{dir_name}"')
+        run_system(
+            'git commit -m '
+            + f'"🤖 [_run_all_and_build_readme.py] {dir_name}"'
+        )
+        break
 
 
 def process_all():
