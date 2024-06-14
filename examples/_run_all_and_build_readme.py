@@ -12,16 +12,26 @@ def run_system(cmd):
     os.system(cmd)
 
 
+URL_RAW_BASE = (
+    'https://raw.githubusercontent.com'
+    + '/nuuuwan/continuous_area_cartograms'
+    + '/main/examples'
+)
+URL_BASE = (
+    'https://github.com'
+    + '/nuuuwan/continuous_area_cartograms'
+    + '/tree/main/examples'
+)
+
+
 def render_animated_gif(dir_name):
-    animated_gif_path = os.path.join(
-        DIR_EXAMPLES, dir_name, 'output', 'animated.gif'
-    ).replace('\\', '/')
-    dir_path = os.path.join(DIR_EXAMPLES, dir_name)
-    dir_path_unix = dir_path.replace('\\', '/')
+    url_animated_gif = URL_RAW_BASE + '/' + dir_name + '/output/animated.gif'
+    url_example = URL_BASE + '/' + dir_name
+
     md_lines = [
         '',
-        f'  <a href="{dir_path_unix}">',
-        f'    <img src="{animated_gif_path}" height="320px" />',
+        f'  <a href="{url_example}">',
+        f'    <img src="{url_animated_gif}" height="320px" />',
         '  </a>',
         '',
     ]
