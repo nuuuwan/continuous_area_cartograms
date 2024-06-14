@@ -16,7 +16,7 @@ class DNCLoader:
 
         if isinstance(geometry, MultiPolygon):
             return sorted(
-                geometry.geoms, 
+                geometry.geoms,
                 key=lambda polygon: polygon.area,
                 reverse=True,
             )
@@ -26,14 +26,14 @@ class DNCLoader:
     @classmethod
     def from_gdf(cls, gdf: gpd.GeoDataFrame, values: list[float], **kwargs):
         geometry = gdf['geometry']
-        
+
         # labels
         labels = None
         if 'name' in gdf:
             labels = gdf['name']
         elif 'id' in gdf:
             labels = gdf['id']
-        
+
         min_p_area = kwargs.get('min_p_area', 0.01)
 
         polygons_for_dnc = []
@@ -57,7 +57,9 @@ class DNCLoader:
             if len(filtered_polygons) == 1:
                 labels_for_dnc.append(label)
             else:
-                labels_for_dnc.extend([f'{label}-{i+1}' for i in range(len(filtered_polygons))])
+                labels_for_dnc.extend(
+                    [f'{label}-{i+1}' for i in range(len(filtered_polygons))]
+                )
 
         return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
 
