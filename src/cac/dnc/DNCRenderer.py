@@ -112,18 +112,12 @@ class DNCRenderer:
         DNCRenderer.render_legend(ax)
         DNCRenderer.remove_grids(ax)
 
-    @staticmethod
-    def _save_image(polygons, labels, ActualValue, Log2Error, image_path):
-        DNCRenderer.render_all(polygons, labels, ActualValue, Log2Error)
-        plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
-        log.info(f'Wrote {image_path}')
-
     def save_image(self, image_path):
-        DNCRenderer._save_image(
+        DNCRenderer.render_all(
             self.polygons,
             self.labels,
             self.ActualValue,
             self.Log2Error,
-            image_path,
         )
-        return image_path
+        plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
+        log.info(f'Wrote {image_path}')
