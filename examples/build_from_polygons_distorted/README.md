@@ -1,7 +1,7 @@
-# Build From Polygons
+# Build From Polygons Distorted
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons_distorted/output/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -12,49 +12,35 @@ def main():
 
     from cac import DCN1985
 
-    polygons = [
-        Polygon(
+    def polygon_square(origin):
+        return Polygon(
             [
-                (0, 0),
-                (0, 1),
-                (1, 1),
-                (1, 0),
-                (0, 0),
+                origin,
+                (origin[0], origin[1] + 1),
+                (origin[0] + 1, origin[1] + 1),
+                (origin[0] + 1, origin[1]),
+                origin,
             ]
-        ),
-        Polygon(
-            [
-                (1, 0),
-                (1, 1),
-                (2, 1),
-                (2, 0),
-                (1, 0),
-            ]
-        ),
-        Polygon(
-            [
-                (0, 1),
-                (0, 2),
-                (1, 2),
-                (1, 1),
-                (0, 1),
-            ]
-        ),
-        Polygon(
-            [
-                (1, 1),
-                (1, 2),
-                (2, 2),
-                (2, 1),
-                (1, 1),
-            ]
-        ),
-    ]
+        )
+
+    def polygon_square_of_squares(n):
+        polygons = []
+        for i in range(n):
+            for j in range(n):
+                polygons.append(polygon_square((i, j)))
+        return polygons
+
+    polygons = polygon_square_of_squares(3)
+    values = [100 for _ in range(len(polygons))]
+    values[1] = 1
+    values[3] = 1
+    values[5] = 1
+    values[7] = 1
 
     algo = DCN1985(
         polygons,
-        [1, 4, 1, 1],
-        ['A', 'B', 'C', 'D'],
+        values,
+        max_iterations=20,
     )
 
     new_polygon = algo.run(
