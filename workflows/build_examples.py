@@ -8,7 +8,7 @@ DIR_EXAMPLES = 'examples'
 
 
 def run_system(cmd):
-    log.info(f'🤖 {cmd}')
+    log.info(f'💻 {cmd}')
     os.system(cmd)
 
 
@@ -89,12 +89,6 @@ def get_readme_lines_for_example(
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
-    run_system(f'git add "{md_path}')
-    run_system(
-        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
-    )
-    run_system('git push origin main')
-
     return md_lines
 
 
@@ -109,12 +103,6 @@ def build_readme(dir_names):
     md_path = os.path.join(DIR_EXAMPLES, 'README.md')
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
-
-    run_system(f'git add "{md_path}')
-    run_system(
-        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
-    )
-    run_system('git push origin main')
 
 
 def build_example_gallery(dir_names):
@@ -138,12 +126,6 @@ def build_example_gallery(dir_names):
     File(md_path).write_lines(md_lines)
     log.info(f'Wrote {md_path}')
 
-    run_system(f'git add "{md_path}')
-    run_system(
-        'git commit -m ' + f'"🤖 [_run_all_and_build_readme.py] {md_path}"'
-    )
-    run_system('git push origin main')
-
 
 def run_all(dir_names, force_build):
     for dir_name in dir_names:
@@ -155,12 +137,6 @@ def run_all(dir_names, force_build):
         py_path = os.path.join(DIR_EXAMPLES, dir_name, 'source.py')
         py_cmd = f'python {py_path}'
         run_system(py_cmd)
-        run_system(f'git add "examples/{dir_name}"')
-        run_system(
-            'git commit -m '
-            + f'"🤖 [_run_all_and_build_readme.py] {dir_name}"'
-        )
-        run_system('git push origin main')
 
 
 def process_all(force_build):
