@@ -8,7 +8,7 @@
 def main():
     import os
 
-    from gig import Ent, EntType, GIGTable
+    from gig import Ent, EntType
 
     from cac import DCN1985
 

@@ -21,7 +21,7 @@ def main():
         row = ent.gig(gig_table_last_election)
         values.append(row.electors)
 
-    algo = DCN1985.from_ents(ents, values, do_shrink=True)
+    algo = DCN1985.from_ents(ents, values)
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
