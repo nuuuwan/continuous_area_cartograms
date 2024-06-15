@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### [Build From Polygons](examples/build_from_polygons)
 
 <p align="center">
@@ -70,3 +71,77 @@
     print(new_polygon)
 
 ```
+=======
+### [Build From Polygons](examples/build_from_polygons)
+
+<p align="center">
+
+  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/build_from_polygons">
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" height="240px" />
+  </a>
+
+</p>
+
+```python
+    import os
+
+    from shapely import Polygon
+
+    from cac import DNC
+
+    polygons = [
+        Polygon(
+            [
+                (0, 0),
+                (0, 1),
+                (1, 1),
+                (1, 0),
+                (0, 0),
+            ]
+        ),
+        Polygon(
+            [
+                (1, 0),
+                (1, 1),
+                (2, 1),
+                (2, 0),
+                (1, 0),
+            ]
+        ),
+        Polygon(
+            [
+                (0, 1),
+                (0, 2),
+                (1, 2),
+                (1, 1),
+                (0, 1),
+            ]
+        ),
+        Polygon(
+            [
+                (1, 1),
+                (1, 2),
+                (2, 2),
+                (2, 1),
+                (1, 1),
+            ]
+        ),
+    ]
+
+    dnc = DNC(
+        polygons,
+        [1, 4, 1, 1],
+        ['A', 'B', 'C', 'D'],
+    )
+
+    new_polygon = dnc.run(
+        dir_output=os.path.join(
+            os.path.dirname(__file__),
+            'output',
+        )
+    )
+
+    print(new_polygon)
+
+```
+>>>>>>> b61ab374069959fe6777f1645f6d362f98e25a94
