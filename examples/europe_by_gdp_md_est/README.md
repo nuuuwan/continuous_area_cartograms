@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ### [Europe By Gdp Md Est](examples/europe_by_gdp_md_est)
 
 <p align="center">
@@ -35,41 +34,3 @@
     )
 
 ```
-=======
-### [Europe By Gdp Md Est](examples/europe_by_gdp_md_est)
-
-<p align="center">
-
-  <a href="https://github.com/nuuuwan/continuous_area_cartograms/tree/main/examples/europe_by_gdp_md_est">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/europe_by_gdp_md_est/output/animated.gif" height="240px" />
-  </a>
-
-</p>
-
-```python
-    import os
-
-    import geopandas
-
-    from cac import DNC
-
-    gdf = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
-    )
-    gdf = gdf[gdf['continent'] == 'Europe']
-    gdf = gdf[gdf['name'] != 'Russia']
-
-    values = gdf['gdp_md_est'].tolist()
-    dnc = DNC.from_gdf(
-        gdf,
-        values,
-    )
-    dnc.run(
-        os.path.join(
-            os.path.dirname(__file__),
-            'output',
-        )
-    )
-
-```
->>>>>>> b61ab374069959fe6777f1645f6d362f98e25a94
