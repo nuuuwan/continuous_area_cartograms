@@ -65,7 +65,7 @@ class Markdown:
     @staticmethod
     def image(url, alt_text=None):
         if alt_text is None:
-            alt_text = 'url'
+            alt_text = url
         return Markdown(f'![{alt_text}]({url})')
 
     @staticmethod
