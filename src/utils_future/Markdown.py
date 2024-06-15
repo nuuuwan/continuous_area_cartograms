@@ -68,6 +68,10 @@ class Markdown:
             alt_text = url
         return Markdown(f'![{alt_text}]({url})')
 
+
+
+
+
     @staticmethod
     def hx(level, title_md, *body_md_list):
         return Markdown(
@@ -98,13 +102,30 @@ class Markdown:
             '```',
             Markdown.BLANK_LINE,
         )
+    
+    # html 
 
     @staticmethod
-    def align(alignment, child_md):
+    def p_html(child_md, align=None):
+        align_str = ''
+        if align is not None:
+            align_str = f' align="{align}"'
         return Markdown(
             Markdown.BLANK_LINE,
-            f'<p align="{alignment}">',
+            f'<p {align_str}>',
             child_md.content_tabbed,
             '</p>',
             Markdown.BLANK_LINE,
+        )
+
+
+    @staticmethod
+    def img_html(url, alt_text=None, width=None):
+        if alt_text is None:
+            alt_text = url
+        width_str = ''
+        if width is not None:
+            width_str = f' width="{width}"'
+        return Markdown(
+            f'<img src="{url}" alt="{alt_text}" {width_str} />',
         )

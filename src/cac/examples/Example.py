@@ -91,7 +91,10 @@ class Example:
     def markdown(self):
         return Markdown.h1(
             Markdown(self.title),
-            Markdown.align('center', Markdown.image(self.url_animated_gif)),
+            Markdown.p_html(
+                Markdown.img_html(self.url_animated_gif),
+                align='center', 
+            ),
             Markdown.code(
                 'python',
                 Markdown(self.source_content),
