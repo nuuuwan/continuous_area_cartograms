@@ -15,6 +15,13 @@ class Markdown:
                 )
         self.lines = list(lines)
 
+    @staticmethod
+    def concat(*md_list):
+        lines = []
+        for md in md_list:
+            lines += md.lines
+        return Markdown(*lines)
+
     @property
     def lines_tabbed(self):
         return [Markdown.TAB + line for line in self.lines]
