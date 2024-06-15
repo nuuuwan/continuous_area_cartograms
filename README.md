@@ -13,6 +13,7 @@
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/eastern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/output/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_in_units/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_province_by_religion/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/northern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/southern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
