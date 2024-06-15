@@ -1,5 +1,6 @@
 # Continuous Area Cartograms
 
+
 <p  align="center">
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_geojson/output/animated.gif" alt="alt" height="240px" />
@@ -14,6 +15,7 @@
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/output/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_population/output/animated.gif" alt="alt" height="240px" />
 </p>
+
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
@@ -153,7 +155,7 @@ Alternatively, DCN1985s objects can be constructed from [geopandas.GeoDataFrame]
         ...
 ```
 
-For more details and source code, see [examples/README.md](examples/README.md).
+For more details and source code, see [examples](examples).
 
 ## The [Algorithm](references/paper.pdf)
 
