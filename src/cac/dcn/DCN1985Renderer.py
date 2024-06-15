@@ -42,7 +42,9 @@ class DCN1985Renderer:
         polygon, label, actual_value, log2_error, total_area
     ):
         background_color = DCN1985Renderer.get_color(log2_error)
-        foreground_color = DCN1985Renderer.get_foreground_color(background_color)
+        foreground_color = DCN1985Renderer.get_foreground_color(
+            background_color
+        )
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / total_area
         BASE_FONT_SIZE = 12

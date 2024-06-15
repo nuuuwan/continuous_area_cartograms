@@ -67,7 +67,8 @@ class DCN1985RenderHexBin:
         total_area = sum([polygon.area for polygon in self.polygons])
         total_value = 220
         dim = (
-            math.sqrt(total_area / total_value) * DCN1985RenderHexBin.SCALE_FACTOR
+            math.sqrt(total_area / total_value)
+            * DCN1985RenderHexBin.SCALE_FACTOR
         )
         log.debug(f'{total_value=:,}, {dim=:4f}')
 
