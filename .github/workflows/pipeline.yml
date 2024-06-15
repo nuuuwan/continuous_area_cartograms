@@ -1,10 +1,10 @@
-name: pipeline
+name: build_examples
 
 on:
   workflow_dispatch:
 
 jobs:
-  pipeline:
+  build_examples:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +27,10 @@ jobs:
           ref: "main"
           token: "${{ secrets.REPO_DATA_TOKEN }}"
 
-      - name: STEP 1. run_all_examples.py
+      - name: Run "workflows/build_examples.py"
         run: |
           export PYTHONPATH="$PYTHONPATH:./src"
-          python workflows/run_all_examples.py
-
-      - name: STEP 1. build_readme_examples.py
-        run: |
-          export PYTHONPATH="$PYTHONPATH:./src"
-          python workflows/build_readme_examples.py
+          python workflows/build_examples.py force_build
 
       - name: Push to github repo
         run: |
@@ -44,5 +39,5 @@ jobs:
 
           git pull origin main
           git add .
-          git commit -m "pipeline $(date)"
+          git commit -m "🤖 build_examples $(date)"
           git push origin main
