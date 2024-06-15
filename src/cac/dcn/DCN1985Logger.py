@@ -1,9 +1,9 @@
 from utils import Log
 
-log = Log('DNCLogger')
+log = Log('DCN1985Logger')
 
 
-class DNCLogger:
+class DCN1985Logger:
     @staticmethod
     def format_log2_error(x):
         return f'{(2**x):.1%}'
@@ -45,18 +45,18 @@ class DNCLogger:
             emoji = self.get_emoji(log2_error, self.min_log2_error)
             log.debug(
                 f'{label}'.rjust(24)
-                + DNCLogger.format_log2_error(log2_error).rjust(12)
+                + DCN1985Logger.format_log2_error(log2_error).rjust(12)
                 + emoji.rjust(12)
             )
         log.debug(
             'mean(desired/actual value)='
-            + DNCLogger.format_log2_error(self.mean_abs_log2_error)
+            + DCN1985Logger.format_log2_error(self.mean_abs_log2_error)
         )
         log.debug(
             '✅ = '
-            + DNCLogger.format_log2_error(-self.min_log2_error)
+            + DCN1985Logger.format_log2_error(-self.min_log2_error)
             + ' to '
-            + DNCLogger.format_log2_error(self.min_log2_error)
+            + DCN1985Logger.format_log2_error(self.min_log2_error)
         )
 
     def log_complexity(self):

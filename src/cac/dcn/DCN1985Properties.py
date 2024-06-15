@@ -3,7 +3,7 @@ from functools import cached_property
 import numpy as np
 
 
-class DNCProperties:
+class DCN1985Properties:
     # Independent of Polygons
     @cached_property
     def total_value(self) -> float:

@@ -54,7 +54,7 @@
 
 This repository implements Dougenik, Chrisman, and Niemeyer's algorithm, which they described in the 1985 paper, *[An Algorithm to Construct Continuous Area Cartograms](references/paper.pdf)*.
 
-We refer to the algorithm as the *DNC Algorithm*, after its authors.
+We refer to the algorithm as the *DCN1985 Algorithm*, after its authors.
 
 ## Background
 
@@ -84,7 +84,7 @@ In this example, we take a simple map consisting of four squares of equal area, 
   <img src="examples/build_from_polygons/output/images/000.png" height="200vh" />
 </p>
 
-First, construct a **DNC object**, providing the regions (as shapely Polygons) and their corresponding values.
+First, construct a **DCN1985 object**, providing the regions (as shapely Polygons) and their corresponding values.
 
 Second, call **run** which returns a new polygon, appropriately modified.
 
@@ -93,7 +93,7 @@ Second, call **run** which returns a new polygon, appropriately modified.
 
     from shapely import Polygon
 
-    from cac import DNC
+    from cac import DCN1985
 
     polygons = [
         Polygon(
@@ -134,12 +134,12 @@ Second, call **run** which returns a new polygon, appropriately modified.
         ),
     ]
 
-    dnc = DNC(
+    dcn = DCN1985(
         polygons,
         [1, 4, 1, 1],
     )
 
-    new_polygon = dnc.run(
+    new_polygon = dcn.run(
         dir_output=os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -170,7 +170,7 @@ The output directory (*dir_output*) stores the following content:
   <img src="examples/build_from_polygons/output/animated.gif" height="200vh" />
 </p>
 
-Alternatively, DNCs objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
+Alternatively, DCN1985s objects can be constructed from [geopandas.GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) objects, [TopoJSON](https://openlayers.org/en/latest/examples/topojson.html), [GeoJSON](https://geojson.org/) or [gig.Ent](https://github.com/nuuuwan/gig) objects.
 
 ```python
     @classmethod
@@ -225,7 +225,7 @@ For each iteration (user controls when done)
         Write distorted line to output and plot result
 ```
 
-The intuition behind DNC, is as follows:
+The intuition behind DCN1985, is as follows:
 
 Our map is a collection of polygons, each representing a region. Some polygons need to be expanded, while others need to be contracted.
 

@@ -7,18 +7,18 @@ from shapely import affinity
 from shapely.geometry import Point
 from utils import Log
 
-log = Log('DNCRenderHexBin')
+log = Log('DCN1985RenderHexBin')
 
 
-class DNCRenderHexBin:
+class DCN1985RenderHexBin:
     SCALE_FACTOR = 1
 
     @staticmethod
     def get_points(polygon, dim):
         polygon = affinity.scale(
             polygon,
-            xfact=DNCRenderHexBin.SCALE_FACTOR,
-            yfact=DNCRenderHexBin.SCALE_FACTOR,
+            xfact=DCN1985RenderHexBin.SCALE_FACTOR,
+            yfact=DCN1985RenderHexBin.SCALE_FACTOR,
             origin=polygon.centroid,
         )
         bounds = polygon.bounds
@@ -67,17 +67,17 @@ class DNCRenderHexBin:
         total_area = sum([polygon.area for polygon in self.polygons])
         total_value = 220
         dim = (
-            math.sqrt(total_area / total_value) * DNCRenderHexBin.SCALE_FACTOR
+            math.sqrt(total_area / total_value) * DCN1985RenderHexBin.SCALE_FACTOR
         )
         log.debug(f'{total_value=:,}, {dim=:4f}')
 
         for polygon in polygons:
-            DNCRenderHexBin.render_polygon_shape(polygon, ax)
+            DCN1985RenderHexBin.render_polygon_shape(polygon, ax)
 
         n_polygons = len(polygons)
         actual_total_value = 0
         for i_polygon, polygon in enumerate(polygons):
-            points = DNCRenderHexBin.get_points(polygon, dim)
+            points = DCN1985RenderHexBin.get_points(polygon, dim)
             color = plt.cm.hsv(i_polygon / n_polygons)
             for point in points:
                 polygon_patch = patches.RegularPolygon(

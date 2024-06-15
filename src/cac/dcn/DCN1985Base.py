@@ -1,10 +1,10 @@
 from shapely import Polygon
 from utils import Log
 
-log = Log('DNCBase')
+log = Log('DCN1985Base')
 
 
-class DNCBase:
+class DCN1985Base:
     def __init__(
         self,
         polygons: list[Polygon],
@@ -17,7 +17,7 @@ class DNCBase:
     ):
         # polygons
         self.polygons = [
-            DNCBase.preprocess(polygon, tolerance=preprocess_tolerance)
+            DCN1985Base.preprocess(polygon, tolerance=preprocess_tolerance)
             for polygon in polygons
         ]
 

@@ -9,17 +9,17 @@ from utils import Log
 
 from utils_future import AnimatedGIF
 
-log = Log('DNCRunner')
+log = Log('DCN1985Runner')
 
 
-class DNCRunner:
+class DCN1985Runner:
     @classmethod
-    def run_single_optimized(cls, dnc):
-        force_reduction_factor = dnc.force_reduction_factor
-        Centroid = dnc.Centroid
-        Radius = dnc.Radius
-        Mass = dnc.Mass
-        Point = dnc.Point
+    def run_single_optimized(cls, dcn):
+        force_reduction_factor = dcn.force_reduction_factor
+        Centroid = dcn.Centroid
+        Radius = dcn.Radius
+        Mass = dcn.Mass
+        Point = dcn.Point
 
         new_Point = []
         for Point_i in Point:
@@ -49,28 +49,28 @@ class DNCRunner:
             new_Point.append(Point_i)
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
-        dnc = dnc.from_dnc(polygons)
-        if dnc.do_shrink:
-            dnc = cls.shrink(dnc)
-        return dnc
+        dcn = dcn.from_dcn(polygons)
+        if dcn.do_shrink:
+            dcn = cls.shrink(dcn)
+        return dcn
 
     @classmethod
-    def shrink(cls, dnc, min_p=0.5, shrink_factor=0.1):
+    def shrink(cls, dcn, min_p=0.5, shrink_factor=0.1):
         new_polygons = []
-        total_area = dnc.total_area
-        total_value = dnc.total_value
-        for polygon, value in zip(dnc.polygons, dnc.values):
+        total_area = dcn.total_area
+        total_value = dcn.total_value
+        for polygon, value in zip(dcn.polygons, dcn.values):
             p = (value / total_value) / (polygon.area / total_area)
             if p < min_p:
                 scale_factor = p**shrink_factor
                 polygon = affinity.scale(polygon, scale_factor, scale_factor)
             new_polygons.append(polygon)
-        return dnc.from_dnc(new_polygons)
+        return dcn.from_dcn(new_polygons)
 
     @classmethod
-    def run_all(cls, dnc0, dir_output):
-        dnc = dnc0
-        dnc.log_complexity()
+    def run_all(cls, dcn0, dir_output):
+        dcn = dcn0
+        dcn.log_complexity()
 
         i_iter = 0
         t_start = time.time()
@@ -82,29 +82,29 @@ class DNCRunner:
             # save image
             file_id = f'{i_iter:03}'
             image_path = os.path.join(dir_image, f'{file_id}.png')
-            dnc.save_image(image_path)
+            dcn.save_image(image_path)
 
             # save gdf
             gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
-            dnc.to_gdf().to_file(gdf_path, driver='GeoJSON')
+            dcn.to_gdf().to_file(gdf_path, driver='GeoJSON')
 
-            dnc.log_error()
-            if dnc.is_reasonably_complete:
+            dcn.log_error()
+            if dcn.is_reasonably_complete:
                 break
-            dnc = cls.run_single_optimized(dnc)
+            dcn = cls.run_single_optimized(dcn)
 
             t_now = time.time()
             dt_all = t_now - t_start
             dt_iter = t_now - t_lap_start
             log.debug(f'⏱️{i_iter=}, {dt_all=:.2f}s, {dt_iter=:.2f}s')
             i_iter += 1
-            if i_iter >= dnc.max_iterations:
-                log.warning(f'MAX_ITERATIONS({dnc.max_iterations}) reached.')
+            if i_iter >= dcn.max_iterations:
+                log.warning(f'MAX_ITERATIONS({dcn.max_iterations}) reached.')
                 break
 
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
 
-        return dnc.polygons
+        return dcn.polygons
 
     def run(self, dir_output=None):
         if dir_output is None:

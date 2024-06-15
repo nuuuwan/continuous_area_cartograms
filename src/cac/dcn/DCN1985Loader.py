@@ -5,10 +5,10 @@ from gig import Ent
 from shapely.geometry import MultiPolygon, Polygon
 from utils import JSONFile, Log
 
-log = Log('DNCLoader')
+log = Log('DCN1985Loader')
 
 
-class DNCLoader:
+class DCN1985Loader:
     @staticmethod
     def extract_polygons(geometry) -> list[Polygon]:
         if isinstance(geometry, Polygon):
@@ -25,7 +25,7 @@ class DNCLoader:
 
     @staticmethod
     def get_shape_vars(shape, value, label, min_p_area):
-        polygons = DNCLoader.extract_polygons(shape)
+        polygons = DCN1985Loader.extract_polygons(shape)
         total_area = sum([polygon.area for polygon in polygons])
         min_area = total_area * min_p_area
         filtered_polygons = [
@@ -63,20 +63,20 @@ class DNCLoader:
 
         min_p_area = kwargs.get('min_p_area', 0.01)
 
-        polygons_for_dnc = []
-        values_for_dnc = []
-        labels_for_dnc = []
+        polygons_for_dcn = []
+        values_for_dcn = []
+        labels_for_dcn = []
         for shape, value, label in zip(geometry, values, labels):
             (
                 filtered_polygons,
                 values_for_shape,
                 labels_for_shape,
-            ) = DNCLoader.get_shape_vars(shape, value, label, min_p_area)
-            polygons_for_dnc.extend(filtered_polygons)
-            values_for_dnc.extend(values_for_shape)
-            labels_for_dnc.extend(labels_for_shape)
+            ) = DCN1985Loader.get_shape_vars(shape, value, label, min_p_area)
+            polygons_for_dcn.extend(filtered_polygons)
+            values_for_dcn.extend(values_for_shape)
+            labels_for_dcn.extend(labels_for_shape)
 
-        return cls(polygons_for_dnc, values_for_dnc, labels_for_dnc, **kwargs)
+        return cls(polygons_for_dcn, values_for_dcn, labels_for_dcn, **kwargs)
 
     @classmethod
     def from_geojson(
@@ -116,7 +116,7 @@ class DNCLoader:
             }
         )
 
-    def from_dnc(self, polygons, **kwargs):
+    def from_dcn(self, polygons, **kwargs):
         return self.__class__(
             polygons,
             self.values,

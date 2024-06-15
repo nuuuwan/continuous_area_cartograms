@@ -8,10 +8,10 @@ from utils import Log
 
 from utils_future import Number
 
-log = Log('DNCRenderer')
+log = Log('DCN1985Renderer')
 
 
-class DNCRenderer:
+class DCN1985Renderer:
     @staticmethod
     def get_foreground_color(background_color):
         rgba = mcolors.to_rgba(background_color)
@@ -32,7 +32,7 @@ class DNCRenderer:
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=ax,
-            facecolor=DNCRenderer.get_color(log2_error),
+            facecolor=DCN1985Renderer.get_color(log2_error),
             edgecolor="white",
             linewidth=0.2,
         )
@@ -41,8 +41,8 @@ class DNCRenderer:
     def render_polygon_text(
         polygon, label, actual_value, log2_error, total_area
     ):
-        background_color = DNCRenderer.get_color(log2_error)
-        foreground_color = DNCRenderer.get_foreground_color(background_color)
+        background_color = DCN1985Renderer.get_color(log2_error)
+        foreground_color = DCN1985Renderer.get_foreground_color(background_color)
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / total_area
         BASE_FONT_SIZE = 12
@@ -64,8 +64,8 @@ class DNCRenderer:
     def render_polygon(
         polygon, label, actual_value, log2_error, total_area, ax
     ):
-        DNCRenderer.render_polygon_shape(polygon, log2_error, ax)
-        DNCRenderer.render_polygon_text(
+        DCN1985Renderer.render_polygon_shape(polygon, log2_error, ax)
+        DCN1985Renderer.render_polygon_text(
             polygon, label, actual_value, log2_error, total_area
         )
 
@@ -82,7 +82,7 @@ class DNCRenderer:
         handles = []
         for log2_error in [-1, -0.5, -0.25, 0, 0.25, 0.5, 1]:
             label = f'{2**log2_error:.0%}'
-            background_color = DNCRenderer.get_color(log2_error)
+            background_color = DCN1985Renderer.get_color(log2_error)
             patch = mpatches.Patch(color=background_color, label=label)
             handles.append(patch)
         ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
@@ -97,11 +97,11 @@ class DNCRenderer:
             self.ActualValue,
             self.Log2Error,
         ):
-            DNCRenderer.render_polygon(
+            DCN1985Renderer.render_polygon(
                 polygon, label, actual_value, log2_error, total_area, ax
             )
-        DNCRenderer.render_legend(ax)
-        DNCRenderer.remove_grids(ax)
+        DCN1985Renderer.render_legend(ax)
+        DCN1985Renderer.remove_grids(ax)
 
     def save_image(self, image_path):
         self.render_all()
