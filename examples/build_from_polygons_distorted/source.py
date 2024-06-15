@@ -1,4 +1,3 @@
-import random
 
 
 def main():
@@ -18,7 +17,7 @@ def main():
                 origin,
             ]
         )
-    
+
     def polygon_square_of_squares(n):
         polygons = []
         for i in range(n):
