@@ -15,12 +15,12 @@
 
     from gig import Ent
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_id_list(['LK-11', 'LK-12', 'LK-13'])
     values = [3, 2, 1]
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -42,16 +42,16 @@
 ```python
     import os
 
-    from cac import DNC
+    from cac import DCN1985
 
-    dnc = DNC.from_geojson(
+    algo = DCN1985.from_geojson(
         geojson_path=os.path.join(
             os.path.dirname(__file__), 'geojson_data', 'Provinces.geo.json'
         ),
         values=[1, 1, 3, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
     )
 
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -75,7 +75,7 @@
 
     from shapely import Polygon
 
-    from cac import DNC
+    from cac import DCN1985
 
     polygons = [
         Polygon(
@@ -116,13 +116,13 @@
         ),
     ]
 
-    dnc = DNC(
+    algo = DCN1985(
         polygons,
         [1, 4, 1, 1],
         ['A', 'B', 'C', 'D'],
     )
 
-    new_polygon = dnc.run(
+    new_polygon = algo.run(
         dir_output=os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -146,15 +146,15 @@
 ```python
     import os
 
-    from cac import DNC
+    from cac import DCN1985
 
-    dnc = DNC.from_topojson(
+    algo = DCN1985.from_topojson(
         topojson_path=os.path.join(
             os.path.dirname(__file__), 'topojson_data', 'DSDivisions.json'
         ),
     )
 
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -178,7 +178,7 @@
 
     from gig import Ent, EntType
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_type(EntType.PD)
     ents = [ent for ent in ents if ent.ed_id == 'EC-01']
@@ -186,8 +186,8 @@
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values, preprocess_tolerance=0.0000001)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values, preprocess_tolerance=0.0000001)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -211,7 +211,7 @@
 
     from gig import Ent, EntType
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_type(EntType.GND)
     ents = [ent for ent in ents if ent.dsd_id in ['LK-1103', 'LK-1127']]
@@ -219,8 +219,8 @@
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values, preprocess_tolerance=0.0)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values, preprocess_tolerance=0.0)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -244,7 +244,7 @@
 
     import geopandas
 
-    from cac import DNC
+    from cac import DCN1985
 
     gdf = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -253,11 +253,11 @@
     gdf = gdf[gdf['name'] != 'Russia']
 
     values = gdf['gdp_md_est'].tolist()
-    dnc = DNC.from_gdf(
+    algo = DCN1985.from_gdf(
         gdf,
         values,
     )
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -281,15 +281,15 @@
 
     from gig import Ent, EntType
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_type(EntType.DISTRICT)
     values = []
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -313,7 +313,7 @@
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DNC
+    from cac import DCN1985
 
     gig_table_last_election = GIGTable(
         'government-elections-parliamentary', 'regions-ec', '2020'
@@ -324,8 +324,8 @@
         row = ent.gig(gig_table_last_election)
         values.append(row.electors)
 
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -349,7 +349,7 @@
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DNC
+    from cac import DCN1985
 
     gig_table_last_election = GIGTable(
         'population-religion', 'regions', '2012'
@@ -361,8 +361,8 @@
         row = ent.gig(gig_table_last_election)
         values.append(row.islam)
     
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -386,7 +386,7 @@
 
     import geopandas
 
-    from cac import DNC
+    from cac import DCN1985
 
     gdf_world = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -394,13 +394,13 @@
     gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
 
     values = gdf_world['gdp_md_est'].tolist()
-    dnc = DNC.from_gdf(
+    algo = DCN1985.from_gdf(
         gdf_world,
         values,
         min_log2_error=0.1,
         max_iterations=100,
     )
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
@@ -424,7 +424,7 @@
 
     import geopandas
 
-    from cac import DNC
+    from cac import DCN1985
 
     gdf_world = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -432,13 +432,13 @@
     gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
 
     values = gdf_world['pop_est'].tolist()
-    dnc = DNC.from_gdf(
+    algo = DCN1985.from_gdf(
         gdf_world,
         values,
         min_log2_error=0.1,
         max_iterations=100,
     )
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

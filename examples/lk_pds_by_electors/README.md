@@ -13,7 +13,7 @@
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DNC
+    from cac import DCN1985
 
     gig_table_last_election = GIGTable(
         'government-elections-parliamentary', 'regions-ec', '2020'
@@ -24,8 +24,8 @@
         row = ent.gig(gig_table_last_election)
         values.append(row.electors)
 
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

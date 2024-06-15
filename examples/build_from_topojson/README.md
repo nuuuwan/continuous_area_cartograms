@@ -11,15 +11,15 @@
 ```python
     import os
 
-    from cac import DNC
+    from cac import DCN1985
 
-    dnc = DNC.from_topojson(
+    algo = DCN1985.from_topojson(
         topojson_path=os.path.join(
             os.path.dirname(__file__), 'topojson_data', 'DSDivisions.json'
         ),
     )
 
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

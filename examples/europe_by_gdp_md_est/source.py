@@ -3,7 +3,7 @@ def main():
 
     import geopandas
 
-    from cac import DNC
+    from cac import DCN1985
 
     gdf = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -12,11 +12,11 @@ def main():
     gdf = gdf[gdf['name'] != 'Russia']
 
     values = gdf['gdp_md_est'].tolist()
-    dnc = DNC.from_gdf(
+    algo = DCN1985.from_gdf(
         gdf,
         values,
     )
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

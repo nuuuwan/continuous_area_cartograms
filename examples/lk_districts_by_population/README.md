@@ -13,15 +13,15 @@
 
     from gig import Ent, EntType
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_type(EntType.DISTRICT)
     values = []
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

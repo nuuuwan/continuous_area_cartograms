@@ -3,7 +3,7 @@ def main():
 
     from shapely import Polygon
 
-    from cac import DNC
+    from cac import DCN1985
 
     polygons = [
         Polygon(
@@ -44,13 +44,13 @@ def main():
         ),
     ]
 
-    dnc = DNC(
+    algo = DCN1985(
         polygons,
         [1, 4, 1, 1],
         ['A', 'B', 'C', 'D'],
     )
 
-    new_polygon = dnc.run(
+    new_polygon = algo.run(
         dir_output=os.path.join(
             os.path.dirname(__file__),
             'output',

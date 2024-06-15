@@ -13,7 +13,7 @@
 
     import geopandas
 
-    from cac import DNC
+    from cac import DCN1985
 
     gdf_world = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -21,13 +21,13 @@
     gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
 
     values = gdf_world['pop_est'].tolist()
-    dnc = DNC.from_gdf(
+    algo = DCN1985.from_gdf(
         gdf_world,
         values,
         min_log2_error=0.1,
         max_iterations=100,
     )
-    dnc.run(
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

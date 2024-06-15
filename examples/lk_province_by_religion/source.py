@@ -3,7 +3,7 @@ def main():
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DNC
+    from cac import DCN1985
 
     gig_table_last_election = GIGTable(
         'population-religion', 'regions', '2012'
@@ -15,8 +15,8 @@ def main():
         row = ent.gig(gig_table_last_election)
         values.append(row.islam)
 
-    dnc = DNC.from_ents(ents, values)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',

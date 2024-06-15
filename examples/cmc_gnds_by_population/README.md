@@ -13,7 +13,7 @@
 
     from gig import Ent, EntType
 
-    from cac import DNC
+    from cac import DCN1985
 
     ents = Ent.list_from_type(EntType.GND)
     ents = [ent for ent in ents if ent.dsd_id in ['LK-1103', 'LK-1127']]
@@ -21,8 +21,8 @@
     for ent in ents:
         values.append(ent.population)
 
-    dnc = DNC.from_ents(ents, values, preprocess_tolerance=0.0)
-    dnc.run(
+    algo = DCN1985.from_ents(ents, values, preprocess_tolerance=0.0)
+    algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
