@@ -12,7 +12,7 @@ DIR_EXAMPLES = 'examples'
 def build_readme():
     image_md_list = []
     for example in Example.list():
-        image_md_list.append(Markdown.img_html(example.url_animated_gif))
+        image_md_list.append(Markdown.img_html(example.url_animated_gif,width="240px"))
 
     examples_md = Markdown.p_html(
         Markdown.concat(*image_md_list),
