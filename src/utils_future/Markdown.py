@@ -7,19 +7,25 @@ class Markdown:
     BLANK_LINE = ''
     TAB = ' ' * 4
 
-    def __init__(self, lines=None):
-        self.lines = lines or []
-
-    def add_blank_line(self):
-        self.lines.append(Markdown.BLANK_LINE)
+    def __init__(self, *lines):
+        for line in lines:
+            if not isinstance(line, str):
+                raise ValueError(
+                    f'Expected str, got {type(line)}: {str(line)}'
+                )
+        self.lines = list(lines)
 
     @property
     def lines_tabbed(self):
         return [Markdown.TAB + line for line in self.lines]
 
     @property
-    def line(self):
-        return self.lines[0]
+    def content(self):
+        return '\n'.join(self.lines)
+
+    @property
+    def content_tabbed(self):
+        return '\n'.join(self.lines_tabbed)
 
     @property
     def lines_cleaned(self):
@@ -43,61 +49,62 @@ class Markdown:
     # simple objects
 
     @staticmethod
-    def bold(text):
-        return Markdown([f'**{text}**'])
+    def bold(md):
+        return Markdown(f'*{md.content}*')
 
     @staticmethod
-    def italic(text):
-        return Markdown([f'*{text}*'])
+    def italic(md):
+        return Markdown(f'*{md.content}*')
 
     @staticmethod
-    def link(url, text=None):
-        if text is None:
-            text = url
-        return Markdown([f'[{text}]({url})'])
+    def link(url, md=None):
+        if md is None:
+            md = Markdown([url])
+        return Markdown(f'[{md.content}]({url})')
 
     @staticmethod
     def image(url, alt_text=None):
         if alt_text is None:
-            alt_text = url
-        return Markdown([f'![{alt_text}]({url})'])
+            alt_text = 'url'
+        return Markdown(f'![{alt_text}]({url})')
 
     @staticmethod
-    def hx(text, level):
-        return Markdown([('#' * level) + ' ' + text, Markdown.BLANK_LINE])
-
-    @staticmethod
-    def h1(text):
-        return Markdown.hx(text, 1)
-
-    @staticmethod
-    def h2(text):
-        return Markdown.hx(text, 2)
-
-    @staticmethod
-    def h3(text):
-        return Markdown.hx(text, 3)
-
-    # complex objects
-    @staticmethod
-    def code(lang, child):
+    def hx(level, title_md, *body_md_list):
         return Markdown(
-            [
-                f'```{lang}',
-            ]
-            + child.lines
-            + [
-                '```',
-                Markdown.BLANK_LINE,
-            ]
+            ('#' * level) + ' ' + title_md.content,
+            *[body_md.content for body_md in body_md_list],
+            Markdown.BLANK_LINE,
         )
 
     @staticmethod
-    def align(alignment, child):
+    def h1(title_md, *body_md_list):
+        return Markdown.hx(1, title_md, *body_md_list)
+
+    @staticmethod
+    def h2(title_md, *body_md_list):
+        return Markdown.hx(2, title_md, *body_md_list)
+
+    @staticmethod
+    def h3(title_md, *body_md_list):
+        return Markdown.hx(3, title_md, *body_md_list)
+
+    # complex objects
+    @staticmethod
+    def code(lang, child_md):
         return Markdown(
-            [
-                f'<p align="{alignment}">',
-            ]
-            + child.lines_tabbed
-            + ['</p>', Markdown.BLANK_LINE]
+            Markdown.BLANK_LINE,
+            f'```{lang}',
+            child_md.content,
+            '```',
+            Markdown.BLANK_LINE,
+        )
+
+    @staticmethod
+    def align(alignment, child_md):
+        return Markdown(
+            Markdown.BLANK_LINE,
+            f'<p align="{alignment}">',
+            child_md.content_tabbed,
+            '</p>',
+            Markdown.BLANK_LINE,
         )

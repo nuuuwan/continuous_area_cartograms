@@ -84,16 +84,19 @@ class Example:
         )
 
     @property
-    def source_lines(self):
-        return File(self.py_path).read_lines()
+    def source_content(self):
+        return File(self.py_path).read()
 
     @property
     def markdown(self):
-        md = Markdown()
-        md += Markdown.h1(self.title)
-        md += Markdown.align('center', Markdown.image(self.url_animated_gif))
-        md += Markdown.code('python', Markdown(self.source_lines))
-        return md
+        return Markdown.h1(
+            Markdown(self.title),
+            Markdown.align('center', Markdown.image(self.url_animated_gif)),
+            Markdown.code(
+                'python',
+                Markdown(self.source_content),
+            ),
+        )
 
     @property
     def readme_path(self):
