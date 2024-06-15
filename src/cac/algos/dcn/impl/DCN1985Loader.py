@@ -101,6 +101,7 @@ class DCN1985Loader:
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
+            log.debug(f'Loaded geo for {ent.id}')
             gdfs.append(gdf)
 
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
