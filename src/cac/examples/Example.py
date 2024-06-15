@@ -93,7 +93,7 @@ class Example:
             Markdown(self.title),
             Markdown.p_html(
                 Markdown.img_html(self.url_animated_gif),
-                align='center', 
+                align='center',
             ),
             Markdown.code(
                 'python',

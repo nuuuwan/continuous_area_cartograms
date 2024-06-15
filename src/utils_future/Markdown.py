@@ -68,10 +68,6 @@ class Markdown:
             alt_text = url
         return Markdown(f'![{alt_text}]({url})')
 
-
-
-
-
     @staticmethod
     def hx(level, title_md, *body_md_list):
         return Markdown(
@@ -102,8 +98,8 @@ class Markdown:
             '```',
             Markdown.BLANK_LINE,
         )
-    
-    # html 
+
+    # html
 
     @staticmethod
     def p_html(child_md, align=None):
@@ -117,7 +113,6 @@ class Markdown:
             '</p>',
             Markdown.BLANK_LINE,
         )
-
 
     @staticmethod
     def img_html(url, alt_text=None, width=None):
