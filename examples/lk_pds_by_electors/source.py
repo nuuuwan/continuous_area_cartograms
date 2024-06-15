@@ -8,13 +8,14 @@ def main():
     gig_table_last_election = GIGTable(
         'government-elections-parliamentary', 'regions-ec', '2020'
     )
-    ents = [ent for ent in Ent.list_from_type(EntType.PD)]
+    ents = Ent.list_from_type(EntType.PD)
+
     values = []
     for ent in ents:
         row = ent.gig(gig_table_last_election)
         values.append(row.electors)
 
-    algo = DCN1985.from_ents(ents, values)
+    algo = DCN1985.from_ents(ents, values, do_shrink=True)
     algo.run(
         os.path.join(
             os.path.dirname(__file__),

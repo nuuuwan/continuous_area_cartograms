@@ -50,12 +50,10 @@ class DCN1985Runner:
 
         polygons = [Polygon(Point_i) for Point_i in new_Point]
         dcn = dcn.from_dcn(polygons)
-        if dcn.do_shrink:
-            dcn = cls.shrink(dcn)
         return dcn
 
     @classmethod
-    def shrink(cls, dcn, min_p=0.5, shrink_factor=0.1):
+    def shrink(cls, dcn, min_p=1, shrink_factor=0.1):
         new_polygons = []
         total_area = dcn.total_area
         total_value = dcn.total_value
@@ -92,6 +90,9 @@ class DCN1985Runner:
             if dcn.is_reasonably_complete:
                 break
             dcn = cls.run_single_optimized(dcn)
+            if dcn.do_shrink:
+                dcn = cls.shrink(dcn, min_p=i_iter/dcn.max_iterations, shrink_factor=i_iter/dcn.max_iterations)
+        
 
             t_now = time.time()
             dt_all = t_now - t_start
