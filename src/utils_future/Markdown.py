@@ -122,12 +122,16 @@ class Markdown:
         )
 
     @staticmethod
-    def img_html(url, alt_text=None, width=None):
+    def img_html(url, alt_text=None, width=None, height=None):
         if alt_text is None:
-            alt_text = url
+            alt_text = 'alt'
         width_str = ''
         if width is not None:
             width_str = f' width="{width}"'
+
+        height_str = ''
+        if height is not None:
+            height_str = f' height="{height}"'
         return Markdown(
-            f'<img src="{url}" alt="{alt_text}" {width_str} />',
+            f'<img src="{url}" alt="{alt_text}"{width_str}{height_str} />',
         )
