@@ -140,7 +140,7 @@ Alternatively, DCN1985s objects can be constructed from [geopandas.GeoDataFrame]
         ...
 ```
 
-For more details and source code, see [examples/README.md](examples/README.md).
+For more details and source code, see [examples](examples).
 
 ## The [Algorithm](references/paper.pdf)
 
