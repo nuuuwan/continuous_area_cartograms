@@ -91,8 +91,11 @@ class DCN1985Runner:
                 break
             dcn = cls.run_single_optimized(dcn)
             if dcn.do_shrink:
-                dcn = cls.shrink(dcn, min_p=i_iter/dcn.max_iterations, shrink_factor=i_iter/dcn.max_iterations)
-        
+                dcn = cls.shrink(
+                    dcn,
+                    min_p=i_iter / dcn.max_iterations,
+                    shrink_factor=i_iter / dcn.max_iterations,
+                )
 
             t_now = time.time()
             dt_all = t_now - t_start
