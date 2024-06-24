@@ -6,12 +6,12 @@ from matplotlib import patches as mpatches
 from matplotlib import pyplot as plt
 from utils import Log
 
-from utils_future import Number
+from utils_future import MatPlotLibUser, Number
 
 log = Log('DCN1985Renderer')
 
 
-class DCN1985Renderer:
+class DCN1985Renderer(MatPlotLibUser):
     @staticmethod
     def get_foreground_color(background_color):
         rgba = mcolors.to_rgba(background_color)
@@ -70,14 +70,6 @@ class DCN1985Renderer:
         DCN1985Renderer.render_polygon_text(
             polygon, label, actual_value, log2_error, total_area
         )
-
-    @staticmethod
-    def remove_grids(ax):
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.grid(False)
-        for spine in ax.spines.values():
-            spine.set_visible(False)
 
     @staticmethod
     def render_legend(ax):

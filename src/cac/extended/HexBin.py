@@ -7,18 +7,23 @@ from shapely import affinity
 from shapely.geometry import Point
 from utils import Log
 
-log = Log('DCN1985RenderHexBin')
+from utils_future import MatPlotLibUser
+
+log = Log('HexBin')
 
 
-class DCN1985RenderHexBin:
+class HexBin(MatPlotLibUser):
     SCALE_FACTOR = 1
+
+    def __init__(self, polygons):
+        self.polygons = polygons
 
     @staticmethod
     def get_points(polygon, dim):
         polygon = affinity.scale(
             polygon,
-            xfact=DCN1985RenderHexBin.SCALE_FACTOR,
-            yfact=DCN1985RenderHexBin.SCALE_FACTOR,
+            xfact=HexBin.SCALE_FACTOR,
+            yfact=HexBin.SCALE_FACTOR,
             origin=polygon.centroid,
         )
         bounds = polygon.bounds
@@ -66,29 +71,26 @@ class DCN1985RenderHexBin:
 
         total_area = sum([polygon.area for polygon in self.polygons])
         total_value = 220
-        dim = (
-            math.sqrt(total_area / total_value)
-            * DCN1985RenderHexBin.SCALE_FACTOR
-        )
+        dim = math.sqrt(total_area / total_value) * HexBin.SCALE_FACTOR
         log.debug(f'{total_value=:,}, {dim=:4f}')
 
         for polygon in polygons:
-            DCN1985RenderHexBin.render_polygon_shape(polygon, ax)
+            HexBin.render_polygon_shape(polygon, ax)
 
         n_polygons = len(polygons)
         actual_total_value = 0
         for i_polygon, polygon in enumerate(polygons):
-            points = DCN1985RenderHexBin.get_points(polygon, dim)
+            points = HexBin.get_points(polygon, dim)
             color = plt.cm.hsv(i_polygon / n_polygons)
             for point in points:
                 polygon_patch = patches.RegularPolygon(
                     (point.x, point.y),
                     numVertices=6,
-                    radius=dim / 2,
+                    radius=math.sqrt(3/2) * dim / 2,
                     orientation=math.pi / 2,
                     facecolor=color,
-                    edgecolor="#000",
-                    alpha=0.25,
+                    edgecolor=None,
+                    alpha=0.5,
                 )
                 ax.add_patch(polygon_patch)
 
@@ -99,6 +101,3 @@ class DCN1985RenderHexBin:
 
         plt.savefig(hexbin_path)
         log.info(f'Wrote {hexbin_path}')
-
-        # import sys
-        # sys.exit(-1)
