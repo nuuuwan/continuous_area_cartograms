@@ -3,24 +3,37 @@ def main():
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DCN1985
+    from cac import DCN1985, HexBin
 
     gig_table_last_election = GIGTable(
         'government-elections-parliamentary', 'regions-ec', '2020'
     )
-    ents = Ent.list_from_type(EntType.PD)
+    ents = Ent.list_from_type(EntType.ED)
 
     values = []
     for ent in ents:
-        row = ent.gig(gig_table_last_election)
-        values.append(row.electors)
+        gig_table_row = ent.gig(gig_table_last_election)
+        values.append(gig_table_row.electors)
 
-    algo = DCN1985.from_ents(ents, values, do_shrink=True)
-    algo.run(
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        do_shrink=True,
+        max_iterations=10,
+    )
+    polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),
             'output',
         )
+    )
+
+    HexBin(polygons, total_value=850).save_hexbin(
+        os.path.join(
+            os.path.dirname(__file__),
+            'output',
+            'hexbin.png',
+        ),
     )
 
 
