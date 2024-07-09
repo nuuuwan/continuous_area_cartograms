@@ -80,7 +80,7 @@ class DCN1985Runner:
             # save image
             file_id = f'{i_iter:03}'
             image_path = os.path.join(dir_image, f'{file_id}.png')
-            dcn.save_image(image_path)
+            dcn.save_image(image_path, i_iter)
 
             # save gdf
             gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')

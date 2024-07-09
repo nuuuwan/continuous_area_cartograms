@@ -39,7 +39,13 @@ class DCN1985Renderer(MatPlotLibUser):
 
     @staticmethod
     def render_polygon_text(
-        polygon, label, actual_value, log2_error, total_area
+        polygon,
+        label,
+        actual_value,
+        log2_error,
+        total_area,
+        is_area_mode,
+        true_total_area,
     ):
         background_color = DCN1985Renderer.get_color(log2_error)
         foreground_color = DCN1985Renderer.get_foreground_color(
@@ -51,7 +57,14 @@ class DCN1985Renderer(MatPlotLibUser):
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         if font_size < 1:
             return
-        text = f'{label}\n{Number(actual_value).humanized()}'
+        if is_area_mode:
+            actual_area = p_area * true_total_area
+            number_label = Number(actual_area).humanized()
+        else:
+            number_label = Number(actual_value).humanized()
+
+        text = f'{label}\n{number_label}'
+
         plt.text(
             x,
             y,
@@ -64,11 +77,24 @@ class DCN1985Renderer(MatPlotLibUser):
 
     @staticmethod
     def render_polygon(
-        polygon, label, actual_value, log2_error, total_area, ax
+        polygon,
+        label,
+        actual_value,
+        log2_error,
+        total_area,
+        ax,
+        is_area_mode,
+        true_total_area,
     ):
         DCN1985Renderer.render_polygon_shape(polygon, log2_error, ax)
         DCN1985Renderer.render_polygon_text(
-            polygon, label, actual_value, log2_error, total_area
+            polygon,
+            label,
+            actual_value,
+            log2_error,
+            total_area,
+            is_area_mode,
+            true_total_area,
         )
 
     @staticmethod
@@ -81,7 +107,7 @@ class DCN1985Renderer(MatPlotLibUser):
             handles.append(patch)
         ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
 
-    def render_all(self):
+    def render_all(self, is_area_mode):
         plt.close()
         ax = plt.gca()
         total_area = self.total_area
@@ -92,12 +118,39 @@ class DCN1985Renderer(MatPlotLibUser):
             self.Log2Error,
         ):
             DCN1985Renderer.render_polygon(
-                polygon, label, actual_value, log2_error, total_area, ax
+                polygon,
+                label,
+                actual_value,
+                log2_error,
+                total_area,
+                ax,
+                is_area_mode,
+                self.true_total_area,
             )
         DCN1985Renderer.render_legend(ax)
         DCN1985Renderer.remove_grids(ax)
 
-    def save_image(self, image_path):
-        self.render_all()
+        plt.annotate(
+            self.title,
+            (0.5, 0.95),
+            fontsize=5,
+            xycoords='axes fraction',
+            ha='center',
+        )
+        if is_area_mode:
+            title_text = f'By Area ({self.area_unit})'
+        else:
+            title_text = 'By ' + self.value_unit
+
+        plt.annotate(
+            title_text,
+            (0.5, 0.9),
+            fontsize=10,
+            xycoords='axes fraction',
+            ha='center',
+        )
+
+    def save_image(self, image_path, i_iter):
+        self.render_all(i_iter < self.max_iterations / 3)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')

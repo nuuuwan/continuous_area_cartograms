@@ -14,6 +14,10 @@ class DCN1985Base:
         min_log2_error=0.1,
         max_iterations=30,
         do_shrink=False,
+        title='',
+        area_unit="area (%)",
+        value_unit="value",
+        true_total_area=100,
     ):
         # polygons
         self.polygons = [
@@ -41,12 +45,22 @@ class DCN1985Base:
                 min_log2_error=min_log2_error,
                 max_iterations=max_iterations,
                 do_shrink=do_shrink,
+                title=title,
+                area_unit=area_unit,
+                value_unit=value_unit,
+                true_total_area=true_total_area,
             )
         )
         self.preprocess_tolerance = preprocess_tolerance
         self.min_log2_error = min_log2_error
         self.max_iterations = max_iterations
         self.do_shrink = do_shrink
+
+        # area labels
+        self.title = title
+        self.area_unit = area_unit
+        self.value_unit = value_unit
+        self.true_total_area = true_total_area
 
     @staticmethod
     def preprocess(polygon, tolerance):

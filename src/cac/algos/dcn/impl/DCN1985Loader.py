@@ -117,7 +117,8 @@ class DCN1985Loader:
             }
         )
 
-    def from_dcn(self, polygons, **kwargs):
+    def from_dcn(self, polygons):
+        # ⚠️ All new attributes must be added here!
         return self.__class__(
             polygons,
             self.values,
@@ -126,5 +127,8 @@ class DCN1985Loader:
             self.min_log2_error,
             self.max_iterations,
             self.do_shrink,
-            **kwargs,
+            self.title,
+            self.area_unit,
+            self.value_unit,
+            self.true_total_area,
         )
