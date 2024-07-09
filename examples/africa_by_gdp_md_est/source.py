@@ -18,7 +18,6 @@ def main():
         area_unit="km2",
         value_unit="GDP (USD M)",
         true_total_area=30_370_000,
-
     )
     algo.run(
         os.path.join(

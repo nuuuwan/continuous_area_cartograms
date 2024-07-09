@@ -11,7 +11,15 @@ def main():
     for ent in ents:
         values.append(ent.population)
 
-    algo = DCN1985.from_ents(ents, values, preprocess_tolerance=0.0000001)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        preprocess_tolerance=0.0000001,
+        title="Colombo District's Polling Divisions",
+        area_unit="km2",
+        value_unit="Population",
+        true_total_area=699,
+    )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
