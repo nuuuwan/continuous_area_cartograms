@@ -15,6 +15,10 @@ def main():
         gdf_world,
         values,
         do_shrink=True,
+        title="World",
+        area_unit="km2",
+        value_unit="Population",
+        true_total_area=149_000_000,
     )
     algo.run(
         os.path.join(
