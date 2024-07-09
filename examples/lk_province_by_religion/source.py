@@ -15,7 +15,14 @@ def main():
         row = ent.gig(gig_table_last_election)
         values.append(row.islam)
 
-    algo = DCN1985.from_ents(ents, values)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        title="Sri Lanka's Provinces",
+        area_unit="km2",
+        value_unit="Muslim Population",
+        true_total_area=65_610,
+    )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
