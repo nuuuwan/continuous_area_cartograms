@@ -20,6 +20,10 @@ def main():
         values,
         do_shrink=True,
         max_iterations=10,
+        title="Sri Lanka's Polling Divisions",
+        area_unit="km2",
+        value_unit="Registered Voter Pop.",
+        true_total_area=65_610,
     )
     polygons = algo.run(
         os.path.join(
