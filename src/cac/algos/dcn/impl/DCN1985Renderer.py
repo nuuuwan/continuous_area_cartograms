@@ -144,7 +144,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.annotate(
             title_text,
-            (0.5, 0.9),
+            (0.5, 0.88),
             fontsize=10,
             xycoords='axes fraction',
             ha='center',
