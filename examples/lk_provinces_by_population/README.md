@@ -1,7 +1,7 @@
-# Lk Districts By Population
+# Lk Provinces By Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_population/output/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -12,13 +12,21 @@ def main():
 
     from cac import DCN1985, HexBin
 
-    ents = Ent.list_from_type(EntType.DISTRICT)
+    ents = Ent.list_from_type(EntType.PROVINCE)
 
     values = []
     for ent in ents:
         values.append(ent.population)
 
-    algo = DCN1985.from_ents(ents, values, max_iterations=10)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+
+        title="Sri Lanka's Provinces",
+        area_unit="km2",
+        value_unit="Population",
+        true_total_area=65_610,
+    )
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),

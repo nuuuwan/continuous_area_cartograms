@@ -1,7 +1,7 @@
-# Lk Province By Religion
+# Lk Districts By Muslim Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_province_by_religion/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/output/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -16,13 +16,20 @@ def main():
         'population-religion', 'regions', '2012'
     )
 
-    ents = [ent for ent in Ent.list_from_type(EntType.PROVINCE)]
+    ents = [ent for ent in Ent.list_from_type(EntType.DISTRICT)]
     values = []
     for ent in ents:
         row = ent.gig(gig_table_last_election)
         values.append(row.islam)
 
-    algo = DCN1985.from_ents(ents, values)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        title="Sri Lanka's Districts",
+        area_unit="km2",
+        value_unit="Muslim Population",
+        true_total_area=65_610,
+    )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),

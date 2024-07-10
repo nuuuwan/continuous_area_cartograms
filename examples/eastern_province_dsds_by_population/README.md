@@ -18,7 +18,15 @@ def main():
     for ent in ents:
         values.append(ent.population)
 
-    algo = DCN1985.from_ents(ents, values, preprocess_tolerance=0.0)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        preprocess_tolerance=0.0,
+        title="Eastern Province (Sri Lanka)'s DSDs",
+        area_unit="km2",
+        value_unit="Population",
+        true_total_area=9_361,
+    )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),

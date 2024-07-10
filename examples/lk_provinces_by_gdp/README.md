@@ -1,7 +1,7 @@
-# Lk Districts By Population
+# Lk Provinces By Gdp
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_gdp/output/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -12,13 +12,33 @@ def main():
 
     from cac import DCN1985, HexBin
 
-    ents = Ent.list_from_type(EntType.DISTRICT)
+    ents = Ent.list_from_type(EntType.PROVINCE)
+
+    # Source: https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/press/pr/press_pgdp_2022_e.pdf
+    GDP_DATA_IDX = {
+        'LK-1': 10_473_166,
+        'LK-2': 2_423_253 ,
+        'LK-3': 2_199_791,
+        'LK-4': 985_139,
+        'LK-5': 1_248_306 ,
+        'LK-6': 2_706_227 ,
+        'LK-7': 1_209_771,
+        'LK-8': 1_176_221 ,
+        'LK-9': 1_725_853 ,
+    }
 
     values = []
     for ent in ents:
-        values.append(ent.population)
+        values.append(GDP_DATA_IDX[ent.id])
 
-    algo = DCN1985.from_ents(ents, values, max_iterations=10)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        title="Sri Lanka's Provinces",
+        area_unit="km2",
+        value_unit="GDP (LKR M)",
+        true_total_area=65_610,
+    )
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),

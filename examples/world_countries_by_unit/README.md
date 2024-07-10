@@ -1,7 +1,7 @@
-# World Countries By Population
+# World Countries By Unit
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_unit/output/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -17,11 +17,15 @@ def main():
     )
     gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
 
-    values = gdf_world['pop_est'].tolist()
+    values = [1 for _ in gdf_world['pop_est'].tolist()]
     algo = DCN1985.from_gdf(
         gdf_world,
         values,
         do_shrink=True,
+        title="World",
+        area_unit="km2",
+        value_unit="Unit",
+        true_total_area=149_000_000,
     )
     algo.run(
         os.path.join(

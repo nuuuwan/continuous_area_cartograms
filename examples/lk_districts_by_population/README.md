@@ -18,7 +18,15 @@ def main():
     for ent in ents:
         values.append(ent.population)
 
-    algo = DCN1985.from_ents(ents, values, max_iterations=10)
+    algo = DCN1985.from_ents(
+        ents,
+        values,
+        max_iterations=10,
+        title="Sri Lanka's Districts",
+        area_unit="km2",
+        value_unit="Population",
+        true_total_area=65_610,
+    )
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),
