@@ -30,8 +30,12 @@ class DCN1985Base:
         log.debug(render_params)
 
     def validate(self):
-        assert len(self.polygons) == len(self.values), f'{len(self.polygons)} != {len(self.values)}'
-        assert len(self.polygons) == len(self.labels), f'{len(self.polygons)} != {len(self.labels)}'
+        assert len(self.polygons) == len(
+            self.values
+        ), f'{len(self.polygons)} != {len(self.values)}'
+        assert len(self.polygons) == len(
+            self.labels
+        ), f'{len(self.polygons)} != {len(self.labels)}'
 
     @staticmethod
     def preprocess_polygons(polygons, tolerance):

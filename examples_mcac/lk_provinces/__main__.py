@@ -4,7 +4,8 @@ import os
 def main():  # noqa
     from gig import Ent, EntType
 
-    from cac import DCN1985, MultiStageCAC, DCN1985AlgoParams, DCN1985RenderParams
+    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
+                     MultiStageCAC)
 
     ents = Ent.list_from_type(EntType.PROVINCE)
     values_population = [ent.population for ent in ents]
@@ -25,7 +26,6 @@ def main():  # noqa
     algo_params = DCN1985AlgoParams(
         max_iterations=5,
     )
-
 
     MultiStageCAC(
         DCN1985.from_ents(
@@ -49,9 +49,9 @@ def main():  # noqa
                 value_unit="GDP (LKR M)",
                 true_total_area=65_610,
             ),
-        )
+        ),
     ).run(
-         os.path.join(
+        os.path.join(
             os.path.dirname(__file__),
             'output',
         )
