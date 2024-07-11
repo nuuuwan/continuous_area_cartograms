@@ -3,7 +3,7 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985, HexBin
+    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBin
 
     ents = Ent.list_from_type(EntType.DISTRICT)
 
@@ -14,11 +14,13 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        max_iterations=10,
-        title="Sri Lanka's Districts",
-        area_unit="km2",
-        value_unit="Population",
-        true_total_area=65_610,
+        algo_params=DCN1985AlgoParams(max_iterations=10),
+        render_params=DCN1985RenderParams(
+            title="Sri Lanka's Districts",
+            area_unit="km2",
+            value_unit="Population",
+            true_total_area=65_610,
+        ),
     )
     polygons = algo.run(
         os.path.join(

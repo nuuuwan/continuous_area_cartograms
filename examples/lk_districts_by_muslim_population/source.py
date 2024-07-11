@@ -3,7 +3,7 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985RenderParams
 
     gig_table_last_election = GIGTable(
         'population-religion', 'regions', '2012'
@@ -18,10 +18,12 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        title="Sri Lanka's Districts",
-        area_unit="km2",
-        value_unit="Muslim Population",
-        true_total_area=65_610,
+        render_params=DCN1985RenderParams(
+            title="Sri Lanka's Districts",
+            area_unit="km2",
+            value_unit="Muslim Population",
+            true_total_area=65_610,
+        ),
     )
     algo.run(
         os.path.join(

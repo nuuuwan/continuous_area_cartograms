@@ -3,7 +3,7 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
 
     ents_all = Ent.list_from_type(EntType.DSD)
 
@@ -29,11 +29,13 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        do_shrink=True,
-        title="Colombo District's DSDs",
-        area_unit="km2",
-        value_unit="SLASSCOM Members",
-        true_total_area=699,
+        algo_params=DCN1985AlgoParams(do_shrink=True),
+        render_params=DCN1985RenderParams(
+            title="Colombo District's DSDs",
+            area_unit="km2",
+            value_unit="SLASSCOM Members",
+            true_total_area=699,
+        ),
     )
     algo.run(
         os.path.join(

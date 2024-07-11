@@ -16,7 +16,7 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(
             preprocess_tolerance=0.0,
-        ), 
+        ),
         render_params=DCN1985RenderParams(
             title="Colombo MC's GNDs",
             area_unit="km2",

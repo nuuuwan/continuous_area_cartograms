@@ -3,7 +3,7 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985, HexBin
+    from cac import DCN1985, DCN1985RenderParams, HexBin
 
     ents = Ent.list_from_type(EntType.PROVINCE)
 
@@ -28,10 +28,12 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        title="Sri Lanka's Provinces",
-        area_unit="km2",
-        value_unit="GDP (LKR M)",
-        true_total_area=65_610,
+        render_params=DCN1985RenderParams(
+            title="Sri Lanka's Provinces",
+            area_unit="km2",
+            value_unit="GDP (LKR M)",
+            true_total_area=65_610,
+        ),
     )
     polygons = algo.run(
         os.path.join(
