@@ -42,7 +42,6 @@ class DCN1985Loader:
 
         return [filtered_polygons, values_for_shape, labels_for_shape]
 
-
     @staticmethod
     def get_labels(gdf: gpd.GeoDataFrame):
         geometry = gdf['geometry']
@@ -62,9 +61,7 @@ class DCN1985Loader:
         geometry = gdf['geometry']
         labels = cls.get_labels(gdf)
 
-        # values
-        if values is None:
-            values = [1 for _ in range(len(geometry))]
+        values = values or [1 for _ in range(len(geometry))]
 
         min_p_area = kwargs.get('min_p_area', 0.01)
 
@@ -132,7 +129,6 @@ class DCN1985Loader:
             self.max_iterations,
             self.do_shrink,
             self.title,
-
             self.area_unit,
             self.value_unit,
             self.true_total_area,

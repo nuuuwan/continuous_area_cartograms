@@ -107,6 +107,27 @@ class DCN1985Renderer(MatPlotLibUser):
             handles.append(patch)
         ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
 
+    def render_titles(self, is_area_mode):
+        plt.annotate(
+            self.title,
+            (0.5, 0.95),
+            fontsize=5,
+            xycoords='axes fraction',
+            ha='center',
+        )
+        if is_area_mode:
+            title_text = f'By Area ({self.area_unit})'
+        else:
+            title_text = 'By ' + self.value_unit
+
+        plt.annotate(
+            title_text,
+            (0.5, 0.88),
+            fontsize=10,
+            xycoords='axes fraction',
+            ha='center',
+        )
+
     def render_all(self, is_area_mode):
         plt.close()
         ax = plt.gca()
@@ -129,26 +150,7 @@ class DCN1985Renderer(MatPlotLibUser):
             )
         DCN1985Renderer.render_legend(ax)
         DCN1985Renderer.remove_grids(ax)
-
-        plt.annotate(
-            self.title,
-            (0.5, 0.95),
-            fontsize=5,
-            xycoords='axes fraction',
-            ha='center',
-        )
-        if is_area_mode:
-            title_text = f'By Area ({self.area_unit})'
-        else:
-            title_text = 'By ' + self.value_unit
-
-        plt.annotate(
-            title_text,
-            (0.5, 0.88),
-            fontsize=10,
-            xycoords='axes fraction',
-            ha='center',
-        )
+        self.render_titles(is_area_mode)
 
     def save_image(self, image_path, i_iter):
         self.render_all(i_iter < self.max_iterations / 10)
