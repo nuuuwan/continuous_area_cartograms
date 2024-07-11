@@ -19,15 +19,21 @@ class DCN1985LoaderUtils:
             )
 
         raise ValueError(f'Unknown geometry type {type(geometry)}')
+    
 
     @staticmethod
-    def get_shape_vars(shape, value, label, min_p_area):
+    def get_polygons(shape, min_p_area):
         polygons = DCN1985LoaderUtils.extract_polygons(shape)
         total_area = sum([polygon.area for polygon in polygons])
         min_area = total_area * min_p_area
-        filtered_polygons = [
+        return [
             polygon for polygon in polygons if polygon.area > min_area
         ]
+
+
+    @staticmethod
+    def get_shape_vars(shape, value, label, min_p_area):
+        filtered_polygons = DCN1985LoaderUtils.get_polygons(shape, min_p_area)
         total_area = sum([polygon.area for polygon in filtered_polygons])
         values_for_shape = [
             value * polygon.area / total_area for polygon in filtered_polygons

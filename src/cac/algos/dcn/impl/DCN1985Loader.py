@@ -74,14 +74,8 @@ class DCN1985Loader(DCN1985LoaderUtils):
         gdf.to_file('Provinces.geo.json', driver='GeoJSON')
         return cls.from_gdf(gdf, values, algo_params, render_params)
 
-    @classmethod
-    def from_ents(
-        cls,
-        ents: list[Ent],
-        values: list[float] = None,
-        algo_params=None,
-        render_params=None,
-    ):
+    @staticmethod
+    def ents_to_gdf(ents):
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
@@ -91,6 +85,17 @@ class DCN1985Loader(DCN1985LoaderUtils):
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
         combined_gdf['id'] = [ent.id for ent in ents]
         combined_gdf['name'] = [ent.name for ent in ents]
+        return combined_gdf
+
+    @classmethod
+    def from_ents(
+        cls,
+        ents: list[Ent],
+        values: list[float] = None,
+        algo_params=None,
+        render_params=None,
+    ):
+        combined_gdf = DCN1985Loader.ents_to_gdf(ents)
         return cls.from_gdf(combined_gdf, values, algo_params, render_params)
 
     def to_gdf(self):
