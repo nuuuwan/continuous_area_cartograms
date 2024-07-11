@@ -5,7 +5,7 @@
 </p>
 
 ```python
-def main():
+def main():  # noqa
     import os
 
     from cac import DCN1985

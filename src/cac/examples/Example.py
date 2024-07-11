@@ -8,12 +8,6 @@ log = Log('Example')
 
 
 class Example:
-    URL_BASE = (
-        'https://github.com'
-        + '/nuuuwan/continuous_area_cartograms'
-        + '/tree/main/examples'
-    )
-
     def __init__(self, example_name):
         self.example_name = example_name
 

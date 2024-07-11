@@ -1,4 +1,4 @@
-def main():
+def main():  # noqa
     import os
 
     from shapely import Polygon

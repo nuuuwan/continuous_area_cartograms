@@ -5,7 +5,7 @@
 </p>
 
 ```python
-def main():
+def main():  # noqa
     import os
 
     from gig import Ent, EntType, GIGTable
