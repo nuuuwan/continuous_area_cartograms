@@ -111,7 +111,7 @@ class DCN1985Runner:
             i_iter += 1
             if i_iter >= dcn.algo_params.max_iterations:
                 log.warning(
-                    f'🛑 MAX_ITERATIONS({dcn.algo_params.max_iterations}) reached.'
+                    f'🛑 MAX_ITERATIONS({dcn.algo_params.max_iterations})'+' reached.'
                 )
                 break
 
