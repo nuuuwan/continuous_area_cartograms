@@ -6,7 +6,6 @@ from cac import Example
 from utils_future import Markdown
 
 log = Log('build_readme_examples')
-DIR_EXAMPLES = 'examples'
 
 
 def build_readme():

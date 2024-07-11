@@ -8,11 +8,6 @@ log = Log('Example')
 
 
 class Example:
-    URL_RAW_BASE = (
-        'https://raw.githubusercontent.com'
-        + '/nuuuwan/continuous_area_cartograms'
-        + '/main/examples'
-    )
     URL_BASE = (
         'https://github.com'
         + '/nuuuwan/continuous_area_cartograms'
