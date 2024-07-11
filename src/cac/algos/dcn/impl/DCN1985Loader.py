@@ -42,13 +42,10 @@ class DCN1985Loader:
 
         return [filtered_polygons, values_for_shape, labels_for_shape]
 
-    @classmethod
-    def from_gdf(
-        cls, gdf: gpd.GeoDataFrame, values: list[float] = None, **kwargs
-    ):
-        geometry = gdf['geometry']
 
-        # labels
+    @staticmethod
+    def get_labels(gdf: gpd.GeoDataFrame):
+        geometry = gdf['geometry']
         labels = None
         if 'name' in gdf:
             labels = gdf['name']
@@ -56,6 +53,14 @@ class DCN1985Loader:
             labels = gdf['id']
         if labels is None:
             labels = [str(i) for i in range(len(geometry))]
+        return labels
+
+    @classmethod
+    def from_gdf(
+        cls, gdf: gpd.GeoDataFrame, values: list[float] = None, **kwargs
+    ):
+        geometry = gdf['geometry']
+        labels = cls.get_labels(gdf)
 
         # values
         if values is None:
@@ -118,7 +123,6 @@ class DCN1985Loader:
         )
 
     def from_dcn(self, polygons):
-        # ⚠️ All new attributes must be added here!
         return self.__class__(
             polygons,
             self.values,
@@ -128,6 +132,7 @@ class DCN1985Loader:
             self.max_iterations,
             self.do_shrink,
             self.title,
+
             self.area_unit,
             self.value_unit,
             self.true_total_area,
