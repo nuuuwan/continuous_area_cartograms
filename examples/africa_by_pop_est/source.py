@@ -19,7 +19,7 @@ def main():  # noqa
             area_unit="km2",
             value_unit="Population",
             true_total_area=30_370_000,
-        )
+        ),
     )
     algo.run(
         os.path.join(

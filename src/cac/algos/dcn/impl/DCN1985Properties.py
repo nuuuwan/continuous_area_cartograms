@@ -87,7 +87,9 @@ class DCN1985Properties:
 
     @cached_property
     def is_reasonably_complete(self) -> bool:
-        return np.all(np.abs(self.Log2Error) <= self.algo_params.min_log2_error)
+        return np.all(
+            np.abs(self.Log2Error) <= self.algo_params.min_log2_error
+        )
 
     @cached_property
     def total_area(self) -> float:

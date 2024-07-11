@@ -56,7 +56,9 @@ class DCN1985Logger:
         )
         log.debug(
             '✅ = '
-            + DCN1985Logger.format_log2_error(-self.algo_params.min_log2_error)
+            + DCN1985Logger.format_log2_error(
+                -self.algo_params.min_log2_error
+            )
             + ' to '
             + DCN1985Logger.format_log2_error(self.algo_params.min_log2_error)
         )

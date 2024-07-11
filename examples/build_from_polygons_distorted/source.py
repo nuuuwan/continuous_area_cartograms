@@ -35,7 +35,7 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(
             max_iterations=20,
-        )
+        ),
     )
 
     new_polygon = algo.run(
