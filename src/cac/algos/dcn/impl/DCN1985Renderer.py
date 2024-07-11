@@ -37,28 +37,26 @@ class DCN1985Renderer(MatPlotLibUser):
             linewidth=0.2,
         )
 
-    @staticmethod
     def render_polygon_text(
+        self,
         polygon,
         label,
         actual_value,
         log2_error,
-        total_area,
         is_area_mode,
-        true_total_area,
     ):
         background_color = DCN1985Renderer.get_color(log2_error)
         foreground_color = DCN1985Renderer.get_foreground_color(
             background_color
         )
         x, y = polygon.centroid.coords[0]
-        p_area = polygon.area / total_area
+        p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         if font_size < 1:
             return
         if is_area_mode:
-            actual_area = p_area * true_total_area
+            actual_area = p_area * self.render_params.true_total_area
             number_label = Number(actual_area).humanized()
         else:
             number_label = Number(actual_value).humanized()
@@ -75,25 +73,21 @@ class DCN1985Renderer(MatPlotLibUser):
             verticalalignment='center',
         )
 
-    @staticmethod
     def render_polygon(
+        self,
         polygon,
         label,
         actual_value,
         log2_error,
-        total_area,
         is_area_mode,
-        true_total_area,
     ):
         DCN1985Renderer.render_polygon_shape(polygon, log2_error)
-        DCN1985Renderer.render_polygon_text(
+        self.render_polygon_text(
             polygon,
             label,
             actual_value,
             log2_error,
-            total_area,
             is_area_mode,
-            true_total_area,
         )
 
     @staticmethod
@@ -131,21 +125,18 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def render_all(self, is_area_mode):
         plt.close()
-        total_area = self.total_area
         for polygon, label, actual_value, log2_error in zip(
             self.polygons,
             self.labels,
             self.ActualValue,
             self.Log2Error,
         ):
-            DCN1985Renderer.render_polygon(
+            self.render_polygon(
                 polygon,
                 label,
                 actual_value,
                 log2_error,
-                total_area,
                 is_area_mode,
-                self.render_params.true_total_area,
             )
         DCN1985Renderer.render_legend()
         DCN1985Renderer.remove_grids()
