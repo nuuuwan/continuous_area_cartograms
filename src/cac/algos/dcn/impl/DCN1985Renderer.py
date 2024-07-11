@@ -2,7 +2,6 @@ import math
 
 import geopandas
 from matplotlib import colors as mcolors
-from matplotlib import patches as mpatches
 from matplotlib import pyplot as plt
 from utils import Log
 
@@ -23,15 +22,19 @@ class DCN1985Renderer(MatPlotLibUser):
     @staticmethod
     def get_color(hue, log2_error):
         saturation = 100
-        
+
         # lightness
         max_abs_error = 1
-        p_log2_error = (min(max_abs_error, max(-max_abs_error, log2_error)) + max_abs_error)/(max_abs_error * 2)
+        p_log2_error = (
+            min(max_abs_error, max(-max_abs_error, log2_error))
+            + max_abs_error
+        ) / (max_abs_error * 2)
         min_lightness = 20
         lightness = min_lightness + (100 - min_lightness) * p_log2_error
-        
-        
-        r, g, b = mcolors.hsv_to_rgb([hue/360, saturation / 100, lightness / 100])
+
+        r, g, b = mcolors.hsv_to_rgb(
+            [hue / 360, saturation / 100, lightness / 100]
+        )
         return (r, g, b)
 
     @staticmethod
@@ -53,7 +56,6 @@ class DCN1985Renderer(MatPlotLibUser):
         show_start_labels,
         hue,
     ):
-        
         background_color = DCN1985Renderer.get_color(hue, log2_error)
         foreground_color = DCN1985Renderer.get_foreground_color(
             background_color
@@ -101,8 +103,6 @@ class DCN1985Renderer(MatPlotLibUser):
             hue,
         )
 
-
-
     def render_titles(self, show_start_labels):
         plt.annotate(
             self.render_params.title,
@@ -127,10 +127,17 @@ class DCN1985Renderer(MatPlotLibUser):
     def render_all(self):
         plt.close()
         p_progress = 1 - min(1, self.mean_abs_log2_error)
-        log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}')
+        log.debug(
+            f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}'
+        )
         show_start_labels = p_progress < 0.5
-        hue = p_progress * self.render_params.end_value_hue + (1 - p_progress) * self.render_params.start_value_hue
-        log.debug(f'start_value_hue={self.render_params.start_value_hue}, end_value_hue={self.render_params.end_value_hue}, {hue=}')
+        hue = (
+            p_progress * self.render_params.end_value_hue
+            + (1 - p_progress) * self.render_params.start_value_hue
+        )
+        log.debug(
+            f'start_value_hue={self.render_params.start_value_hue}, end_value_hue={self.render_params.end_value_hue}, {hue=}'
+        )
 
         for polygon, label, end_value, log2_error in zip(
             self.polygons,

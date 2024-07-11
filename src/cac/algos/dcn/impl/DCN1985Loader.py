@@ -106,7 +106,14 @@ class DCN1985Loader(DCN1985LoaderUtils):
             }
         )
 
-    def from_dcn(self, polygons=None, values=None, labels=None, algo_params=None, render_params=None):
+    def from_dcn(
+        self,
+        polygons=None,
+        values=None,
+        labels=None,
+        algo_params=None,
+        render_params=None,
+    ):
         return self.__class__(
             polygons or self.polygons,
             values or self.values,
