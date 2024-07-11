@@ -56,20 +56,6 @@ class Markdown:
     # simple objects
 
     @staticmethod
-    def bold(md):
-        return Markdown(f'*{md.content}*')
-
-    @staticmethod
-    def italic(md):
-        return Markdown(f'*{md.content}*')
-
-    @staticmethod
-    def link(url, md=None):
-        if md is None:
-            md = Markdown([url])
-        return Markdown(f'[{md.content}]({url})')
-
-    @staticmethod
     def image(url, alt_text=None):
         if alt_text is None:
             alt_text = url
@@ -86,14 +72,6 @@ class Markdown:
     @staticmethod
     def h1(title_md, *body_md_list):
         return Markdown.hx(1, title_md, *body_md_list)
-
-    @staticmethod
-    def h2(title_md, *body_md_list):
-        return Markdown.hx(2, title_md, *body_md_list)
-
-    @staticmethod
-    def h3(title_md, *body_md_list):
-        return Markdown.hx(3, title_md, *body_md_list)
 
     # complex objects
     @staticmethod
