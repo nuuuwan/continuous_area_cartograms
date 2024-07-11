@@ -19,44 +19,14 @@ class DCN1985Base:
         value_unit="value",
         true_total_area=100,
     ):
-        # polygons
-        self.polygons = [
-            DCN1985Base.preprocess(polygon, tolerance=preprocess_tolerance)
-            for polygon in polygons
-        ]
-
-        # values
-        if values is None:
-            values = [1 for _ in range(len(polygons))]
-        self.values = values
-
-        # filter zero values
-        polygons = [
-            polygon for polygon, value in zip(polygons, values) if value > 0
-        ]
-        values = [value for value in values if value > 0]
-
-        # labels
-        if labels is None:
-            labels = [str(i) for i in range(len(polygons))]
-        self.labels = labels
-
-        # validations
-        assert len(self.polygons) == len(self.values) == len(self.labels)
-
-        # optional options
-        log.debug(
-            dict(
-                preprocess_tolerance=preprocess_tolerance,
-                min_log2_error=min_log2_error,
-                max_iterations=max_iterations,
-                do_shrink=do_shrink,
-                title=title,
-                area_unit=area_unit,
-                value_unit=value_unit,
-                true_total_area=true_total_area,
-            )
+        self.polygons = DCN1985Base.proprocess_polygons(
+            polygons, tolerance=preprocess_tolerance
         )
+
+        self.values = values
+        self.labels = labels or [str(i) for i in range(len(polygons))]
+
+        # params
         self.preprocess_tolerance = preprocess_tolerance
         self.min_log2_error = min_log2_error
         self.max_iterations = max_iterations
@@ -68,8 +38,20 @@ class DCN1985Base:
         self.value_unit = value_unit
         self.true_total_area = true_total_area
 
+        self.validate()
+
+    def validate(self):
+        assert len(self.polygons) == len(self.values) == len(self.labels)
+
     @staticmethod
-    def preprocess(polygon, tolerance):
+    def proprocess_polygons(polygons, tolerance):
+        return [
+            DCN1985Base.preprocess_polygon(polygon, tolerance=tolerance)
+            for polygon in polygons
+        ]
+
+    @staticmethod
+    def preprocess_polygon(polygon, tolerance):
         # The simplify method uses the Douglas-Peucker algorithm, which works
         # by iteratively removing points from the shape's boundary until all
         # remaining points are at least tolerance distance away from the
