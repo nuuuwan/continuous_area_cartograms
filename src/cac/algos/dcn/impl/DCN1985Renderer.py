@@ -28,10 +28,10 @@ class DCN1985Renderer(MatPlotLibUser):
         return f'#{r:02x}{g:02x}{b:02x}'
 
     @staticmethod
-    def render_polygon_shape(polygon, log2_error, ax):
+    def render_polygon_shape(polygon, log2_error):
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
-            ax=ax,
+            ax=plt.gca(),
             facecolor=DCN1985Renderer.get_color(log2_error),
             edgecolor="white",
             linewidth=0.2,
@@ -82,11 +82,10 @@ class DCN1985Renderer(MatPlotLibUser):
         actual_value,
         log2_error,
         total_area,
-        ax,
         is_area_mode,
         true_total_area,
     ):
-        DCN1985Renderer.render_polygon_shape(polygon, log2_error, ax)
+        DCN1985Renderer.render_polygon_shape(polygon, log2_error)
         DCN1985Renderer.render_polygon_text(
             polygon,
             label,
@@ -98,14 +97,16 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     @staticmethod
-    def render_legend(ax):
+    def render_legend():
         handles = []
         for log2_error in [-1, -0.5, -0.25, 0, 0.25, 0.5, 1]:
             label = f'{2**log2_error:.0%}'
             background_color = DCN1985Renderer.get_color(log2_error)
             patch = mpatches.Patch(color=background_color, label=label)
             handles.append(patch)
-        ax.legend(handles=handles, fontsize=3, loc="best", frameon=False)
+        plt.gca().legend(
+            handles=handles, fontsize=3, loc="best", frameon=False
+        )
 
     def render_titles(self, is_area_mode):
         plt.annotate(
@@ -130,7 +131,6 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def render_all(self, is_area_mode):
         plt.close()
-        ax = plt.gca()
         total_area = self.total_area
         for polygon, label, actual_value, log2_error in zip(
             self.polygons,
@@ -144,12 +144,11 @@ class DCN1985Renderer(MatPlotLibUser):
                 actual_value,
                 log2_error,
                 total_area,
-                ax,
                 is_area_mode,
                 self.render_params.true_total_area,
             )
-        DCN1985Renderer.render_legend(ax)
-        DCN1985Renderer.remove_grids(ax)
+        DCN1985Renderer.render_legend()
+        DCN1985Renderer.remove_grids()
         self.render_titles(is_area_mode)
 
     def save_image(self, image_path, i_iter):

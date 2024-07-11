@@ -1,6 +1,10 @@
+import matplotlib.pyplot as plt
+
+
 class MatPlotLibUser:
     @staticmethod
-    def remove_grids(ax):
+    def remove_grids():
+        ax = plt.gca()
         ax.set_xticks([])
         ax.set_yticks([])
         ax.grid(False)
