@@ -10,7 +10,7 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
 
     ents = Ent.list_from_type(EntType.GND)
     ents = [ent for ent in ents if ent.dsd_id in ['LK-1103', 'LK-1127']]
@@ -21,11 +21,15 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        preprocess_tolerance=0.0,
-        title="Colombo MC's GNDs",
-        area_unit="km2",
-        value_unit="Population",
-        true_total_area=37,
+        algo_params=DCN1985AlgoParams(
+            preprocess_tolerance=0.0,
+        ),
+        render_params=DCN1985RenderParams(
+            title="Colombo MC's GNDs",
+            area_unit="km2",
+            value_unit="Population",
+            true_total_area=37,
+        ),
     )
     algo.run(
         os.path.join(

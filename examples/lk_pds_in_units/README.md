@@ -10,17 +10,19 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985RenderParams
 
     ents = Ent.list_from_type(EntType.PD)
     values = [1 for _ in ents]
     algo = DCN1985.from_ents(
         ents,
         values,
-        title="Sri Lanka's Polling Divisions",
-        area_unit="km2",
-        value_unit="Units",
-        true_total_area=65_610,
+        render_params=DCN1985RenderParams(
+            title="Sri Lanka's Polling Divisions",
+            area_unit="km2",
+            value_unit="Units",
+            true_total_area=65_610,
+        ),
     )
     algo.run(
         os.path.join(

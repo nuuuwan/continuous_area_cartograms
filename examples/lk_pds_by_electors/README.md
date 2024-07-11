@@ -10,7 +10,7 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DCN1985, HexBin
+    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBin
 
     gig_table_last_election = GIGTable(
         'government-elections-parliamentary', 'regions-ec', '2020'
@@ -25,12 +25,16 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        do_shrink=True,
-        max_iterations=30,
-        title="Sri Lanka's Polling Divisions",
-        area_unit="km2",
-        value_unit="Registered Voter Pop.",
-        true_total_area=65_610,
+        algo_params=DCN1985AlgoParams(
+            do_shrink=True,
+            max_iterations=30,
+        ),
+        render_params=DCN1985RenderParams(
+            title="Sri Lanka's Polling Divisions",
+            area_unit="km2",
+            value_unit="Registered Voter Pop.",
+            true_total_area=65_610,
+        ),
     )
     polygons = algo.run(
         os.path.join(
