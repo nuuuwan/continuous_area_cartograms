@@ -2,7 +2,6 @@ import geopandas as gpd
 import pandas as pd
 import topojson
 from gig import Ent
-from shapely.geometry import MultiPolygon, Polygon
 from utils import JSONFile, Log
 
 from cac.algos.dcn.impl.DCN1985AlgoParams import DCN1985AlgoParams
@@ -12,8 +11,6 @@ log = Log('DCN1985Loader')
 
 
 class DCN1985Loader(DCN1985LoaderUtils):
-    
-
     @classmethod
     def from_gdf(
         cls,
