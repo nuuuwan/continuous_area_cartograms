@@ -24,7 +24,7 @@ def main():  # noqa
     }
     values_gdp = [PROVINCE_ID_TO_GDP[ent.id] for ent in ents]
     algo_params = DCN1985AlgoParams(
-        max_iterations=5,
+        max_iterations=20,
     )
 
     MultiStageCAC(
@@ -37,6 +37,8 @@ def main():  # noqa
                 start_value_unit="Area (km2)",
                 end_value_unit="Population",
                 start_total_value=65_610,
+                start_value_hue=240,
+                end_value_hue=120,
             ),
         ),
         DCN1985.from_ents(
@@ -48,6 +50,7 @@ def main():  # noqa
                 start_value_unit="Area (km2)",
                 end_value_unit="GDP (LKR M)",
                 start_total_value=65_610,
+                end_value_hue=0,
             ),
         ),
     ).run(

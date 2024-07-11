@@ -8,7 +8,7 @@ log = Log('AnimatedGIF')
 
 
 class AnimatedGIF:
-    def __init__(self, animated_gif_path, total_duration_s=5, loop=0):
+    def __init__(self, animated_gif_path, total_duration_s=10, loop=0):
         self.animated_gif_path = animated_gif_path
         self.total_duration_s = total_duration_s
         self.loop = loop

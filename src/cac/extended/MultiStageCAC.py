@@ -23,6 +23,7 @@ class MultiStageCAC:
         polygons = None
         start_value_unit = None
         start_total_value = None
+        start_value_hue = None
 
         for i, dcn in enumerate(self.dcn_list, start=1):
             log.debug(f'Running Stage {i}/{len(self)}')
@@ -31,7 +32,8 @@ class MultiStageCAC:
             if start_value_unit:
                 render_params.start_value_unit = start_value_unit
                 render_params.start_total_value = start_total_value
-
+                render_params.start_value_hue = start_value_hue
+                
             dcn_copy = dcn.from_dcn(polygons=polygons, render_params=render_params)
 
             dir_path_stage = os.path.join(dir_path, f'stage_{i}')
@@ -40,6 +42,7 @@ class MultiStageCAC:
             polygons = dcn_copy.run(dir_path_stage)
             start_value_unit = dcn_copy.render_params.end_value_unit
             start_total_value = sum(dcn_copy.values)
+            start_value_hue = dcn_copy.render_params.end_value_hue
 
 
         # building animation

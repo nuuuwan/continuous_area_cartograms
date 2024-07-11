@@ -21,18 +21,25 @@ class DCN1985Renderer(MatPlotLibUser):
         return 'black'
 
     @staticmethod
-    def get_color(log2_error):
-        log2_error = max(min(log2_error, 1), -1)
-        p = (log2_error + 1) / 2
-        r, g, b = [int(c * 255) for c in plt.cm.jet(p)[:3]]
-        return f'#{r:02x}{g:02x}{b:02x}'
+    def get_color(hue, log2_error):
+        saturation = 100
+        
+        # lightness
+        max_abs_error = 1
+        p_log2_error = (min(max_abs_error, max(-max_abs_error, log2_error)) + max_abs_error)/(max_abs_error * 2)
+        min_lightness = 20
+        lightness = min_lightness + (100 - min_lightness) * p_log2_error
+        
+        
+        r, g, b = mcolors.hsv_to_rgb([hue/360, saturation / 100, lightness / 100])
+        return (r, g, b)
 
     @staticmethod
-    def render_polygon_shape(polygon, log2_error):
+    def render_polygon_shape(polygon, hue, log2_error):
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=plt.gca(),
-            facecolor=DCN1985Renderer.get_color(log2_error),
+            facecolor=DCN1985Renderer.get_color(hue, log2_error),
             edgecolor="white",
             linewidth=0.2,
         )
@@ -41,11 +48,13 @@ class DCN1985Renderer(MatPlotLibUser):
         self,
         polygon,
         label,
-        actual_value,
+        end_value,
         log2_error,
-        is_area_mode,
+        show_start_labels,
+        hue,
     ):
-        background_color = DCN1985Renderer.get_color(log2_error)
+        
+        background_color = DCN1985Renderer.get_color(hue, log2_error)
         foreground_color = DCN1985Renderer.get_foreground_color(
             background_color
         )
@@ -55,11 +64,11 @@ class DCN1985Renderer(MatPlotLibUser):
         font_size = BASE_FONT_SIZE * math.sqrt(p_area)
         if font_size < 1:
             return
-        if is_area_mode:
+        if show_start_labels:
             actual_area = p_area * self.render_params.start_total_value
             number_label = Number(actual_area).humanized()
         else:
-            number_label = Number(actual_value).humanized()
+            number_label = Number(end_value).humanized()
 
         text = f'{label}\n{number_label}'
 
@@ -77,32 +86,24 @@ class DCN1985Renderer(MatPlotLibUser):
         self,
         polygon,
         label,
-        actual_value,
+        end_value,
         log2_error,
-        is_area_mode,
+        show_start_labels,
+        hue,
     ):
-        DCN1985Renderer.render_polygon_shape(polygon, log2_error)
+        DCN1985Renderer.render_polygon_shape(polygon, hue, log2_error)
         self.render_polygon_text(
             polygon,
             label,
-            actual_value,
+            end_value,
             log2_error,
-            is_area_mode,
+            show_start_labels,
+            hue,
         )
 
-    @staticmethod
-    def render_legend():
-        handles = []
-        for log2_error in [-1, -0.5, -0.25, 0, 0.25, 0.5, 1]:
-            label = f'{2**log2_error:.0%}'
-            background_color = DCN1985Renderer.get_color(log2_error)
-            patch = mpatches.Patch(color=background_color, label=label)
-            handles.append(patch)
-        plt.gca().legend(
-            handles=handles, fontsize=3, loc="best", frameon=False
-        )
 
-    def render_titles(self, is_area_mode):
+
+    def render_titles(self, show_start_labels):
         plt.annotate(
             self.render_params.title,
             (0.5, 0.95),
@@ -110,7 +111,7 @@ class DCN1985Renderer(MatPlotLibUser):
             xycoords='axes fraction',
             ha='center',
         )
-        if is_area_mode:
+        if show_start_labels:
             title_text = self.render_params.start_value_unit
         else:
             title_text = self.render_params.end_value_unit
@@ -123,26 +124,33 @@ class DCN1985Renderer(MatPlotLibUser):
             ha='center',
         )
 
-    def render_all(self, is_area_mode):
+    def render_all(self):
         plt.close()
-        for polygon, label, actual_value, log2_error in zip(
+        p_progress = 1 - min(1, self.mean_abs_log2_error)
+        log.debug(f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}')
+        show_start_labels = p_progress < 0.5
+        hue = p_progress * self.render_params.end_value_hue + (1 - p_progress) * self.render_params.start_value_hue
+        log.debug(f'start_value_hue={self.render_params.start_value_hue}, end_value_hue={self.render_params.end_value_hue}, {hue=}')
+
+        for polygon, label, end_value, log2_error in zip(
             self.polygons,
             self.labels,
-            self.ActualValue,
+            self.values,
             self.Log2Error,
         ):
             self.render_polygon(
                 polygon,
                 label,
-                actual_value,
+                end_value,
                 log2_error,
-                is_area_mode,
+                show_start_labels,
+                hue,
             )
-        DCN1985Renderer.render_legend()
+
         DCN1985Renderer.remove_grids()
-        self.render_titles(is_area_mode)
+        self.render_titles(show_start_labels)
 
     def save_image(self, image_path, i_iter):
-        self.render_all(i_iter < self.algo_params.max_iterations / 10)
+        self.render_all()
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')
