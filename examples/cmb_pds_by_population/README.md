@@ -26,9 +26,9 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Colombo District's Polling Divisions",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=699,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=699,
         ),
     )
     algo.run(

@@ -26,9 +26,9 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="World",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=149_000_000,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=149_000_000,
         ),
     )
     algo.run(

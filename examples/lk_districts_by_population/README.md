@@ -24,9 +24,9 @@ def main():  # noqa
         algo_params=DCN1985AlgoParams(max_iterations=10),
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Districts",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=65_610,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=65_610,
         ),
     )
     polygons = algo.run(

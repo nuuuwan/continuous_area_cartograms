@@ -23,9 +23,9 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Africa",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=30_370_000,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=30_370_000,
         ),
     )
     algo.run(

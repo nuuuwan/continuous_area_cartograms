@@ -17,9 +17,9 @@ def main():  # noqa
         algo_params=DCN1985AlgoParams(preprocess_tolerance=0.0),
         render_params=DCN1985RenderParams(
             title="Northern Province (Sri Lanka)'s DSDs",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=8_290,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=8_290,
         ),
     )
     algo.run(

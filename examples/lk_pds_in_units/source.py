@@ -12,9 +12,9 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Polling Divisions",
-            area_unit="km2",
-            value_unit="Units",
-            true_total_area=65_610,
+            start_value_unit="km2",
+            end_value_unit="Units",
+            start_total_value=65_610,
         ),
     )
     algo.run(

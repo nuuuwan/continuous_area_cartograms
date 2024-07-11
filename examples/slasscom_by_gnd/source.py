@@ -49,9 +49,9 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Colombo MC's GNDs",
-            area_unit="km2",
-            value_unit="SLASSCOM Members",
-            true_total_area=37,
+            start_value_unit="km2",
+            end_value_unit="SLASSCOM Members",
+            start_total_value=37,
         ),
     )
     algo.run(

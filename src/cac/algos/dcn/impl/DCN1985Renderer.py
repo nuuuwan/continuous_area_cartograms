@@ -56,7 +56,7 @@ class DCN1985Renderer(MatPlotLibUser):
         if font_size < 1:
             return
         if is_area_mode:
-            actual_area = p_area * self.render_params.true_total_area
+            actual_area = p_area * self.render_params.start_total_value
             number_label = Number(actual_area).humanized()
         else:
             number_label = Number(actual_value).humanized()
@@ -111,9 +111,9 @@ class DCN1985Renderer(MatPlotLibUser):
             ha='center',
         )
         if is_area_mode:
-            title_text = f'By Area ({self.render_params.area_unit})'
+            title_text = f'By Area ({self.render_params.start_value_unit})'
         else:
-            title_text = 'By ' + self.render_params.value_unit
+            title_text = 'By ' + self.render_params.end_value_unit
 
         plt.annotate(
             title_text,

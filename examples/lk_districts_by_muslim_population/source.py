@@ -20,9 +20,9 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Districts",
-            area_unit="km2",
-            value_unit="Muslim Population",
-            true_total_area=65_610,
+            start_value_unit="km2",
+            end_value_unit="Muslim Population",
+            start_total_value=65_610,
         ),
     )
     algo.run(

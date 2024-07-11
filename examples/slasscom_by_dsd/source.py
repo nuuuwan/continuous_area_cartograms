@@ -32,9 +32,9 @@ def main():  # noqa
         algo_params=DCN1985AlgoParams(do_shrink=True),
         render_params=DCN1985RenderParams(
             title="Colombo District's DSDs",
-            area_unit="km2",
-            value_unit="SLASSCOM Members",
-            true_total_area=699,
+            start_value_unit="km2",
+            end_value_unit="SLASSCOM Members",
+            start_total_value=699,
         ),
     )
     algo.run(

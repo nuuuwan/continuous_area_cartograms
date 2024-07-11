@@ -34,9 +34,9 @@ def main():  # noqa
             algo_params=algo_params,
             render_params=DCN1985RenderParams(
                 title="Sri Lanka's Provinces",
-                area_unit="km2",
-                value_unit="Population",
-                true_total_area=65_610,
+                start_value_unit="km2",
+                end_value_unit="Population",
+                start_total_value=65_610,
             ),
         ),
         DCN1985.from_ents(
@@ -45,9 +45,9 @@ def main():  # noqa
             algo_params=algo_params,
             render_params=DCN1985RenderParams(
                 title="Sri Lanka's Provinces",
-                area_unit="km2",
-                value_unit="GDP (LKR M)",
-                true_total_area=65_610,
+                start_value_unit="km2",
+                end_value_unit="GDP (LKR M)",
+                start_total_value=65_610,
             ),
         ),
     ).run(

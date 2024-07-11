@@ -26,9 +26,9 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Eastern Province (Sri Lanka)'s DSDs",
-            area_unit="km2",
-            value_unit="Population",
-            true_total_area=9_361,
+            start_value_unit="km2",
+            end_value_unit="Population",
+            start_total_value=9_361,
         ),
     )
     algo.run(
