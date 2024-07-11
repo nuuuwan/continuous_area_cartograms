@@ -3,7 +3,7 @@ def main():  # noqa
 
     from shapely import Polygon
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985AlgoParams
 
     def polygon_square(origin):
         return Polygon(
@@ -33,7 +33,9 @@ def main():  # noqa
     algo = DCN1985(
         polygons,
         values,
-        max_iterations=20,
+        algo_params=DCN1985AlgoParams(
+            max_iterations=20,
+        )
     )
 
     new_polygon = algo.run(

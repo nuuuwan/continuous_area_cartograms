@@ -1,6 +1,5 @@
 {
 "type": "FeatureCollection",
-"name": "000",
 "features": [
 { "type": "Feature", "properties": { "value": 100 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 0.0, 0.0 ], [ 0.0, 1.0 ], [ 1.0, 1.0 ], [ 1.0, 0.0 ], [ 0.0, 0.0 ] ] ] } },
 { "type": "Feature", "properties": { "value": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 0.0, 1.0 ], [ 0.0, 2.0 ], [ 1.0, 2.0 ], [ 1.0, 1.0 ], [ 0.0, 1.0 ] ] ] } },
