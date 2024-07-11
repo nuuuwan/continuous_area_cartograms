@@ -109,16 +109,16 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def render_titles(self, is_area_mode):
         plt.annotate(
-            self.title,
+            self.render_params.title,
             (0.5, 0.95),
             fontsize=5,
             xycoords='axes fraction',
             ha='center',
         )
         if is_area_mode:
-            title_text = f'By Area ({self.area_unit})'
+            title_text = f'By Area ({self.render_params.area_unit})'
         else:
-            title_text = 'By ' + self.value_unit
+            title_text = 'By ' + self.render_params.value_unit
 
         plt.annotate(
             title_text,
@@ -146,13 +146,13 @@ class DCN1985Renderer(MatPlotLibUser):
                 total_area,
                 ax,
                 is_area_mode,
-                self.true_total_area,
+                self.render_params.true_total_area,
             )
         DCN1985Renderer.render_legend(ax)
         DCN1985Renderer.remove_grids(ax)
         self.render_titles(is_area_mode)
 
     def save_image(self, image_path, i_iter):
-        self.render_all(i_iter < self.max_iterations / 10)
+        self.render_all(i_iter < self.algo_params.max_iterations / 10)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')

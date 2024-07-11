@@ -5,6 +5,8 @@ from gig import Ent
 from shapely.geometry import MultiPolygon, Polygon
 from utils import JSONFile, Log
 
+from cac.algos.dcn.impl.DCN1985AlgoParams import DCN1985AlgoParams
+
 log = Log('DCN1985Loader')
 
 
@@ -56,14 +58,19 @@ class DCN1985Loader:
 
     @classmethod
     def from_gdf(
-        cls, gdf: gpd.GeoDataFrame, values: list[float] = None, **kwargs
+        cls,
+        gdf: gpd.GeoDataFrame,
+        values: list[float] = ModuleNotFoundError,
+        algo_params=None,
+        render_params=None,
     ):
+        algo_params = algo_params or DCN1985AlgoParams()
         geometry = gdf['geometry']
         labels = cls.get_labels(gdf)
 
         values = values or [1 for _ in range(len(geometry))]
 
-        min_p_area = kwargs.get('min_p_area', 0.01)
+        min_p_area = algo_params.min_p_area
 
         polygons_for_dcn = []
         values_for_dcn = []
@@ -78,28 +85,48 @@ class DCN1985Loader:
             values_for_dcn.extend(values_for_shape)
             labels_for_dcn.extend(labels_for_shape)
 
-        return cls(polygons_for_dcn, values_for_dcn, labels_for_dcn, **kwargs)
+        return cls(
+            polygons_for_dcn,
+            values_for_dcn,
+            labels_for_dcn,
+            algo_params,
+            render_params,
+        )
 
     @classmethod
     def from_geojson(
-        cls, geojson_path: str, values: list[float] = None, **kwargs
+        cls,
+        geojson_path: str,
+        values: list[float] = None,
+        algo_params=None,
+        render_params=None,
     ):
         gdf = gpd.read_file(geojson_path)
-        return cls.from_gdf(gdf, values, **kwargs)
+        return cls.from_gdf(gdf, values, algo_params, render_params)
 
     @classmethod
     def from_topojson(
-        cls, topojson_path: str, values: list[float] = None, **kwargs
+        cls,
+        topojson_path: str,
+        values: list[float] = None,
+        algo_params=None,
+        render_params=None,
     ):
         data = JSONFile(topojson_path).read()
         object_name = list(data['objects'].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
         gdf.to_file('Provinces.geo.json', driver='GeoJSON')
-        return cls.from_gdf(gdf, values, **kwargs)
+        return cls.from_gdf(gdf, values, algo_params, render_params)
 
     @classmethod
-    def from_ents(cls, ents: list[Ent], values: list[float] = None, **kwargs):
+    def from_ents(
+        cls,
+        ents: list[Ent],
+        values: list[float] = None,
+        algo_params=None,
+        render_params=None,
+    ):
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
@@ -109,7 +136,7 @@ class DCN1985Loader:
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
         combined_gdf['id'] = [ent.id for ent in ents]
         combined_gdf['name'] = [ent.name for ent in ents]
-        return cls.from_gdf(combined_gdf, values, **kwargs)
+        return cls.from_gdf(combined_gdf, values, algo_params, render_params)
 
     def to_gdf(self):
         return gpd.GeoDataFrame(
@@ -119,17 +146,11 @@ class DCN1985Loader:
             }
         )
 
-    def from_dcn(self, polygons):
+    def from_dcn(self, polygons=None):
         return self.__class__(
-            polygons,
+            polygons or self.polygons,
             self.values,
             self.labels,
-            self.preprocess_tolerance,
-            self.min_log2_error,
-            self.max_iterations,
-            self.do_shrink,
-            self.title,
-            self.area_unit,
-            self.value_unit,
-            self.true_total_area,
+            self.algo_params,
+            self.render_params,
         )

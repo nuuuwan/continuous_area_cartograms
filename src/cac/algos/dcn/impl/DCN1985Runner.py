@@ -101,17 +101,17 @@ class DCN1985Runner:
             if dcn.is_reasonably_complete:
                 break
             dcn = cls.run_single_optimized(dcn)
-            if dcn.do_shrink:
+            if dcn.algo_params.do_shrink:
                 dcn = cls.shrink(
                     dcn,
-                    min_p=i_iter / dcn.max_iterations,
-                    shrink_factor=i_iter / dcn.max_iterations,
+                    min_p=i_iter / dcn.algo_params.max_iterations,
+                    shrink_factor=i_iter / dcn.algo_params.max_iterations,
                 )
 
             i_iter += 1
-            if i_iter >= dcn.max_iterations:
+            if i_iter >= dcn.algo_params.max_iterations:
                 log.warning(
-                    f'🛑 MAX_ITERATIONS({dcn.max_iterations}) reached.'
+                    f'🛑 MAX_ITERATIONS({dcn.algo_params.max_iterations}) reached.'
                 )
                 break
 

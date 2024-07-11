@@ -42,7 +42,9 @@ class DCN1985Logger:
             )
             items = items[:MAX_DISPLAY]
         for label, log2_error in items:
-            emoji = self.get_emoji(log2_error, self.min_log2_error)
+            emoji = self.get_emoji(
+                log2_error, self.algo_params.min_log2_error
+            )
             log.debug(
                 f'{label}'.rjust(24)
                 + DCN1985Logger.format_log2_error(log2_error).rjust(12)
@@ -54,9 +56,9 @@ class DCN1985Logger:
         )
         log.debug(
             '✅ = '
-            + DCN1985Logger.format_log2_error(-self.min_log2_error)
+            + DCN1985Logger.format_log2_error(-self.algo_params.min_log2_error)
             + ' to '
-            + DCN1985Logger.format_log2_error(self.min_log2_error)
+            + DCN1985Logger.format_log2_error(self.algo_params.min_log2_error)
         )
 
     def log_complexity(self):

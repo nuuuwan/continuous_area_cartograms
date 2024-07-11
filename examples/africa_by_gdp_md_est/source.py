@@ -3,7 +3,7 @@ def main():  # noqa
 
     import geopandas
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985RenderParams
 
     gdf = geopandas.read_file(
         geopandas.datasets.get_path('naturalearth_lowres')
@@ -14,10 +14,12 @@ def main():  # noqa
     algo = DCN1985.from_gdf(
         gdf,
         values,
+        render_params=DCN1985RenderParams(
         title="Africa",
         area_unit="km2",
         value_unit="GDP (USD M)",
         true_total_area=30_370_000,
+        )
     )
     algo.run(
         os.path.join(

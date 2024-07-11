@@ -8,6 +8,14 @@ log = Log('Example')
 
 
 class Example:
+    URL_RAW_BASE = "/".join(
+        [
+            'https://raw.githubusercontent.com',
+            'nuuuwan/continuous_area_cartograms',
+            'main/examples',
+        ]
+    )
+
     def __init__(self, example_name):
         self.example_name = example_name
 
