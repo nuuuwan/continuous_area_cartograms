@@ -151,6 +151,6 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def save_image(self, image_path, i_iter):
-        self.render_all(i_iter < self.max_iterations / 3)
+        self.render_all(i_iter < self.max_iterations / 10)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')

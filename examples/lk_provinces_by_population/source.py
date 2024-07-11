@@ -7,8 +7,6 @@ def main():
 
     ents = Ent.list_from_type(EntType.PROVINCE)
 
-
-
     values = []
     for ent in ents:
         values.append(ent.population)
@@ -16,7 +14,6 @@ def main():
     algo = DCN1985.from_ents(
         ents,
         values,
-
         title="Sri Lanka's Provinces",
         area_unit="km2",
         value_unit="Population",

@@ -7,17 +7,18 @@ def main():
 
     ents = Ent.list_from_type(EntType.PROVINCE)
 
-    # Source: https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/press/pr/press_pgdp_2022_e.pdf
+    # Source:
+    # https://www.cbsl.gov.lk/sites/default/files/cbslweb_documents/press/pr/press_pgdp_2022_e.pdf
     GDP_DATA_IDX = {
         'LK-1': 10_473_166,
-        'LK-2': 2_423_253 ,
+        'LK-2': 2_423_253,
         'LK-3': 2_199_791,
         'LK-4': 985_139,
-        'LK-5': 1_248_306 ,
-        'LK-6': 2_706_227 ,
+        'LK-5': 1_248_306,
+        'LK-6': 2_706_227,
         'LK-7': 1_209_771,
-        'LK-8': 1_176_221 ,
-        'LK-9': 1_725_853 ,
+        'LK-8': 1_176_221,
+        'LK-9': 1_725_853,
     }
 
     values = []

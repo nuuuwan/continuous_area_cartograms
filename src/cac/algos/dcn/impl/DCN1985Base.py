@@ -30,6 +30,11 @@ class DCN1985Base:
             values = [1 for _ in range(len(polygons))]
         self.values = values
 
+
+        # filter zero values
+        polygons = [polygon for polygon, value in zip(polygons, values) if value > 0]
+        values = [value for value in values if value > 0]
+
         # labels
         if labels is None:
             labels = [str(i) for i in range(len(polygons))]
