@@ -96,7 +96,6 @@ class DCN1985Runner:
 
         while True:
             DCN1985Runner.save_partial(i_iter, dcn, dir_image, dir_output)
-
             dcn.log_error()
             if dcn.is_reasonably_complete:
                 break
