@@ -7,10 +7,10 @@ class DCN1985RenderParams:
     title: str = ''
 
     # start
-    start_value_unit: str = "Area (%)"
+    start_value_unit: str = ""
     start_total_value: float = 100
     start_value_hue: int = 120
 
     # end
-    end_value_unit: str = "value"
+    end_value_unit: str = ""
     end_value_hue: int = 240

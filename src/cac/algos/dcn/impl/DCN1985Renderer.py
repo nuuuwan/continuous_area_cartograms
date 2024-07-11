@@ -67,8 +67,7 @@ class DCN1985Renderer(MatPlotLibUser):
         if font_size < 1:
             return
         if show_start_labels:
-            actual_area = p_area * self.render_params.start_total_value
-            number_label = Number(actual_area).humanized()
+            number_label = ''
         else:
             number_label = Number(end_value).humanized()
 
@@ -130,7 +129,7 @@ class DCN1985Renderer(MatPlotLibUser):
         log.debug(
             f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}'
         )
-        show_start_labels = p_progress < 0.5
+        show_start_labels = p_progress < 0.1
         hue = (
             p_progress * self.render_params.end_value_hue
             + (1 - p_progress) * self.render_params.start_value_hue
