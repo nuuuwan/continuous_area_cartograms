@@ -21,19 +21,20 @@ class HexBin(MatPlotLibUser):
         self.total_value = total_value
 
     @staticmethod
-    def get_points(polygon, dim, points_set):
-        polygon = affinity.scale(
+    def get_scaled_polygon(polygon):
+        return affinity.scale(
             polygon,
             xfact=HexBin.SCALE_FACTOR,
             yfact=HexBin.SCALE_FACTOR,
             origin=polygon.centroid,
         )
-        bounds = polygon.bounds
-        minx, miny, maxx, maxy = bounds
 
-        x_min = int(minx / dim) * dim
-        y_min = int(miny / dim) * dim
+    @staticmethod
+    def get_points(polygon, dim, points_set):
+        polygon = HexBin.get_scaled_polygon(polygon)
+        minx, miny, maxx, maxy = polygon.bounds
 
+        x_min, y_min = [int(x / dim) * dim for x in [minx, miny]]
         points = []
         x = x_min
         while x <= maxx:
@@ -67,6 +68,26 @@ class HexBin(MatPlotLibUser):
         )
 
     @staticmethod
+    def render_region_border(ax, inner_polygons):
+        combined_polygons = unary_union(inner_polygons)
+
+        if isinstance(combined_polygons, Polygon):
+            combined_polygons = [combined_polygons]
+        elif isinstance(combined_polygons, MultiPolygon):
+            combined_polygons = list(combined_polygons.geoms)
+        else:
+            combined_polygons = []
+
+        for part_polygon in combined_polygons:
+            ax.add_patch(
+                patches.Polygon(
+                    part_polygon.exterior.coords,
+                    facecolor='none',
+                    edgecolor='black',
+                )
+            )
+
+    @staticmethod
     def render_region_polygons(dim, points, ax, color):
         inner_polygons = []
         for point in points:
@@ -87,22 +108,7 @@ class HexBin(MatPlotLibUser):
             )
             ax.add_patch(polygon_patch)
             inner_polygons.append(Polygon(polygon_points))
-
-        combined_polygons = unary_union(inner_polygons)
-        if isinstance(combined_polygons, Polygon):
-            combined_polygons = [combined_polygons]
-        elif isinstance(combined_polygons, MultiPolygon):
-            combined_polygons = list(combined_polygons.geoms)
-        else:
-            combined_polygons = []
-        for part_polygon in combined_polygons:
-            ax.add_patch(
-                patches.Polygon(
-                    part_polygon.exterior.coords,
-                    facecolor='none',
-                    edgecolor='black',
-                )
-            )
+        HexBin.render_region_border(ax, inner_polygons)
 
     def save_hexbin(self, hexbin_path):
         width = 10
@@ -117,23 +123,18 @@ class HexBin(MatPlotLibUser):
         dim = round(
             math.sqrt(total_area / self.total_value) * HexBin.SCALE_FACTOR, 3
         )
-        log.debug(f'{dim=:4f}')
 
         for polygon in polygons:
             HexBin.render_polygon_shape(polygon, ax)
 
         n_polygons = len(polygons)
-        actual_total_value = 0
+
         points_set = set()
         for i_polygon, polygon in enumerate(polygons):
             points = HexBin.get_points(polygon, dim, points_set)
             points_set |= set(points)
             color = plt.cm.hsv((i_polygon * 199 % n_polygons) / n_polygons)
             HexBin.render_region_polygons(dim, points, ax, color)
-            actual_total_value += len(points)
-        log.debug(
-            f'total_value={self.total_value:,}, {actual_total_value=:,}'
-        )
 
         self.remove_grids(ax)
 
