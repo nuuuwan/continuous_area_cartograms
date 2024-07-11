@@ -3,7 +3,7 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985
+    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
 
     ents = Ent.list_from_type(EntType.PD)
     ents = [ent for ent in ents if ent.ed_id == 'EC-01']
@@ -14,11 +14,15 @@ def main():  # noqa
     algo = DCN1985.from_ents(
         ents,
         values,
-        preprocess_tolerance=0.0000001,
-        title="Colombo District's Polling Divisions",
-        area_unit="km2",
-        value_unit="Population",
-        true_total_area=699,
+        algo_params=DCN1985AlgoParams(
+            preprocess_tolerance=0.0000001,
+        ),
+        render_params=DCN1985RenderParams(
+            title="Colombo District's Polling Divisions",
+            area_unit="km2",
+            value_unit="Population",
+            true_total_area=699,
+        )
     )
     algo.run(
         os.path.join(

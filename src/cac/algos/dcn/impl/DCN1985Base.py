@@ -26,6 +26,8 @@ class DCN1985Base:
         self.labels = labels or [str(i) for i in range(len(polygons))]
 
         self.validate()
+        log.debug(algo_params)
+        log.debug(render_params)
 
     def validate(self):
         assert len(self.polygons) == len(self.values) == len(self.labels)
