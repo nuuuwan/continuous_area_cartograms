@@ -111,9 +111,9 @@ class DCN1985Renderer(MatPlotLibUser):
             ha='center',
         )
         if is_area_mode:
-            title_text = f'By Area ({self.render_params.start_value_unit})'
+            title_text = self.render_params.start_value_unit
         else:
-            title_text = 'By ' + self.render_params.end_value_unit
+            title_text = self.render_params.end_value_unit
 
         plt.annotate(
             title_text,

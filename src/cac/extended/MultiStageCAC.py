@@ -19,14 +19,28 @@ class MultiStageCAC:
     def run(self, dir_path: str = None):
         shutil.rmtree(dir_path, ignore_errors=True)
         os.makedirs(dir_path)
+        
         polygons = None
+        start_value_unit = None
+        start_total_value = None
+
         for i, dcn in enumerate(self.dcn_list, start=1):
             log.debug(f'Running Stage {i}/{len(self)}')
-            dcn_copy = dcn.from_dcn(polygons) if polygons else dcn
+            
+            render_params = dcn.render_params
+            if start_value_unit:
+                render_params.start_value_unit = start_value_unit
+                render_params.start_total_value = start_total_value
+
+            dcn_copy = dcn.from_dcn(polygons=polygons, render_params=render_params)
 
             dir_path_stage = os.path.join(dir_path, f'stage_{i}')
             os.makedirs(dir_path_stage)
+            
             polygons = dcn_copy.run(dir_path_stage)
+            start_value_unit = dcn_copy.render_params.end_value_unit
+            start_total_value = sum(dcn_copy.values)
+
 
         # building animation
         image_path_list = []
