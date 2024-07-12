@@ -80,14 +80,20 @@ class DCN1985Runner:
         return dcn.from_dcn(new_polygons)
 
     @staticmethod
-    def save_partial(i_iter, dcn, dir_image, dir_output):
+    def save_partial(i_iter, dcn, dir_output_temp):
         # save image
+        dir_image = os.path.join(dir_output_temp, 'images')
+        if not os.path.exists(dir_image):
+            os.makedirs(dir_image)
         file_id = f'{i_iter:03}'
         image_path = os.path.join(dir_image, f'{file_id}.png')
         dcn.save_image(image_path, i_iter)
 
         # save gdf
-        gdf_path = os.path.join(dir_output, 'geojson', f'{file_id}.json')
+        dir_geojson = os.path.join(dir_output_temp, 'geojson')
+        if not os.path.exists(dir_geojson):
+            os.makedirs(dir_geojson)
+        gdf_path = os.path.join(dir_output_temp, 'geojson', f'{file_id}.json')
         dcn.to_gdf().to_file(gdf_path, driver='GeoJSON')
 
     @classmethod
@@ -96,10 +102,10 @@ class DCN1985Runner:
         dcn.log_complexity()
 
         i_iter = 0
-        dir_image = os.path.join(dir_output, 'images')
+        dir_output_temp = tempfile.mkdtemp()
 
         while True:
-            DCN1985Runner.save_partial(i_iter, dcn, dir_image, dir_output)
+            DCN1985Runner.save_partial(i_iter, dcn, dir_output_temp)
             dcn.log_error()
             if dcn.is_reasonably_complete:
                 break
@@ -119,6 +125,7 @@ class DCN1985Runner:
                 )
                 break
 
+        dir_image = os.path.join(dir_output_temp, 'images')
         AnimatedGIF(os.path.join(dir_output, 'animated.gif')).write(dir_image)
 
         return dcn.polygons
@@ -129,10 +136,5 @@ class DCN1985Runner:
         else:
             shutil.rmtree(dir_output, ignore_errors=True)
             os.makedirs(dir_output, exist_ok=True)
-
-        for child_dir_name in ['geojson', 'images']:
-            os.makedirs(
-                os.path.join(dir_output, child_dir_name), exist_ok=True
-            )
 
         return self.__class__.run_all(self, dir_output)
