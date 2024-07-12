@@ -16,7 +16,7 @@ class MultiStageCAC:
     def __len__(self):
         return len(self.dcn_list)
 
-    def run(self, dir_path: str = None):
+    def build(self, dir_path: str = None):
         shutil.rmtree(dir_path, ignore_errors=True)
         os.makedirs(dir_path)
 
@@ -58,3 +58,11 @@ class MultiStageCAC:
         AnimatedGIF(
             animated_gif_path, total_duration_s=DURATION_PER_STAGE * len(self)
         ).write_from_image_path_list(image_path_list)
+
+
+        copy_animated_gif_path = os.path.join(
+            os.environ['DIR_DESKTOP'], os.path.split(os.path.split(dir_path)[0])[-1] + '.animated.gif'
+        )
+        shutil.copyfile(animated_gif_path, copy_animated_gif_path)
+        log.debug(f'Wrote {copy_animated_gif_path}')
+        os.startfile(copy_animated_gif_path)

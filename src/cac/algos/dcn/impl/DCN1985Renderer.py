@@ -125,7 +125,10 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def render_all(self):
         plt.close()
-        p_progress = 1 - min(1, self.mean_abs_log2_error)
+        max_error = 10
+        p_progress = (
+            max_error - min(max_error, self.mean_abs_log2_error)
+        ) / max_error
         log.debug(
             f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}'
         )
