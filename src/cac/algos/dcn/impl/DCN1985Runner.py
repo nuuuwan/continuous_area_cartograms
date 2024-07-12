@@ -96,12 +96,8 @@ class DCN1985Runner:
         gdf_path = os.path.join(dir_output_temp, 'geojson', f'{file_id}.json')
         dcn.to_gdf().to_file(gdf_path, driver='GeoJSON')
 
-    @classmethod
-    def run_all(cls, dcn0, dir_output):
-        dcn = dcn0
-        dcn.log_complexity()
-
-        i_iter = 0
+    @staticmethod
+    def get_dir_output_temp(dir_output):
         id = os.path.basename(dir_output)
         dir_output_temp = os.path.join(
             tempfile.gettempdir(),
@@ -109,7 +105,14 @@ class DCN1985Runner:
         )
         shutil.rmtree(dir_output_temp, ignore_errors=True)
         os.makedirs(dir_output_temp)
+        return dir_output_temp
 
+    @classmethod
+    def run_all(cls, dcn0, dir_output):
+        dcn = dcn0
+        dcn.log_complexity()
+        dir_output_temp = cls.get_dir_output_temp(dir_output)
+        i_iter = 0
         while True:
             DCN1985Runner.save_partial(i_iter, dcn, dir_output_temp)
             dcn.log_error()
@@ -126,7 +129,7 @@ class DCN1985Runner:
             i_iter += 1
             if i_iter >= dcn.algo_params.max_iterations:
                 log.warning(
-                    f'🛑 MAX_ITERATIONS({dcn.algo_params.max_iterations})'
+                    f'🛑 max_iterations({dcn.algo_params.max_iterations})'
                     + ' reached.'
                 )
                 break
