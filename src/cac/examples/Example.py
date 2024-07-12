@@ -71,10 +71,7 @@ class Example:
     @property
     def url_animated_gif(self):
         return (
-            Example.URL_RAW_BASE
-            + '/'
-            + self.example_name
-            + '/animated.gif'
+            Example.URL_RAW_BASE + '/' + self.example_name + '/animated.gif'
         )
 
     @property
