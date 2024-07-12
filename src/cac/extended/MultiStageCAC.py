@@ -11,6 +11,9 @@ log = Log('MultiStageCAC')
 
 
 class MultiStageCAC:
+    DURATION_PER_STAGE = 10
+    FRAMES_PER_STAGE = 10
+
     def __init__(self, *dcn_list: list[DCN1985]):
         self.dcn_list = dcn_list
 
@@ -27,12 +30,9 @@ class MultiStageCAC:
 
             dcn.run(dir_path_stage)
 
-    def build_final_animation(
-        self, dir_path: str, path_id_prefix: str, cac_id: str
-    ):
-        # building animation
+    def get_image_path_list(self, path_id_prefix: str):
         image_path_list = []
-        FRAMES_PER_STAGE = 20
+
         for i in range(1, len(self) + 1):
             path_id = f'{path_id_prefix}.{i}'
             dir_path_stage_images = os.path.join(
@@ -44,22 +44,27 @@ class MultiStageCAC:
                     os.path.join(dir_path_stage_images, file_name)
                 )
             image_path_list_for_stage = []
-            for i in range(FRAMES_PER_STAGE):
+            for i in range(self.FRAMES_PER_STAGE):
                 j = int(
                     i
                     * len(image_path_list_for_stage_original)
-                    / FRAMES_PER_STAGE
+                    / self.FRAMES_PER_STAGE
                 )
                 image_path_list_for_stage.append(
                     image_path_list_for_stage_original[j]
                 )
             image_path_list.extend(image_path_list_for_stage)
             image_path_list.extend(image_path_list_for_stage[::-1])
+        return image_path_list
 
+    def build_final_animation(
+        self, dir_path: str, path_id_prefix: str, cac_id: str
+    ):
+        image_path_list = self.get_image_path_list(path_id_prefix)
         animated_gif_path = os.path.join(dir_path, 'animated.gif')
-        DURATION_PER_STAGE = 10
         AnimatedGIF(
-            animated_gif_path, total_duration_s=DURATION_PER_STAGE * len(self)
+            animated_gif_path,
+            total_duration_s=self.DURATION_PER_STAGE * len(self),
         ).write_from_image_path_list(image_path_list)
 
         copy_animated_gif_path = os.path.join(

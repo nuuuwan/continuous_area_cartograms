@@ -48,9 +48,12 @@ class GIGTableMCAC:
         log.debug(f'{fields=}')
         return fields
 
+    @cached_property
+    def algo_params(self) -> DCN1985AlgoParams:
+        return DCN1985AlgoParams(max_iterations=40, do_shrink=True)
+
     def build(self, dir_path: str):
         ents = Ent.list_from_type(self.ent_type)
-        algo_params = DCN1985AlgoParams(max_iterations=2, do_shrink=True)
         dnc_list = []
 
         n = len(self.fields)
@@ -64,7 +67,7 @@ class GIGTableMCAC:
             dnc = DCN1985.from_ents(
                 ents,
                 values,
-                algo_params=algo_params,
+                algo_params=self.algo_params,
                 render_params=DCN1985RenderParams(
                     title=self.title,
                     end_value_unit=self.format_field(field),
