@@ -102,7 +102,12 @@ class DCN1985Runner:
         dcn.log_complexity()
 
         i_iter = 0
-        dir_output_temp = tempfile.mkdtemp()
+        id = os.path.basename(dir_output)
+        dir_output_temp = os.path.join(
+            tempfile.gettempdir(),
+            f'cac.{id}',
+        )
+        os.makedirs(dir_output_temp, exist_ok=True)
 
         while True:
             DCN1985Runner.save_partial(i_iter, dcn, dir_output_temp)
@@ -133,8 +138,6 @@ class DCN1985Runner:
     def run(self, dir_output=None):
         if dir_output is None:
             dir_output = tempfile.mkdtemp()
-        else:
-            shutil.rmtree(dir_output, ignore_errors=True)
-            os.makedirs(dir_output, exist_ok=True)
+        assert os.path.exists(dir_output)
 
         return self.__class__.run_all(self, dir_output)

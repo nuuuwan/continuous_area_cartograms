@@ -17,8 +17,7 @@ class MultiStageCAC:
         return len(self.dcn_list)
 
     def build(self, dir_path: str = None):
-        shutil.rmtree(dir_path, ignore_errors=True)
-        os.makedirs(dir_path)
+        
 
         for i, dcn in enumerate(self.dcn_list, start=1):
             log.debug(f'Running Stage {i}/{len(self)}')
