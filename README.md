@@ -118,7 +118,7 @@ Second, call **run** which returns a new polygon, appropriately modified.
     new_polygon = dcn.run(
         dir_output=os.path.join(
             os.path.dirname(__file__),
-            'output',
+            
         )
     )
 

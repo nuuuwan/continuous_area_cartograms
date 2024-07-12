@@ -48,7 +48,7 @@ def main():  # noqa
     new_polygon = algo.run(
         dir_output=os.path.join(
             os.path.dirname(__file__),
-            'output',
+            
         )
     )
 

@@ -24,7 +24,7 @@ def main():  # noqa
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            'output',
+            
         )
     )
 
