@@ -21,8 +21,15 @@ plt.rcParams['font.family'] = FONT.get_name()
 class DCN1985Renderer(MatPlotLibUser):
     @staticmethod
     def get_foreground_color(background_color):
-        rgba = mcolors.to_rgba(background_color)
-        luminance = 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
+        r,g,b,alpha = mcolors.to_rgba(background_color)
+
+        def blend(x):
+            return x * alpha + 255 * (1 - alpha)
+        
+        [blended_r, blended_g, blended_b] = [blend(x) for x in [r, g, b]]
+
+        luminance = (0.299 * blended_r + 0.587 * blended_g + 0.114 * blended_b) 
+        
         if luminance < 0.5:
             return 'white'
         return 'black'
@@ -30,20 +37,21 @@ class DCN1985Renderer(MatPlotLibUser):
     @staticmethod
     def get_color(hue, log2_error):
         saturation = 100
+        lightness = 100
 
-        # lightness
-        max_abs_error = 1
+        max_abs_error = 2
         p_log2_error = (
             min(max_abs_error, max(-max_abs_error, log2_error))
             + max_abs_error
         ) / (max_abs_error * 2)
-        min_lightness = 50
-        lightness = min_lightness + (100 - min_lightness) * p_log2_error
-
+        MIN_ALPHA = 0.1
+        alpha = MIN_ALPHA + p_log2_error * (1 - MIN_ALPHA)   
+     
         r, g, b = mcolors.hsv_to_rgb(
             [hue / 360, saturation / 100, lightness / 100]
         )
-        return (r, g, b)
+
+        return (r, g, b, alpha)
 
     @staticmethod
     def render_polygon_shape(polygon, hue, log2_error):
