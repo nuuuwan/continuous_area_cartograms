@@ -79,6 +79,7 @@ class DCN1985Loader(DCN1985LoaderUtils):
         gdfs = []
         for ent in ents:
             gdf = ent.geo()
+
             log.debug(f'Loaded geo for {ent.id}')
             gdfs.append(gdf)
 

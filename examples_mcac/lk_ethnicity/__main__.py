@@ -7,12 +7,13 @@ def main():  # noqa
 
     GIGTableMCAC(
         GIGTable('population-ethnicity', 'regions', '2012'),
-        EntType.PROVINCE,
-
-    ).build(        os.path.join(
+        EntType.DISTRICT,
+    ).build(
+        os.path.join(
             os.path.dirname(__file__),
             'output',
-        ),)
+        ),
+    )
 
 
 if __name__ == "__main__":

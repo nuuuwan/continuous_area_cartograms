@@ -59,9 +59,9 @@ class MultiStageCAC:
             animated_gif_path, total_duration_s=DURATION_PER_STAGE * len(self)
         ).write_from_image_path_list(image_path_list)
 
-
         copy_animated_gif_path = os.path.join(
-            os.environ['DIR_DESKTOP'], os.path.split(os.path.split(dir_path)[0])[-1] + '.animated.gif'
+            os.environ['DIR_DESKTOP'],
+            os.path.split(os.path.split(dir_path)[0])[-1] + '.animated.gif',
         )
         shutil.copyfile(animated_gif_path, copy_animated_gif_path)
         log.debug(f'Wrote {copy_animated_gif_path}')

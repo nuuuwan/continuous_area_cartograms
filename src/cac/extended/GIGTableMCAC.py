@@ -1,20 +1,25 @@
 from functools import cache, cached_property
-from gig import Ent, EntType, GIGTable
 
-from cac.algos import DCN1985, DCN1985AlgoParams, DCN1985RenderParams 
+from gig import Ent, EntType, GIGTable
+from utils import Log
+
+from cac.algos import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
 from cac.extended.MultiStageCAC import MultiStageCAC
 
+log = Log('GIGTableMCAC')
+
+
 class GIGTableMCAC:
+    MIN_P = 0.001
+
     def __init__(self, gig_table: GIGTable, ent_type: EntType):
         self.gig_table = gig_table
         self.ent_type = ent_type
 
-
-
     @cached_property
     def measurement_label(self) -> str:
         return self.gig_table.measurement.replace('_', ' ').title()
-    
+
     @cached_property
     def entity_label(self) -> str:
         return self.ent_type.name.title()
@@ -22,7 +27,6 @@ class GIGTableMCAC:
     @cached_property
     def title(self) -> str:
         return self.measurement_label + " by " + self.entity_label
-    
 
     @staticmethod
     @cache
@@ -32,17 +36,25 @@ class GIGTableMCAC:
             field = field.replace(before, after)
         return field
 
-    def build(self, dir_path: str):
-        ents = Ent.list_from_type(self.ent_type)
-        algo_params = DCN1985AlgoParams(max_iterations=20)
-        dnc_list = []
-
+    @cached_property
+    def fields(self) -> list[str]:
         ent_lk = Ent.from_id('LK')
         row_lk = ent_lk.gig(self.gig_table)
-        fields = list(row_lk.dict.keys())
-       
-        n = len(fields)
-        for i, field in enumerate(fields):
+        fields = [
+            items[0]
+            for items in row_lk.dict_p.items()
+            if items[1] > self.MIN_P
+        ]
+        log.debug(f'{fields=}')
+        return fields
+
+    def build(self, dir_path: str):
+        ents = Ent.list_from_type(self.ent_type)
+        algo_params = DCN1985AlgoParams(max_iterations=20, do_shrink=True)
+        dnc_list = []
+
+        n = len(self.fields)
+        for i, field in enumerate(self.fields):
             hue = 300 * i / n
             values = []
             for ent in ents:

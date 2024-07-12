@@ -57,8 +57,12 @@ class DCN1985Runner:
                 Distance_i, Radius, Mass, Angle_i, force_reduction_factor
             )
             new_Point.append(Point_i)
-
-        polygons = [Polygon(Point_i) for Point_i in new_Point]
+        polygons = []
+        for Point_i in new_Point:
+            try:
+                polygons.append(Polygon(Point_i))
+            except Exception as e:
+                log.error(f'Could not append polygon: {e}')
         dcn = dcn.from_dcn(polygons)
         return dcn
 

@@ -3,11 +3,19 @@ import math
 import geopandas
 from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
+from matplotlib.font_manager import FontProperties
 from utils import Log
 
 from utils_future import MatPlotLibUser, Number
 
 log = Log('DCN1985Renderer')
+
+
+FONT_PATH = (
+    "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\p22.ttf"
+)
+FONT = FontProperties(fname=FONT_PATH)
+plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
@@ -29,7 +37,7 @@ class DCN1985Renderer(MatPlotLibUser):
             min(max_abs_error, max(-max_abs_error, log2_error))
             + max_abs_error
         ) / (max_abs_error * 2)
-        min_lightness = 20
+        min_lightness = 50
         lightness = min_lightness + (100 - min_lightness) * p_log2_error
 
         r, g, b = mcolors.hsv_to_rgb(
