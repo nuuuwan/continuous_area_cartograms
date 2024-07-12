@@ -49,9 +49,7 @@ class Example:
 
     @property
     def has_output(self):
-        return os.path.exists(
-            os.path.join(self.dir_path, 'output')
-        ) and os.path.exists(self.animated_gif_path)
+        return os.path.exists(self.animated_gif_path)
 
     def run(self, force_build):
         if not force_build and self.has_output:
