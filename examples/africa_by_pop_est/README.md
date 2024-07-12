@@ -1,7 +1,7 @@
 # Africa By Pop Est
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -23,15 +23,13 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Africa",
-            start_value_unit="km2",
             end_value_unit="Population",
-            
+            source_text="United Nations",
         ),
     )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 

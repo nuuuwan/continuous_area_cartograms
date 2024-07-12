@@ -4,8 +4,12 @@ import os
 def main():  # noqa
     from gig import Ent, EntType
 
-    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
-                     MultiStageCAC)
+    from cac import (
+        DCN1985,
+        DCN1985AlgoParams,
+        DCN1985RenderParams,
+        MultiStageCAC,
+    )
 
     ents = Ent.list_from_type(EntType.PROVINCE)
     values_population = [ent.population for ent in ents]

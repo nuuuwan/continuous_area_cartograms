@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class DCN1985RenderParams:
     # common
     title: str = ''
+    source_text: str = 'Unknown'
 
     # start
     start_value_unit: str = ""

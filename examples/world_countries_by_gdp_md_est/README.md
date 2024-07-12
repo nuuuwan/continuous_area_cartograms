@@ -1,7 +1,7 @@
 # World Countries By Gdp Md Est
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -26,15 +26,12 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="World",
-            start_value_unit="km2",
             end_value_unit="GDP (USD M)",
-
         ),
     )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 

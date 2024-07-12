@@ -1,7 +1,7 @@
 # Lk Pds By Electors
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -31,22 +31,18 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Polling Divisions",
-            start_value_unit="km2",
             end_value_unit="Registered Voter Pop.",
-
         ),
     )
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 
     HexBin(polygons, total_value=850).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
-            
             'hexbin.png',
         ),
     )

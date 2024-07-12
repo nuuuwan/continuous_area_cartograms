@@ -1,7 +1,7 @@
 # Build From Ents
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -18,7 +18,6 @@ def main():  # noqa
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 

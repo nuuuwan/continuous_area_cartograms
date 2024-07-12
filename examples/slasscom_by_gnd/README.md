@@ -1,7 +1,7 @@
 # Slasscom By Gnd
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_gnd/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_gnd/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -56,15 +56,12 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Colombo MC's GNDs",
-            start_value_unit="km2",
             end_value_unit="SLASSCOM Members",
-
         ),
     )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         ),
     )
 

@@ -1,7 +1,7 @@
 # Lk Districts By Muslim Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -27,15 +27,12 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Districts",
-            start_value_unit="km2",
             end_value_unit="Muslim Population",
-
         ),
     )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 

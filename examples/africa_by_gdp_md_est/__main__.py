@@ -16,8 +16,8 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Africa",
-            start_value_unit="km2",
             end_value_unit="GDP (USD M)",
+            source_text="United Nations",
         ),
     )
     algo.run(

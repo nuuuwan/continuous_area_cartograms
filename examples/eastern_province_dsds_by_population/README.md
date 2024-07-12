@@ -1,7 +1,7 @@
 # Eastern Province Dsds By Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/eastern_province_dsds_by_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/eastern_province_dsds_by_population/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -26,15 +26,12 @@ def main():  # noqa
         ),
         render_params=DCN1985RenderParams(
             title="Eastern Province (Sri Lanka)'s DSDs",
-            start_value_unit="km2",
             end_value_unit="Population",
-
         ),
     )
     algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         )
     )
 

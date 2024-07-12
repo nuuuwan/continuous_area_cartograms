@@ -107,16 +107,6 @@ Output:
 ```
 
 <p align="center">
-  <img src="examples/build_from_polygons/output/images/013.png" height="200vh" />
-</p>
-
-The output directory (*dir_output*) stores the following content:
-
-* geojson: GeoJSON files for each step of the algorithm
-* images: Rendered images for each step of the algorithm
-* animated.gif: Images combined into an animated GIF
-
-<p align="center">
   <img src="examples/build_from_polygons/output/animated.gif" height="200vh" />
 </p>
 

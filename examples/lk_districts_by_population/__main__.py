@@ -17,7 +17,6 @@ def main():  # noqa
         algo_params=DCN1985AlgoParams(max_iterations=10),
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Districts",
-            start_value_unit="km2",
             end_value_unit="Population",
         ),
     )

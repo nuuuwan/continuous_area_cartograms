@@ -2,29 +2,29 @@
 
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_gdp_md_est/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_geojson/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons_distorted/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_topojson/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/cmb_pds_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/cmc_gnds_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/eastern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_in_units/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_gdp/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/northern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_dsd/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_gnd/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/southern_province_dsds_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_population/output/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_unit/output/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_gdp_md_est/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_geojson/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_polygons_distorted/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_topojson/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/cmb_pds_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/cmc_gnds_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/eastern_province_dsds_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_in_units/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_gdp/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/northern_province_dsds_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_dsd/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_gnd/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/southern_province_dsds_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_gdp_md_est/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_population/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/world_countries_by_unit/animated.gif" alt="alt" height="240px" />
 </p>
 
 
@@ -131,16 +131,6 @@ Output:
 ```bash
 [<POLYGON ((0.032 0.232, 0.142 0.979, 0.68 1.32, 0.587 0.078, 0.032 0.232))>, <POLYGON ((0.587 0.078, 0.68 1.32, 1.922 1.413, 2.122 -0.122, 0.587 0.078))>, <POLYGON ((0.142 0.979, 0.112 1.888, 1.021 1.858, 0.68 1.32, 0.142 0.979))>, <POLYGON ((0.68 1.32, 1.021 1.858, 1.768 1.968, 1.922 1.413, 0.68 1.32))>]
 ```
-
-<p align="center">
-  <img src="examples/build_from_polygons/output/images/013.png" height="200vh" />
-</p>
-
-The output directory (*dir_output*) stores the following content:
-
-* geojson: GeoJSON files for each step of the algorithm
-* images: Rendered images for each step of the algorithm
-* animated.gif: Images combined into an animated GIF
 
 <p align="center">
   <img src="examples/build_from_polygons/output/animated.gif" height="200vh" />

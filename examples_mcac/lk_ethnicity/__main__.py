@@ -3,11 +3,12 @@ def main():  # noqa
 
     from gig import EntType, GIGTable
 
-    from cac import GIGTableMCAC
+    from cac import DCN1985RenderParams, GIGTableMCAC
 
     GIGTableMCAC(
         GIGTable('population-ethnicity', 'regions', '2012'),
         EntType.DISTRICT,
+        render_params=DCN1985RenderParams(source_text='2012 Census'),
     ).build(
         os.path.join(
             os.path.dirname(__file__),

@@ -1,7 +1,7 @@
 # Lk Districts By Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/output/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_population/animated.gif" alt="alt" />
 </p>
 
 ```python
@@ -24,22 +24,18 @@ def main():  # noqa
         algo_params=DCN1985AlgoParams(max_iterations=10),
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Districts",
-            start_value_unit="km2",
             end_value_unit="Population",
-
         ),
     )
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         ),
     )
 
     HexBin(polygons).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
-            
             'hexbin.png',
         )
     )

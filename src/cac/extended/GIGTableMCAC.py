@@ -12,9 +12,15 @@ log = Log('GIGTableMCAC')
 class GIGTableMCAC:
     MIN_P = 0.001
 
-    def __init__(self, gig_table: GIGTable, ent_type: EntType):
+    def __init__(
+        self,
+        gig_table: GIGTable,
+        ent_type: EntType,
+        render_params: DCN1985RenderParams = None,
+    ):
         self.gig_table = gig_table
         self.ent_type = ent_type
+        self.render_params = render_params or DCN1985RenderParams()
 
     @cached_property
     def measurement_label(self) -> str:
@@ -51,7 +57,6 @@ class GIGTableMCAC:
     @cached_property
     def algo_params(self) -> DCN1985AlgoParams:
         return DCN1985AlgoParams(max_iterations=40, do_shrink=True)
-    
 
     @staticmethod
     def get_color(field: str) -> str:
@@ -85,6 +90,7 @@ class GIGTableMCAC:
                     start_value_color='gray',
                     end_value_unit=self.format_field(field),
                     end_value_color=color,
+                    source_text=self.render_params.source_text,
                 ),
             )
             dnc_list.append(dnc)

@@ -30,7 +30,6 @@ def main():  # noqa
         values,
         render_params=DCN1985RenderParams(
             title="Sri Lanka's Provinces",
-            start_value_unit="km2",
             end_value_unit="GDP (LKR M)",
         ),
     )

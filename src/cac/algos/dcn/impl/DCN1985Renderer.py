@@ -21,22 +21,22 @@ plt.rcParams['font.family'] = FONT.get_name()
 class DCN1985Renderer(MatPlotLibUser):
     @staticmethod
     def get_foreground_color(background_color):
-        r,g,b,alpha = mcolors.to_rgba(background_color)
+        r, g, b, alpha = mcolors.to_rgba(background_color)
 
         def blend(x):
             return x * alpha + 255 * (1 - alpha)
-        
+
         [blended_r, blended_g, blended_b] = [blend(x) for x in [r, g, b]]
 
-        luminance = (0.299 * blended_r + 0.587 * blended_g + 0.114 * blended_b) 
-        
+        luminance = 0.299 * blended_r + 0.587 * blended_g + 0.114 * blended_b
+
         if luminance < 0.5:
             return 'white'
         return 'black'
 
     @staticmethod
     def get_color(color, log2_error):
-        r,g,b,alpha = mcolors.to_rgba(color)
+        r, g, b, alpha = mcolors.to_rgba(color)
 
         max_abs_error = 2
         p_log2_error = (
@@ -44,8 +44,8 @@ class DCN1985Renderer(MatPlotLibUser):
             + max_abs_error
         ) / (max_abs_error * 2)
         MIN_ALPHA = 0.1
-        alpha2 = MIN_ALPHA + p_log2_error * (1 - MIN_ALPHA)   
-     
+        alpha2 = MIN_ALPHA + (1 - p_log2_error) * (1 - MIN_ALPHA)
+
         return (r, g, b, alpha * alpha2)
 
     @staticmethod
@@ -128,25 +128,27 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.annotate(
             title_text,
-            (0.5, 0.88),
+            (0.5, 0.90),
             fontsize=10,
             xycoords='axes fraction',
             ha='center',
         )
 
-    def render_all(self):
-        plt.close()
-        max_error = 10
-        p_progress = (
-            max_error - min(max_error, self.mean_abs_log2_error)
-        ) / max_error
-        log.debug(
-            f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}'
+        plt.annotate(
+            f'Source: {self.render_params.source_text}',
+            (0.5, 0.05),
+            fontsize=5,
+            xycoords='axes fraction',
+            ha='center',
         )
-        show_start_labels = p_progress < 0.1
-        color = self.render_params.start_value_color if show_start_labels else self.render_params.end_value_color
 
-
+    def render_all(self, show_start_labels: bool):
+        plt.close()
+        color = (
+            self.render_params.start_value_color
+            if show_start_labels
+            else self.render_params.end_value_color
+        )
 
         for polygon, label, end_value, log2_error in zip(
             self.polygons,
@@ -167,6 +169,7 @@ class DCN1985Renderer(MatPlotLibUser):
         self.render_titles(show_start_labels)
 
     def save_image(self, image_path, i_iter):
-        self.render_all()
+        show_start_labels = i_iter <= 2
+        self.render_all(show_start_labels)
         plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
         log.info(f'Wrote {image_path}')

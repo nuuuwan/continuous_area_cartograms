@@ -74,7 +74,7 @@ class Example:
             Example.URL_RAW_BASE
             + '/'
             + self.example_name
-            + '/output/animated.gif'
+            + '/animated.gif'
         )
 
     @property
