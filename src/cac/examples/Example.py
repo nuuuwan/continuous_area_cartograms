@@ -65,7 +65,6 @@ class Example:
     def animated_gif_path(self):
         return os.path.join(
             self.dir_path,
-            
             'animated.gif',
         )
 

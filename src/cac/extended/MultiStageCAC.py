@@ -16,10 +16,9 @@ class MultiStageCAC:
 
     def __len__(self):
         return len(self.dcn_list)
-    
 
     def build(self, dir_path: str = None):
-        id = os.path.split(dir_path)[-1]    
+        id = os.path.split(dir_path)[-1]
         path_id_prefix = f'cac.{id}.stage'
 
         for i, dcn in enumerate(self.dcn_list, start=1):

@@ -38,14 +38,12 @@ def main():  # noqa
     polygons = algo.run(
         os.path.join(
             os.path.dirname(__file__),
-            
         ),
     )
 
     HexBin(polygons).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
-            
             'hexbin.png',
         )
     )
