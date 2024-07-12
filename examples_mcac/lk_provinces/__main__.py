@@ -36,8 +36,8 @@ def main():  # noqa
                 title="Sri Lanka's Provinces",
                 start_value_unit="Area (km2)",
                 end_value_unit="Population",
-                start_value_hue=240,
-                end_value_hue=120,
+                start_value_color='red',
+                end_value_color='green',
             ),
         ),
         DCN1985.from_ents(
@@ -48,7 +48,7 @@ def main():  # noqa
                 title="Sri Lanka's Provinces",
                 start_value_unit="Area (km2)",
                 end_value_unit="GDP (LKR M)",
-                end_value_hue=0,
+                end_value_color='green',
             ),
         ),
     ).run(

@@ -8,8 +8,8 @@ class DCN1985RenderParams:
 
     # start
     start_value_unit: str = ""
-    start_value_hue: int = 120
+    start_value_color: str = 'green'
 
     # end
     end_value_unit: str = ""
-    end_value_hue: int = 240
+    end_value_color: str = 'red'

@@ -35,9 +35,8 @@ class DCN1985Renderer(MatPlotLibUser):
         return 'black'
 
     @staticmethod
-    def get_color(hue, log2_error):
-        saturation = 100
-        lightness = 100
+    def get_color(color, log2_error):
+        r,g,b,alpha = mcolors.to_rgba(color)
 
         max_abs_error = 2
         p_log2_error = (
@@ -45,20 +44,16 @@ class DCN1985Renderer(MatPlotLibUser):
             + max_abs_error
         ) / (max_abs_error * 2)
         MIN_ALPHA = 0.1
-        alpha = MIN_ALPHA + p_log2_error * (1 - MIN_ALPHA)   
+        alpha2 = MIN_ALPHA + p_log2_error * (1 - MIN_ALPHA)   
      
-        r, g, b = mcolors.hsv_to_rgb(
-            [hue / 360, saturation / 100, lightness / 100]
-        )
-
-        return (r, g, b, alpha)
+        return (r, g, b, alpha * alpha2)
 
     @staticmethod
-    def render_polygon_shape(polygon, hue, log2_error):
+    def render_polygon_shape(polygon, color, log2_error):
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=plt.gca(),
-            facecolor=DCN1985Renderer.get_color(hue, log2_error),
+            facecolor=DCN1985Renderer.get_color(color, log2_error),
             edgecolor="white",
             linewidth=0.2,
         )
@@ -70,9 +65,9 @@ class DCN1985Renderer(MatPlotLibUser):
         end_value,
         log2_error,
         show_start_labels,
-        hue,
+        color,
     ):
-        background_color = DCN1985Renderer.get_color(hue, log2_error)
+        background_color = DCN1985Renderer.get_color(color, log2_error)
         foreground_color = DCN1985Renderer.get_foreground_color(
             background_color
         )
@@ -106,16 +101,16 @@ class DCN1985Renderer(MatPlotLibUser):
         end_value,
         log2_error,
         show_start_labels,
-        hue,
+        color,
     ):
-        DCN1985Renderer.render_polygon_shape(polygon, hue, log2_error)
+        DCN1985Renderer.render_polygon_shape(polygon, color, log2_error)
         self.render_polygon_text(
             polygon,
             label,
             end_value,
             log2_error,
             show_start_labels,
-            hue,
+            color,
         )
 
     def render_titles(self, show_start_labels):
@@ -149,13 +144,9 @@ class DCN1985Renderer(MatPlotLibUser):
             f'mean_abs_log2_error={self.mean_abs_log2_error}, {p_progress=}'
         )
         show_start_labels = p_progress < 0.1
-        hue = (
-            p_progress * self.render_params.end_value_hue
-            + (1 - p_progress) * self.render_params.start_value_hue
-        )
-        log.debug(
-            f'start_value_hue={self.render_params.start_value_hue}, end_value_hue={self.render_params.end_value_hue}, {hue=}'
-        )
+        color = self.render_params.start_value_color if show_start_labels else self.render_params.end_value_color
+
+
 
         for polygon, label, end_value, log2_error in zip(
             self.polygons,
@@ -169,7 +160,7 @@ class DCN1985Renderer(MatPlotLibUser):
                 end_value,
                 log2_error,
                 show_start_labels,
-                hue,
+                color,
             )
 
         DCN1985Renderer.remove_grids()

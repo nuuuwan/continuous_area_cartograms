@@ -51,14 +51,26 @@ class GIGTableMCAC:
     @cached_property
     def algo_params(self) -> DCN1985AlgoParams:
         return DCN1985AlgoParams(max_iterations=40, do_shrink=True)
+    
+
+    @staticmethod
+    def get_color(field: str) -> str:
+        FIELD_TO_COLOR = dict(
+            sinhalese='maroon',
+            sl_tamil='orange',
+            sl_moor='green',
+            ind_tamil='orange',
+            malay='green',
+            burgher='blue',
+        )
+        return FIELD_TO_COLOR.get(field, 'gray')
 
     def build(self, dir_path: str):
         ents = Ent.list_from_type(self.ent_type)
         dnc_list = []
 
-        n = len(self.fields)
-        for i, field in enumerate(self.fields):
-            hue = 300 * i / n
+        for field in self.fields:
+            color = self.get_color(field)
             values = []
             for ent in ents:
                 row = ent.gig(self.gig_table)
@@ -70,8 +82,9 @@ class GIGTableMCAC:
                 algo_params=self.algo_params,
                 render_params=DCN1985RenderParams(
                     title=self.title,
+                    start_value_color='gray',
                     end_value_unit=self.format_field(field),
-                    end_value_hue=hue,
+                    end_value_color=color,
                 ),
             )
             dnc_list.append(dnc)
