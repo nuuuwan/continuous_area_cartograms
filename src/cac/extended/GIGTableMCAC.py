@@ -34,15 +34,16 @@ class GIGTableMCAC:
 
     def build(self, dir_path: str):
         ents = Ent.list_from_type(self.ent_type)
-        algo_params = DCN1985AlgoParams(max_iterations=5)
+        algo_params = DCN1985AlgoParams(max_iterations=20)
         dnc_list = []
 
-        first_row = ents[0].gig(self.gig_table)
-        fields = sorted(list(first_row.dict.keys()))
-        fields = fields[:3]
+        ent_lk = Ent.from_id('LK')
+        row_lk = ent_lk.gig(self.gig_table)
+        fields = list(row_lk.dict.keys())
+       
         n = len(fields)
         for i, field in enumerate(fields):
-            hue = 240 * i / n
+            hue = 300 * i / n
             values = []
             for ent in ents:
                 row = ent.gig(self.gig_table)
