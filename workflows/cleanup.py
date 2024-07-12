@@ -20,7 +20,7 @@ def main():
         log.warning(f'Deleted "{dir_geojson_path}"')
 
         source_py_path = os.path.join(
-            DIR_EXAMPLES, child_dir_name, 'source.py'
+            DIR_EXAMPLES, child_dir_name, '__main__.py'
         )
         new_main_py_path = os.path.join(
             DIR_EXAMPLES, child_dir_name, '__main__.py'

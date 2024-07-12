@@ -44,7 +44,7 @@ class Example:
     def py_path(self):
         return os.path.join(
             self.dir_path,
-            'source.py',
+            '__main__.py',
         )
 
     @property
