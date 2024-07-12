@@ -121,13 +121,13 @@ class DCN1985Renderer(MatPlotLibUser):
         _, height = plt.gcf().get_size_inches()
         base_font_size = height
 
-        plt.annotate(
-            self.render_params.super_title,
-            (0.5, 0.95),
-            fontsize=base_font_size,
-            xycoords='axes fraction',
-            ha='center',
-        )
+        # plt.annotate(
+        #     self.render_params.super_title,
+        #     (0.5, 0.95),
+        #     fontsize=base_font_size,
+        #     xycoords='axes fraction',
+        #     ha='center',
+        # )
 
         title = '' if show_start_labels else self.render_params.title
         plt.annotate(
