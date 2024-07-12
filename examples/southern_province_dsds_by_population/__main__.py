@@ -21,7 +21,7 @@ def main():  # noqa
             title="Southern Province (Sri Lanka)'s DSDs",
             start_value_unit="km2",
             end_value_unit="Population",
-            start_total_value=5_383,
+  
         ),
     )
     algo.run(

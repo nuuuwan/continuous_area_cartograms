@@ -28,7 +28,7 @@ def main():  # noqa
             title="World",
             start_value_unit="km2",
             end_value_unit="GDP (USD M)",
-            start_total_value=149_000_000,
+
         ),
     )
     algo.run(

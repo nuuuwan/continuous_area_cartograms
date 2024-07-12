@@ -29,7 +29,7 @@ def main():  # noqa
             title="Sri Lanka's Districts",
             start_value_unit="km2",
             end_value_unit="Muslim Population",
-            start_total_value=65_610,
+
         ),
     )
     algo.run(

@@ -17,10 +17,7 @@ class MultiStageCAC:
     def __len__(self):
         return len(self.dcn_list)
 
-    def build(self, dir_path: str = None):
-        id = os.path.split(dir_path)[-1]
-        path_id_prefix = f'cac.{id}.stage'
-
+    def build_stages(self, path_id_prefix: str):
         for i, dcn in enumerate(self.dcn_list, start=1):
             log.debug(f'Running Stage {i}/{len(self)}')
             path_id = f'{path_id_prefix}.{i}'
@@ -30,6 +27,8 @@ class MultiStageCAC:
 
             dcn.run(dir_path_stage)
 
+
+    def build_final_animation(self, dir_path: str, path_id_prefix :str, cac_id:str):
         # building animation
         image_path_list = []
         FRAMES_PER_STAGE = 20
@@ -64,8 +63,15 @@ class MultiStageCAC:
 
         copy_animated_gif_path = os.path.join(
             os.environ['DIR_DESKTOP'],
-            f'{id}.animated.gif',
+            f'{cac_id}.animated.gif',
         )
         shutil.copyfile(animated_gif_path, copy_animated_gif_path)
         log.debug(f'Wrote {copy_animated_gif_path}')
         os.startfile(copy_animated_gif_path)
+
+
+    def build(self, dir_path: str):
+        cac_id = os.path.split(dir_path)[-1]
+        path_id_prefix = f'cac.{cac_id}.stage'
+        self.build_stages(path_id_prefix)
+        self.build_final_animation(dir_path, path_id_prefix, cac_id)

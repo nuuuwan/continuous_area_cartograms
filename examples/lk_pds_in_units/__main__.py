@@ -14,7 +14,7 @@ def main():  # noqa
             title="Sri Lanka's Polling Divisions",
             start_value_unit="km2",
             end_value_unit="Units",
-            start_total_value=65_610,
+
         ),
     )
     algo.run(

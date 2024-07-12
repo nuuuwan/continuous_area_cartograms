@@ -28,7 +28,7 @@ def main():  # noqa
             title="Colombo District's Polling Divisions",
             start_value_unit="km2",
             end_value_unit="Population",
-            start_total_value=699,
+
         ),
     )
     algo.run(

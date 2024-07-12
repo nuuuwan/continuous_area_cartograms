@@ -18,7 +18,7 @@ def main():  # noqa
             title="Africa",
             start_value_unit="km2",
             end_value_unit="Population",
-            start_total_value=30_370_000,
+            
         ),
     )
     algo.run(
