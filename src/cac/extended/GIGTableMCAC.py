@@ -86,11 +86,11 @@ class GIGTableMCAC:
                 values,
                 algo_params=self.algo_params,
                 render_params=DCN1985RenderParams(
-                    title=self.title,
+                    super_title=self.title,
                     start_value_color='gray',
-                    end_value_unit=self.format_field(field),
+                    title=self.format_field(field),
                     end_value_color=color,
-                    source_text=self.render_params.source_text,
+                    footer_text="Source: " + self.render_params.source_text,
                 ),
             )
             dnc_list.append(dnc)

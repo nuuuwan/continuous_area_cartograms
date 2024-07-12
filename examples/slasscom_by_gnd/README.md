@@ -55,8 +55,8 @@ def main():  # noqa
             preprocess_tolerance=0.0,
         ),
         render_params=DCN1985RenderParams(
-            title="Colombo MC's GNDs",
-            end_value_unit="SLASSCOM Members",
+            super_title="Colombo MC's GNDs",
+            title="SLASSCOM Members",
         ),
     )
     algo.run(

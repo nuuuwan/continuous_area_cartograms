@@ -114,30 +114,38 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self, show_start_labels):
+        _, height = plt.gcf().get_size_inches()
+        base_font_size = height 
+
         plt.annotate(
-            self.render_params.title,
+            self.render_params.super_title,
             (0.5, 0.95),
-            fontsize=5,
+            fontsize=base_font_size,
             xycoords='axes fraction',
             ha='center',
         )
-        if show_start_labels:
-            title_text = self.render_params.start_value_unit
-        else:
-            title_text = self.render_params.end_value_unit
 
+        title = '' if show_start_labels else self.render_params.title
         plt.annotate(
-            title_text,
+            title ,
             (0.5, 0.90),
-            fontsize=10,
+            fontsize=base_font_size* 3,
             xycoords='axes fraction',
             ha='center',
         )
 
         plt.annotate(
-            f'Source: {self.render_params.source_text}',
+            self.render_params.sub_title,
+            (0.5, 0.85),
+            fontsize=base_font_size,
+            xycoords='axes fraction',
+            ha='center',
+        )
+
+        plt.annotate(
+            self.render_params.footer_text,
             (0.5, 0.05),
-            fontsize=5,
+            fontsize=base_font_size,
             xycoords='axes fraction',
             ha='center',
         )

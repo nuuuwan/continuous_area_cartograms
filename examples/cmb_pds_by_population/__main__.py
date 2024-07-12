@@ -18,8 +18,8 @@ def main():  # noqa
             preprocess_tolerance=0.0000001,
         ),
         render_params=DCN1985RenderParams(
-            title="Colombo District's Polling Divisions",
-            end_value_unit="Population",
+            super_title="Colombo District's Polling Divisions",
+            title="Population",
         ),
     )
     algo.run(

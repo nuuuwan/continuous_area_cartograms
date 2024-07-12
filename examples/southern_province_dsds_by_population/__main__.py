@@ -18,8 +18,8 @@ def main():  # noqa
             preprocess_tolerance=0.0,
         ),
         render_params=DCN1985RenderParams(
-            title="Southern Province (Sri Lanka)'s DSDs",
-            end_value_unit="Population",
+            super_title="Southern Province (Sri Lanka)'s DSDs",
+            title="Population",
         ),
     )
     algo.run(

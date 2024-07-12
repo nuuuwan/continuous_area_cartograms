@@ -31,8 +31,8 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(do_shrink=True),
         render_params=DCN1985RenderParams(
-            title="Colombo District's DSDs",
-            end_value_unit="SLASSCOM Members",
+            super_title="Colombo District's DSDs",
+            title="SLASSCOM Members",
         ),
     )
     algo.run(

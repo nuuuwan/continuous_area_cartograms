@@ -15,8 +15,8 @@ def main():  # noqa
         ents,
         values,
         render_params=DCN1985RenderParams(
-            title="Sri Lanka's Provinces",
-            end_value_unit="Population",
+            super_title="Sri Lanka's Provinces",
+            title="Population",
         ),
     )
     polygons = algo.run(

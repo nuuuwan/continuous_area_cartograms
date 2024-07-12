@@ -33,9 +33,9 @@ def main():  # noqa
             values_population,
             algo_params=algo_params,
             render_params=DCN1985RenderParams(
-                title="Sri Lanka's Provinces",
+                super_title="Sri Lanka's Provinces",
                 start_value_unit="Area (km2)",
-                end_value_unit="Population",
+                title="Population",
                 start_value_color='red',
                 end_value_color='green',
             ),
@@ -45,9 +45,9 @@ def main():  # noqa
             values_gdp,
             algo_params=algo_params,
             render_params=DCN1985RenderParams(
-                title="Sri Lanka's Provinces",
+                super_title="Sri Lanka's Provinces",
                 start_value_unit="Area (km2)",
-                end_value_unit="GDP (LKR M)",
+                title="GDP (LKR M)",
                 end_value_color='green',
             ),
         ),

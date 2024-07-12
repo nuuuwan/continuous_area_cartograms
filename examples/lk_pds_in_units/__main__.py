@@ -11,8 +11,8 @@ def main():  # noqa
         ents,
         values,
         render_params=DCN1985RenderParams(
-            title="Sri Lanka's Polling Divisions",
-            end_value_unit="Units",
+            super_title="Sri Lanka's Polling Divisions",
+            title="Units",
         ),
     )
     algo.run(

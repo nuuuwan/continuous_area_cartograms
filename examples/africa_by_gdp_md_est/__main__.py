@@ -15,9 +15,9 @@ def main():  # noqa
         gdf,
         values,
         render_params=DCN1985RenderParams(
-            title="Africa",
-            end_value_unit="GDP (USD M)",
-            source_text="United Nations",
+            super_title="Africa",
+            title="GDP (USD M)",
+            footer_text="Source: " + "United Nations",
         ),
     )
     algo.run(

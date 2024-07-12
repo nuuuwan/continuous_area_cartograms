@@ -30,8 +30,8 @@ def main():  # noqa
             max_iterations=30,
         ),
         render_params=DCN1985RenderParams(
-            title="Sri Lanka's Polling Divisions",
-            end_value_unit="Registered Voter Pop.",
+            super_title="Sri Lanka's Polling Divisions",
+            title="Registered Voter Pop.",
         ),
     )
     polygons = algo.run(

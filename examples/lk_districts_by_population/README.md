@@ -23,8 +23,8 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(max_iterations=10),
         render_params=DCN1985RenderParams(
-            title="Sri Lanka's Districts",
-            end_value_unit="Population",
+            super_title="Sri Lanka's Districts",
+            title="Population",
         ),
     )
     polygons = algo.run(

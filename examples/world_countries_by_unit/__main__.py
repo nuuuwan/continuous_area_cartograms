@@ -18,8 +18,8 @@ def main():  # noqa
             do_shrink=True,
         ),
         render_params=DCN1985RenderParams(
-            title="World",
-            end_value_unit="Unit",
+            super_title="World",
+            title="Unit",
         ),
     )
     algo.run(

@@ -26,8 +26,8 @@ def main():  # noqa
         ents,
         values,
         render_params=DCN1985RenderParams(
-            title="Sri Lanka's Districts",
-            end_value_unit="Muslim Population",
+            super_title="Sri Lanka's Districts",
+            title="Muslim Population",
         ),
     )
     algo.run(
