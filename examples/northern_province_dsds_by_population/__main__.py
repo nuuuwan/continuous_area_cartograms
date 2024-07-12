@@ -19,7 +19,6 @@ def main():  # noqa
             title="Northern Province (Sri Lanka)'s DSDs",
             start_value_unit="km2",
             end_value_unit="Population",
-
         ),
     )
     algo.run(

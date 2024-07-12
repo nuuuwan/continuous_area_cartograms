@@ -34,7 +34,6 @@ def main():  # noqa
             title="Colombo District's DSDs",
             start_value_unit="km2",
             end_value_unit="SLASSCOM Members",
-
         ),
     )
     algo.run(

@@ -32,7 +32,6 @@ def main():  # noqa
             title="Sri Lanka's Provinces",
             start_value_unit="km2",
             end_value_unit="GDP (LKR M)",
-
         ),
     )
     polygons = algo.run(

@@ -94,5 +94,3 @@ class DCN1985Properties:
     @cached_property
     def total_area(self) -> float:
         return sum(self.Area)
-
-

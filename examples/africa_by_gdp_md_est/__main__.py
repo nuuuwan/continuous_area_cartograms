@@ -18,7 +18,6 @@ def main():  # noqa
             title="Africa",
             start_value_unit="km2",
             end_value_unit="GDP (USD M)",
-            
         ),
     )
     algo.run(

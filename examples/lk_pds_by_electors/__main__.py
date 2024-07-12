@@ -26,7 +26,6 @@ def main():  # noqa
             title="Sri Lanka's Polling Divisions",
             start_value_unit="km2",
             end_value_unit="Registered Voter Pop.",
-
         ),
     )
     polygons = algo.run(
