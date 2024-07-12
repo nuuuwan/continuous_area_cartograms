@@ -61,7 +61,7 @@ class GIGTableMCAC:
     @staticmethod
     def get_color(field: str) -> str:
         FIELD_TO_COLOR = dict(
-            # ethnicity 
+            # ethnicity
             sinhalese='maroon',
             sl_tamil='orange',
             sl_moor='green',

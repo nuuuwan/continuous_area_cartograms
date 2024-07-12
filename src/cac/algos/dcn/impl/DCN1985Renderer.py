@@ -71,8 +71,8 @@ class DCN1985Renderer(MatPlotLibUser):
         show_start_labels,
         color,
     ):
-        background_color = DCN1985Renderer.get_color(color, log2_error)
-  
+        DCN1985Renderer.get_color(color, log2_error)
+
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
