@@ -19,14 +19,21 @@ class DCN1985RenderParams:
         self.start_value_color = start_value_color or 'gray'
 
         #
-        self.end_value_color = end_value_color or self.infer_end_value_color(title)
+        self.end_value_color = end_value_color or self.infer_end_value_color(
+            self.title
+        )
 
     def __str__(self) -> str:
         return f'DCN1985RenderParams({str(self.__dict__)})'
 
-
     def infer_end_value_color(self, title: str) -> str:
-        for phrase, color in [('population', 'red'), ('gdp', 'green'), ('electors', 'cyan'),( 'slasscom', 'blue'), ('unit', 'lightblue')]:
+        for phrase, color in [
+            ('population', 'red'),
+            ('gdp', 'green'),
+            ('electors', 'cyan'),
+            ('slasscom', 'blue'),
+            ('unit', 'lightblue'),
+        ]:
             if phrase in title.lower():
                 return color
         return 'pink'

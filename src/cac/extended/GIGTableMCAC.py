@@ -61,12 +61,19 @@ class GIGTableMCAC:
     @staticmethod
     def get_color(field: str) -> str:
         FIELD_TO_COLOR = dict(
+            # ethnicity 
             sinhalese='maroon',
             sl_tamil='orange',
             sl_moor='green',
             ind_tamil='orange',
             malay='green',
             burgher='blue',
+            # religion
+            buddhist='yellow',
+            hindu='orange',
+            islam='green',
+            roman_catholic='blue',
+            other_christian='purple',
         )
         return FIELD_TO_COLOR.get(field, 'gray')
 
@@ -90,7 +97,7 @@ class GIGTableMCAC:
                     start_value_color='gray',
                     title=self.format_field(field),
                     end_value_color=color,
-                    footer_text="Source: " + self.render_params.source_text,
+                    footer_text=self.render_params.footer_text,
                 ),
             )
             dnc_list.append(dnc)

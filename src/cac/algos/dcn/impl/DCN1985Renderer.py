@@ -45,16 +45,20 @@ class DCN1985Renderer(MatPlotLibUser):
         ) / (max_abs_error * 2)
         MIN_ALPHA = 0.1
         alpha2 = MIN_ALPHA + (1 - p_log2_error) * (1 - MIN_ALPHA)
-
-        return (r, g, b, alpha * alpha2)
+        final_alpha = max(MIN_ALPHA, alpha * alpha2)
+        return (r, g, b, final_alpha)
 
     @staticmethod
     def render_polygon_shape(polygon, color, log2_error):
+        background_color = DCN1985Renderer.get_color(color, log2_error)
+        foreground_color = DCN1985Renderer.get_foreground_color(
+            background_color
+        )
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=plt.gca(),
-            facecolor=DCN1985Renderer.get_color(color, log2_error),
-            edgecolor="white",
+            facecolor=background_color,
+            edgecolor=foreground_color,
             linewidth=0.2,
         )
 
@@ -68,9 +72,7 @@ class DCN1985Renderer(MatPlotLibUser):
         color,
     ):
         background_color = DCN1985Renderer.get_color(color, log2_error)
-        foreground_color = DCN1985Renderer.get_foreground_color(
-            background_color
-        )
+  
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
@@ -88,7 +90,7 @@ class DCN1985Renderer(MatPlotLibUser):
             x,
             y,
             text,
-            color=foreground_color,
+            color='gray',
             fontsize=font_size,
             horizontalalignment='center',
             verticalalignment='center',
@@ -115,7 +117,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def render_titles(self, show_start_labels):
         _, height = plt.gcf().get_size_inches()
-        base_font_size = height 
+        base_font_size = height
 
         plt.annotate(
             self.render_params.super_title,
@@ -127,9 +129,9 @@ class DCN1985Renderer(MatPlotLibUser):
 
         title = '' if show_start_labels else self.render_params.title
         plt.annotate(
-            title ,
+            title,
             (0.5, 0.90),
-            fontsize=base_font_size* 3,
+            fontsize=base_font_size * 3,
             xycoords='axes fraction',
             ha='center',
         )
