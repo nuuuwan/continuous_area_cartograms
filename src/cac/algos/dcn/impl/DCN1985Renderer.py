@@ -58,7 +58,7 @@ class DCN1985Renderer(MatPlotLibUser):
         gdf.plot(
             ax=plt.gca(),
             facecolor=background_color,
-            edgecolor=foreground_color,
+            edgecolor="gray" if foreground_color == 'black' else 'white',
             linewidth=0.2,
         )
 
@@ -71,8 +71,10 @@ class DCN1985Renderer(MatPlotLibUser):
         show_start_labels,
         color,
     ):
-        DCN1985Renderer.get_color(color, log2_error)
-
+        background_color = DCN1985Renderer.get_color(color, log2_error)
+        foreground_color = DCN1985Renderer.get_foreground_color(
+            background_color
+        )
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
@@ -90,7 +92,7 @@ class DCN1985Renderer(MatPlotLibUser):
             x,
             y,
             text,
-            color='gray',
+            color=foreground_color,
             fontsize=font_size,
             horizontalalignment='center',
             verticalalignment='center',
