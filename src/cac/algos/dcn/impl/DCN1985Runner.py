@@ -105,9 +105,10 @@ class DCN1985Runner:
         id = os.path.basename(dir_output)
         dir_output_temp = os.path.join(
             tempfile.gettempdir(),
-            f'cac.{id}',
+            id,
         )
-        os.makedirs(dir_output_temp, exist_ok=True)
+        shutil.rmtree(dir_output_temp, ignore_errors=True)
+        os.makedirs(dir_output_temp)
 
         while True:
             DCN1985Runner.save_partial(i_iter, dcn, dir_output_temp)

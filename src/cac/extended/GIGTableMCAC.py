@@ -50,7 +50,7 @@ class GIGTableMCAC:
 
     def build(self, dir_path: str):
         ents = Ent.list_from_type(self.ent_type)
-        algo_params = DCN1985AlgoParams(max_iterations=20, do_shrink=True)
+        algo_params = DCN1985AlgoParams(max_iterations=2, do_shrink=True)
         dnc_list = []
 
         n = len(self.fields)

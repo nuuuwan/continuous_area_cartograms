@@ -1,5 +1,6 @@
 import os
 import shutil
+import tempfile
 
 from utils import Log
 
@@ -15,14 +16,17 @@ class MultiStageCAC:
 
     def __len__(self):
         return len(self.dcn_list)
+    
 
     def build(self, dir_path: str = None):
-        
+        id = os.path.split(dir_path)[-1]    
+        path_id_prefix = f'cac.{id}.stage'
 
         for i, dcn in enumerate(self.dcn_list, start=1):
             log.debug(f'Running Stage {i}/{len(self)}')
-
-            dir_path_stage = os.path.join(dir_path, f'stage_{i}')
+            path_id = f'{path_id_prefix}.{i}'
+            dir_path_stage = os.path.join(tempfile.gettempdir(), path_id)
+            shutil.rmtree(dir_path_stage, ignore_errors=True)
             os.makedirs(dir_path_stage)
 
             dcn.run(dir_path_stage)
@@ -31,8 +35,9 @@ class MultiStageCAC:
         image_path_list = []
         FRAMES_PER_STAGE = 20
         for i in range(1, len(self) + 1):
+            path_id = f'{path_id_prefix}.{i}'
             dir_path_stage_images = os.path.join(
-                dir_path, f'stage_{i}', 'images'
+                tempfile.gettempdir(), path_id, 'images'
             )
             image_path_list_for_stage_original = []
             for file_name in os.listdir(dir_path_stage_images):
@@ -60,7 +65,7 @@ class MultiStageCAC:
 
         copy_animated_gif_path = os.path.join(
             os.environ['DIR_DESKTOP'],
-            os.path.split(os.path.split(dir_path)[0])[-1] + '.animated.gif',
+            f'{id}.animated.gif',
         )
         shutil.copyfile(animated_gif_path, copy_animated_gif_path)
         log.debug(f'Wrote {copy_animated_gif_path}')
