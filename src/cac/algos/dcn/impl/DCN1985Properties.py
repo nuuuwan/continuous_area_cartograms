@@ -95,6 +95,4 @@ class DCN1985Properties:
     def total_area(self) -> float:
         return sum(self.Area)
 
-    @cached_property
-    def ActualValue(self) -> np.ndarray:
-        return self.Area * self.total_value / self.total_area
+

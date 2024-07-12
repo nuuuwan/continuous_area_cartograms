@@ -8,7 +8,6 @@ class DCN1985RenderParams:
 
     # start
     start_value_unit: str = ""
-    start_total_value: float = 100
     start_value_hue: int = 120
 
     # end
