@@ -186,8 +186,7 @@ class DCN1985Renderer(MatPlotLibUser):
         width = self.aspect_ratio * height
         plt.gcf().set_size_inches(width, height)
         
-        # TESTING
-        show_start_labels = i_iter <= -1
+        show_start_labels = i_iter <= 2
         
         self.render_all(show_start_labels)
         
