@@ -13,7 +13,7 @@ class DCN1985RenderParams:
         self.super_title = super_title or ''
         self.title = title or ''
         self.sub_title = sub_title or ''
-        self.footer_text = footer_text or ''
+        self.footer_text = footer_text or 'Source: Unspecified'
 
         #
         self.start_value_color = start_value_color or 'gray'
