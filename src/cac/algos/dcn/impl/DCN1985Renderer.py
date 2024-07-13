@@ -19,6 +19,7 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
+    HEIGHT = 4.5
     @staticmethod
     def get_foreground_color(background_color):
         r, g, b, alpha = mcolors.to_rgba(background_color)
@@ -118,44 +119,43 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self, show_start_labels):
-        _, height = plt.gcf().get_size_inches()
-        base_font_size = height
+        
+        base_font_size = 5
 
-        # plt.annotate(
-        #     self.render_params.super_title,
-        #     (0.5, 0.95),
-        #     fontsize=base_font_size,
-        #     xycoords='axes fraction',
-        #     ha='center',
-        # )
+        plt.annotate(
+            self.render_params.super_title,
+            (0.5, 0.9),
+            fontsize=base_font_size,
+            xycoords='figure fraction',
+            ha='center',
+        )
 
         title = '' if show_start_labels else self.render_params.title
         plt.annotate(
             title,
-            (0.5, 0.90),
+            (0.5, 0.9 - 0.05),
             fontsize=base_font_size * 3,
-            xycoords='axes fraction',
+            xycoords='figure fraction',
             ha='center',
         )
 
         plt.annotate(
             self.render_params.sub_title,
-            (0.5, 0.85),
+            (0.5, 0.9 - 0.2),
             fontsize=base_font_size,
-            xycoords='axes fraction',
+            xycoords='figure fraction',
             ha='center',
         )
 
         plt.annotate(
             self.render_params.footer_text,
-            (0.5, 0.05),
+            (0.5, 0.1),
             fontsize=base_font_size,
-            xycoords='axes fraction',
+            xycoords='figure fraction',
             ha='center',
         )
 
     def render_all(self, show_start_labels: bool):
-        plt.close()
         color = (
             self.render_params.start_value_color
             if show_start_labels
@@ -181,7 +181,15 @@ class DCN1985Renderer(MatPlotLibUser):
         self.render_titles(show_start_labels)
 
     def save_image(self, image_path, i_iter):
-        show_start_labels = i_iter <= 2
+        plt.close()
+        height = self.HEIGHT
+        width = self.aspect_ratio * height
+        plt.gcf().set_size_inches(width, height)
+        
+        # TESTING
+        show_start_labels = i_iter <= -1
+        
         self.render_all(show_start_labels)
-        plt.savefig(image_path, dpi=300, bbox_inches='tight', pad_inches=0)
+        
+        plt.savefig(image_path, dpi=150, pad_inches=0)
         log.info(f'Wrote {image_path}')
