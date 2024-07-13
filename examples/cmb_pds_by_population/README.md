@@ -1,7 +1,7 @@
 # Cmb Pds By Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/cmb_pds_by_population/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/cmb_pds_by_population/animated.gif" alt="alt" />
 </p>
 
 ```python

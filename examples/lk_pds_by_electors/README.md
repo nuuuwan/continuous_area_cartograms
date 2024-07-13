@@ -1,7 +1,7 @@
 # Lk Pds By Electors
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_pds_by_electors/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/lk_pds_by_electors/animated.gif" alt="alt" />
 </p>
 
 ```python

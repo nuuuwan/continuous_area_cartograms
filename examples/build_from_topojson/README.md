@@ -1,7 +1,7 @@
 # Build From Topojson
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_topojson/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/build_from_topojson/animated.gif" alt="alt" />
 </p>
 
 ```python

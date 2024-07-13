@@ -1,7 +1,7 @@
 # Southern Province Dsds By Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/southern_province_dsds_by_population/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/southern_province_dsds_by_population/animated.gif" alt="alt" />
 </p>
 
 ```python
