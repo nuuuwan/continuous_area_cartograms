@@ -12,7 +12,7 @@ class Example:
         [
             'https://raw.githubusercontent.com',
             'nuuuwan/continuous_area_cartograms',
-            'main/examples',
+            'main',
         ]
     )
 
