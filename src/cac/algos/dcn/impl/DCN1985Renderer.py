@@ -20,6 +20,7 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 class DCN1985Renderer(MatPlotLibUser):
     HEIGHT = 4.5
+
     @staticmethod
     def get_foreground_color(background_color):
         r, g, b, alpha = mcolors.to_rgba(background_color)
@@ -119,7 +120,6 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self, show_start_labels):
-        
         base_font_size = 5
 
         plt.annotate(
@@ -185,10 +185,10 @@ class DCN1985Renderer(MatPlotLibUser):
         height = self.HEIGHT
         width = self.aspect_ratio * height
         plt.gcf().set_size_inches(width, height)
-        
+
         show_start_labels = i_iter <= 2
-        
+
         self.render_all(show_start_labels)
-        
+
         plt.savefig(image_path, dpi=150, pad_inches=0)
         log.info(f'Wrote {image_path}')

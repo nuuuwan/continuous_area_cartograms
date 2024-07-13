@@ -16,7 +16,10 @@ class Example:
         ]
     )
 
-    DIR_EXAMPLE_GROUP_PATH_LIST = ['examples_mcac','examples', ]
+    DIR_EXAMPLE_GROUP_PATH_LIST = [
+        'examples_mcac',
+        'examples',
+    ]
 
     def __init__(self, dir_example_path):
         self.dir_example_path = dir_example_path
@@ -24,19 +27,19 @@ class Example:
     @property
     def dir_example_path_unix(self) -> str:
         return self.dir_example_path.replace('\\', '/')
-    
 
     @property
     def example_name(self):
         return os.path.basename(self.dir_example_path)
-
 
     @staticmethod
     def list():
         examples = []
         for dir_example_group_path in Example.DIR_EXAMPLE_GROUP_PATH_LIST:
             for child_dir_name in os.listdir(dir_example_group_path):
-                dir_example_path = os.path.join(dir_example_group_path, child_dir_name)
+                dir_example_path = os.path.join(
+                    dir_example_group_path, child_dir_name
+                )
 
                 if not os.path.isdir(dir_example_path):
                     continue
@@ -44,7 +47,6 @@ class Example:
                 examples.append(example)
 
         return examples
-
 
     @property
     def title(self):
@@ -81,12 +83,14 @@ class Example:
 
     @property
     def url_animated_gif(self):
-        return '/'.join([
-            Example.URL_RAW_BASE,
-            self.dir_example_path_unix,
-            'animated.gif',
-        ])
-     
+        return '/'.join(
+            [
+                Example.URL_RAW_BASE,
+                self.dir_example_path_unix,
+                'animated.gif',
+            ]
+        )
+
     @property
     def source_content(self):
         return File(self.py_path).read()

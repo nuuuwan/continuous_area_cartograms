@@ -1,6 +1,7 @@
 from functools import cached_property
-from shapely.ops import unary_union
+
 import numpy as np
+from shapely.ops import unary_union
 
 
 class DCN1985Properties:
@@ -16,12 +17,14 @@ class DCN1985Properties:
     @cached_property
     def n_polygons(self):
         return len(self.polygons)
-    
+
     @cached_property
     def bbox(self):
-        combined_polygon = unary_union([polygon.buffer(0) for polygon in self.polygons])
+        combined_polygon = unary_union(
+            [polygon.buffer(0) for polygon in self.polygons]
+        )
         return combined_polygon.bounds
-    
+
     @cached_property
     def aspect_ratio(self):
         return (self.bbox[2] - self.bbox[0]) / (self.bbox[3] - self.bbox[1])
