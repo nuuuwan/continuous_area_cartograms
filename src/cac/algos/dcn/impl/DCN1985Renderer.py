@@ -1,4 +1,5 @@
 import math
+from functools import cached_property
 
 import geopandas
 from matplotlib import colors as mcolors
@@ -60,7 +61,7 @@ class DCN1985Renderer(MatPlotLibUser):
         gdf.plot(
             ax=plt.gca(),
             facecolor=background_color,
-            edgecolor="gray" if foreground_color == 'black' else 'white',
+            edgecolor="#ccc" if foreground_color == 'black' else 'white',
             linewidth=0.2,
         )
 
@@ -80,7 +81,7 @@ class DCN1985Renderer(MatPlotLibUser):
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
-        font_size = BASE_FONT_SIZE * math.sqrt(p_area)
+        font_size = BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
         if font_size < 1:
             return
         if show_start_labels:
@@ -125,7 +126,7 @@ class DCN1985Renderer(MatPlotLibUser):
         plt.annotate(
             self.render_params.super_title,
             (0.5, 0.9),
-            fontsize=base_font_size,
+            fontsize=base_font_size * 2,
             xycoords='figure fraction',
             ha='center',
         )
@@ -141,8 +142,8 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.annotate(
             self.render_params.sub_title,
-            (0.5, 0.9 - 0.2),
-            fontsize=base_font_size,
+            (0.5, 0.9 - 0.08),
+            fontsize=base_font_size * 1.5,
             xycoords='figure fraction',
             ha='center',
         )
@@ -150,7 +151,7 @@ class DCN1985Renderer(MatPlotLibUser):
         plt.annotate(
             self.render_params.footer_text,
             (0.5, 0.1),
-            fontsize=base_font_size,
+            fontsize=base_font_size * 2,
             xycoords='figure fraction',
             ha='center',
         )
@@ -180,13 +181,26 @@ class DCN1985Renderer(MatPlotLibUser):
         DCN1985Renderer.remove_grids()
         self.render_titles(show_start_labels)
 
+    @cached_property
+    def render_scale(self) -> float:
+        BASE_SCALE = 0.7
+        return math.sqrt(self.render_params.scale) * BASE_SCALE
+
     def save_image(self, image_path, i_iter):
         plt.close()
         height = self.HEIGHT
-        width = self.aspect_ratio * height
-        plt.gcf().set_size_inches(width, height)
+        Q = 1
+        width = int(self.aspect_ratio * height / Q) * Q
 
-        show_start_labels = i_iter <= 2
+        fig = plt.gcf()
+        fig.set_size_inches(width, height)
+        left = 0.5 - self.render_scale / 2
+        right = 0.5 + self.render_scale / 2
+        bottom = left
+        top = right
+        fig.subplots_adjust(left=left, right=right, top=top, bottom=bottom)
+
+        show_start_labels = i_iter == 0
 
         self.render_all(show_start_labels)
 

@@ -4,7 +4,7 @@ from gig import Ent, EntType, GIGTable
 from utils import Log
 
 from cac.algos import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
-from cac.extended.MultiStageCAC import MultiStageCAC
+from cac.extended.GridCAC import GridCAC
 
 log = Log('GIGTableMCAC')
 
@@ -102,4 +102,4 @@ class GIGTableMCAC:
             )
             dnc_list.append(dnc)
 
-        MultiStageCAC(*dnc_list).build(dir_path)
+        GridCAC([dnc_list]).build(dir_path)

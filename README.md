@@ -1,8 +1,8 @@
 # Continuous Area Cartograms
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_mcac/lk_ethnicity/animated.gif" alt="alt" height="240px" />
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_mcac/lk_religion/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_ethnicity/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_religion/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_gdp_md_est/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/build_from_ents/animated.gif" alt="alt" height="240px" />

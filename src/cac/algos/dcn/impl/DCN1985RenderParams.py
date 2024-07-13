@@ -5,6 +5,7 @@ class DCN1985RenderParams:
         title: str = None,
         sub_title: str = None,
         footer_text: str = None,
+        scale: float = None,
         #
         start_value_color: str = None,
         #
@@ -14,6 +15,7 @@ class DCN1985RenderParams:
         self.title = title or ''
         self.sub_title = sub_title or ''
         self.footer_text = footer_text or 'Source: Unspecified'
+        self.scale = scale or 1.0
 
         #
         self.start_value_color = start_value_color or 'gray'

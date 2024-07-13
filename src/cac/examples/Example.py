@@ -17,7 +17,7 @@ class Example:
     )
 
     DIR_EXAMPLE_GROUP_PATH_LIST = [
-        'examples_mcac',
+        'examples_grid_cac',
         'examples',
     ]
 
