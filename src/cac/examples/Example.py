@@ -16,24 +16,35 @@ class Example:
         ]
     )
 
-    def __init__(self, example_name):
-        self.example_name = example_name
+    DIR_EXAMPLE_GROUP_PATH_LIST = ['examples_mcac','examples', ]
+
+    def __init__(self, dir_example_path):
+        self.dir_example_path = dir_example_path
+
+    @property
+    def dir_example_path_unix(self) -> str:
+        return self.dir_example_path.replace('\\', '/')
+    
+
+    @property
+    def example_name(self):
+        return os.path.basename(self.dir_example_path)
+
 
     @staticmethod
     def list():
         examples = []
-        for example_name in os.listdir('examples'):
-            if os.path.isdir(os.path.join('examples', example_name)):
-                example = Example(example_name)
+        for dir_example_group_path in Example.DIR_EXAMPLE_GROUP_PATH_LIST:
+            for child_dir_name in os.listdir(dir_example_group_path):
+                dir_example_path = os.path.join(dir_example_group_path, child_dir_name)
+
+                if not os.path.isdir(dir_example_path):
+                    continue
+                example = Example(dir_example_path)
                 examples.append(example)
+
         return examples
 
-    @property
-    def dir_path(self):
-        return os.path.join(
-            'examples',
-            self.example_name,
-        )
 
     @property
     def title(self):
@@ -43,7 +54,7 @@ class Example:
     @property
     def py_path(self):
         return os.path.join(
-            self.dir_path,
+            self.dir_example_path,
             '__main__.py',
         )
 
@@ -64,16 +75,18 @@ class Example:
     @property
     def animated_gif_path(self):
         return os.path.join(
-            self.dir_path,
+            self.dir_example_path,
             'animated.gif',
         )
 
     @property
     def url_animated_gif(self):
-        return (
-            Example.URL_RAW_BASE + '/' + self.example_name + '/animated.gif'
-        )
-
+        return '/'.join([
+            Example.URL_RAW_BASE,
+            self.dir_example_path_unix,
+            'animated.gif',
+        ])
+     
     @property
     def source_content(self):
         return File(self.py_path).read()
@@ -95,7 +108,7 @@ class Example:
     @property
     def readme_path(self):
         return os.path.join(
-            self.dir_path,
+            self.dir_example_path,
             'README.md',
         )
 

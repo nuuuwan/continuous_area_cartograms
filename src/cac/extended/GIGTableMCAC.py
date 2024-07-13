@@ -56,7 +56,7 @@ class GIGTableMCAC:
 
     @cached_property
     def algo_params(self) -> DCN1985AlgoParams:
-        return DCN1985AlgoParams(max_iterations=40, do_shrink=True)
+        return DCN1985AlgoParams(max_iterations=20, do_shrink=True)
 
     @staticmethod
     def get_color(field: str) -> str:
