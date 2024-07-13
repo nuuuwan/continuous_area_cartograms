@@ -95,8 +95,12 @@ class GridCAC(PillowUser):
                 log.debug(f'Combined image saved to {combined_image_path}')
                 combined_image_path_list_for_stage.append(combined_image_path)
 
-            combined_image_path_list.extend(combined_image_path_list_for_stage)
-            combined_image_path_list.extend(combined_image_path_list_for_stage[::-1])            
+            combined_image_path_list.extend(
+                combined_image_path_list_for_stage
+            )
+            combined_image_path_list.extend(
+                combined_image_path_list_for_stage[::-1]
+            )
         animated_gif_path = os.path.join(dir_path, 'animated.gif')
         AnimatedGIF(
             animated_gif_path,
