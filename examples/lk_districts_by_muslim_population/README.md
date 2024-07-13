@@ -1,7 +1,7 @@
 # Lk Districts By Muslim Population
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/lk_districts_by_muslim_population/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_districts_by_muslim_population/animated.gif" alt="alt" />
 </p>
 
 ```python

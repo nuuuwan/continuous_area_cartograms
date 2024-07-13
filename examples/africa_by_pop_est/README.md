@@ -1,7 +1,7 @@
 # Africa By Pop Est
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/africa_by_pop_est/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/animated.gif" alt="alt" />
 </p>
 
 ```python

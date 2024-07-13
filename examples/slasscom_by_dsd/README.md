@@ -1,7 +1,7 @@
 # Slasscom By Dsd
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/slasscom_by_dsd/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/slasscom_by_dsd/animated.gif" alt="alt" />
 </p>
 
 ```python

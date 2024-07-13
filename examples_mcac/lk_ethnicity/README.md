@@ -1,7 +1,7 @@
 # Lk Ethnicity
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples_mcac/lk_ethnicity/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_mcac/lk_ethnicity/animated.gif" alt="alt" />
 </p>
 
 ```python

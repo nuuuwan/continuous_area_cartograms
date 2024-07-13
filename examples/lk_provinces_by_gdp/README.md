@@ -1,7 +1,7 @@
 # Lk Provinces By Gdp
 
 <p  align="center">
-    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/examples/lk_provinces_by_gdp/animated.gif" alt="alt" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/lk_provinces_by_gdp/animated.gif" alt="alt" />
 </p>
 
 ```python
