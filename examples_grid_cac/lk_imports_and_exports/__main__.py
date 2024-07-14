@@ -2,11 +2,11 @@ def main():  # noqa
     import os
 
     import geopandas
-    from examples_grid_cac.lk_imports_and_exports.lk_exports import lk_exports
-    from examples_grid_cac.lk_imports_and_exports.lk_imports import lk_imports
     from utils import Log
 
     from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, GridCAC
+    from examples_grid_cac.lk_imports_and_exports.lk_exports import lk_exports
+    from examples_grid_cac.lk_imports_and_exports.lk_imports import lk_imports
 
     Log('main')
 
@@ -28,7 +28,6 @@ def main():  # noqa
         names.append(name)
 
     gdf_world = gdf_world[gdf_world['name'].isin(names)]
-
 
     algo_params = DCN1985AlgoParams(
         do_shrink=True,

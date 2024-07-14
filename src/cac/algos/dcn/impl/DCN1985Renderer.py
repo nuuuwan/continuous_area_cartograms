@@ -182,7 +182,6 @@ class DCN1985Renderer(MatPlotLibUser):
         height = self.HEIGHT
         width = width_prev or round(self.aspect_ratio * height, 1)
 
-
         fig = plt.gcf()
         fig.set_size_inches(width, height)
         left = 0.5 - self.render_scale / 2

@@ -41,7 +41,7 @@ class DCN1985AlgoRunner:
                 polygons=dcn.polygons,
                 values=dcn.values,
                 algo_params=dcn.algo_params,
-                version='20240714.1653'
+                version='20240714.1653',
             )
         )
         def inner(dcn):
