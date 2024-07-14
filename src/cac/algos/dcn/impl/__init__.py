@@ -2,6 +2,7 @@
 
 from cac.algos.dcn.impl.DCN1985AlgoParams import DCN1985AlgoParams
 from cac.algos.dcn.impl.DCN1985Base import DCN1985Base
+from cac.algos.dcn.impl.DCN1985Builder import DCN1985Builder
 from cac.algos.dcn.impl.DCN1985Loader import DCN1985Loader
 from cac.algos.dcn.impl.DCN1985LoaderUtils import DCN1985LoaderUtils
 from cac.algos.dcn.impl.DCN1985Logger import DCN1985Logger
