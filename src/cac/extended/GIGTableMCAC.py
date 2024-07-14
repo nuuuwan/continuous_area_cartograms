@@ -53,6 +53,20 @@ class GIGTableMCAC:
         ]
         log.debug(f'{fields=}')
         return fields
+    
+    @cached_property
+    def scales(self) -> list[float]:
+        values = []
+        ent_lk = Ent.from_id('LK')
+        row_lk = ent_lk.gig(self.gig_table)
+        for field in self.fields:
+            value = row_lk.dict_p[field]
+            values.append(value)
+
+        scales = [value / values[0] for value in values]
+        log.debug(f'{scales=}')
+        return scales
+
 
     @cached_property
     def algo_params(self) -> DCN1985AlgoParams:
@@ -81,7 +95,7 @@ class GIGTableMCAC:
         ents = Ent.list_from_type(self.ent_type)
         dnc_list = []
 
-        for field in self.fields:
+        for scale, field in zip(self.scales, self.fields):
             color = self.get_color(field)
             values = []
             for ent in ents:
@@ -98,6 +112,7 @@ class GIGTableMCAC:
                     title=self.format_field(field),
                     end_value_color=color,
                     footer_text=self.render_params.footer_text,
+                    scale=scale
                 ),
             )
             dnc_list.append(dnc)
