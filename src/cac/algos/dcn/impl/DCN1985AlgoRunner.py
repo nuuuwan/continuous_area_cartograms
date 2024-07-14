@@ -41,6 +41,7 @@ class DCN1985AlgoRunner:
                 polygons=dcn.polygons,
                 values=dcn.values,
                 algo_params=dcn.algo_params,
+                version='20240714.1653'
             )
         )
         def inner(dcn):
@@ -69,7 +70,7 @@ class DCN1985AlgoRunner:
         return inner(dcn)
 
     @classmethod
-    def shrink(cls, dcn, min_p=1, shrink_factor=0.1):
+    def shrink(cls, dcn, min_p=0.5, shrink_factor=0.1):
         new_polygons = []
         total_area = dcn.total_area
         total_value = dcn.total_value
@@ -99,16 +100,12 @@ class DCN1985AlgoRunner:
             if dcn.is_reasonably_complete:
                 break
 
+            if dcn.algo_params.do_shrink:
+                dcn = cls.shrink(dcn)
+
             dcn = cls.run_single_optimized(dcn)
             dcn.render_params = dcn0.render_params
             dcn.algo_params = dcn0.algo_params
-
-            if dcn.algo_params.do_shrink:
-                dcn0 = cls.shrink(
-                    dcn,
-                    min_p=i_iter / dcn.algo_params.max_iterations,
-                    shrink_factor=i_iter / dcn.algo_params.max_iterations,
-                )
 
             i_iter += 1
             if i_iter >= dcn.algo_params.max_iterations:

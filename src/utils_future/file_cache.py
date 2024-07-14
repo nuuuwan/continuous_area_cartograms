@@ -3,7 +3,9 @@ import os
 import pickle
 import tempfile
 
-from utils import Hash, Log
+from utils import Hash
+
+from utils_future.Log import Log
 
 log = Log('file_cache')
 
@@ -24,7 +26,7 @@ def file_cache(cache_key_data):
             result = func(*args, **kwargs)
             with open(cache_file, 'wb') as f:
                 pickle.dump(result, f)
-            log.debug(f'{cache_file=}')
+            log.debug_temp(f'{cache_file=}')
             return result
 
         return wrapper

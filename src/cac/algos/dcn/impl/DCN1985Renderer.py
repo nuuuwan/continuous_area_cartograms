@@ -21,10 +21,10 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = '20240714.1510'
+    RENDER_VERSION = '20240714.1657'
     HEIGHT = 4.5
     BASE_SCALE = 0.8
-    DPI = 120
+    DPI = 300
     BASE_FONT_SIZE = 10
 
     @property
@@ -71,7 +71,6 @@ class DCN1985Renderer(MatPlotLibUser):
         label,
         end_value,
         log2_error,
-
         color,
     ):
         background_color = DCN1985Renderer.get_color(color, log2_error)
@@ -103,7 +102,6 @@ class DCN1985Renderer(MatPlotLibUser):
         label,
         end_value,
         log2_error,
-
         color,
     ):
         DCN1985Renderer.render_polygon_shape(polygon, color, log2_error)
@@ -112,7 +110,6 @@ class DCN1985Renderer(MatPlotLibUser):
             label,
             end_value,
             log2_error,
-
             color,
         )
 
@@ -164,7 +161,6 @@ class DCN1985Renderer(MatPlotLibUser):
                 label,
                 end_value,
                 log2_error,
-
                 color,
             )
 
@@ -184,7 +180,8 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.close()
         height = self.HEIGHT
-        width = width_prev or int(self.aspect_ratio * height)
+        width = width_prev or round(self.aspect_ratio * height, 1)
+
 
         fig = plt.gcf()
         fig.set_size_inches(width, height)
@@ -198,4 +195,4 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.savefig(image_path, dpi=self.DPI, pad_inches=0)
         log.debug_temp(f'Wrote {image_path}')
-        return image_path, width_prev
+        return image_path, width

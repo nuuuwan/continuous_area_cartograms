@@ -15,16 +15,19 @@ class DCN1985Builder:
         AnimatedGIF(animated_gif_path).write_from_image_path_list(
             image_path_list
         )
+        os.startfile(animated_gif_path)
 
-    def build(self, dir_output=None, do_build_animated_gif=True):
+    def build(
+        self, dir_output=None, do_build_animated_gif=True, verbose=False
+    ):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
-        dcn_list = self.run_all(self)
+        dcn_list = self.run_all(self, verbose)
 
         width_prev = None
         image_path_list = []
-        for  dcn in dcn_list:
-            image_path, width_prev = dcn.save_image( width_prev)
+        for dcn in dcn_list:
+            image_path, width_prev = dcn.save_image(width_prev)
             image_path_list.append(image_path)
 
         if do_build_animated_gif:
