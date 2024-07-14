@@ -26,8 +26,7 @@ class DCN1985Renderer(MatPlotLibUser):
     BASE_SCALE = 0.8
     DPI = 150
     BASE_FONT_SIZE = 10 * DPI / 150
-        
-        
+
     @property
     def image_hash(self):
         data = dict(
@@ -79,7 +78,9 @@ class DCN1985Renderer(MatPlotLibUser):
         foreground_color = background_color.foreground
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
-        font_size = self.BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
+        font_size = (
+            self.BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
+        )
         if font_size < 1:
             return
         if show_start_labels:
@@ -119,8 +120,6 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self, show_start_labels):
-
-
         plt.annotate(
             self.render_params.super_title,
             (0.5, 0.9),
