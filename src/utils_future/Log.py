@@ -1,4 +1,4 @@
-from utils import Log as LogUtils, COLOR_FOREGROUND, Console
+from utils import Log as LogUtils, COLOR_FOREGROUND, COLOR_BACKGROUND, COLOR_FORMAT, Console
 
 
 
@@ -8,4 +8,6 @@ class Log(LogUtils):
         print(Console.format(
             text,
             foreground=COLOR_FOREGROUND.LIGHT_GRAY,
+            background=COLOR_BACKGROUND.BLACK,
+            format=COLOR_FORMAT.FAINT,
         ), end='\r')
