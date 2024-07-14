@@ -1,3 +1,4 @@
+import os
 import tempfile
 import unittest
 
@@ -19,6 +20,8 @@ class TestDCN(unittest.TestCase):
                 title="Population",
             ),
         )
-        dcn.build(
+        image_path_list = dcn.build(
             tempfile.mkdtemp(),
         )
+        self.assertEqual(len(image_path_list), 2)
+        os.startfile(image_path_list[-1])

@@ -24,8 +24,8 @@ class DCN1985Renderer(MatPlotLibUser):
     RENDER_VERSION = '20240714.1339'
     HEIGHT = 4.5
     BASE_SCALE = 0.8
-    DPI = 150
-    BASE_FONT_SIZE = 10 * DPI / 150
+    DPI = 75
+    BASE_FONT_SIZE = 10
 
     @property
     def image_hash(self):
