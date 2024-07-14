@@ -14,7 +14,8 @@ log = Log('GridCAC')
 class GridCAC(PillowUser):
     FRAMES_PER_STAGE = 20
     DURATION_PER_STAGE = 10
-    IMAGE_VERSION = '20240714.1239'
+    IMAGE_VERSION = '20240714.1432'
+    PILLOW_BASE_FONT_SIZE = 15 * (DCN1985.BASE_FONT_SIZE / 10) * (DCN1985.DPI / 150)
 
     def __init__(self, dcn_list_list: list[list[DCN1985]]):
         self.dcn_list_list = dcn_list_list
@@ -59,6 +60,11 @@ class GridCAC(PillowUser):
                     super_title=super_title,
                     footer_text=footer_text,
                     version=self.IMAGE_VERSION,
+                    params=[
+                        self.FRAMES_PER_STAGE,
+                        self.DURATION_PER_STAGE,
+                        self.PILLOW_BASE_FONT_SIZE,
+                    ]
                 )
             )
         )
@@ -74,17 +80,17 @@ class GridCAC(PillowUser):
 
         draw = ImageDraw.Draw(combined_im)
         draw.text(
-            (total_width / 2, 40),
+            (total_width / 2, self.PILLOW_BASE_FONT_SIZE*2.5),
             super_title,
             fill='black',
-            font=self.get_font(24),
+            font=self.get_font(self.PILLOW_BASE_FONT_SIZE * 2),
             anchor='ms',
         )
         draw.text(
-            (total_width / 2, height - 20),
+            (total_width / 2, height - self.PILLOW_BASE_FONT_SIZE*2),
             footer_text,
             fill='black',
-            font=self.get_font(12),
+            font=self.get_font(self.PILLOW_BASE_FONT_SIZE),
             anchor='ms',
         )
 
@@ -128,6 +134,7 @@ class GridCAC(PillowUser):
             animated_gif_path,
             total_duration_s=self.DURATION_PER_STAGE * len(self),
         ).write_from_image_path_list(combined_image_path_list)
+        os.startfile(animated_gif_path)
 
     def build(self, dir_path: str):
         combined_image_path_list = []
