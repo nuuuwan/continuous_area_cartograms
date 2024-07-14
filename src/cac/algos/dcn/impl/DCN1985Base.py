@@ -53,3 +53,12 @@ class DCN1985Base:
         if tolerance > 0:
             polygon = polygon.simplify(tolerance=tolerance)
         return polygon
+
+    def __hash__(self):
+        return hash(
+            dict(
+                polygons=self.polygons,
+                values=self.values,
+                algo_params=self.algo_params,
+            )
+        )
