@@ -98,7 +98,6 @@ class GridCAC(PillowUser):
         dcn_list = self.dcn_list_list[i]
         job_id = os.path.basename(dir_path)
 
-    
         super_title = dcn_list[0].render_params.super_title
         footer_text = dcn_list[0].render_params.footer_text
 
@@ -106,7 +105,6 @@ class GridCAC(PillowUser):
         for j in range(len(dcn_list)):
             image_path_list_for_cell = self.build_cell(job_id, i, j)
             image_path_list_for_i.append(image_path_list_for_cell)
-
 
         return self.build_row_combined_frames(
             i, job_id, image_path_list_for_i, super_title, footer_text
