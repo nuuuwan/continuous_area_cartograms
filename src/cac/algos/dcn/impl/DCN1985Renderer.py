@@ -21,9 +21,13 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = '20240714.1216'
+    RENDER_VERSION = '20240714.1339'
     HEIGHT = 4.5
-
+    BASE_SCALE = 0.8
+    DPI = 150
+    BASE_FONT_SIZE = 10 * DPI / 150
+        
+        
     @property
     def image_hash(self):
         data = dict(
@@ -31,6 +35,12 @@ class DCN1985Renderer(MatPlotLibUser):
             values=self.values,
             labels=self.labels,
             render_params=str(self.render_params),
+            params=[
+                self.HEIGHT,
+                self.BASE_SCALE,
+                self.DPI,
+                self.BASE_FONT_SIZE,
+            ],
             version=self.RENDER_VERSION,
         )
         return Hash.md5(str(data))
@@ -69,8 +79,7 @@ class DCN1985Renderer(MatPlotLibUser):
         foreground_color = background_color.foreground
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
-        BASE_FONT_SIZE = 12
-        font_size = BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
+        font_size = self.BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
         if font_size < 1:
             return
         if show_start_labels:
@@ -110,12 +119,12 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self, show_start_labels):
-        base_font_size = 5
+
 
         plt.annotate(
             self.render_params.super_title,
             (0.5, 0.9),
-            fontsize=base_font_size * 2,
+            fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
         )
@@ -124,7 +133,7 @@ class DCN1985Renderer(MatPlotLibUser):
         plt.annotate(
             title,
             (0.5, 0.9 - 0.05),
-            fontsize=base_font_size * 3,
+            fontsize=self.BASE_FONT_SIZE * 1.5,
             xycoords='figure fraction',
             ha='center',
         )
@@ -132,7 +141,7 @@ class DCN1985Renderer(MatPlotLibUser):
         plt.annotate(
             self.render_params.sub_title,
             (0.5, 0.9 - 0.08),
-            fontsize=base_font_size * 1.5,
+            fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
         )
@@ -140,7 +149,7 @@ class DCN1985Renderer(MatPlotLibUser):
         plt.annotate(
             self.render_params.footer_text,
             (0.5, 0.1),
-            fontsize=base_font_size * 2,
+            fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
         )
@@ -172,8 +181,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
     @cached_property
     def render_scale(self) -> float:
-        BASE_SCALE = 0.7
-        return math.sqrt(self.render_params.scale) * BASE_SCALE
+        return math.sqrt(self.render_params.scale) * self.BASE_SCALE
 
     def save_image(self, i_iter, width_prev=None):
         image_path = os.path.join(
@@ -198,6 +206,6 @@ class DCN1985Renderer(MatPlotLibUser):
 
         self.render_all(show_start_labels)
 
-        plt.savefig(image_path, dpi=150, pad_inches=0)
+        plt.savefig(image_path, dpi=self.DPI, pad_inches=0)
         log.info(f'Wrote {image_path}')
         return image_path, width_prev
