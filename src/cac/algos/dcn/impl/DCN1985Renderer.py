@@ -6,9 +6,9 @@ from functools import cached_property
 import geopandas
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
-from utils import Hash, Log
+from utils import Hash
 
-from utils_future import Color, MatPlotLibUser, Number
+from utils_future import Color, Log, MatPlotLibUser, Number
 
 log = Log('DCN1985Renderer')
 
@@ -24,7 +24,7 @@ class DCN1985Renderer(MatPlotLibUser):
     RENDER_VERSION = '20240714.1339'
     HEIGHT = 4.5
     BASE_SCALE = 0.8
-    DPI = 75
+    DPI = 120
     BASE_FONT_SIZE = 10
 
     @property
@@ -71,7 +71,7 @@ class DCN1985Renderer(MatPlotLibUser):
         label,
         end_value,
         log2_error,
-        show_start_labels,
+
         color,
     ):
         background_color = DCN1985Renderer.get_color(color, log2_error)
@@ -83,10 +83,7 @@ class DCN1985Renderer(MatPlotLibUser):
         )
         if font_size < 1:
             return
-        if show_start_labels:
-            number_label = ''
-        else:
-            number_label = Number(end_value).humanized()
+        number_label = Number(end_value).humanized()
 
         text = f'{label}\n{number_label}'
 
@@ -106,7 +103,7 @@ class DCN1985Renderer(MatPlotLibUser):
         label,
         end_value,
         log2_error,
-        show_start_labels,
+
         color,
     ):
         DCN1985Renderer.render_polygon_shape(polygon, color, log2_error)
@@ -115,11 +112,11 @@ class DCN1985Renderer(MatPlotLibUser):
             label,
             end_value,
             log2_error,
-            show_start_labels,
+
             color,
         )
 
-    def render_titles(self, show_start_labels):
+    def render_titles(self):
         plt.annotate(
             self.render_params.super_title,
             (0.5, 0.9),
@@ -128,7 +125,7 @@ class DCN1985Renderer(MatPlotLibUser):
             ha='center',
         )
 
-        title = '' if show_start_labels else self.render_params.title
+        title = self.render_params.title
         plt.annotate(
             title,
             (0.5, 0.9 - 0.05),
@@ -153,12 +150,8 @@ class DCN1985Renderer(MatPlotLibUser):
             ha='center',
         )
 
-    def render_all(self, show_start_labels: bool):
-        color = (
-            self.render_params.start_value_color
-            if show_start_labels
-            else self.render_params.end_value_color
-        )
+    def render_all(self):
+        color = self.render_params.end_value_color
 
         for polygon, label, end_value, log2_error in zip(
             self.polygons,
@@ -171,18 +164,18 @@ class DCN1985Renderer(MatPlotLibUser):
                 label,
                 end_value,
                 log2_error,
-                show_start_labels,
+
                 color,
             )
 
         DCN1985Renderer.remove_grids()
-        self.render_titles(show_start_labels)
+        self.render_titles()
 
     @cached_property
     def render_scale(self) -> float:
         return math.sqrt(self.render_params.scale) * self.BASE_SCALE
 
-    def save_image(self, i_iter, width_prev=None):
+    def save_image(self, width_prev=None):
         image_path = os.path.join(
             tempfile.gettempdir(), f'cac.dcn.{self.image_hash}.png'
         )
@@ -201,10 +194,8 @@ class DCN1985Renderer(MatPlotLibUser):
         top = right
         fig.subplots_adjust(left=left, right=right, top=top, bottom=bottom)
 
-        show_start_labels = i_iter == 0
-
-        self.render_all(show_start_labels)
+        self.render_all()
 
         plt.savefig(image_path, dpi=self.DPI, pad_inches=0)
-        log.info(f'Wrote {image_path}')
+        log.debug_temp(f'Wrote {image_path}')
         return image_path, width_prev

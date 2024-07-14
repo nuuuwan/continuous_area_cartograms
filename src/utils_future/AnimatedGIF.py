@@ -43,6 +43,8 @@ class AnimatedGIF:
                 image = iio3.imread(image_path)
                 writer.append_data(image)
 
-            file_size_m = os.path.getsize(self.animated_gif_path) / 1_000_000
-            emoji = '⚠️' if file_size_m > 15 else ''
-            log.info(f'Wrote {n} images to {self.animated_gif_path} ({file_size_m:.2f}MB {emoji})')
+        file_size_m = os.path.getsize(self.animated_gif_path) / 1_000_000
+        emoji = '⚠️' if file_size_m > 15 else ''
+        log.info(
+            f'Wrote {n} images to {self.animated_gif_path} ({file_size_m:.2f}MB {emoji})'
+        )

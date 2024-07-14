@@ -3,19 +3,21 @@ import shutil
 import tempfile
 
 from PIL import ImageDraw
-from utils import Hash, Log
+from utils import Hash
 
 from cac.algos import DCN1985
-from utils_future import AnimatedGIF, PillowUser
+from utils_future import AnimatedGIF, Log, PillowUser
 
 log = Log('GridCAC')
 
 
 class GridCAC(PillowUser):
-    FRAMES_PER_STAGE = 20
+    FRAMES_PER_STAGE = 10
     DURATION_PER_STAGE = 10
     IMAGE_VERSION = '20240714.1432'
-    PILLOW_BASE_FONT_SIZE = 15 * (DCN1985.BASE_FONT_SIZE / 10) * (DCN1985.DPI / 150)
+    PILLOW_BASE_FONT_SIZE = (
+        15 * (DCN1985.BASE_FONT_SIZE / 10) * (DCN1985.DPI / 150)
+    )
 
     def __init__(self, dcn_list_list: list[list[DCN1985]]):
         self.dcn_list_list = dcn_list_list
@@ -64,7 +66,7 @@ class GridCAC(PillowUser):
                         self.FRAMES_PER_STAGE,
                         self.DURATION_PER_STAGE,
                         self.PILLOW_BASE_FONT_SIZE,
-                    ]
+                    ],
                 )
             )
         )
@@ -80,14 +82,14 @@ class GridCAC(PillowUser):
 
         draw = ImageDraw.Draw(combined_im)
         draw.text(
-            (total_width / 2, self.PILLOW_BASE_FONT_SIZE*2.5),
+            (total_width / 2, self.PILLOW_BASE_FONT_SIZE * 2.5),
             super_title,
             fill='black',
             font=self.get_font(self.PILLOW_BASE_FONT_SIZE * 2),
             anchor='ms',
         )
         draw.text(
-            (total_width / 2, height - self.PILLOW_BASE_FONT_SIZE*2),
+            (total_width / 2, height - self.PILLOW_BASE_FONT_SIZE * 2),
             footer_text,
             fill='black',
             font=self.get_font(self.PILLOW_BASE_FONT_SIZE),
@@ -95,7 +97,7 @@ class GridCAC(PillowUser):
         )
 
         combined_im.save(combined_image_path)
-        log.info(f'Combined image saved to {combined_image_path}')
+        log.debug_temp(f'Wrote {combined_image_path}')
         return combined_image_path
 
     def build_row_combined_frames(
@@ -138,11 +140,13 @@ class GridCAC(PillowUser):
 
     def build(self, dir_path: str):
         combined_image_path_list = []
-        for i in range(len(self)):
+        n = len(self)
+        for i in range(n):
             combined_image_path_list_for_row = self.build_row(dir_path, i)
             combined_image_path_list.extend(combined_image_path_list_for_row)
             combined_image_path_list.extend(
                 combined_image_path_list_for_row[::-1]
             )
+            log.debug(f'✅ Row {i+1}/{n} complete ')
 
         self.build_final_animated_gif(dir_path, combined_image_path_list)

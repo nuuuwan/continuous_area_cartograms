@@ -23,8 +23,8 @@ class DCN1985Builder:
 
         width_prev = None
         image_path_list = []
-        for i_iter, dcn in enumerate(dcn_list):
-            image_path, width_prev = dcn.save_image(i_iter, width_prev)
+        for  dcn in dcn_list:
+            image_path, width_prev = dcn.save_image( width_prev)
             image_path_list.append(image_path)
 
         if do_build_animated_gif:
