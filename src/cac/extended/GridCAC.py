@@ -2,7 +2,7 @@ import os
 import shutil
 import tempfile
 
-from PIL import Image, ImageDraw
+from PIL import ImageDraw
 from utils import Log
 
 from cac.algos import DCN1985
@@ -50,8 +50,6 @@ class GridCAC(PillowUser):
                 image_path_list_for_row_original[m]
             )
         return image_path_list_for_cell
-
-
 
     def build_row_combined_frame(
         self, i, job_id, image_path_list_for_i, k, super_title, footer_text

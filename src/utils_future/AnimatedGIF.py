@@ -43,5 +43,3 @@ class AnimatedGIF:
                 image = iio3.imread(image_path)
                 writer.append_data(image)
             log.info(f'Wrote {n} images to {self.animated_gif_path}')
-
-

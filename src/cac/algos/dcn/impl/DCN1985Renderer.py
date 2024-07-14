@@ -2,12 +2,11 @@ import math
 from functools import cached_property
 
 import geopandas
-from matplotlib import colors as mcolors
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 from utils import Log
 
-from utils_future import MatPlotLibUser, Number
+from utils_future import Color, MatPlotLibUser, Number
 
 log = Log('DCN1985Renderer')
 
@@ -23,45 +22,23 @@ class DCN1985Renderer(MatPlotLibUser):
     HEIGHT = 4.5
 
     @staticmethod
-    def get_foreground_color(background_color):
-        r, g, b, alpha = mcolors.to_rgba(background_color)
-
-        def blend(x):
-            return x * alpha + 255 * (1 - alpha)
-
-        [blended_r, blended_g, blended_b] = [blend(x) for x in [r, g, b]]
-
-        luminance = 0.299 * blended_r + 0.587 * blended_g + 0.114 * blended_b
-
-        if luminance < 0.5:
-            return 'white'
-        return 'black'
-
-    @staticmethod
     def get_color(color, log2_error):
-        r, g, b, alpha = mcolors.to_rgba(color)
-
-        max_abs_error = 2
+        MAX_ABS_ERROR = 2
         p_log2_error = (
-            min(max_abs_error, max(-max_abs_error, log2_error))
-            + max_abs_error
-        ) / (max_abs_error * 2)
-        MIN_ALPHA = 0.1
-        alpha2 = MIN_ALPHA + (1 - p_log2_error) * (1 - MIN_ALPHA)
-        final_alpha = max(MIN_ALPHA, alpha * alpha2)
-        return (r, g, b, final_alpha)
+            min(MAX_ABS_ERROR, max(-MAX_ABS_ERROR, log2_error))
+            + MAX_ABS_ERROR
+        ) / (MAX_ABS_ERROR * 2)
+        return Color(color).get_p(p_log2_error)
 
     @staticmethod
     def render_polygon_shape(polygon, color, log2_error):
         background_color = DCN1985Renderer.get_color(color, log2_error)
-        foreground_color = DCN1985Renderer.get_foreground_color(
-            background_color
-        )
+        foreground_color = background_color.foreground
         gdf = geopandas.GeoDataFrame(geometry=[polygon])
         gdf.plot(
             ax=plt.gca(),
-            facecolor=background_color,
-            edgecolor="#ccc" if foreground_color == 'black' else 'white',
+            facecolor=background_color.rgba,
+            edgecolor="#ccc" if foreground_color.x == 'black' else 'white',
             linewidth=0.2,
         )
 
@@ -75,9 +52,7 @@ class DCN1985Renderer(MatPlotLibUser):
         color,
     ):
         background_color = DCN1985Renderer.get_color(color, log2_error)
-        foreground_color = DCN1985Renderer.get_foreground_color(
-            background_color
-        )
+        foreground_color = background_color.foreground
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
         BASE_FONT_SIZE = 12
@@ -95,7 +70,7 @@ class DCN1985Renderer(MatPlotLibUser):
             x,
             y,
             text,
-            color=foreground_color,
+            color=foreground_color.rgba,
             fontsize=font_size,
             horizontalalignment='center',
             verticalalignment='center',
