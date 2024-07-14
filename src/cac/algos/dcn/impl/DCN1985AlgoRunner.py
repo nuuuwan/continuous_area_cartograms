@@ -2,10 +2,10 @@ import numpy as np
 from shapely import Polygon, affinity
 from utils import Log
 
-log = Log('DCN1985Runner')
+log = Log('DCN1985AlgoRunner')
 
 
-class DCN1985Runner:
+class DCN1985AlgoRunner:
     @staticmethod
     def get_Delta_i(Point_i, Centroid):
         return np.array(
@@ -42,21 +42,17 @@ class DCN1985Runner:
 
         new_Point = []
         for Point_i in Point:
-            Delta_i = DCN1985Runner.get_Delta_i(Point_i, Centroid)
+            Delta_i = DCN1985AlgoRunner.get_Delta_i(Point_i, Centroid)
             Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
             Angle_i = np.arctan2(
                 Delta_i[:, :, 1], Delta_i[:, :, 0]
             ).transpose()
-            Point_i += DCN1985Runner.get_Point_i_incr(
+            Point_i += DCN1985AlgoRunner.get_Point_i_incr(
                 Distance_i, Radius, Mass, Angle_i, force_reduction_factor
             )
             new_Point.append(Point_i)
-        polygons = []
-        for Point_i in new_Point:
-            try:
-                polygons.append(Polygon(Point_i))
-            except Exception as e:
-                log.error(f'Could not append polygon: {e}')
+            
+        polygons = [Polygon(Point_i) for Point_i in new_Point]
         dcn = dcn.from_dcn(polygons)
         return dcn
 
@@ -74,7 +70,7 @@ class DCN1985Runner:
         return dcn.from_dcn(new_polygons)
 
     @classmethod
-    def run_all(cls, dcn0, dir_output):
+    def run_all(cls, dcn0, ):
         dcn_list = []
 
         dcn0.log_complexity()

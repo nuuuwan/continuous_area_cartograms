@@ -38,6 +38,7 @@ class DCN1985Builder:
         file_id = f'{i_iter:03}'
         gdf_path = os.path.join(dir_output_temp, 'geojson', f'{file_id}.json')
         dcn.to_gdf().to_file(gdf_path, driver='GeoJSON')
+        log.debug(f'Wrote {gdf_path}.')
 
     @staticmethod
     def save_animated_gif(dir_output, dir_output_temp):
@@ -48,7 +49,7 @@ class DCN1985Builder:
     def build(self, dir_output=None):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
-        dcn_list = self.run_all(self, dir_output)
+        dcn_list = self.run_all(self, )
 
         dir_output_temp = DCN1985Builder.get_dir_output_temp(dir_output)
         for i_iter, dcn in enumerate(dcn_list):

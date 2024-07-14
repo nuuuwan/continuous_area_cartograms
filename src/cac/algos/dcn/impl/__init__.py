@@ -9,4 +9,4 @@ from cac.algos.dcn.impl.DCN1985Logger import DCN1985Logger
 from cac.algos.dcn.impl.DCN1985Properties import DCN1985Properties
 from cac.algos.dcn.impl.DCN1985Renderer import DCN1985Renderer
 from cac.algos.dcn.impl.DCN1985RenderParams import DCN1985RenderParams
-from cac.algos.dcn.impl.DCN1985Runner import DCN1985Runner
+from cac.algos.dcn.impl.DCN1985AlgoRunner import DCN1985AlgoRunner
