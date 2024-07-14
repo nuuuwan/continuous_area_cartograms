@@ -36,7 +36,6 @@ class DCN1985AlgoRunner:
 
     @staticmethod
     def run_single_optimized(dcn):
-        
         @file_cache(cache_key_data=dcn.polygons)
         def inner(dcn):
             force_reduction_factor = dcn.force_reduction_factor
@@ -62,8 +61,6 @@ class DCN1985AlgoRunner:
             return dcn
 
         return inner(dcn)
-    
-    
 
     @classmethod
     def shrink(cls, dcn, min_p=1, shrink_factor=0.1):
