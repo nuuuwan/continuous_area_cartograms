@@ -45,11 +45,3 @@ class AnimatedGIF:
             log.info(f'Wrote {n} images to {self.animated_gif_path}')
 
 
-if __name__ == "__main__":
-    n = 10
-    dir_path = os.path.join('images', 'ents.province')
-    image_path_list = [
-        os.path.join(dir_path, f'{i}.png') for i in range(0, n + 1)
-    ]
-    animated_gif_path = os.path.join(dir_path, 'animated.gif')
-    AnimatedGIF(animated_gif_path).write(image_path_list)
