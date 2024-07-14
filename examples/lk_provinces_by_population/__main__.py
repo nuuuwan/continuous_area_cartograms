@@ -19,7 +19,7 @@ def main():  # noqa
             title="Population",
         ),
     )
-    polygons = algo.run(
+    polygons = algo.build(
         os.path.join(
             os.path.dirname(__file__),
         ),

@@ -27,7 +27,7 @@ def main():  # noqa
             title="Registered Voter Pop.",
         ),
     )
-    polygons = algo.run(
+    polygons = algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )

@@ -31,7 +31,7 @@ class GridCAC(PillowUser):
 
         dcn.render_params.super_title = ''
         dcn.render_params.footer_text = ''
-        dcn.run(dir_path_cell)
+        dcn.build(dir_path_cell)
 
         dir_image_path = os.path.join(dir_path_cell, 'images')
         image_path_list_for_row_original = [

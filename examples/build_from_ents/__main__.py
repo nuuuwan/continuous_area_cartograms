@@ -8,7 +8,7 @@ def main():  # noqa
     ents = Ent.list_from_id_list(['LK-11', 'LK-12', 'LK-13'])
     values = [3, 2, 1]
     algo = DCN1985.from_ents(ents, values)
-    algo.run(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )

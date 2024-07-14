@@ -22,7 +22,7 @@ def main():  # noqa
             title="GDP (USD M)",
         ),
     )
-    algo.run(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )

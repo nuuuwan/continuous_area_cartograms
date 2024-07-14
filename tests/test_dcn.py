@@ -19,6 +19,6 @@ class TestDCN(unittest.TestCase):
                 title="Population",
             ),
         )
-        dcn.run(
+        dcn.build(
             tempfile.mkdtemp(),
         )

@@ -148,7 +148,7 @@ class DCN1985Runner:
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write_from_dir_path(dir_image)
 
-    def run(self, dir_output=None):
+    def build(self, dir_output=None):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
         dcn_list = self.run_all(self, dir_output)
