@@ -47,7 +47,7 @@ class DCN1985Builder:
         animated_gif_path = os.path.join(dir_output, 'animated.gif')
         AnimatedGIF(animated_gif_path).write_from_dir_path(dir_image)
 
-    def build(self, dir_output=None):
+    def build(self, dir_output=None, save_geojson=False):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
         dcn_list = self.run_all(
@@ -58,5 +58,6 @@ class DCN1985Builder:
         width_prev = None
         for i_iter, dcn in enumerate(dcn_list):
             width_prev = DCN1985Builder.save_image_helper(i_iter, dcn, dir_output_temp,width_prev)
-            DCN1985Builder.save_geojson(i_iter, dcn, dir_output_temp)
+            if save_geojson:
+                DCN1985Builder.save_geojson(i_iter, dcn, dir_output_temp)
         DCN1985Builder.save_animated_gif(dir_output, dir_output_temp)
