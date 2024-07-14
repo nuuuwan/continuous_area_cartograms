@@ -16,7 +16,7 @@ class TestGridCAC(unittest.TestCase):
             algo_params=DCN1985AlgoParams(max_iterations=2),
             render_params=DCN1985RenderParams(
                 super_title="Sri Lanka's Districts",
-                title="Population",
+                title="Population-1",
             ),
         )
         dcn_list_list = [[dcn, dcn], [dcn, dcn]]

@@ -85,20 +85,26 @@ class DCN1985AlgoRunner:
     def run_all(
         cls,
         dcn0,
+        verbose=False,
     ):
         dcn_list = []
-
-        dcn0.log_complexity()
+        if verbose:
+            dcn0.log_complexity()
         dcn = dcn0
         i_iter = 0
         while True:
             dcn_list.append(dcn)
-            dcn.log_error()
+            if verbose:
+                dcn.log_error()
             if dcn.is_reasonably_complete:
                 break
+            
             dcn = cls.run_single_optimized(dcn)
+            dcn.render_params = dcn0.render_params
+            dcn.algo_params = dcn0.algo_params
+
             if dcn.algo_params.do_shrink:
-                dcn = cls.shrink(
+                dcn0 = cls.shrink(
                     dcn,
                     min_p=i_iter / dcn.algo_params.max_iterations,
                     shrink_factor=i_iter / dcn.algo_params.max_iterations,
@@ -106,10 +112,11 @@ class DCN1985AlgoRunner:
 
             i_iter += 1
             if i_iter >= dcn.algo_params.max_iterations:
-                log.warning(
-                    f'🛑 max_iterations({dcn.algo_params.max_iterations})'
-                    + ' reached.'
-                )
+                if verbose:
+                    log.warning(
+                        f'🛑 max_iterations({dcn.algo_params.max_iterations})'
+                        + ' reached.'
+                    )
                 break
 
         return dcn_list

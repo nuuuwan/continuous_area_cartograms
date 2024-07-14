@@ -11,7 +11,7 @@ PARTY_TO_COLOR = {
     'UNP': 'green',
     'UPFA': 'blue',
     'All Others': 'lightgrey',
-    'Did not vote/Rejected': 'black',
+    'Didn\'t vote/Rejected': 'black',
 }
 
 
@@ -38,7 +38,7 @@ def main():  # noqa
             k
             for k in list(dict_p_lk.keys())
             if k not in ['electors', 'polled', 'valid', 'rejected']
-        ][:2] + ['All Others', 'Did not vote/Rejected']
+        ][:2] + ['All Others', 'Didn\'t vote/Rejected']
         dict_lk = gig_table_row_lk.dict
 
         for i, party in enumerate(parties):

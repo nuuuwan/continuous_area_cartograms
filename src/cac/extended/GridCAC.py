@@ -3,7 +3,7 @@ import shutil
 import tempfile
 
 from PIL import ImageDraw
-from utils import Log
+from utils import Log, Hash
 
 from cac.algos import DCN1985
 from utils_future import AnimatedGIF, PillowUser
@@ -14,6 +14,7 @@ log = Log('GridCAC')
 class GridCAC(PillowUser):
     FRAMES_PER_STAGE = 20
     DURATION_PER_STAGE = 10
+    IMAGE_VERSION = '20240714.1239'
 
     def __init__(self, dcn_list_list: list[list[DCN1985]]):
         self.dcn_list_list = dcn_list_list
@@ -31,13 +32,7 @@ class GridCAC(PillowUser):
 
         dcn.render_params.super_title = ''
         dcn.render_params.footer_text = ''
-        dcn.build(dir_path_cell)
-
-        dir_image_path = os.path.join(dir_path_cell, 'images')
-        image_path_list_for_row_original = [
-            os.path.join(dir_image_path, file_name)
-            for file_name in os.listdir(dir_image_path)
-        ]
+        image_path_list_for_row_original = dcn.build(dir_path_cell, do_build_animated_gif=False)
 
         image_path_list_for_cell = []
         for k in range(self.FRAMES_PER_STAGE):
@@ -52,14 +47,27 @@ class GridCAC(PillowUser):
         return image_path_list_for_cell
 
     def build_row_combined_frame(
-        self, i, job_id, image_path_list_for_i, k, super_title, footer_text
+        self, image_path_list_for_i, k, super_title, footer_text
     ):
+        h = Hash.md5(str(dict(
+            image_path_list_for_i=image_path_list_for_i,
+            k=k,
+            super_title=super_title, 
+            footer_text=footer_text,
+            version=self.IMAGE_VERSION,
+        )))
+        combined_image_path = os.path.join(
+            tempfile.gettempdir(), f'cac.dnc.{h}.png'
+        )
+        if os.path.exists(combined_image_path):
+            return combined_image_path
+
+
         combined_im, total_width, height = self.combine_images(
             image_path_list_for_i, k
         )
 
         draw = ImageDraw.Draw(combined_im)
-        log.debug(f'{super_title=}, {footer_text=}')
         draw.text(
             (total_width / 2, 40),
             super_title,
@@ -75,20 +83,17 @@ class GridCAC(PillowUser):
             anchor='ms',
         )
 
-        combined_image_path = os.path.join(
-            tempfile.gettempdir(), f'{job_id}.combined.{i}.{k}.png'
-        )
         combined_im.save(combined_image_path)
-        log.debug(f'Combined image saved to {combined_image_path}')
+        log.info(f'Combined image saved to {combined_image_path}')
         return combined_image_path
 
     def build_row_combined_frames(
-        self, i, job_id, image_path_list_for_i, super_title, footer_text
+        self, image_path_list_for_i, super_title, footer_text
     ):
         combined_image_path_list_for_row = []
         for k in range(self.FRAMES_PER_STAGE):
             combined_image_path = self.build_row_combined_frame(
-                i, job_id, image_path_list_for_i, k, super_title, footer_text
+                image_path_list_for_i, k, super_title, footer_text
             )
             combined_image_path_list_for_row.append(combined_image_path)
 
@@ -107,7 +112,7 @@ class GridCAC(PillowUser):
             image_path_list_for_i.append(image_path_list_for_cell)
 
         return self.build_row_combined_frames(
-            i, job_id, image_path_list_for_i, super_title, footer_text
+            image_path_list_for_i, super_title, footer_text
         )
 
     def build_final_animated_gif(

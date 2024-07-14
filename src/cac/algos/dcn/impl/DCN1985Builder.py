@@ -16,7 +16,7 @@ class DCN1985Builder:
             image_path_list
         )
 
-    def build(self, dir_output=None):
+    def build(self, dir_output=None, do_build_animated_gif=True):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
         dcn_list = self.run_all(self)
@@ -29,4 +29,6 @@ class DCN1985Builder:
             )
             image_path_list.append(image_path)
 
-        DCN1985Builder.save_animated_gif(dir_output, image_path_list)
+        if do_build_animated_gif:
+            DCN1985Builder.save_animated_gif(dir_output, image_path_list)
+        return image_path_list
