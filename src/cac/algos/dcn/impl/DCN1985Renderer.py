@@ -21,7 +21,7 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = '20240714.1339'
+    RENDER_VERSION = '20240714.1510'
     HEIGHT = 4.5
     BASE_SCALE = 0.8
     DPI = 120
@@ -136,7 +136,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.annotate(
             self.render_params.sub_title,
-            (0.5, 0.9 - 0.08),
+            (0.5, 0.9 - 0.09),
             fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
