@@ -49,7 +49,9 @@ class DCN1985Builder:
     def build(self, dir_output=None):
         dir_output = dir_output or tempfile.mkdtemp()
         assert os.path.exists(dir_output)
-        dcn_list = self.run_all(self, )
+        dcn_list = self.run_all(
+            self,
+        )
 
         dir_output_temp = DCN1985Builder.get_dir_output_temp(dir_output)
         for i_iter, dcn in enumerate(dcn_list):

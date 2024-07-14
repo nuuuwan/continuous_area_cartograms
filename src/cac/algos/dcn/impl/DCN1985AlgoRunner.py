@@ -2,6 +2,8 @@ import numpy as np
 from shapely import Polygon, affinity
 from utils import Log
 
+from utils_future import file_cache
+
 log = Log('DCN1985AlgoRunner')
 
 
@@ -32,29 +34,36 @@ class DCN1985AlgoRunner:
             * force_reduction_factor
         )
 
-    @classmethod
-    def run_single_optimized(cls, dcn):
-        force_reduction_factor = dcn.force_reduction_factor
-        Centroid = dcn.Centroid
-        Radius = dcn.Radius
-        Mass = dcn.Mass
-        Point = dcn.Point
+    @staticmethod
+    def run_single_optimized(dcn):
+        
+        @file_cache(cache_key_data=dcn.polygons)
+        def inner(dcn):
+            force_reduction_factor = dcn.force_reduction_factor
+            Centroid = dcn.Centroid
+            Radius = dcn.Radius
+            Mass = dcn.Mass
+            Point = dcn.Point
 
-        new_Point = []
-        for Point_i in Point:
-            Delta_i = DCN1985AlgoRunner.get_Delta_i(Point_i, Centroid)
-            Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
-            Angle_i = np.arctan2(
-                Delta_i[:, :, 1], Delta_i[:, :, 0]
-            ).transpose()
-            Point_i += DCN1985AlgoRunner.get_Point_i_incr(
-                Distance_i, Radius, Mass, Angle_i, force_reduction_factor
-            )
-            new_Point.append(Point_i)
-            
-        polygons = [Polygon(Point_i) for Point_i in new_Point]
-        dcn = dcn.from_dcn(polygons)
-        return dcn
+            new_Point = []
+            for Point_i in Point:
+                Delta_i = DCN1985AlgoRunner.get_Delta_i(Point_i, Centroid)
+                Distance_i = np.linalg.norm(Delta_i, axis=2).transpose()
+                Angle_i = np.arctan2(
+                    Delta_i[:, :, 1], Delta_i[:, :, 0]
+                ).transpose()
+                Point_i += DCN1985AlgoRunner.get_Point_i_incr(
+                    Distance_i, Radius, Mass, Angle_i, force_reduction_factor
+                )
+                new_Point.append(Point_i)
+
+            polygons = [Polygon(Point_i) for Point_i in new_Point]
+            dcn = dcn.from_dcn(polygons)
+            return dcn
+
+        return inner(dcn)
+    
+    
 
     @classmethod
     def shrink(cls, dcn, min_p=1, shrink_factor=0.1):
@@ -70,7 +79,10 @@ class DCN1985AlgoRunner:
         return dcn.from_dcn(new_polygons)
 
     @classmethod
-    def run_all(cls, dcn0, ):
+    def run_all(
+        cls,
+        dcn0,
+    ):
         dcn_list = []
 
         dcn0.log_complexity()
