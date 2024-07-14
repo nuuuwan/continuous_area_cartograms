@@ -42,7 +42,7 @@ def main():  # noqa
             title="SLASSCOM Members",
         ),
     )
-    algo.run(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         ),

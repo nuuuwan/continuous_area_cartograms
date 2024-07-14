@@ -47,7 +47,7 @@ class HexBin(MatPlotLibUser):
 
             while y <= maxy:
                 point = Point(x, y)
-                print(point, point in points_set)
+  
                 if point not in points_set:
                     if polygon.contains(point):
                         points.append(point)

@@ -57,13 +57,13 @@ def main():  # noqa
         ['A', 'B', 'C', 'D'],
     )
 
-    new_polygon = algo.run(
+    new_polygon = algo.build(
         dir_output=os.path.join(
             os.path.dirname(__file__),
         )
     )
 
-    print(new_polygon)
+
 
 if __name__ == "__main__":
     main()

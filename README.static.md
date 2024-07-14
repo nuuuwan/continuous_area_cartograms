@@ -96,7 +96,7 @@ Second, call **run** which returns a new polygon, appropriately modified.
         )
     )
 
-    print(new_polygon)
+
 
 ```
 

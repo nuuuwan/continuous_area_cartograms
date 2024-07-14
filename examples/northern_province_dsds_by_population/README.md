@@ -27,7 +27,7 @@ def main():  # noqa
             title="Population",
         ),
     )
-    algo.run(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )

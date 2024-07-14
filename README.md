@@ -2,6 +2,8 @@
 
 <p  align="center">
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_ethnicity/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_imports_and_exports/animated.gif" alt="alt" height="240px" />
+    <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_pds_by_presidential/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples_grid_cac/lk_religion/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_gdp_md_est/animated.gif" alt="alt" height="240px" />
     <img src="https://raw.githubusercontent.com/nuuuwan/continuous_area_cartograms/main/examples/africa_by_pop_est/animated.gif" alt="alt" height="240px" />
@@ -122,7 +124,7 @@ Second, call **run** which returns a new polygon, appropriately modified.
         )
     )
 
-    print(new_polygon)
+
 
 ```
 

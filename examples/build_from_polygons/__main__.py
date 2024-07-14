@@ -56,7 +56,7 @@ def main():  # noqa
         )
     )
 
-    print(new_polygon)
+
 
 
 if __name__ == "__main__":

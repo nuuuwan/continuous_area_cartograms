@@ -40,7 +40,7 @@ def main():  # noqa
             title="GDP (LKR M)",
         ),
     )
-    polygons = algo.run(
+    polygons = algo.build(
         os.path.join(
             os.path.dirname(__file__),
         ),

@@ -17,7 +17,7 @@ def main():  # noqa
         values=[1, 1, 3, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
     )
 
-    algo.run(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )
