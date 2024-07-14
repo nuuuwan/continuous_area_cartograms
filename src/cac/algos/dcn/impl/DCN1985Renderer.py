@@ -164,8 +164,8 @@ class DCN1985Renderer(MatPlotLibUser):
     def save_image(self, image_path, i_iter, width_prev=None):
         plt.close()
         height = self.HEIGHT
-        width = width_prev or int(self.aspect_ratio * height ) 
-        
+        width = width_prev or int(self.aspect_ratio * height)
+
         fig = plt.gcf()
         fig.set_size_inches(width, height)
         left = 0.5 - self.render_scale / 2

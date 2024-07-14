@@ -36,11 +36,13 @@ class DCN1985AlgoRunner:
 
     @staticmethod
     def run_single_optimized(dcn):
-        @file_cache(cache_key_data=dict(
+        @file_cache(
+            cache_key_data=dict(
                 polygons=dcn.polygons,
                 values=dcn.values,
                 algo_params=dcn.algo_params,
-        ))
+            )
+        )
         def inner(dcn):
             force_reduction_factor = dcn.force_reduction_factor
             Centroid = dcn.Centroid

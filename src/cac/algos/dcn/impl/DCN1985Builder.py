@@ -29,8 +29,8 @@ class DCN1985Builder:
         file_id = f'{i_iter:03}'
         image_path = os.path.join(dir_image, f'{file_id}.png')
         width = dcn.save_image(image_path, i_iter, width_prev)
-        return width 
-    
+        return width
+
     @staticmethod
     def save_geojson(i_iter, dcn, dir_output_temp):
         dir_geojson = os.path.join(dir_output_temp, 'geojson')
@@ -57,7 +57,9 @@ class DCN1985Builder:
         dir_output_temp = DCN1985Builder.get_dir_output_temp(dir_output)
         width_prev = None
         for i_iter, dcn in enumerate(dcn_list):
-            width_prev = DCN1985Builder.save_image_helper(i_iter, dcn, dir_output_temp,width_prev)
+            width_prev = DCN1985Builder.save_image_helper(
+                i_iter, dcn, dir_output_temp, width_prev
+            )
             if save_geojson:
                 DCN1985Builder.save_geojson(i_iter, dcn, dir_output_temp)
         DCN1985Builder.save_animated_gif(dir_output, dir_output_temp)
