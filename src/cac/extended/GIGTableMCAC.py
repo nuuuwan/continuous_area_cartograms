@@ -53,7 +53,7 @@ class GIGTableMCAC:
         ]
         log.debug(f'{fields=}')
         return fields
-    
+
     @cached_property
     def scales(self) -> list[float]:
         values = []
@@ -66,7 +66,6 @@ class GIGTableMCAC:
         scales = [value / values[0] for value in values]
         log.debug(f'{scales=}')
         return scales
-
 
     @cached_property
     def algo_params(self) -> DCN1985AlgoParams:
@@ -112,7 +111,7 @@ class GIGTableMCAC:
                     title=self.format_field(field),
                     end_value_color=color,
                     footer_text=self.render_params.footer_text,
-                    scale=scale
+                    scale=scale,
                 ),
             )
             dnc_list.append(dnc)
