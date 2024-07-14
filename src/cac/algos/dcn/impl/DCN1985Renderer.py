@@ -161,12 +161,11 @@ class DCN1985Renderer(MatPlotLibUser):
         BASE_SCALE = 0.7
         return math.sqrt(self.render_params.scale) * BASE_SCALE
 
-    def save_image(self, image_path, i_iter):
+    def save_image(self, image_path, i_iter, width_prev=None):
         plt.close()
         height = self.HEIGHT
-        Q = 1
-        width = int(self.aspect_ratio * height / Q) * Q
-
+        width = width_prev or int(self.aspect_ratio * height ) 
+        
         fig = plt.gcf()
         fig.set_size_inches(width, height)
         left = 0.5 - self.render_scale / 2
@@ -181,3 +180,4 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.savefig(image_path, dpi=150, pad_inches=0)
         log.info(f'Wrote {image_path}')
+        return width
