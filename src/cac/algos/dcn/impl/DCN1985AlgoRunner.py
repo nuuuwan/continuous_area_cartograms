@@ -98,7 +98,7 @@ class DCN1985AlgoRunner:
                 dcn.log_error()
             if dcn.is_reasonably_complete:
                 break
-            
+
             dcn = cls.run_single_optimized(dcn)
             dcn.render_params = dcn0.render_params
             dcn.algo_params = dcn0.algo_params

@@ -81,7 +81,7 @@ class DCN1985Loader(DCN1985LoaderUtils):
             gdf = ent.geo()
             gdfs.append(gdf)
 
-        n = len(gdfs)
+        len(gdfs)
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
         combined_gdf['id'] = [ent.id for ent in ents]
         combined_gdf['name'] = [ent.name for ent in ents]

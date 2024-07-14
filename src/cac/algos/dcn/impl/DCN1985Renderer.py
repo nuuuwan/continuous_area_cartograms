@@ -177,7 +177,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def save_image(self, i_iter, width_prev=None):
         image_path = os.path.join(
-            tempfile.gettempdir() , f'cac.dcn.{self.image_hash}.png'
+            tempfile.gettempdir(), f'cac.dcn.{self.image_hash}.png'
         )
         if os.path.exists(image_path):
             return image_path, width_prev

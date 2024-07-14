@@ -3,7 +3,7 @@ import shutil
 import tempfile
 
 from PIL import ImageDraw
-from utils import Log, Hash
+from utils import Hash, Log
 
 from cac.algos import DCN1985
 from utils_future import AnimatedGIF, PillowUser
@@ -32,7 +32,9 @@ class GridCAC(PillowUser):
 
         dcn.render_params.super_title = ''
         dcn.render_params.footer_text = ''
-        image_path_list_for_row_original = dcn.build(dir_path_cell, do_build_animated_gif=False)
+        image_path_list_for_row_original = dcn.build(
+            dir_path_cell, do_build_animated_gif=False
+        )
 
         image_path_list_for_cell = []
         for k in range(self.FRAMES_PER_STAGE):
@@ -49,19 +51,22 @@ class GridCAC(PillowUser):
     def build_row_combined_frame(
         self, image_path_list_for_i, k, super_title, footer_text
     ):
-        h = Hash.md5(str(dict(
-            image_path_list_for_i=image_path_list_for_i,
-            k=k,
-            super_title=super_title, 
-            footer_text=footer_text,
-            version=self.IMAGE_VERSION,
-        )))
+        h = Hash.md5(
+            str(
+                dict(
+                    image_path_list_for_i=image_path_list_for_i,
+                    k=k,
+                    super_title=super_title,
+                    footer_text=footer_text,
+                    version=self.IMAGE_VERSION,
+                )
+            )
+        )
         combined_image_path = os.path.join(
             tempfile.gettempdir(), f'cac.dnc.{h}.png'
         )
         if os.path.exists(combined_image_path):
             return combined_image_path
-
 
         combined_im, total_width, height = self.combine_images(
             image_path_list_for_i, k

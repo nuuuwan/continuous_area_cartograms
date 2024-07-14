@@ -27,7 +27,6 @@ class DCN1985Base:
 
         self.validate()
 
-
     def validate(self):
         assert len(self.polygons) == len(
             self.values
