@@ -1,10 +1,12 @@
 import math
+import os
+import tempfile
 from functools import cached_property
 
 import geopandas
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
-from utils import Log
+from utils import Hash, Log
 
 from utils_future import Color, MatPlotLibUser, Number
 
@@ -19,7 +21,19 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
+    RENDER_VERSION = '20240714.1216'
     HEIGHT = 4.5
+
+    @property
+    def image_hash(self):
+        data = dict(
+            polygons=self.polygons,
+            values=self.values,
+            labels=self.labels,
+            render_params=str(self.render_params),
+            version=self.RENDER_VERSION,
+        )
+        return Hash.md5(str(data))
 
     @staticmethod
     def get_color(color, log2_error):
@@ -161,7 +175,14 @@ class DCN1985Renderer(MatPlotLibUser):
         BASE_SCALE = 0.7
         return math.sqrt(self.render_params.scale) * BASE_SCALE
 
-    def save_image(self, image_path, i_iter, width_prev=None):
+    def save_image(self, i_iter, width_prev=None):
+        image_path = os.path.join(
+            tempfile.gettempdir() , f'cac.dcn.{self.image_hash}.png'
+        )
+        if os.path.exists(image_path):
+            log.warning(f'Already Exists {image_path}')
+            return image_path, width_prev
+
         plt.close()
         height = self.HEIGHT
         width = width_prev or int(self.aspect_ratio * height)
@@ -180,4 +201,4 @@ class DCN1985Renderer(MatPlotLibUser):
 
         plt.savefig(image_path, dpi=150, pad_inches=0)
         log.info(f'Wrote {image_path}')
-        return width
+        return image_path, width_prev
