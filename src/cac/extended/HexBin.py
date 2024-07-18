@@ -94,11 +94,11 @@ class HexBin(MatPlotLibUser):
         inner_polygons = []
         for point in points:
             polygon_points = []
-            r =math.sqrt(2) * dim / 2
+            r = math.sqrt(2) * dim / 2
             N_POLYGON_SIDES = 6
             for i in range(N_POLYGON_SIDES):
                 angle = 2 * math.pi / N_POLYGON_SIDES * i
-                x = point.x + r * math.cos(angle) 
+                x = point.x + r * math.cos(angle)
                 y = point.y + r * math.sin(angle) * 0.9
                 polygon_points.append((x, y))
 

@@ -10,7 +10,6 @@ from examples_grid_cac.world_lk_tourist_arrivals.NAME_MAP_TO_NAME_DATA import \
 
 ALGO_PARAMS = DCN1985AlgoParams(
     do_shrink=True,
-
 )
 
 

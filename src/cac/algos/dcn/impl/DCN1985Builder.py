@@ -15,7 +15,7 @@ class DCN1985Builder:
         AnimatedGIF(animated_gif_path).write_from_image_path_list(
             image_path_list
         )
-        
+
     def build(
         self, dir_output=None, do_build_animated_gif=True, verbose=False
     ):
