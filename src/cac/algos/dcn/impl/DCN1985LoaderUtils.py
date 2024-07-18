@@ -25,8 +25,13 @@ class DCN1985LoaderUtils:
         polygons = DCN1985LoaderUtils.extract_polygons(shape)
         total_area = sum([polygon.area for polygon in polygons])
         min_area = total_area * min_p_area
-        return [polygon for polygon in polygons if polygon.area > min_area]
-
+        polygons =  [polygon for polygon in polygons if polygon.area > min_area]
+        sorted_polygons = sorted(
+            polygons,
+            key=lambda polygon: polygon.area,
+            reverse=True,
+        )
+        return [sorted_polygons[0]]
     @staticmethod
     def get_shape_vars(shape, value, label, min_p_area):
         filtered_polygons = DCN1985LoaderUtils.get_polygons(shape, min_p_area)

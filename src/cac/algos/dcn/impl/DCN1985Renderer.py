@@ -21,10 +21,10 @@ plt.rcParams['font.family'] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = '20240714.1657'
+    RENDER_VERSION = '20240716.1332'
     HEIGHT = 4.5
     BASE_SCALE = 0.8
-    DPI = 300
+    DPI = 240
     BASE_FONT_SIZE = 10
 
     @property
@@ -77,7 +77,7 @@ class DCN1985Renderer(MatPlotLibUser):
         foreground_color = background_color.foreground
         x, y = polygon.centroid.coords[0]
         p_area = polygon.area / self.total_area
-        font_size = (
+        font_size = 2 * (
             self.BASE_FONT_SIZE * math.sqrt(p_area) * self.render_scale
         )
         if font_size < 1:
@@ -114,19 +114,21 @@ class DCN1985Renderer(MatPlotLibUser):
         )
 
     def render_titles(self):
+        # Header
         plt.annotate(
             self.render_params.super_title,
             (0.5, 0.9),
             fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
+            color="gray",
         )
 
         title = self.render_params.title
         plt.annotate(
             title,
-            (0.5, 0.9 - 0.05),
-            fontsize=self.BASE_FONT_SIZE * 1.5,
+            (0.5, 0.9 - 0.0275),
+            fontsize=self.BASE_FONT_SIZE * 2.5,
             xycoords='figure fraction',
             ha='center',
         )
@@ -137,7 +139,10 @@ class DCN1985Renderer(MatPlotLibUser):
             fontsize=self.BASE_FONT_SIZE,
             xycoords='figure fraction',
             ha='center',
+            color="gray",
         )
+
+        # Footer
 
         plt.annotate(
             self.render_params.footer_text,

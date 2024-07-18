@@ -1,4 +1,5 @@
 import math
+import os
 
 import topojson
 from matplotlib import patches
@@ -84,6 +85,7 @@ class HexBin(MatPlotLibUser):
                     part_polygon.exterior.coords,
                     facecolor='none',
                     edgecolor='black',
+                    linewidth=2,
                 )
             )
 
@@ -92,18 +94,18 @@ class HexBin(MatPlotLibUser):
         inner_polygons = []
         for point in points:
             polygon_points = []
-            r = 1.01 * math.sqrt(2) * dim / 2
+            r =math.sqrt(2) * dim / 2
             N_POLYGON_SIDES = 6
             for i in range(N_POLYGON_SIDES):
                 angle = 2 * math.pi / N_POLYGON_SIDES * i
-                x = point.x + r * math.cos(angle)
+                x = point.x + r * math.cos(angle) 
                 y = point.y + r * math.sin(angle) * 0.9
                 polygon_points.append((x, y))
 
             polygon_patch = patches.Polygon(
                 polygon_points,
                 facecolor=color,
-                edgecolor=None,
+                edgecolor='grey',
                 alpha=0.5,
             )
             ax.add_patch(polygon_patch)
@@ -134,9 +136,11 @@ class HexBin(MatPlotLibUser):
             points = HexBin.get_points(polygon, dim, points_set)
             points_set |= set(points)
             color = plt.cm.hsv((i_polygon * 199 % n_polygons) / n_polygons)
+            print(i_polygon, color)
             HexBin.render_region_polygons(dim, points, ax, color)
 
-        self.remove_grids(ax)
+        self.remove_grids()
 
         plt.savefig(hexbin_path)
         log.info(f'Wrote {hexbin_path}')
+        os.startfile(hexbin_path)

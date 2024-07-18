@@ -27,11 +27,12 @@ def main():  # noqa
             title="Registered Voter Pop.",
         ),
     )
-    polygons = algo.build(
+    _, dcn_list = algo.build(
         os.path.join(
             os.path.dirname(__file__),
         )
     )
+    polygons = dcn_list[-1].polygons
 
     HexBin(polygons, total_value=850).save_hexbin(
         os.path.join(
