@@ -5,7 +5,7 @@ def main():  # noqa
 
     from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBin
 
-    ents = Ent.list_from_type(EntType.PD)
+    ents = Ent.list_from_type(EntType.ED)
 
     values = []
     for _ in ents:
@@ -19,7 +19,7 @@ def main():  # noqa
             max_iterations=30,
         ),
         render_params=DCN1985RenderParams(
-            super_title="Sri Lanka's Polling Divisions",
+            super_title="Sri Lanka's Electoral Districts",
             title="Units",
         ),
     )
@@ -29,8 +29,9 @@ def main():  # noqa
         )
     )
     polygons = dcn_list[-1].polygons
+    labels = dcn_list[-1].labels
 
-    HexBin(polygons, total_value=160).save_hexbin(
+    HexBin(polygons, labels, total_value=22).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.png",

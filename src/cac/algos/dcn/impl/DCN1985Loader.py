@@ -2,12 +2,13 @@ import geopandas as gpd
 import pandas as pd
 import topojson
 from gig import Ent
-from utils import JSONFile, Log
+from utils import JSONFile
 
 from cac.algos.dcn.impl.DCN1985AlgoParams import DCN1985AlgoParams
 from cac.algos.dcn.impl.DCN1985LoaderUtils import DCN1985LoaderUtils
+from utils_future import Log
 
-log = Log('DCN1985Loader')
+log = Log("DCN1985Loader")
 
 
 class DCN1985Loader(DCN1985LoaderUtils):
@@ -20,7 +21,7 @@ class DCN1985Loader(DCN1985LoaderUtils):
         render_params=None,
     ):
         algo_params = algo_params or DCN1985AlgoParams()
-        geometry = gdf['geometry']
+        geometry = gdf["geometry"]
         labels = cls.get_labels(gdf)
 
         values = values or [1 for _ in range(len(geometry))]
@@ -68,23 +69,24 @@ class DCN1985Loader(DCN1985LoaderUtils):
         render_params=None,
     ):
         data = JSONFile(topojson_path).read()
-        object_name = list(data['objects'].keys())[0]
+        object_name = list(data["objects"].keys())[0]
         topo = topojson.Topology(data, object_name=object_name)
         gdf = topo.to_gdf()
-        gdf.to_file('Provinces.geo.json', driver='GeoJSON')
+        gdf.to_file("Provinces.geo.json", driver="GeoJSON")
         return cls.from_gdf(gdf, values, algo_params, render_params)
 
     @staticmethod
     def ents_to_gdf(ents):
         gdfs = []
-        for ent in ents:
+        n = len(ents)
+        for i, ent in enumerate(ents, start=1):
             gdf = ent.geo()
+            log.debug_temp(f"{i}/{n})  Loaded geo for {ent.id}")
             gdfs.append(gdf)
 
-        len(gdfs)
         combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
-        combined_gdf['id'] = [ent.id for ent in ents]
-        combined_gdf['name'] = [ent.name for ent in ents]
+        combined_gdf["id"] = [ent.id for ent in ents]
+        combined_gdf["name"] = [ent.name for ent in ents]
         return combined_gdf
 
     @classmethod
@@ -101,8 +103,8 @@ class DCN1985Loader(DCN1985LoaderUtils):
     def to_gdf(self):
         return gpd.GeoDataFrame(
             {
-                'geometry': self.polygons,
-                'value': self.values,
+                "geometry": self.polygons,
+                "value": self.values,
             }
         )
 
