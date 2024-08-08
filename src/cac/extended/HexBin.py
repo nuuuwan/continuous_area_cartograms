@@ -85,17 +85,19 @@ class HexBin(MatPlotLibUser):
                 if max_y is None or y > max_y:
                     max_y = y
 
+        dim_x = dim
+        dim_y = dim / HexBin.X_TO_Y_RATIO
+
         normalized_points_list = []
         for points in points_list:
             normalized_points = []
             for point in points:
                 x, y = point.x, point.y
-                x = (x - min_x) / dim
-                y = 1 - (y - min_y) / dim
-                y *= HexBin.X_TO_Y_RATIO * 2
+                x = (x - min_x) / dim_x
+                y = (max_y - y) / dim_y
 
-                x = int(round(x, 0))
-                y = int(round(y, 0))
+                x = round(x, 2)
+                y = round(y, 2)
                 normalized_point = Point(x, y)
                 normalized_points.append(normalized_point)
             normalized_points_list.append(normalized_points)

@@ -24,7 +24,7 @@ class HexBinRenderer:
     @staticmethod
     def get_polygon(point, dim):
         x, y = point.x, point.y
-        y /= 2 * HexBin.X_TO_Y_RATIO
+
 
         r = 1.01 * (dim / math.cos(math.pi / 6) ** 2) / 2
         points = []
@@ -50,15 +50,21 @@ class HexBinRenderer:
             polygons = list(combined.geoms)
         else:
             polygons = []
-        
+
         rendered_polygons = []
         for polygon in polygons:
-            rendered_polygon = _('polygon', None, dict(
-                points=' '.join([f'{x[0]},{x[1]}' for x in polygon.exterior.coords]),
-                fill=None,
-                stroke='white',
-                stroke_width=dim * 0.05,
-            ))
+            rendered_polygon = _(
+                'polygon',
+                None,
+                dict(
+                    points=' '.join(
+                        [f'{x[0]},{x[1]}' for x in polygon.exterior.coords]
+                    ),
+                    fill=None,
+                    stroke='white',
+                    stroke_width=dim * 0.05,
+                ),
+            )
             rendered_polygons.append(rendered_polygon)
         return _('g', rendered_polygons)
 
@@ -72,7 +78,12 @@ class HexBinRenderer:
                     'polygon',
                     None,
                     dict(
-                        points=' '.join([f'{x[0]},{x[1]}' for x in polygon.exterior.coords]),
+                        points=' '.join(
+                            [
+                                f'{x[0]},{x[1]}'
+                                for x in polygon.exterior.coords
+                            ]
+                        ),
                         fill=color,
                         stroke="black",
                         stroke_width=dim * 0.01,
@@ -83,7 +94,7 @@ class HexBinRenderer:
                     label,
                     dict(
                         x=point.x,
-                        y=point.y / (2 * HexBin.X_TO_Y_RATIO),
+                        y=point.y,
                         fill="black",
                         font_size=dim / 7,
                         font_family="Arial",
@@ -99,7 +110,7 @@ class HexBinRenderer:
         for points in points_list:
             for point in points:
                 x, y = point.x, point.y
-                y /= 2 * HexBin.X_TO_Y_RATIO
+               
 
                 if min_x is None or x < min_x:
                     min_x = x
@@ -119,16 +130,18 @@ class HexBinRenderer:
 
         rendered_points = []
         rendered_groups = []
-        
+
         group_to_points = {}
-        for i_polygon, [points, color, label] in enumerate(zip(points_list, self.colors, self.labels)):
+        for i_polygon, [points, color, label] in enumerate(
+            zip(points_list, self.colors, self.labels)
+        ):
             if len(points) == 0:
                 log.error(f'{i_polygon}) {label} - No points.')
             for point in points:
                 rendered_points.append(
                     HexBinRenderer.render_point(point, dim, color, label)
                 )
-            
+
             group = self.label_to_group[label]
             if group not in group_to_points:
                 group_to_points[group] = []
@@ -152,7 +165,8 @@ class HexBinRenderer:
                     ),
                 )
             ]
-            +  rendered_points + rendered_groups ,
+            + rendered_points
+            + rendered_groups,
             dict(
                 height=500,
                 width=300,
@@ -167,7 +181,7 @@ class HexBinRenderer:
         dim = data['dim']
 
         points_list = [
-            [Point(point) for point in points]
+            [Point(point[0], point[1] / HexBin.X_TO_Y_RATIO) for point in points]
             for points in data['points_list']
         ]
         svg = self.render(points_list, dim)
