@@ -6,7 +6,7 @@ def main():  # noqa
     from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBin
 
     gig_table_last_election = GIGTable(
-        'government-elections-parliamentary', 'regions-ec', '2020'
+        "government-elections-parliamentary", "regions-ec", "2020"
     )
     ents = Ent.list_from_type(EntType.PD)
 
@@ -33,11 +33,11 @@ def main():  # noqa
         )
     )
     polygons = dcn_list[-1].polygons
-
-    HexBin(polygons, total_value=850).save_hexbin(
+    labels = dcn_list[-1].labels
+    HexBin(polygons, labels, total_value=220).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
-            'hexbin.png',
+            "hexbin.png",
         ),
     )
 
