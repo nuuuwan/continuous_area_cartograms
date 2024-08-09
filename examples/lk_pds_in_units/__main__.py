@@ -3,12 +3,8 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import (
-        DCN1985,
-        DCN1985AlgoParams,
-        DCN1985RenderParams,
-        HexBinRenderer,
-    )
+    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
+                     HexBinRenderer)
 
     def get_winning_party(row):
         for k in row.dict.keys():
@@ -86,10 +82,10 @@ def main():  # noqa
         # Central
         idx['Laggala'][0] = [9, 9]
 
-        idx['Walapane'][0] = [10.0,12.5]
+        idx['Walapane'][0] = [10.0, 12.5]
         idx['Hanguranketha'][0] = [10.0, 13.5]
         idx['Kothmale'][0] = [9, 14]
-        idx['Nuwara Eliya Maskeliya'][0] = [8.0,14.5]
+        idx['Nuwara Eliya Maskeliya'][0] = [8.0, 14.5]
 
         # Northern
         for k in [
@@ -109,16 +105,16 @@ def main():  # noqa
         # Eastern
         idx['Trincomalee'][0] = [9.0, 6.0]
         idx['Seruvila'][0] = [9.0, 7.0]
-        idx['Muttur'][0] = [10.0,7.5]
+        idx['Muttur'][0] = [10.0, 7.5]
 
-        idx['Kalkudah'][0] = [11.0,8.0]
+        idx['Kalkudah'][0] = [11.0, 8.0]
         idx['Batticaloa'][0] = [11.0, 9.0]
-        idx['Paddiruppu'][0] = [10.0,9.5]
+        idx['Paddiruppu'][0] = [10.0, 9.5]
 
-        idx['Ampara'][0] = [10.0,10.5]
-        idx['Samanthurai'][0] = [11.0,10.0]
-        idx['Kalmunai'][0] = [12.0,10.5]
-        idx['Pothuvil'][0] = [12.0,11.5]
+        idx['Ampara'][0] = [10.0, 10.5]
+        idx['Samanthurai'][0] = [11.0, 10.0]
+        idx['Kalmunai'][0] = [12.0, 10.5]
+        idx['Pothuvil'][0] = [12.0, 11.5]
 
         # North-Western
         idx['Chilaw'][0] = [2.0, 8.5]
@@ -128,17 +124,17 @@ def main():  # noqa
         idx['Polonnaruwa'][0] = [10.0, 8.5]
 
         # Uva
-        idx['Welimada'][0] = [9.0,15.0]
+        idx['Welimada'][0] = [9.0, 15.0]
         idx['Bandarawela'][0] = [10.0, 15.5]
         idx['Uva Paranagama'][0] = [11.0, 12.0]
 
-        idx['Hali Ela'][0] = [11.0,15.0]
+        idx['Hali Ela'][0] = [11.0, 15.0]
         idx['Uva Paranagama'][0] = [10.0, 14.5]
 
-        idx['Viyaluwa'][0] = [11.0,12]
+        idx['Viyaluwa'][0] = [11.0, 12]
         idx['Passara'][0] = [11.0, 13]
 
-        idx['Bibile'][0] = [12.0,14.5]
+        idx['Bibile'][0] = [12.0, 14.5]
         idx['Monaragala'][0] = [12.0, 15.5]
 
         data['idx'] = idx
