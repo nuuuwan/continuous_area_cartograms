@@ -63,8 +63,8 @@ class HexBinRenderer:
                         [f'{x[0]},{x[1]}' for x in polygon.exterior.coords]
                     ),
                     fill=None,
-                    stroke='#eee',
-                    stroke_width=dim * 0.05,
+                    stroke='#222',
+                    stroke_width=dim * 0.08,
                 ),
             )
             rendered_polygons.append(rendered_polygon)
@@ -74,7 +74,7 @@ class HexBinRenderer:
     def render_label(label, point, dim):
         inner = []
         words = label.split(' ')
-        font_size = 1.5 * dim / max([len(word) for word in words])
+        font_size = 1.5 * dim / max([len(word) for word in words] + [1])
         n = len(words)
         for i, word in enumerate(words):
             inner.append( _(
@@ -148,9 +148,9 @@ class HexBinRenderer:
         ):
             if len(points) == 0:
                 log.error(f'{i_polygon}) {label} - No points.')
-            for point in points:
+            for i_point, point in enumerate(points):
                 rendered_points.append(
-                    HexBinRenderer.render_point(point, dim, color, label)
+                    HexBinRenderer.render_point(point, dim, color, label if i_point == 0 else "")
                 )
 
             group = self.label_to_group[label]

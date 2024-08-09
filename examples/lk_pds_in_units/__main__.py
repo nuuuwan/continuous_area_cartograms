@@ -64,7 +64,7 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(
             # do_shrink=True,
-            max_iterations=60,
+            max_iterations=100,
         ),
         render_params=DCN1985RenderParams(
             super_title="Sri Lanka's Polling Divisions",
