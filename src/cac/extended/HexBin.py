@@ -37,7 +37,7 @@ class HexBin:
 
         polygon = HexBin.get_scaled_polygon(polygon)
         min_x, min_y, max_x, max_y = polygon.bounds
-        PADDING = 1 
+        PADDING = 1
         x_min = int(min_x / dim_x - PADDING) * dim_x
         y_min = int(min_y / dim_y - PADDING) * dim_y
 
@@ -148,7 +148,9 @@ class HexBin:
         total_value = sum(self.values)
         for i_polygon, polygon in enumerate(self.polygons):
             n_points_exp = int(
-                round(self.total_value * self.values[i_polygon] / total_value, 0)
+                round(
+                    self.total_value * self.values[i_polygon] / total_value, 0
+                )
             )
             k_to_n = p_to_k_to_n[i_polygon]
 
@@ -169,7 +171,9 @@ class HexBin:
         ij = 0
         for i_polygon, polygon in enumerate(self.polygons):
             n_points_exp = int(
-                round(self.total_value * self.values[i_polygon] / total_value, 0)
+                round(
+                    self.total_value * self.values[i_polygon] / total_value, 0
+                )
             )
             points = []
             for j in range(n_points_exp):
@@ -183,17 +187,34 @@ class HexBin:
             points_list.append(points)
 
         points_list = HexBin.normalize(points_list, dim)
-        idx = dict(zip(
-            self.labels,
-            [
-                [point.coords[0] for point in points]
-                for points in points_list
-            ],
-        ))
+        idx = dict(
+            zip(
+                self.labels,
+                [
+                    [point.coords[0] for point in points]
+                    for points in points_list
+                ],
+            )
+        )
         return dict(
             idx=idx,
             dim=1,
         )
+
+    @staticmethod
+    def validate(data):
+        idx = data['idx']
+        duplicate_idx = {}
+        for label, points in idx.items():
+            for point in points:
+                point = tuple(point)
+                if point in duplicate_idx:
+                    log.error(
+                        f'{point}: Duplicated with {duplicate_idx[point]}'
+                    )
+                if point not in duplicate_idx:
+                    duplicate_idx[point] = []
+                duplicate_idx[point].append(label)
 
     def write(self, hexbin_data_path):
         data = self.build()

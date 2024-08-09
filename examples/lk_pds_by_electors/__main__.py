@@ -3,7 +3,8 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBinRenderer
+    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
+                     HexBinRenderer)
 
     gig_table_last_election = GIGTable(
         "government-elections-parliamentary", "regions-ec", "2020"
@@ -43,7 +44,9 @@ def main():  # noqa
     polygons = dcn_list[-1].polygons
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values
-    HexBinRenderer(polygons, labels, label_to_group, colors, values, total_value=220).save_hexbin(
+    HexBinRenderer(
+        polygons, labels, label_to_group, colors, values, total_value=220
+    ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",
