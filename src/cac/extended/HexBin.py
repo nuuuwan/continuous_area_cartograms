@@ -4,19 +4,21 @@ from shapely import affinity
 from shapely.geometry import Point
 from utils import JSONFile, Log
 
-from utils_future import MatPlotLibUser
+from algos_future import Hungarian
 
 log = Log("HexBin")
 
 
-class HexBin(MatPlotLibUser):
-    SCALE_FACTOR = 0.9
+class HexBin:
+    SCALE_FACTOR = 1
     N_POLYGON_SIDES = 6
     X_TO_Y_RATIO = math.cos(math.pi / 6)
 
-    def __init__(self, polygons, total_value):
+    def __init__(self, polygons, values, total_value, labels):
         self.polygons = polygons
+        self.values = values
         self.total_value = total_value
+        self.labels = labels
 
     @staticmethod
     def get_scaled_polygon(polygon):
@@ -29,44 +31,54 @@ class HexBin(MatPlotLibUser):
 
     @staticmethod
     def get_hexagon_centroids_for_polygon(polygon, dim):
-        polygon = HexBin.get_scaled_polygon(polygon)
-        min_x, min_y, max_x, max_y = polygon.bounds
         dim_x = dim
         dim_y = dim / HexBin.X_TO_Y_RATIO
+        r = (dim / math.cos(math.pi / 6) ** 2) / 2
 
-        x_min = int(min_x / dim_x) * dim_x
-        y_min = int(min_y / dim_y) * dim_y
+        polygon = HexBin.get_scaled_polygon(polygon)
+        min_x, min_y, max_x, max_y = polygon.bounds
+        PADDING = 1 
+        x_min = int(min_x / dim_x - PADDING) * dim_x
+        y_min = int(min_y / dim_y - PADDING) * dim_y
+
         point_infos = []
-        x = x_min
-        r = 0.5 * (dim / math.cos(math.pi / 6) ** 2) / 2
+        ix = 0
+        while True:
+            x = x_min + ix * dim_x
+            if x > max_x + PADDING * dim_x:
+                break
+            is_odd = (int(round(x / dim_x, 0)) % 2) == 1
 
-        while x <= max_x:
-            y = y_min
-            ix = int(x / dim_x)
-            if ix % 2 == 0:
-                y += dim_y / 4
-            else:
-                y -= dim_y / 4
+            iy = 0
+            while True:
+                y = y_min + iy * dim_y
+                if is_odd:
+                    y -= dim_y / 4
+                else:
+                    y += dim_y / 4
+                if y > max_y + PADDING * dim_y:
+                    break
 
-            while y <= max_y:
                 n_inside = 0
-                for i in range(HexBin.N_POLYGON_SIDES):
-                    angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
-                    x1 = x + r * math.cos(angle)
-                    y1 = y + r * math.sin(angle)
-                    point1 = Point(x1, y1)
-                    if polygon.contains(point1):
-                        n_inside += 1
+                for k in [0.25, 0.5, 1]:
+                    for i in range(HexBin.N_POLYGON_SIDES):
+                        angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
+                        x1 = x + k * r * math.cos(angle)
+                        y1 = y + k * r * math.sin(angle)
+                        point1 = Point(x1, y1)
+                        if polygon.contains(point1):
+                            n_inside += 1 / k
 
                 point = Point(x, y)
+
                 if polygon.contains(point):
-                    n_inside += 1
+                    n_inside += HexBin.N_POLYGON_SIDES
 
                 if n_inside > 0:
                     point_infos.append((point, n_inside))
 
-                y += dim_y
-            x += dim_x
+                iy += 1
+            ix += 1
 
         return point_infos
 
@@ -103,15 +115,18 @@ class HexBin(MatPlotLibUser):
             normalized_points_list.append(normalized_points)
         return normalized_points_list
 
-    def write(self, hexbin_data_path):
-        points_list = []
-
+    def build(
+        self,
+    ):
         total_area = sum([polygon.area for polygon in self.polygons])
-        dim = round(
-            math.sqrt(total_area / self.total_value) * HexBin.SCALE_FACTOR, 3
+        dim = (
+            math.sqrt(total_area)
+            * HexBin.SCALE_FACTOR
+            / math.sqrt(self.total_value)
         )
 
-        idx = {}
+        p_to_k_to_n = {}
+        k_set = set()
         for i_polygon, polygon in enumerate(self.polygons):
             point_infos = HexBin.get_hexagon_centroids_for_polygon(
                 polygon,
@@ -122,52 +137,65 @@ class HexBin(MatPlotLibUser):
 
             for point, n_inside in point_infos:
                 k = tuple([round(x, 6) for x in point.coords[0]])
-                if k not in idx:
-                    idx[k] = {}
-                idx[k][i_polygon] = n_inside
+                k_set.add(k)
+                if i_polygon not in p_to_k_to_n:
+                    p_to_k_to_n[i_polygon] = {}
+                p_to_k_to_n[i_polygon][k] = n_inside
+        sorted_ks = sorted(list(k_set))
 
-        i_polygon_to_rem_n_points = {}
+        cost_matrix = []
+        INF = float("inf")
+        total_value = sum(self.values)
         for i_polygon, polygon in enumerate(self.polygons):
-            expected_n_points = int(
-                round(self.total_value * polygon.area / total_area, 0)
+            n_points_exp = int(
+                round(self.total_value * self.values[i_polygon] / total_value, 0)
             )
-            i_polygon_to_rem_n_points[i_polygon] = expected_n_points
+            k_to_n = p_to_k_to_n[i_polygon]
 
-        i_polygon_to_points = {}
-        for k, idx2 in sorted(
-            idx.items(), key=lambda x: sum(x[1].values()), reverse=True
-        ):
-            min_rem_i_polygon = None
-            for i_polygon, n_inside in sorted(
-                idx2.items(), key=lambda x: x[1], reverse=True
-            ):
-                rem = i_polygon_to_rem_n_points[i_polygon]
-                if rem >= 1:
-                    min_rem_i_polygon = i_polygon
-                    break
+            for j in range(n_points_exp):
+                row = []
+                for k in sorted_ks:
+                    cost = INF
+                    if k in k_to_n:
+                        cost = 1.0 / k_to_n[k]
+                    row.append(cost)
+                cost_matrix.append(row)
 
-            if min_rem_i_polygon is None:
-                continue
+        optimal_assignment = Hungarian(cost_matrix).run()
 
-            if min_rem_i_polygon not in i_polygon_to_points:
-                i_polygon_to_points[min_rem_i_polygon] = []
-            i_polygon_to_points[min_rem_i_polygon].append(k)
-            i_polygon_to_rem_n_points[min_rem_i_polygon] -= 1
-
+        points_list = []
+        ij_to_ik = dict(optimal_assignment)
+        k_set = set()
+        ij = 0
         for i_polygon, polygon in enumerate(self.polygons):
+            n_points_exp = int(
+                round(self.total_value * self.values[i_polygon] / total_value, 0)
+            )
             points = []
-            for k in i_polygon_to_points.get(i_polygon, []):
+            for j in range(n_points_exp):
+                ik = ij_to_ik[ij]
+                ij += 1
+                k = sorted_ks[ik]
+                if k in k_set:
+                    log.error(f"Duplicate k: {k}")
+                k_set.add(k)
                 points.append(Point(k))
             points_list.append(points)
 
         points_list = HexBin.normalize(points_list, dim)
-
-        data = dict(
-            points_list=[
+        idx = dict(zip(
+            self.labels,
+            [
                 [point.coords[0] for point in points]
                 for points in points_list
             ],
+        ))
+        return dict(
+            idx=idx,
             dim=1,
         )
+
+    def write(self, hexbin_data_path):
+        data = self.build()
         JSONFile(hexbin_data_path).write(data)
         log.info(f"Wrote {hexbin_data_path}")

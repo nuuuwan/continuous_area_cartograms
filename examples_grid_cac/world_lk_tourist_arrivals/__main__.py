@@ -3,10 +3,12 @@ import os
 import geopandas
 
 from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, GridCAC
-from examples_grid_cac.world_lk_tourist_arrivals.LK_TOURIST_ARRIVALS import \
-    LK_TOURIST_ARRIVALS
-from examples_grid_cac.world_lk_tourist_arrivals.NAME_MAP_TO_NAME_DATA import \
-    NAME_MAP_TO_NAME_DATA
+from examples_grid_cac.world_lk_tourist_arrivals.LK_TOURIST_ARRIVALS import (
+    LK_TOURIST_ARRIVALS,
+)
+from examples_grid_cac.world_lk_tourist_arrivals.NAME_MAP_TO_NAME_DATA import (
+    NAME_MAP_TO_NAME_DATA,
+)
 
 ALGO_PARAMS = DCN1985AlgoParams(
     do_shrink=True,

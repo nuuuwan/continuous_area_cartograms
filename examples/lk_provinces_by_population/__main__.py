@@ -3,13 +3,18 @@ def main():  # noqa
 
     from gig import Ent, EntType
 
-    from cac import DCN1985, DCN1985RenderParams, HexBin
+    from cac import DCN1985, DCN1985RenderParams, HexBinRenderer
 
     ents = Ent.list_from_type(EntType.PROVINCE)
 
     values = []
+    label_to_group = {}
+    colors = []
     for ent in ents:
         values.append(ent.population)
+        label = ent.name
+        label_to_group[label] = ent.name
+        colors.append("red")
 
     algo = DCN1985.from_ents(
         ents,
@@ -19,17 +24,22 @@ def main():  # noqa
             title="Population",
         ),
     )
-    polygons = algo.build(
+    _, dcn_list = algo.build(
         os.path.join(
             os.path.dirname(__file__),
-        ),
+        )
     )
 
-    HexBin(polygons).save_hexbin(
+    polygons = dcn_list[-1].polygons
+    labels = dcn_list[-1].labels
+
+    HexBinRenderer(
+        polygons, labels, label_to_group, colors, total_value=22
+    ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
-            'hexbin.png',
-        )
+            "hexbin.svg",
+        ),
     )
 
 
