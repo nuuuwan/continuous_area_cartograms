@@ -266,11 +266,12 @@ class HexBinRenderer:
             self.polygons, self.values, self.total_value, self.labels
         ).write(hexbin_data_path)
 
+        data = JSONFile(hexbin_data_path).read()
         if post_process is not None:
             log.info('Running post_process.')
-            data = JSONFile(hexbin_data_path).read()
             data = post_process(data)
             HexBin.validate(data)
+            JSONFile(hexbin_data_path + '.postprocess.json').write(data)
 
         dim = data['dim']
         points_list = [

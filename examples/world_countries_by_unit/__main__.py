@@ -20,6 +20,8 @@ def main():  # noqa
         render_params=DCN1985RenderParams(
             super_title="World",
             title="Unit",
+            start_value_color="green",
+            end_value_color="orange"
         ),
     )
     algo.build(
