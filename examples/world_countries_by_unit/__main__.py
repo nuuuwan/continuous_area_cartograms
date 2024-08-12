@@ -21,7 +21,7 @@ def main():  # noqa
             super_title="World",
             title="Unit",
             start_value_color="green",
-            end_value_color="orange"
+            end_value_color="orange",
         ),
     )
     algo.build(

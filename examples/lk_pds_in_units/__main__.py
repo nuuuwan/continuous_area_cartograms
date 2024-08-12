@@ -28,7 +28,7 @@ def main():  # noqa
 
         n_matches = 0
         n_years = 0
-        for year in YEARS:
+        for year in YEARS[-1:]:
             n_years += 1
             gig_table_prespoll = GIGTable(
                 "government-elections-presidential", "regions-ec", str(year)

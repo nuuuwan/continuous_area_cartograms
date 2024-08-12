@@ -1,7 +1,8 @@
 import math
 
 from shapely import affinity
-from shapely.geometry import Point
+from shapely.geometry import MultiPolygon, Point, Polygon
+from shapely.ops import unary_union
 from utils import JSONFile, Log
 
 from algos_future import Hungarian
@@ -14,11 +15,21 @@ class HexBin:
     N_POLYGON_SIDES = 6
     X_TO_Y_RATIO = math.cos(math.pi / 6)
 
-    def __init__(self, polygons, values, total_value, labels):
+    def __init__(
+        self,
+        polygons,
+        values,
+        total_value,
+        labels,
+        label_to_group,
+        post_process,
+    ):
         self.polygons = polygons
         self.values = values
         self.total_value = total_value
         self.labels = labels
+        self.label_to_group = label_to_group
+        self.post_process = post_process
 
     @staticmethod
     def get_scaled_polygon(polygon):
@@ -115,6 +126,39 @@ class HexBin:
             normalized_points_list.append(normalized_points)
         return normalized_points_list
 
+    @staticmethod
+    def get_polygon(point, dim, expand_factor=1.0):
+        x, y = point.x, point.y
+
+        r = expand_factor * (dim / math.cos(math.pi / 6) ** 2) / 2
+        points = []
+        for i in range(HexBin.N_POLYGON_SIDES):
+            angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
+            x1 = x + r * math.cos(angle)
+            y1 = y + r * math.sin(angle)
+
+            points.append(Point(x1, y1))
+        return Polygon(points)
+
+    @staticmethod
+    def get_group_polygons(points, dim):
+        polygons = []
+        for point in points:
+            polygons.append(
+                HexBin.get_polygon(point, dim, expand_factor=1.001)
+            )
+        combined = unary_union(polygons)
+
+        polygons = []
+        if isinstance(combined, Polygon):
+            polygons = [combined]
+        elif not isinstance(combined, MultiPolygon):
+            polygons = list(combined.geoms)
+        else:
+            polygons = []
+
+        return polygons
+
     def build(
         self,
     ):
@@ -191,13 +235,40 @@ class HexBin:
             zip(
                 self.labels,
                 [
-                    [point.coords[0] for point in points]
+                    [list(point.coords[0]) for point in points]
                     for points in points_list
                 ],
             )
         )
+        idx = self.post_process(dict(idx=idx))['idx']
+
+        group_to_points = {}
+        for label, points in idx.items():
+            group = self.label_to_group[label]
+            if group not in group_to_points:
+                group_to_points[group] = []
+            group_to_points[group].extend(points)
+
+        idx2 = {}
+        for group, points in group_to_points.items():
+            polygons = HexBin.get_group_polygons(
+                [
+                    Point(point[0], point[1] / HexBin.X_TO_Y_RATIO)
+                    for point in points
+                ],
+                1,
+            )
+            idx2[group] = [
+                [
+                    (point[0], point[1] * HexBin.X_TO_Y_RATIO)
+                    for point in polygon.exterior.coords
+                ]
+                for polygon in polygons
+            ]
+
         return dict(
             idx=idx,
+            idx2=idx2,
             dim=1,
         )
 

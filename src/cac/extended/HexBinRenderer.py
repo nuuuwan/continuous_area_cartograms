@@ -1,8 +1,6 @@
-import math
 import os
 
-from shapely import MultiPolygon, Point, Polygon
-from shapely.ops import unary_union
+from shapely import Point, Polygon
 from utils import JSONFile, Log, _
 
 from cac.extended.HexBin import HexBin
@@ -25,36 +23,7 @@ class HexBinRenderer:
         self.total_value = total_value
 
     @staticmethod
-    def get_polygon(point, dim, expand_factor=1.0):
-        x, y = point.x, point.y
-
-        r = expand_factor * (dim / math.cos(math.pi / 6) ** 2) / 2
-        points = []
-        for i in range(HexBin.N_POLYGON_SIDES):
-            angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
-            x1 = x + r * math.cos(angle)
-            y1 = y + r * math.sin(angle)
-
-            points.append(Point(x1, y1))
-        return Polygon(points)
-
-    @staticmethod
-    def render_group(points, dim):
-        polygons = []
-        for point in points:
-            polygons.append(
-                HexBinRenderer.get_polygon(point, dim, expand_factor=1.01)
-            )
-        combined = unary_union(polygons)
-
-        polygons = []
-        if isinstance(combined, Polygon):
-            polygons = [combined]
-        elif not isinstance(combined, MultiPolygon):
-            polygons = list(combined.geoms)
-        else:
-            polygons = []
-
+    def render_group(polygons, dim):
         rendered_polygons = []
         for polygon in polygons:
             rendered_polygon = _(
@@ -66,7 +35,7 @@ class HexBinRenderer:
                     ),
                     fill=None,
                     stroke='#222',
-                    stroke_width=dim * 0.08,
+                    stroke_width=dim * 0.1,
                 ),
             )
             rendered_polygons.append(rendered_polygon)
@@ -98,7 +67,7 @@ class HexBinRenderer:
 
     @staticmethod
     def render_point(point, dim, color, label):
-        polygon = HexBinRenderer.get_polygon(point, dim)
+        polygon = HexBin.get_polygon(point, dim)
         return _(
             'g',
             [
@@ -123,7 +92,6 @@ class HexBinRenderer:
 
     @staticmethod
     def render_grid(min_x, min_y, max_x, max_y, dim):
-        return _('g')
         dim_x = dim
         dim_y = dim / HexBin.X_TO_Y_RATIO
         inner = []
@@ -136,7 +104,7 @@ class HexBinRenderer:
 
             while True:
                 point = Point(x, y)
-                polygon = HexBinRenderer.get_polygon(point, dim)
+                polygon = HexBin.get_polygon(point, dim)
 
                 inner.append(
                     _(
@@ -183,7 +151,7 @@ class HexBinRenderer:
 
         return _('g', inner)
 
-    def render(self, points_list, dim):
+    def render(self, points_list, group_to_polygons, dim):
         min_x, min_y, max_x, max_y = None, None, None, None
         for points in points_list:
             for point in points:
@@ -212,28 +180,17 @@ class HexBinRenderer:
         y_span = max_y - min_y
 
         rendered_points = []
-        rendered_groups = []
-
-        group_to_points = {}
-        for i_polygon, [points, color, label] in enumerate(
-            zip(points_list, self.colors, self.labels)
-        ):
-            if len(points) == 0:
-                log.error(f'{i_polygon}) {label} - No points.')
-            for i_point, point in enumerate(points):
+        for i, points in enumerate(points_list):
+            color = self.colors[i]
+            label = self.labels[i]
+            for point in points:
                 rendered_points.append(
-                    HexBinRenderer.render_point(
-                        point, dim, color, label if i_point == 0 else ""
-                    )
+                    HexBinRenderer.render_point(point, dim, color, label)
                 )
 
-            group = self.label_to_group[label]
-            if group not in group_to_points:
-                group_to_points[group] = []
-            group_to_points[group].extend(points)
-
-        for group, points in group_to_points.items():
-            rendered_groups.append(HexBinRenderer.render_group(points, dim))
+        rendered_groups = []
+        for group, polygons in group_to_polygons.items():
+            rendered_groups.append(HexBinRenderer.render_group(polygons, dim))
 
         return _(
             'svg',
@@ -263,15 +220,15 @@ class HexBinRenderer:
     def save_hexbin(self, hexbin_path, post_process=None):
         hexbin_data_path = hexbin_path + '.json'
         HexBin(
-            self.polygons, self.values, self.total_value, self.labels
+            self.polygons,
+            self.values,
+            self.total_value,
+            self.labels,
+            self.label_to_group,
+            post_process,
         ).write(hexbin_data_path)
 
         data = JSONFile(hexbin_data_path).read()
-        if post_process is not None:
-            log.info('Running post_process.')
-            data = post_process(data)
-            HexBin.validate(data)
-            JSONFile(hexbin_data_path + '.postprocess.json').write(data)
 
         dim = data['dim']
         points_list = [
@@ -281,8 +238,17 @@ class HexBinRenderer:
             ]
             for points in data['idx'].values()
         ]
+        group_to_polygons = {
+            k: [
+                Polygon(
+                    [[vii[0], vii[1] / HexBin.X_TO_Y_RATIO] for vii in vi]
+                )
+                for vi in v
+            ]
+            for k, v in data['idx2'].items()
+        }
 
-        svg = self.render(points_list, dim)
+        svg = self.render(points_list, group_to_polygons, dim)
 
         svg.store(hexbin_path)
         log.info(f"Wrote {hexbin_path}")
