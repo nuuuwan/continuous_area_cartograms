@@ -71,7 +71,7 @@ class HexBin:
                     break
 
                 n_inside = 0
-                for k in [0.25, 0.5, 1]:
+                for k in [0.125, 0.25, 0.5, 1]:
                     for i in range(HexBin.N_POLYGON_SIDES):
                         angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
                         x1 = x + k * r * math.cos(angle)
@@ -83,7 +83,7 @@ class HexBin:
                 point = Point(x, y)
 
                 if polygon.contains(point):
-                    n_inside += HexBin.N_POLYGON_SIDES
+                    n_inside += 32
 
                 if n_inside > 0:
                     point_infos.append((point, n_inside))
@@ -281,13 +281,17 @@ class HexBin:
                 point = tuple(point)
                 if point in duplicate_idx:
                     log.error(
-                        f'{point}: Duplicated with {duplicate_idx[point]}'
+                        f"{point}: '{label}' Duplicated with {duplicate_idx[point]}"
                     )
                 if point not in duplicate_idx:
                     duplicate_idx[point] = []
                 duplicate_idx[point].append(label)
 
+        n = len(idx.keys())
+        log.warn(f'{n=}')
+
     def write(self, hexbin_data_path):
         data = self.build()
+        self.validate(data)
         JSONFile(hexbin_data_path).write(data)
         log.info(f"Wrote {hexbin_data_path}")

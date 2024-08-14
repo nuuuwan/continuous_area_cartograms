@@ -18,41 +18,23 @@ def main():  # noqa
     colors = []
 
     ent_lk = Ent.from_id('LK')
-    YEARS = ['1982', '1988', '1994', '1999', '2005', '2010', '2015', '2019']
 
     for ent in ents:
         values.append(1)
         label = ent.name
-        group = ent.ed_id
+        group = ent.district_id
         label_to_group[label] = group
 
-        n_matches = 0
-        n_years = 0
-        for year in YEARS[-1:]:
-            n_years += 1
-            gig_table_prespoll = GIGTable(
-                "government-elections-presidential", "regions-ec", str(year)
-            )
+        gig_table_prespoll = GIGTable(
+            "government-elections-presidential", "regions-ec", "2015"
+        )
 
-            winning_party = get_winning_party(ent.gig(gig_table_prespoll))
-            winning_party_lk = get_winning_party(
-                ent_lk.gig(gig_table_prespoll)
-            )
-
-            if winning_party == winning_party_lk:
-                n_matches += 1
-
-        p_matches = n_matches / n_years
-
-        if p_matches > 0.5:
-            hue = 0
-            p = p_matches - 0.5
+        winning_party = get_winning_party(ent.gig(gig_table_prespoll))
+        if winning_party == 'NDF':
+            color = "#080"
         else:
-            hue = 240
-            p = 0.5 - p_matches
+            color = "#00c"
 
-        light = 40 + 50 * (1 - p)
-        color = f'hsl({hue},75%,{light}%)'
         colors.append(color)
 
     algo = DCN1985.from_ents(
@@ -79,14 +61,6 @@ def main():  # noqa
     def post_process(data):
         idx = data['idx']
 
-        # Central
-        idx['Laggala'][0] = [9, 9]
-
-        idx['Walapane'][0] = [10.0, 12.5]
-        idx['Hanguranketha'][0] = [10.0, 13.5]
-        idx['Kothmale'][0] = [9, 14]
-        idx['Nuwara Eliya Maskeliya'][0] = [8.0, 14.5]
-
         # Northern
         for k in [
             'Chavakachcheri',
@@ -102,40 +76,37 @@ def main():  # noqa
             idx[k][0][1] += 2
         idx['Kayts'][0] = [2, 3.5]
 
-        # Eastern
-        idx['Trincomalee'][0] = [9.0, 6.0]
-        idx['Seruvila'][0] = [9.0, 7.0]
-        idx['Muttur'][0] = [10.0, 7.5]
-
-        idx['Kalkudah'][0] = [11.0, 8.0]
-        idx['Batticaloa'][0] = [11.0, 9.0]
-        idx['Paddiruppu'][0] = [10.0, 9.5]
-
-        idx['Ampara'][0] = [10.0, 10.5]
-        idx['Samanthurai'][0] = [11.0, 10.0]
-        idx['Kalmunai'][0] = [12.0, 10.5]
-        idx['Pothuvil'][0] = [12.0, 11.5]
-
         # North-Western
         idx['Chilaw'][0] = [2.0, 8.5]
         idx['Nattandiya'][0] = [2.0, 9.5]
 
-        # North-Central
-        idx['Polonnaruwa'][0] = [10.0, 8.5]
+        # Central
+        idx['Walapane'][0] = [10.0, 13.5]
 
-        # Uva
-        idx['Welimada'][0] = [9.0, 15.0]
-        idx['Bandarawela'][0] = [10.0, 15.5]
-        idx['Uva Paranagama'][0] = [11.0, 12.0]
-
-        idx['Hali Ela'][0] = [11.0, 15.0]
-        idx['Uva Paranagama'][0] = [10.0, 14.5]
-
-        idx['Viyaluwa'][0] = [11.0, 12]
-        idx['Passara'][0] = [11.0, 13]
-
+        # # Uva
         idx['Bibile'][0] = [12.0, 14.5]
         idx['Monaragala'][0] = [12.0, 15.5]
+
+        idx['Mahiyanganaya'][0] = [11.0,12.0]
+        idx['Viyaluwa'][0] = [10.0,12.5]
+        idx['Uva Paranagama'][0] = [11.0, 13.0]
+
+        # Eastern
+        idx['Batticaloa'][0] = [10.0,9.5]
+        idx['Paddiruppu'][0] = [11.0,10.0]
+
+        idx['Ampara'][0] = [11.0, 11.0]
+        idx['Samanthurai'][0] = [12.0,11.5]
+        idx['Kalmunai'][0] = [12.0,12.5]
+        idx['Pothuvil'][0] = [13.0,13.0]
+
+        idx['Trincomalee'][0] = [9.0, 6.0]
+        idx['Seruvila'][0] = [9, 7]
+        idx['Muttur'][0] = [10.0, 7.5]
+
+        # Southern
+        idx['Balapitiya'][0] = [2.0, 18.5]
+        idx['Ambalangoda'][0] = [3.0, 18]
 
         data['idx'] = idx
         return data

@@ -47,6 +47,10 @@ class HexBinRenderer:
         words = label.split(' ')
         font_size = 1.5 * dim / max([len(word) for word in words] + [1])
         n = len(words)
+
+        dim_x = dim
+        dim_y = dim / HexBin.X_TO_Y_RATIO
+
         for i, word in enumerate(words):
             inner.append(
                 _(
@@ -55,7 +59,7 @@ class HexBinRenderer:
                     dict(
                         x=point.x,
                         y=point.y + font_size * (i - (n - 1) / 2),
-                        fill="black",
+                        fill="white",
                         font_size=font_size,
                         font_family="P22 Johnston Underground Regular",
                         text_anchor="middle",
@@ -63,6 +67,23 @@ class HexBinRenderer:
                     ),
                 )
             )
+
+        inner.append(
+            _(
+                'text',
+                f'{point.x / dim_x:.1f},{point.y / dim_y:.1f}',
+                dict(
+                    x=point.x,
+                    y=point.y + font_size * (i - (n - 1) / 2) + 0.2,
+                    fill="white",
+                    font_size=0.2,
+                    font_family="P22 Johnston Underground Regular",
+                    text_anchor="middle",
+                    dominant_baseline="middle",
+                ),
+            )
+        )
+
         return _('g', inner)
 
     @staticmethod
