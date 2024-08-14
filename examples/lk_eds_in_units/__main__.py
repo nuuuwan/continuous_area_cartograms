@@ -17,42 +17,24 @@ def main():  # noqa
     values = []
     colors = []
 
-    ent_lk = Ent.from_id('LK')
-    YEARS = ['1982', '1988', '1994', '1999', '2005', '2010', '2015', '2019']
+    Ent.from_id('LK')
 
     for ent in ents:
         values.append(1)
         label = ent.name
-        group = ent.ed_id
+        group = ent.province_id
         label_to_group[label] = group
 
-        n_matches = 0
-        n_years = 0
-        for year in YEARS[-1:]:
-            n_years += 1
-            gig_table_prespoll = GIGTable(
-                "government-elections-presidential", "regions-ec", str(year)
-            )
+        gig_table_prespoll = GIGTable(
+            "government-elections-presidential", "regions-ec", "2015"
+        )
 
-            winning_party = get_winning_party(ent.gig(gig_table_prespoll))
-            winning_party_lk = get_winning_party(
-                ent_lk.gig(gig_table_prespoll)
-            )
-
-            if winning_party == winning_party_lk:
-                n_matches += 1
-
-        p_matches = n_matches / n_years
-
-        if p_matches > 0.5:
-            hue = 0
-            p = p_matches - 0.5
+        winning_party = get_winning_party(ent.gig(gig_table_prespoll))
+        if winning_party == 'NDF':
+            color = "#080"
         else:
-            hue = 240
-            p = 0.5 - p_matches
+            color = "#00c"
 
-        light = 40 + 50 * (1 - p)
-        color = f'hsl({hue},75%,{light}%)'
         colors.append(color)
 
     algo = DCN1985.from_ents(
@@ -79,17 +61,26 @@ def main():  # noqa
     def post_process(data):
         idx = data['idx']
 
-        idx['Batticaloa'][0] = [3.0, 1]
-        idx['Digamadulla'][0] = [3.0, 2]
-        idx['Badulla'][0] = [3.0, 3]
-        idx['Moneragala'][0] = [3.0, 4]
+        for after, before in [
+            ('Galle', 'Kalutara'),
+            ('Kalutara', 'Colombo'),
+            ('Colombo', 'Gampaha'),
+            ('Gampaha', 'Kurunegala'),
+            ('Kurunegala', 'Anuradhapura'),
+            ('Anuradhapura', 'Vanni'),
+            ('Vanni', 'Jaffna'),
+            #
+            ('Matara', 'Hambantota'),
+            ('Hambantota', 'Moneragala'),
+            ('Moneragala', 'Badulla'),
+            ('Badulla', 'Digamadulla'),
+            ('Digamadulla', 'Batticaloa'),
+            ('Vanni', 'Jaffna'),
+        ]:
+            idx[after] = idx[before]
 
-        idx['Jaffna'][0] = [0, -0.5]
-        idx['Vanni'][0] = [1, 0]
-        idx['Anuradhapura'][0] = [1.0, 1]
-        idx['Kurunegala'][0] = [1.0, 2]
-
-        idx['Puttalam'][0] = [0, 2.5]
+        idx['Jaffna'] = [[0.0, -0.5]]
+        idx['Batticaloa'] = [[3.0, 1.0]]
 
         data['idx'] = idx
         return data
@@ -106,7 +97,7 @@ def main():  # noqa
             os.path.dirname(__file__),
             "hexbin.svg",
         ),
-        post_process=post_process,
+        post_process,
     )
 
 

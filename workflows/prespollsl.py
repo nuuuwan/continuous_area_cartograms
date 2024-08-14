@@ -11,18 +11,20 @@ ENT_TYPE = EntType.ED
 EXAMPLE_NAME = 'lk_eds_in_units'
 
 hexbin_data_path = os.path.join(
-    'examples', EXAMPLE_NAME, 'hexbin.svg.json.postprocess.json'
+    'examples', EXAMPLE_NAME, 'hexbin.svg.json'
 )
-idx = JSONFile(hexbin_data_path).read()['idx']
+
+data = JSONFile(hexbin_data_path).read()
 ents = Ent.list_from_type(ENT_TYPE)
 
 name_to_id = {ent.name: ent.id for ent in ents}
 
-idx2 = {}
-for name, points in idx.items():
+idx_renamed = {}
+for name, points in data['idx'].items():
     id = name_to_id[name]
-    idx2[id] = points[0]
+    idx_renamed[id] = points[0]
+data['idx'] = idx_renamed
 
 output_path = hexbin_data_path + '.txt'
-File(output_path).write(json.dumps(idx2, indent=4))
+File(output_path).write(json.dumps(data, indent=4))
 os.startfile(output_path)

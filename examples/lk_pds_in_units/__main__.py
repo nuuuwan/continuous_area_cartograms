@@ -17,12 +17,12 @@ def main():  # noqa
     values = []
     colors = []
 
-    ent_lk = Ent.from_id('LK')
+    Ent.from_id('LK')
 
     for ent in ents:
         values.append(1)
         label = ent.name
-        group = ent.district_id
+        group = ent.ed_id
         label_to_group[label] = group
 
         gig_table_prespoll = GIGTable(
@@ -87,18 +87,18 @@ def main():  # noqa
         idx['Bibile'][0] = [12.0, 14.5]
         idx['Monaragala'][0] = [12.0, 15.5]
 
-        idx['Mahiyanganaya'][0] = [11.0,12.0]
-        idx['Viyaluwa'][0] = [10.0,12.5]
+        idx['Mahiyanganaya'][0] = [11.0, 12.0]
+        idx['Viyaluwa'][0] = [10.0, 12.5]
         idx['Uva Paranagama'][0] = [11.0, 13.0]
 
         # Eastern
-        idx['Batticaloa'][0] = [10.0,9.5]
-        idx['Paddiruppu'][0] = [11.0,10.0]
+        idx['Batticaloa'][0] = [10.0, 9.5]
+        idx['Paddiruppu'][0] = [11.0, 10.0]
 
         idx['Ampara'][0] = [11.0, 11.0]
-        idx['Samanthurai'][0] = [12.0,11.5]
-        idx['Kalmunai'][0] = [12.0,12.5]
-        idx['Pothuvil'][0] = [13.0,13.0]
+        idx['Samanthurai'][0] = [12.0, 11.5]
+        idx['Kalmunai'][0] = [12.0, 12.5]
+        idx['Pothuvil'][0] = [13.0, 13.0]
 
         idx['Trincomalee'][0] = [9.0, 6.0]
         idx['Seruvila'][0] = [9, 7]
