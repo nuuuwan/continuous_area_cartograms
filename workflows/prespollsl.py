@@ -25,6 +25,15 @@ for name, points in data['idx'].items():
     idx_renamed[id] = points[0]
 data['idx'] = idx_renamed
 
+idx2_norm = {}
+for id, polygons in data['idx2'].items():
+    norm_polygons = [
+        [[round(x, 2) for x in point] for point in polygon]
+        for polygon in polygons
+    ]
+    idx2_norm[id] = norm_polygons
+data['idx2'] = idx2_norm
+
 output_path = hexbin_data_path + '.txt'
 File(output_path).write(json.dumps(data, indent=4))
 os.startfile(output_path)
