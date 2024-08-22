@@ -68,21 +68,21 @@ class HexBinRenderer:
                 )
             )
 
-        inner.append(
-            _(
-                'text',
-                f'{point.x / dim_x:.1f},{point.y / dim_y:.1f}',
-                dict(
-                    x=point.x,
-                    y=point.y + font_size * (i - (n - 1) / 2) + 0.2,
-                    fill="white",
-                    font_size=0.2,
-                    font_family="P22 Johnston Underground Regular",
-                    text_anchor="middle",
-                    dominant_baseline="middle",
-                ),
-            )
-        )
+        # inner.append(
+        #     _(
+        #         'text',
+        #         f'{point.x / dim_x:.1f},{point.y / dim_y:.1f}',
+        #         dict(
+        #             x=point.x,
+        #             y=point.y + font_size * (i - (n - 1) / 2) + 0.2,
+        #             fill="white",
+        #             font_size=0.2,
+        #             font_family="P22 Johnston Underground Regular",
+        #             text_anchor="middle",
+        #             dominant_baseline="middle",
+        #         ),
+        #     )
+        # )
 
         return _('g', inner)
 
@@ -208,6 +208,7 @@ class HexBinRenderer:
                 rendered_points.append(
                     HexBinRenderer.render_point(point, dim, color, label)
                 )
+                label = ""
 
         rendered_groups = []
         for group, polygons in group_to_polygons.items():

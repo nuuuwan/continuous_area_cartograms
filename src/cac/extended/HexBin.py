@@ -240,7 +240,8 @@ class HexBin:
                 ],
             )
         )
-        idx = self.post_process(dict(idx=idx))['idx']
+        if self.post_process:
+            idx = self.post_process(dict(idx=idx))['idx']
 
         group_to_points = {}
         for label, points in idx.items():
