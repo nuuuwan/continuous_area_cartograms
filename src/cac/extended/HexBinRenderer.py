@@ -23,17 +23,17 @@ class HexBinRenderer:
     N_POLYGON_SIDES = 6
 
     def __init__(
-        self, polygons, labels, label_to_group, colors, values, total_value
+        self, polygons, labels, group_to_label_to_group, colors, values, total_value
     ):
         self.polygons = polygons
         self.labels = labels
-        self.label_to_group = label_to_group
+        self.group_to_label_to_group = group_to_label_to_group
         self.colors = colors
         self.values = values
         self.total_value = total_value
 
     @staticmethod
-    def render_group(polygons, dim):
+    def render_group(polygons, dim, i_group):
         rendered_polygons = []
         for polygon in polygons:
             rendered_polygon = _(
@@ -45,7 +45,8 @@ class HexBinRenderer:
                     ),
                     fill=None,
                     stroke='#222',
-                    stroke_width=dim * 0.1,
+                    stroke_width=(1 + i_group) * dim * 0.07,
+                    opacity=0.5 + 0.1 * i_group,
                 ),
             )
             rendered_polygons.append(rendered_polygon)
@@ -177,7 +178,7 @@ class HexBinRenderer:
 
         return _('g', inner)
 
-    def render(self, points_list, group_to_polygons, dim):
+    def render(self, points_list, group_type_to_group_to_polygons, dim):
         min_x, min_y, max_x, max_y = None, None, None, None
         for points in points_list:
             for point in points:
@@ -216,8 +217,9 @@ class HexBinRenderer:
                 label = ""
 
         rendered_groups = []
-        for group, polygons in group_to_polygons.items():
-            rendered_groups.append(HexBinRenderer.render_group(polygons, dim))
+        for i, [group_type, group_to_polygons] in enumerate(group_type_to_group_to_polygons.items()):
+            for group, polygons in group_to_polygons.items():
+                rendered_groups.append(HexBinRenderer.render_group(polygons, dim, i))
 
         return _(
             'svg',
@@ -251,7 +253,7 @@ class HexBinRenderer:
             self.values,
             self.total_value,
             self.labels,
-            self.label_to_group,
+            self.group_to_label_to_group,
             post_process,
         ).write(hexbin_data_path)
 
@@ -265,17 +267,20 @@ class HexBinRenderer:
             ]
             for points in data['idx'].values()
         ]
-        group_to_polygons = {
-            k: [
-                Polygon(
-                    [[vii[0], vii[1] / HexBin.X_TO_Y_RATIO] for vii in vi]
-                )
-                for vi in v
-            ]
-            for k, v in data['idx2'].items()
+        group_type_to_group_to_polygons = {
+            group_type: {
+                group: [
+                    Polygon(
+                        [[vii[0], vii[1] / HexBin.X_TO_Y_RATIO] for vii in vi]
+                    )
+                    for vi in points
+                ]
+                for group, points in group_to_points.items()
+            }
+            for group_type, group_to_points in data['idx2'].items()
         }
 
-        svg = self.render(points_list, group_to_polygons, dim)
+        svg = self.render(points_list, group_type_to_group_to_polygons, dim)
 
         svg.store(hexbin_path)
         log.info(f"Wrote {hexbin_path}")

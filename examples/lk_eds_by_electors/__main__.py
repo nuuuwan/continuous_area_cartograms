@@ -17,7 +17,10 @@ def main():  # noqa
     ents = Ent.list_from_type(EntType.ED)
 
     values = []
-    label_to_group = {}
+    group_label_to_group = {
+        'ED': {},
+        'Province': {},
+    }
     colors = []
 
     total_electors = 0
@@ -43,8 +46,9 @@ def main():  # noqa
         values.append(value)
         total_value += value
         label = ent.name
-        group = label
-        label_to_group[label] = group
+
+        group_label_to_group['ED'][label] = ent.name
+        group_label_to_group['Province'][label] = ent.province_id
         
         # color 
         row2019 = ent.gig(gig_table_elec_pres_2019)
@@ -79,17 +83,26 @@ def main():  # noqa
             os.path.dirname(__file__),
         )
     )
+
+    def post_process(data):
+        idx = data['idx']
+
+
+        data['idx'] = idx
+        return data
+
+
     polygons = dcn_list[-1].polygons
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values
     HexBinRenderer(
-        polygons, labels, label_to_group, colors, values, total_value=total_value
+        polygons, labels, group_label_to_group, colors, values, total_value=total_value
     ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",
         ),
-        post_process=None,
+        post_process=post_process,
     )
 
 

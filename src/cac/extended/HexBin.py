@@ -21,14 +21,14 @@ class HexBin:
         values,
         total_value,
         labels,
-        label_to_group,
+        group_label_to_group,
         post_process,
     ):
         self.polygons = polygons
         self.values = values
         self.total_value = total_value
         self.labels = labels
-        self.label_to_group = label_to_group
+        self.group_label_to_group = group_label_to_group
         self.post_process = post_process
 
     @staticmethod
@@ -243,29 +243,34 @@ class HexBin:
         if self.post_process:
             idx = self.post_process(dict(idx=idx))['idx']
 
-        group_to_points = {}
-        for label, points in idx.items():
-            group = self.label_to_group[label]
-            if group not in group_to_points:
-                group_to_points[group] = []
-            group_to_points[group].extend(points)
+        group_type_to_group_to_points = {}
+        for group_type, label_to_group in self.group_label_to_group.items():        
+            group_to_points = {}
+            for label, points in idx.items():
+                group = self.group_label_to_group[group_type][label]
+                if group not in group_to_points:
+                    group_to_points[group] = []
+                group_to_points[group].extend(points)
+            group_type_to_group_to_points[group_type] = group_to_points
 
         idx2 = {}
-        for group, points in group_to_points.items():
-            polygons = HexBin.get_group_polygons(
-                [
-                    Point(point[0], point[1] / HexBin.X_TO_Y_RATIO)
-                    for point in points
-                ],
-                1,
-            )
-            idx2[group] = [
-                [
-                    (point[0], point[1] * HexBin.X_TO_Y_RATIO)
-                    for point in polygon.exterior.coords
+        for group_type, group_to_points in group_type_to_group_to_points.items():
+            idx2[group_type] = {}
+            for group, points in group_to_points.items():
+                polygons = HexBin.get_group_polygons(
+                    [
+                        Point(point[0], point[1] / HexBin.X_TO_Y_RATIO)
+                        for point in points
+                    ],
+                    1,
+                )
+                idx2[group_type][group] = [
+                    [
+                        (point[0], point[1] * HexBin.X_TO_Y_RATIO)
+                        for point in polygon.exterior.coords
+                    ]
+                    for polygon in polygons
                 ]
-                for polygon in polygons
-            ]
 
         return dict(
             idx=idx,
