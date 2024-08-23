@@ -7,6 +7,16 @@ from cac.extended.HexBin import HexBin
 
 log = Log("HexBinRenderer")
 
+def remove_vowels(x):
+    if len(x) < 2:
+        return x
+    return x[0] + ''.join([c for c in x[1:] if c.lower() not in 'aeiou'])
+
+def get_short_label(x):
+    words = x.split(' ')
+    if len(words) == 1:
+        return remove_vowels(words[0])[:3].upper()
+    return ''.join([word[0] for word in words])
 
 class HexBinRenderer:
     SCALE_FACTOR = 1
@@ -44,29 +54,24 @@ class HexBinRenderer:
     @staticmethod
     def render_label(label, point, dim):
         inner = []
-        words = label.split(' ')
-        font_size = 1.5 * dim / max([len(word) for word in words] + [1])
-        n = len(words)
+        short_label = get_short_label(label)
+        font_size =  dim * 0.4
 
-        dim_x = dim
-        dim_y = dim / HexBin.X_TO_Y_RATIO
-
-        for i, word in enumerate(words):
-            inner.append(
-                _(
-                    'text',
-                    word,
-                    dict(
-                        x=point.x,
-                        y=point.y + font_size * (i - (n - 1) / 2),
-                        fill="white",
-                        font_size=font_size,
-                        font_family="P22 Johnston Underground Regular",
-                        text_anchor="middle",
-                        dominant_baseline="middle",
-                    ),
-                )
+        inner.append(
+            _(
+                'text',
+                short_label,
+                dict(
+                    x=point.x,
+                    y=point.y ,
+                    fill="white",
+                    font_size=font_size,
+                    font_family="P22 Johnston Underground Regular",
+                    text_anchor="middle",
+                    dominant_baseline="middle",
+                ),
             )
+        )
 
         # inner.append(
         #     _(

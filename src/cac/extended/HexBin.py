@@ -145,7 +145,7 @@ class HexBin:
         polygons = []
         for point in points:
             polygons.append(
-                HexBin.get_polygon(point, dim, expand_factor=1.001)
+                HexBin.get_polygon(point, dim, expand_factor=1.01)
             )
         combined = unary_union(polygons)
 
