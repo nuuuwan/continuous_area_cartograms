@@ -1,9 +1,10 @@
 import os
-from gig import Ent, EntType, GIGTable
-from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
-                    HexBinRenderer)
 
-   
+from gig import Ent, EntType, GIGTable
+
+from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBinRenderer
+
+
 def main():  # noqa
     gig_table_elec_parl_2020 = GIGTable(
         "government-elections-parliamentary", "regions-ec", "2020"
@@ -13,7 +14,7 @@ def main():  # noqa
     )
     gig_table_elec_parl_2015 = GIGTable(
         "government-elections-presidential", "regions-ec", "2015"
-    )   
+    )
     ents = Ent.list_from_type(EntType.ED)
 
     values = []
@@ -32,7 +33,7 @@ def main():  # noqa
         if min_electors is None or electors < min_electors:
             min_electors = electors
 
-    budgeted_total_value = int((total_electors / min_electors) / 2) + 1
+    budgeted_total_value = (total_electors / min_electors) * 0.501
     total_value = 0
     used_ents = []
     for ent in ents:
@@ -42,6 +43,10 @@ def main():  # noqa
         if value == 0:
             print(f"Skipping {ent.name} ({f_value:.2f}) due to zero value")
             continue
+        print(
+            f'{value} ({f_value:.2f})'.ljust(10),
+            ent.name,
+        )
         used_ents.append(ent)
         values.append(value)
         total_value += value
@@ -49,8 +54,8 @@ def main():  # noqa
 
         group_label_to_group['ED'][label] = ent.name
         group_label_to_group['Province'][label] = ent.province_id
-        
-        # color 
+
+        # color
         row2019 = ent.gig(gig_table_elec_pres_2019)
         row2015 = ent.gig(gig_table_elec_parl_2015)
 
@@ -64,14 +69,14 @@ def main():  # noqa
             color = "#0c08"
         colors.append(color)
 
-    print(f'{budgeted_total_value=}, {total_value=}')
+    print(f'{budgeted_total_value=:.2f}, {total_value=}')
 
     algo = DCN1985.from_ents(
         used_ents,
         values,
         algo_params=DCN1985AlgoParams(
             do_shrink=True,
-            max_iterations=50,
+            max_iterations=100,
         ),
         render_params=DCN1985RenderParams(
             super_title="Sri Lanka's Polling Divisions",
@@ -87,16 +92,30 @@ def main():  # noqa
     def post_process(data):
         idx = data['idx']
 
+        def swap(a, b):
+            idx[a], idx[b] = idx[b], idx[a]
+
+        swap('Trincomalee', 'Polonnaruwa')
+        swap('Trincomalee', 'Batticaloa')
+
+        idx['Jaffna'] = [[1, 0.5]]
+
+        idx['Matara'] = idx['Hambantota']
+        idx['Hambantota'] = [[5.0, 6.5]]
 
         data['idx'] = idx
         return data
-
 
     polygons = dcn_list[-1].polygons
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values
     HexBinRenderer(
-        polygons, labels, group_label_to_group, colors, values, total_value=total_value
+        polygons,
+        labels,
+        group_label_to_group,
+        colors,
+        values,
+        total_value=total_value,
     ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),

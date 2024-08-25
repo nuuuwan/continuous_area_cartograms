@@ -235,7 +235,10 @@ class HexBin:
             zip(
                 self.labels,
                 [
-                    [list(point.coords[0]) for point in points]
+                    sorted(
+                        [list(point.coords[0]) for point in points],
+                        key=lambda x: (x[1], x[0]),
+                    )
                     for points in points_list
                 ],
             )
@@ -244,7 +247,7 @@ class HexBin:
             idx = self.post_process(dict(idx=idx))['idx']
 
         group_type_to_group_to_points = {}
-        for group_type, label_to_group in self.group_label_to_group.items():        
+        for group_type, label_to_group in self.group_label_to_group.items():
             group_to_points = {}
             for label, points in idx.items():
                 group = self.group_label_to_group[group_type][label]
@@ -254,7 +257,10 @@ class HexBin:
             group_type_to_group_to_points[group_type] = group_to_points
 
         idx2 = {}
-        for group_type, group_to_points in group_type_to_group_to_points.items():
+        for (
+            group_type,
+            group_to_points,
+        ) in group_type_to_group_to_points.items():
             idx2[group_type] = {}
             for group, points in group_to_points.items():
                 polygons = HexBin.get_group_polygons(

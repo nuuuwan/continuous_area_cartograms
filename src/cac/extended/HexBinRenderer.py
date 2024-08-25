@@ -7,10 +7,12 @@ from cac.extended.HexBin import HexBin
 
 log = Log("HexBinRenderer")
 
+
 def remove_vowels(x):
     if len(x) < 2:
         return x
     return x[0] + ''.join([c for c in x[1:] if c.lower() not in 'aeiou'])
+
 
 def get_short_label(x):
     words = x.split(' ')
@@ -18,12 +20,19 @@ def get_short_label(x):
         return remove_vowels(words[0])[:3].upper()
     return ''.join([word[0] for word in words])
 
+
 class HexBinRenderer:
     SCALE_FACTOR = 1
     N_POLYGON_SIDES = 6
 
     def __init__(
-        self, polygons, labels, group_to_label_to_group, colors, values, total_value
+        self,
+        polygons,
+        labels,
+        group_to_label_to_group,
+        colors,
+        values,
+        total_value,
     ):
         self.polygons = polygons
         self.labels = labels
@@ -55,8 +64,11 @@ class HexBinRenderer:
     @staticmethod
     def render_label(label, point, dim):
         inner = []
-        short_label = get_short_label(label)
-        font_size =  dim * 0.4
+        # short_label = get_short_label(label)
+        # font_size =  dim * 0.4
+
+        short_label = label
+        font_size = dim * 0.2
 
         inner.append(
             _(
@@ -64,7 +76,7 @@ class HexBinRenderer:
                 short_label,
                 dict(
                     x=point.x,
-                    y=point.y ,
+                    y=point.y,
                     fill="white",
                     font_size=font_size,
                     font_family="P22 Johnston Underground Regular",
@@ -109,7 +121,7 @@ class HexBinRenderer:
                             ]
                         ),
                         fill=color,
-                        stroke="#444",
+                        stroke='#444',
                         stroke_width=dim * 0.01,
                     ),
                 ),
@@ -210,16 +222,24 @@ class HexBinRenderer:
         for i, points in enumerate(points_list):
             color = self.colors[i]
             label = self.labels[i]
-            for point in points:
+            n = len(points)
+            i_mid = (n - 1) // 2
+            for i, point in enumerate(points):
+                label_display = "" if i != i_mid else label
                 rendered_points.append(
-                    HexBinRenderer.render_point(point, dim, color, label)
+                    HexBinRenderer.render_point(
+                        point, dim, color, label_display
+                    )
                 )
-                label = ""
 
         rendered_groups = []
-        for i, [group_type, group_to_polygons] in enumerate(group_type_to_group_to_polygons.items()):
+        for i, [group_type, group_to_polygons] in enumerate(
+            group_type_to_group_to_polygons.items()
+        ):
             for group, polygons in group_to_polygons.items():
-                rendered_groups.append(HexBinRenderer.render_group(polygons, dim, i))
+                rendered_groups.append(
+                    HexBinRenderer.render_group(polygons, dim, i)
+                )
 
         return _(
             'svg',

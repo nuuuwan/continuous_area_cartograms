@@ -71,7 +71,6 @@ def main():  # noqa
     def post_process(data):
         idx = data['idx']
 
-
         idx['Northern'] = [[0.0, 0.5]]
         idx['Southern'] = [[0.0, 3.5]]
 
