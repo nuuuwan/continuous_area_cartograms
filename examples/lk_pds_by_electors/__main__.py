@@ -106,8 +106,15 @@ def main():  # noqa
         def swap(a, b):
             idx[a], idx[b] = idx[b], idx[a]
 
+        def swap_i(a, i, b, j):
+            idx[a][i], idx[b][j] = idx[b][j], idx[a][i]
+
+
         def move(a, dx, dy):
             idx[a] = [(x + dx, y + dy) for x, y in idx[a]]
+
+        # EC-04
+        swap_i('Teldeniya', 0, 'Kundasale', -1)  
 
         # EC-05
         idx['Rattota'][-1] = idx['Laggala'][0]
@@ -141,6 +148,7 @@ def main():  # noqa
 
         # EC-12
         idx['Kalkudah'][-1] = [16.0,15.5]
+        idx['Kalkudah'][0] = [17.0,15.0]
         move('Batticaloa', -1, -0.5)
         idx['Paddiruppu'][0] = [18.0,17.5]
 
@@ -151,11 +159,10 @@ def main():  # noqa
         idx['Kalmunai'] = [[19.0,19.0], [20.0,19.5]]
 
         # EC-14
-        move("Muttur", 1, 0.5)
-        idx['Muttur'][0] = [16.0, 12.5]
-        idx['Seruvila'][0] = [14.0, 10.5]
-        move('Trincomalee', 3, 2.5)
-        idx['Trincomalee'][-1] = [15.0,11.0]
+        idx['Muttur'] = [[18.0,14.5], [17,14]]
+        idx['Seruvila'] = [[14.0, 11.5], [15.0,12.0]]
+       
+        idx['Trincomalee'] = [[17.0,13.0], [16.0,12.5]]
 
         # EC-17
         idx['Kekirawa'][0] = [13.0, 12.0]
@@ -167,7 +174,9 @@ def main():  # noqa
 
         # EC-18
         idx['Polonnaruwa'][-1] = [15.0, 15.0]
-        idx['Medirigiriya'][-1] = [15.0, 12.0]
+        idx['Polonnaruwa'][0] = [16.0,13.5]
+        idx['Medirigiriya'][-1] = [15.0,13.0]
+        idx['Medirigiriya'][0] = [14.0,12.5]
         idx['Minneriya'][0] = [14.0, 13.5]
 
         # EC-19
