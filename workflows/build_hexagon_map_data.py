@@ -46,9 +46,8 @@ def run(ENT_TYPE, EXAMPLE_NAME):
 
 if __name__ == '__main__':
     for [ENT_TYPE, EXAMPLE_NAME] in [
-        [EntType.PD, 'lk_pds_by_electors'],
+        # [EntType.PD, 'lk_pds_in_units'],
         [EntType.ED, 'lk_eds_in_units'],
-        [EntType.ED, 'lk_eds_by_electors'],
-        [EntType.PROVINCE, 'lk_provinces_by_electors'],
+        # [EntType.PROVINCE, 'lk_provinces_in_units'],
     ]:
         run(ENT_TYPE, EXAMPLE_NAME)

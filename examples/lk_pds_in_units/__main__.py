@@ -5,6 +5,8 @@ def main():  # noqa
 
     from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
                      HexBinRenderer)
+    
+    from utils_future import Color
 
     def get_winning_party(row):
         for k in row.dict.keys():
@@ -13,7 +15,10 @@ def main():  # noqa
         raise ValueError("No winning party found")
 
     ents = Ent.list_from_type(EntType.PD)
-    label_to_group = {}
+    group_label_to_group = {
+        'ED': {},
+        'Province': {},
+    }
     values = []
     colors = []
 
@@ -22,8 +27,8 @@ def main():  # noqa
     for ent in ents:
         values.append(1)
         label = ent.name
-        group = ent.ed_id
-        label_to_group[label] = group
+        group_label_to_group['ED'][label] = ent.ed_id
+        group_label_to_group['Province'][label] = ent.province_id
 
         gig_table_prespoll = GIGTable(
             "government-elections-presidential", "regions-ec", "2015"
@@ -34,6 +39,7 @@ def main():  # noqa
             color = "#080"
         else:
             color = "#00c"
+
 
         colors.append(color)
 
@@ -59,6 +65,7 @@ def main():  # noqa
     values = dcn_list[-1].values
 
     def post_process(data):
+
         idx = data['idx']
 
         # Northern
@@ -114,7 +121,7 @@ def main():  # noqa
     HexBinRenderer(
         polygons,
         labels,
-        label_to_group,
+        group_label_to_group,
         colors,
         values,
         total_value=len(ents),

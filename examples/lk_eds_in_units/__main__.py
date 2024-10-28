@@ -77,7 +77,7 @@ def main():  # noqa
         values,
         algo_params=DCN1985AlgoParams(
             do_shrink=True,
-            max_iterations=100,
+            max_iterations=20,
         ),
         render_params=DCN1985RenderParams(
             super_title="Sri Lanka's Polling Divisions",
@@ -91,6 +91,7 @@ def main():  # noqa
     )
 
     def post_process(data):
+        
         idx = data['idx']
 
         def swap(a, b):
@@ -105,6 +106,7 @@ def main():  # noqa
                 idx[a_list[i]] = idx[a_list[i + 1]]
             idx[a_list[-1]] = final_pos
 
+        # Phrase-I
         multi_swap([
             'Galle',
             'Matara',
@@ -118,6 +120,37 @@ def main():  # noqa
 
         move('Puttalam', 0, 1)
 
+        # Phrase-II
+        multi_swap([
+            'Galle',
+            'Matara',
+            'Hambantota'
+        ], [[4, 5]])
+
+        multi_swap([
+            'Trincomalee',
+            'Batticaloa',
+            'Digamadulla'
+        ], [[4, 3]])
+
+        # Phase III
+        multi_swap([
+            'Hambantota',
+            'Matara',
+            'Galle',
+            'Kalutara',
+            'Colombo',
+            'Gampaha',
+            'Puttalam',
+        ], [[0, 2]])
+
+        # multi_swap([
+        #     'Digamadulla',
+        #     'Batticaloa',
+        #     'Trincomalee'
+        # ], [[2, 1]])
+
+   
 
         data['idx'] = idx
         return data

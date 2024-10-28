@@ -13,7 +13,7 @@ def main():  # noqa
         raise ValueError("No winning party found")
 
     ents = Ent.list_from_type(EntType.PROVINCE)
-    label_to_group = {}
+    group_to_label_to_group = {"Default": {}}
     values = []
     colors = []
 
@@ -33,7 +33,7 @@ def main():  # noqa
             'LK-8': 'G4',
             'LK-9': 'G4',
         }[ent.id]
-        label_to_group[label] = group
+        group_to_label_to_group["Default"][label] = group
 
         gig_table_prespoll = GIGTable(
             "government-elections-presidential", "regions-ec", "2015"
@@ -80,7 +80,7 @@ def main():  # noqa
     HexBinRenderer(
         polygons,
         labels,
-        label_to_group,
+        group_to_label_to_group,
         colors,
         values,
         total_value=len(ents),
