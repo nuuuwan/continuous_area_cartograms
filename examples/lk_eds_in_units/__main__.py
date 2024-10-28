@@ -27,7 +27,7 @@ def main():  # noqa
     total_electors = 0
     min_electors = None
     for ent in ents:
-        row2020 = ent.gig(gig_table_elec_parl_2020)
+        ent.gig(gig_table_elec_parl_2020)
         electors = 1
         total_electors += electors
         if min_electors is None or electors < min_electors:
@@ -37,7 +37,7 @@ def main():  # noqa
     total_value = 0
     used_ents = []
     for ent in ents:
-        row2020 = ent.gig(gig_table_elec_parl_2020)
+        ent.gig(gig_table_elec_parl_2020)
         electors = 1
         f_value = electors * budgeted_total_value / total_electors
         value = int(round(f_value, 0))
@@ -91,7 +91,7 @@ def main():  # noqa
     )
 
     def post_process(data):
-        
+
         idx = data['idx']
 
         def swap(a, b):
@@ -102,55 +102,43 @@ def main():  # noqa
 
         def multi_swap(a_list, final_pos):
             n = len(a_list)
-            for i in range(n-1):
+            for i in range(n - 1):
                 idx[a_list[i]] = idx[a_list[i + 1]]
             idx[a_list[-1]] = final_pos
 
         # Phrase-I
-        multi_swap([
-            'Galle',
-            'Matara',
-            'Hambantota'
-        ], [[3, 5.5]])
+        multi_swap(['Galle', 'Matara', 'Hambantota'], [[3, 5.5]])
 
         multi_swap(
-            ['Kurunegala', 'Matale', 'Digamadulla', 'Batticaloa'],
-            [[3, 1.5]]
+            ['Kurunegala', 'Matale', 'Digamadulla', 'Batticaloa'], [[3, 1.5]]
         )
 
         move('Puttalam', 0, 1)
 
         # Phrase-II
-        multi_swap([
-            'Galle',
-            'Matara',
-            'Hambantota'
-        ], [[4, 5]])
+        multi_swap(['Galle', 'Matara', 'Hambantota'], [[4, 5]])
 
-        multi_swap([
-            'Trincomalee',
-            'Batticaloa',
-            'Digamadulla'
-        ], [[4, 3]])
+        multi_swap(['Trincomalee', 'Batticaloa', 'Digamadulla'], [[4, 3]])
 
         # Phase III
-        multi_swap([
-            'Hambantota',
-            'Matara',
-            'Galle',
-            'Kalutara',
-            'Colombo',
-            'Gampaha',
-            'Puttalam',
-        ], [[0, 2]])
+        multi_swap(
+            [
+                'Hambantota',
+                'Matara',
+                'Galle',
+                'Kalutara',
+                'Colombo',
+                'Gampaha',
+                'Puttalam',
+            ],
+            [[0, 2]],
+        )
 
         # multi_swap([
         #     'Digamadulla',
         #     'Batticaloa',
         #     'Trincomalee'
         # ], [[2, 1]])
-
-   
 
         data['idx'] = idx
         return data

@@ -45,8 +45,6 @@ class AnimatedGIF:
 
         # os.startfile(image_path_list[10])
         # os.startfile(image_path_list[-1])
-        
-
 
         file_size_m = os.path.getsize(self.animated_gif_path) / 1_000_000
         emoji = '⚠️' if file_size_m > 15 else ''

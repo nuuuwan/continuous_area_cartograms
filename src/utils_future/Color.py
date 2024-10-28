@@ -1,5 +1,5 @@
-from functools import cache, cached_property
 import random
+from functools import cache, cached_property
 
 from matplotlib import colors as mcolors
 
@@ -43,11 +43,11 @@ class Color:
         alpha2 = MIN_ALPHA + (1 - p) * (1 - MIN_ALPHA)
         final_alpha = max(MIN_ALPHA, alpha * alpha2)
         return Color((r, g, b, final_alpha))
-    
+
     @staticmethod
-    def random(h=None, s=100, v=90,a=0.99) -> 'Color':
+    def random(h=None, s=100, v=90, a=0.99) -> 'Color':
         if h is None:
             h = random.randint(0, 360)
-        r, g,b = mcolors.hsv_to_rgb((h/360, s/100,v/100))
-        hex = mcolors.to_hex((r,g,b,a))
+        r, g, b = mcolors.hsv_to_rgb((h / 360, s / 100, v / 100))
+        hex = mcolors.to_hex((r, g, b, a))
         return hex

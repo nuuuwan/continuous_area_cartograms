@@ -23,7 +23,7 @@ def run(ENT_TYPE, EXAMPLE_NAME):
 
     idx2_norm = {}
     for group_type, id_to_polygons in data['idx2'].items():
-        idx2_norm[group_type] = {}  
+        idx2_norm[group_type] = {}
         for id, polygons in id_to_polygons.items():
             norm_polygons = [
                 [[round(x, 2) for x in point] for point in polygon]
@@ -38,7 +38,7 @@ def run(ENT_TYPE, EXAMPLE_NAME):
         '',
         'const data = ' + json.dumps(data, indent=2) + ';',
         '',
-        'export default data;'
+        'export default data;',
     ]
     File(output_path).write_lines(lines)
     os.startfile(output_path)

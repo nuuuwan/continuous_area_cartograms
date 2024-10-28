@@ -109,20 +109,19 @@ def main():  # noqa
         def swap_i(a, i, b, j):
             idx[a][i], idx[b][j] = idx[b][j], idx[a][i]
 
-
         def move(a, dx, dy):
             idx[a] = [(x + dx, y + dy) for x, y in idx[a]]
 
         # EC-04
-        swap_i('Teldeniya', 0, 'Kundasale', -1)  
+        swap_i('Teldeniya', 0, 'Kundasale', -1)
 
         # EC-05
         idx['Rattota'][-1] = idx['Laggala'][0]
         idx['Laggala'][0] = [14, 15.5]
 
         # EC-09
-        idx['Tangalle'][-1] = [15.0,27.0]
-        idx['Tangalle'][1] = [16.0,27.5]
+        idx['Tangalle'][-1] = [15.0, 27.0]
+        idx['Tangalle'][1] = [16.0, 27.5]
         move('Thissamaharama', 0, -1)
 
         # EC-10
@@ -147,22 +146,22 @@ def main():  # noqa
         move("Mullaitivu", 0, 3)
 
         # EC-12
-        idx['Kalkudah'][-1] = [16.0,15.5]
-        idx['Kalkudah'][0] = [17.0,15.0]
+        idx['Kalkudah'][-1] = [16.0, 15.5]
+        idx['Kalkudah'][0] = [17.0, 15.0]
         move('Batticaloa', -1, -0.5)
-        idx['Paddiruppu'][0] = [18.0,17.5]
+        idx['Paddiruppu'][0] = [18.0, 17.5]
 
         # EC-13
-        idx['Pothuvil'][-1] = [19.0,24.0]
-        idx['Ampara'][0] = [16.0,17.5]
+        idx['Pothuvil'][-1] = [19.0, 24.0]
+        idx['Ampara'][0] = [16.0, 17.5]
         move('Samanthurai', -1, 0.5)
-        idx['Kalmunai'] = [[19.0,19.0], [20.0,19.5]]
+        idx['Kalmunai'] = [[19.0, 19.0], [20.0, 19.5]]
 
         # EC-14
-        idx['Muttur'] = [[18.0,14.5], [17,14]]
-        idx['Seruvila'] = [[14.0, 11.5], [15.0,12.0]]
-       
-        idx['Trincomalee'] = [[17.0,13.0], [16.0,12.5]]
+        idx['Muttur'] = [[18.0, 14.5], [17, 14]]
+        idx['Seruvila'] = [[14.0, 11.5], [15.0, 12.0]]
+
+        idx['Trincomalee'] = [[17.0, 13.0], [16.0, 12.5]]
 
         # EC-17
         idx['Kekirawa'][0] = [13.0, 12.0]
@@ -174,9 +173,9 @@ def main():  # noqa
 
         # EC-18
         idx['Polonnaruwa'][-1] = [15.0, 15.0]
-        idx['Polonnaruwa'][0] = [16.0,13.5]
-        idx['Medirigiriya'][-1] = [15.0,13.0]
-        idx['Medirigiriya'][0] = [14.0,12.5]
+        idx['Polonnaruwa'][0] = [16.0, 13.5]
+        idx['Medirigiriya'][-1] = [15.0, 13.0]
+        idx['Medirigiriya'][0] = [14.0, 12.5]
         idx['Minneriya'][0] = [14.0, 13.5]
 
         # EC-19
@@ -186,11 +185,10 @@ def main():  # noqa
         # EC-20
         idx['Wellawaya'][-1] = [18, 24.5]
         idx['Monaragala'][0] = [18, 23.5]
-        idx['Bibile'][0] = [19 ,22]
-
+        idx['Bibile'][0] = [19, 22]
 
         # EC-21
-        idx['Kolonna'][-1] = [15.0,26.0]
+        idx['Kolonna'][-1] = [15.0, 26.0]
 
         data['idx'] = idx
         return data

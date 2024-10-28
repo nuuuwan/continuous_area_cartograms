@@ -5,8 +5,7 @@ def main():  # noqa
 
     from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
                      HexBinRenderer)
-    
-    from utils_future import Color
+
 
     def get_winning_party(row):
         for k in row.dict.keys():
@@ -39,7 +38,6 @@ def main():  # noqa
             color = "#080"
         else:
             color = "#00c"
-
 
         colors.append(color)
 
