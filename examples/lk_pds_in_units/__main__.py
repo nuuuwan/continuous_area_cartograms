@@ -65,7 +65,7 @@ def main():  # noqa
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values
 
-    def post_process(data):
+    def post_process(data):  # noqa: CFQ001
 
         idx = data["idx"]
 

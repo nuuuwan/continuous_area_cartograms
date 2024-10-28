@@ -90,7 +90,7 @@ def main():  # noqa
         )
     )
 
-    def post_process(data):
+    def post_process(data):  # noqa: CFQ001
         idx = data["idx"]
 
         def move(a, dx, dy):
