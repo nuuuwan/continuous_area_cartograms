@@ -10,18 +10,18 @@ from utils import Hash
 
 from utils_future import Color, Log, MatPlotLibUser, Number
 
-log = Log('DCN1985Renderer')
+log = Log("DCN1985Renderer")
 
 
 FONT_PATH = (
     "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\p22.ttf"
 )
 FONT = FontProperties(fname=FONT_PATH)
-plt.rcParams['font.family'] = FONT.get_name()
+plt.rcParams["font.family"] = FONT.get_name()
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = '20240716.1332'
+    RENDER_VERSION = "20240716.1332"
     HEIGHT = 4.5
     BASE_SCALE = 0.8
     DPI = 240
@@ -48,8 +48,7 @@ class DCN1985Renderer(MatPlotLibUser):
     def get_color(color, log2_error):
         MAX_ABS_ERROR = 2
         p_log2_error = (
-            min(MAX_ABS_ERROR, max(-MAX_ABS_ERROR, log2_error))
-            + MAX_ABS_ERROR
+            min(MAX_ABS_ERROR, max(-MAX_ABS_ERROR, log2_error)) + MAX_ABS_ERROR
         ) / (MAX_ABS_ERROR * 2)
         return Color(color).get_p(p_log2_error)
 
@@ -61,7 +60,7 @@ class DCN1985Renderer(MatPlotLibUser):
         gdf.plot(
             ax=plt.gca(),
             facecolor=background_color.rgba,
-            edgecolor="#ccc" if foreground_color.x == 'black' else 'white',
+            edgecolor="#ccc" if foreground_color.x == "black" else "white",
             linewidth=0.2,
         )
 
@@ -84,7 +83,7 @@ class DCN1985Renderer(MatPlotLibUser):
             return
         number_label = Number(end_value).humanized()
 
-        text = f'{label}\n{number_label}'
+        text = f"{label}\n{number_label}"
 
         plt.text(
             x,
@@ -92,8 +91,8 @@ class DCN1985Renderer(MatPlotLibUser):
             text,
             color=foreground_color.rgba,
             fontsize=font_size,
-            horizontalalignment='center',
-            verticalalignment='center',
+            horizontalalignment="center",
+            verticalalignment="center",
         )
 
     def render_polygon(
@@ -119,37 +118,32 @@ class DCN1985Renderer(MatPlotLibUser):
             self.render_params.super_title,
             (0.5, 0.9),
             fontsize=self.BASE_FONT_SIZE,
-            xycoords='figure fraction',
-            ha='center',
+            xycoords="figure fraction",
+            ha="center",
             color="gray",
         )
-
         title = self.render_params.title
         plt.annotate(
             title,
             (0.5, 0.9 - 0.0275),
             fontsize=self.BASE_FONT_SIZE * 2.5,
-            xycoords='figure fraction',
-            ha='center',
+            xycoords="figure fraction",
+            ha="center",
         )
-
         plt.annotate(
             self.render_params.sub_title,
             (0.5, 0.9 - 0.09),
             fontsize=self.BASE_FONT_SIZE,
-            xycoords='figure fraction',
-            ha='center',
+            xycoords="figure fraction",
+            ha="center",
             color="gray",
         )
-
-        # Footer
-
         plt.annotate(
             self.render_params.footer_text,
             (0.5, 0.1),
             fontsize=self.BASE_FONT_SIZE,
-            xycoords='figure fraction',
-            ha='center',
+            xycoords="figure fraction",
+            ha="center",
         )
 
     def render_all(self):
@@ -178,7 +172,7 @@ class DCN1985Renderer(MatPlotLibUser):
 
     def save_image(self, width_prev=None):
         image_path = os.path.join(
-            tempfile.gettempdir(), f'cac.dcn.{self.image_hash}.png'
+            tempfile.gettempdir(), f"cac.dcn.{self.image_hash}.png"
         )
         if os.path.exists(image_path):
             return image_path, width_prev
@@ -198,5 +192,5 @@ class DCN1985Renderer(MatPlotLibUser):
         self.render_all()
 
         plt.savefig(image_path, dpi=self.DPI, pad_inches=0)
-        log.debug_temp(f'Wrote {image_path}')
+        log.debug_temp(f"Wrote {image_path}")
         return image_path, width
