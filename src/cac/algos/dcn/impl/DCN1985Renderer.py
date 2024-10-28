@@ -109,7 +109,7 @@ class DCN1985Renderer(MatPlotLibUser):
         # Header
         plt.annotate(
             self.render_params.super_title,
-            (0.5, 0.9),
+            (0.5, 0.95),
             fontsize=self.BASE_FONT_SIZE,
             xycoords="figure fraction",
             ha="center",
