@@ -3,10 +3,12 @@ import os
 import geopandas
 
 from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, GridCAC
-from examples_grid_cac.world_lk_tourist_arrivals.LK_TOURIST_ARRIVALS import \
-    LK_TOURIST_ARRIVALS
-from examples_grid_cac.world_lk_tourist_arrivals.NAME_MAP_TO_NAME_DATA import \
-    NAME_MAP_TO_NAME_DATA
+from examples_grid_cac.world_lk_tourist_arrivals.LK_TOURIST_ARRIVALS import (
+    LK_TOURIST_ARRIVALS,
+)
+from examples_grid_cac.world_lk_tourist_arrivals.NAME_MAP_TO_NAME_DATA import (
+    NAME_MAP_TO_NAME_DATA,
+)
 
 ALGO_PARAMS = DCN1985AlgoParams(
     do_shrink=True,
@@ -15,11 +17,11 @@ ALGO_PARAMS = DCN1985AlgoParams(
 
 def get_dnc_population():
     gdf_world = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
+        geopandas.datasets.get_path("naturalearth_lowres")
     )
-    gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
+    gdf_world = gdf_world[gdf_world["continent"] != "Antarctica"]
 
-    values = gdf_world['pop_est'].tolist()
+    values = gdf_world["pop_est"].tolist()
     return DCN1985.from_gdf(
         gdf_world,
         values,
@@ -36,11 +38,11 @@ def get_dnc_population():
 
 def get_dnc_gdp():
     gdf_world = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
+        geopandas.datasets.get_path("naturalearth_lowres")
     )
-    gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
+    gdf_world = gdf_world[gdf_world["continent"] != "Antarctica"]
 
-    values = gdf_world['gdp_md_est'].tolist()
+    values = gdf_world["gdp_md_est"].tolist()
     values = [value * 1_000_000 for value in values]
     return DCN1985.from_gdf(
         gdf_world,
@@ -58,13 +60,13 @@ def get_dnc_gdp():
 
 def get_dnc_tourism():  # noqa
     gdf_world = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
+        geopandas.datasets.get_path("naturalearth_lowres")
     )
-    gdf_world = gdf_world[gdf_world['continent'] != 'Antarctica']
+    gdf_world = gdf_world[gdf_world["continent"] != "Antarctica"]
 
     names = []
     values = []
-    for name in gdf_world['name'].tolist():
+    for name in gdf_world["name"].tolist():
         name_data = NAME_MAP_TO_NAME_DATA.get(name, name)
         value = LK_TOURIST_ARRIVALS.get(name_data)
         if value is None:
@@ -72,7 +74,7 @@ def get_dnc_tourism():  # noqa
         names.append(name)
         values.append(value)
 
-    gdf_world = gdf_world[gdf_world['name'].isin(names)]
+    gdf_world = gdf_world[gdf_world["name"].isin(names)]
 
     return DCN1985.from_gdf(
         gdf_world,
@@ -94,11 +96,7 @@ def main():
         [get_dnc_gdp()],
         [get_dnc_population()],
     ]
-    GridCAC(dcn_list_list).build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    GridCAC(dcn_list_list).build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

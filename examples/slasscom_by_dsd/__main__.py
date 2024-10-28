@@ -8,13 +8,13 @@ def main():  # noqa
     ents_all = Ent.list_from_type(EntType.DSD)
 
     IDX = {
-        'LK-1127': 42,
-        'LK-1103': 28,
-        'LK-1124': 6,
-        'LK-1109': 3,
-        'LK-1136': 1,
-        'LK-1133': 1,
-        'LK-1121': 1,
+        "LK-1127": 42,
+        "LK-1103": 28,
+        "LK-1124": 6,
+        "LK-1109": 3,
+        "LK-1136": 1,
+        "LK-1133": 1,
+        "LK-1121": 1,
     }
 
     ents = []
@@ -36,9 +36,7 @@ def main():  # noqa
         ),
     )
     algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        ),
+        os.path.dirname(__file__),
     )
 
 

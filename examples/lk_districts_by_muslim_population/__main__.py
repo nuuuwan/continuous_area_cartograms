@@ -5,9 +5,7 @@ def main():  # noqa
 
     from cac import DCN1985, DCN1985RenderParams
 
-    gig_table_last_election = GIGTable(
-        'population-religion', 'regions', '2012'
-    )
+    gig_table_last_election = GIGTable("population-religion", "regions", "2012")
 
     ents = [ent for ent in Ent.list_from_type(EntType.DISTRICT)]
     values = []
@@ -23,11 +21,7 @@ def main():  # noqa
             title="Muslim Population",
         ),
     )
-    algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    algo.build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

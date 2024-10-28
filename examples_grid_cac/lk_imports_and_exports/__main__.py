@@ -62,11 +62,7 @@ def main():  # noqa
             )
         ],
     ]
-    GridCAC(dcn_list_list).build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    GridCAC(dcn_list_list).build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ log = Log("DCN1985Renderer")
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = "20241028-1101"
+    RENDER_VERSION = "20241028-1144"
     HEIGHT = 4.5
     BASE_SCALE = 0.8
     DPI = 240

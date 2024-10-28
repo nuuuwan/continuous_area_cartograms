@@ -9,11 +9,7 @@ def main():  # noqa
         ),
     )
 
-    algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    algo.build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

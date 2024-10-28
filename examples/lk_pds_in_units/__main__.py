@@ -56,11 +56,7 @@ def main():  # noqa
             title="Units",
         ),
     )
-    _, dcn_list = algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    _, dcn_list = algo.build(os.path.dirname(__file__))
     polygons = dcn_list[-1].polygons
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values

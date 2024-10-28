@@ -94,11 +94,7 @@ def main():  # noqa
             title="Registered Voter Pop.",
         ),
     )
-    _, dcn_list = algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    _, dcn_list = algo.build(os.path.dirname(__file__))
 
     def post_process(data):  # noqa: CFQ001
         idx = data["idx"]

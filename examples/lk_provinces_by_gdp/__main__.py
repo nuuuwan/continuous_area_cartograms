@@ -34,9 +34,7 @@ def main():  # noqa
         ),
     )
     polygons = algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        ),
+        os.path.dirname(__file__),
     )
 
     HexBin(polygons).write(

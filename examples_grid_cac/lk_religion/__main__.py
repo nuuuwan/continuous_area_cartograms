@@ -6,15 +6,13 @@ def main():  # noqa
     from cac import DCN1985RenderParams, GIGTableMCAC
 
     GIGTableMCAC(
-        GIGTable('population-religion', 'regions', '2012'),
+        GIGTable("population-religion", "regions", "2012"),
         EntType.DISTRICT,
         render_params=DCN1985RenderParams(
-            footer_text="Source: " + '2012 Census'
+            footer_text="Source: " + "2012 Census"
         ),
     ).build(
-        os.path.join(
-            os.path.dirname(__file__),
-        ),
+        os.path.dirname(__file__),
     )
 
 

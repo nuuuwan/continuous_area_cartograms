@@ -6,7 +6,7 @@ def main():  # noqa
     from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams
 
     ents = Ent.list_from_type(EntType.PD)
-    ents = [ent for ent in ents if ent.ed_id == 'EC-01']
+    ents = [ent for ent in ents if ent.ed_id == "EC-01"]
     values = []
     for ent in ents:
         values.append(ent.population)
@@ -22,11 +22,7 @@ def main():  # noqa
             title="Population",
         ),
     )
-    algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    algo.build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

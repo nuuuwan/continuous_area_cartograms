@@ -10,11 +10,7 @@ def main():  # noqa
         values=[1, 1, 3, 1, 1, 1, 1, 1, 1],  # LK-11 - Western Province
     )
 
-    algo.build(
-        os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    algo.build(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

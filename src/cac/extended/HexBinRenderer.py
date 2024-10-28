@@ -108,36 +108,32 @@ class HexBinRenderer:
 
     @staticmethod
     def render_grid_polygon(polygon, dim):
-        return (
-            _(
-                "polygon",
-                None,
-                dict(
-                    points=" ".join(
-                        [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
-                    ),
-                    fill=None,
-                    stroke="#ccc",
-                    stroke_width=dim * 0.01,
+        return _(
+            "polygon",
+            None,
+            dict(
+                points=" ".join(
+                    [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                 ),
+                fill=None,
+                stroke="#ccc",
+                stroke_width=dim * 0.01,
             ),
         )
 
     @staticmethod
     def render_grid_text(x, y, dim, dim_x, dim_y):
-        return (
-            _(
-                "text",
-                f"{x / dim_x:.1f},{y / dim_y:.1f}",
-                dict(
-                    x=x,
-                    y=y,
-                    fill="#ccc",
-                    font_size=dim * 0.3,
-                    font_family="P22 Johnston Underground Regular",
-                    text_anchor="middle",
-                    dominant_baseline="middle",
-                ),
+        return _(
+            "text",
+            f"{x / dim_x:.1f},{y / dim_y:.1f}",
+            dict(
+                x=x,
+                y=y,
+                fill="#ccc",
+                font_size=dim * 0.3,
+                font_family="P22 Johnston Underground Regular",
+                text_anchor="middle",
+                dominant_baseline="middle",
             ),
         )
 
@@ -148,7 +144,7 @@ class HexBinRenderer:
         inner = []
         x = min_x
         while True:
-            y = min_y
+            y = min_y + dim_y / 2
             ix = int(round(x / dim_x))
             if ix % 2 == 0:
                 y -= dim_y / 2

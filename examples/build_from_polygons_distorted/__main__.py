@@ -38,11 +38,7 @@ def main():  # noqa
         ),
     )
 
-    algo.build(
-        dir_output=os.path.join(
-            os.path.dirname(__file__),
-        )
-    )
+    algo.build(dir_output=os.path.dirname(__file__))
 
 
 if __name__ == "__main__":

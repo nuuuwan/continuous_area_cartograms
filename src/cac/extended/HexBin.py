@@ -67,14 +67,14 @@ class HexBin:
 
         point_infos = []
         for ix in range(
-            0, int((max_x + HexBin.PADDING * dim_x - x_min) / dim_x)
+            0, int((max_x + HexBin.PADDING * dim_x - x_min) / dim_x) + 1
         ):
             x = x_min + ix * dim_x
             is_odd = (int(round(x / dim_x, 0)) % 2) == 1
             for iy in range(
-                0, int((max_y + HexBin.PADDING * dim_y - y_min) / dim_y)
+                0, int((max_y + HexBin.PADDING * dim_y - y_min) / dim_y) + 1
             ):
-                y = y_min + iy * dim_y + dim_y * 4 * (-1 if is_odd else 0)
+                y = y_min + iy * dim_y + dim_y * 0.25 * (-1 if is_odd else 1)
 
                 n_inside = HexBin.get_n_inside(polygon, x, y, r)
 
@@ -161,6 +161,7 @@ class HexBin:
                     self.total_value * self.values[i_polygon] / total_value, 0
                 )
             )
+
             k_to_n = p_to_k_to_n[i_polygon]
 
             for __ in range(n_points_exp):
