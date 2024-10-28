@@ -40,8 +40,11 @@ class Example:
 def main():
     for example in Example.list():
         example.clean()
-        example.run()
-        break
+        try:
+            example.run()
+        except Exception as e:
+            log.error(f"Failed to run example: {example.dir_path}")
+            log.error(e)
 
 
 if __name__ == "__main__":
