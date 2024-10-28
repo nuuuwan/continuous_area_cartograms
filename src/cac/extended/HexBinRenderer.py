@@ -4,6 +4,7 @@ from shapely import Point, Polygon
 from utils import JSONFile, Log, _
 
 from cac.extended.HexBin import HexBin
+from utils_future import Color
 
 log = Log("HexBinRenderer")
 
@@ -33,6 +34,7 @@ class HexBinRenderer:
         colors,
         values,
         total_value,
+        custom_color_map,
     ):
         self.polygons = polygons
         self.labels = labels
@@ -40,6 +42,7 @@ class HexBinRenderer:
         self.colors = colors
         self.values = values
         self.total_value = total_value
+        self.custom_color_map = custom_color_map or {}
 
     @staticmethod
     def render_group(polygons, dim, i_group):
@@ -53,8 +56,8 @@ class HexBinRenderer:
                         [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                     ),
                     fill=None,
-                    stroke="#222",
-                    stroke_width=(1 + i_group) * dim * 0.07,
+                    stroke="#000",
+                    stroke_width=(1 + i_group) * dim * 0.09,
                     opacity=0.5 + 0.1 * i_group,
                 ),
             )
@@ -62,22 +65,21 @@ class HexBinRenderer:
         return _("g", rendered_polygons)
 
     @staticmethod
-    def render_label(label, point, dim):
+    def render_label(label, point, dim, text_color):
         inner = []
 
-        short_label = label
-        font_size = dim * 0.2
+        font_size = 1.5 * dim / max(1, len(label))
 
         inner.append(
             _(
                 "text",
-                short_label,
+                label,
                 dict(
                     x=point.x,
                     y=point.y,
-                    fill="white",
+                    fill=text_color,
                     font_size=font_size,
-                    font_family="P22 Johnston Underground Regular",
+                    font_family="Ubuntu Mono",
                     text_anchor="middle",
                     dominant_baseline="middle",
                 ),
@@ -87,7 +89,13 @@ class HexBinRenderer:
         return _("g", inner)
 
     @staticmethod
-    def render_point(point, dim, color, label):
+    def render_point(
+        point,
+        dim,
+        color,
+        label,
+        text_color,
+    ):
         polygon = HexBin.get_polygon(point, dim)
         return _(
             "g",
@@ -100,11 +108,11 @@ class HexBinRenderer:
                             [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                         ),
                         fill=color,
-                        stroke="#444",
-                        stroke_width=dim * 0.01,
+                        stroke="#888",
+                        stroke_width=dim * 0.02,
                     ),
                 ),
-                HexBinRenderer.render_label(label, point, dim),
+                HexBinRenderer.render_label(label, point, dim, text_color),
             ],
         )
 
@@ -172,19 +180,47 @@ class HexBinRenderer:
                 break
         return _("g", inner)
 
+    @staticmethod
+    def get_midpoint_i(points_list):
+        # get mean point
+        x, y = 0, 0
+        for point in points_list:
+            x += point.x
+            y += point.y
+        x /= len(points_list)
+        y /= len(points_list)
+
+        # find point closest to the mean point
+        i_mid = None
+        d_min = None
+        for i_point, point in enumerate(points_list):
+            d = (point.x - x) ** 2 + (point.y - y) ** 2
+            if i_point == 0 or d < d_min:
+                i_mid = i_point
+                d_min = d
+        return i_mid
+
     def get_rendered_points(self, points_list, dim):
 
         rendered_points = []
+
         for i, points in enumerate(points_list):
-            color = self.colors[i]
+
             label = self.labels[i]
-            n = len(points)
-            i_mid = (n - 1) // 2
+            color = self.colors[i]
+            i_mid = HexBinRenderer.get_midpoint_i(points)
+
             for i, point in enumerate(points):
-                label_display = "" if i != i_mid else label
+                # label_display = "" if i != i_mid else label
+                label_display = f"{label}{i+1}"
+
+                point_color = self.custom_color_map.get((label, i + 1)) or color
+
+                text_color = Color(point_color).foreground.hex
+
                 rendered_points.append(
                     HexBinRenderer.render_point(
-                        point, dim, color, label_display
+                        point, dim, point_color, label_display, text_color
                     )
                 )
         return rendered_points
@@ -259,12 +295,11 @@ class HexBinRenderer:
                     ),
                 )
             ]
-            + [HexBinRenderer.render_grid(min_x, min_y, max_x, max_y, dim)]
             + rendered_points
             + rendered_groups,
             dict(
-                height=500,
-                width=300,
+                height=900,
+                width=1600,
                 viewBox=f"{min_x} {min_y} {x_span} {y_span}",
             ),
         )

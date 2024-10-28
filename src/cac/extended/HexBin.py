@@ -44,7 +44,7 @@ class HexBin:
     @staticmethod
     def get_n_inside(polygon, x, y, r):
         n_inside = 0
-        for k in [0.125, 0.25, 0.5, 1]:
+        for k in [0.125, 0.25, 0.5, 1, 2]:
             for i in range(HexBin.N_POLYGON_SIDES):
                 angle = 2 * math.pi / HexBin.N_POLYGON_SIDES * i
                 x1 = x + k * r * math.cos(angle)
