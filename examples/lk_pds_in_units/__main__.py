@@ -126,7 +126,7 @@ def main():  # noqa
         colors,
         values,
         total_value=len(ents),
-    ).save_hexbin(
+    ).write(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",

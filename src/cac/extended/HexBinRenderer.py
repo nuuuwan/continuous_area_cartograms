@@ -271,7 +271,7 @@ class HexBinRenderer:
             ),
         )
 
-    def save_hexbin_data(self, hexbin_path, post_process=None):
+    def write_data(self, hexbin_path, post_process=None):
         hexbin_data_path = hexbin_path + ".json"
         HexBin(
             self.polygons,
@@ -283,8 +283,8 @@ class HexBinRenderer:
         ).write(hexbin_data_path)
         return hexbin_data_path
 
-    def save_hexbin(self, hexbin_path, post_process=None):
-        hexbin_data_path = self.save_hexbin_data(hexbin_path, post_process)
+    def write(self, hexbin_path, post_process=None):
+        hexbin_data_path = self.write_data(hexbin_path, post_process)
 
         data = JSONFile(hexbin_data_path).read()
         points_list = [

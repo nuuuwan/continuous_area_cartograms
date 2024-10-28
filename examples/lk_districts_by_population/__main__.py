@@ -20,17 +20,10 @@ def main():  # noqa
             title="Population",
         ),
     )
-    polygons = algo.build(
+    algo.build(
         os.path.join(
             os.path.dirname(__file__),
         ),
-    )
-
-    HexBin(polygons).save_hexbin(
-        os.path.join(
-            os.path.dirname(__file__),
-            'hexbin.png',
-        )
     )
 
 

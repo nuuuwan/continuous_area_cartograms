@@ -85,7 +85,7 @@ class GridCAC(PillowUser):
 
         draw = ImageDraw.Draw(combined_im)
         draw.text(
-            (total_width / 2, self.PILLOW_BASE_FONT_SIZE * 2.5),
+            (total_width / 2, self.PILLOW_BASE_FONT_SIZE * 1),
             super_title,
             fill="black",
             font=self.get_font(self.PILLOW_BASE_FONT_SIZE * 2),
