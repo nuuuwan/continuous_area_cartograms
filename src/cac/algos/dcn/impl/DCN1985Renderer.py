@@ -14,7 +14,7 @@ log = Log("DCN1985Renderer")
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = "20241028-v1"
+    RENDER_VERSION = "20241028-1101"
     HEIGHT = 4.5
     BASE_SCALE = 0.8
     DPI = 240
@@ -186,5 +186,5 @@ class DCN1985Renderer(MatPlotLibUser):
         self.render_all()
 
         plt.savefig(image_path, dpi=self.DPI, pad_inches=0)
-        log.debug_temp(f"Wrote {image_path}")
+        log.debug(f"Wrote {image_path}")
         return image_path, width
