@@ -47,10 +47,10 @@ def main():  # noqa
     algo = DCN1985(
         polygons,
         [1, 4, 1, 1],
-        ['A', 'B', 'C', 'D'],
+        ["A", "B", "C", "D"],
     )
 
-    new_polygon = algo.build(
+    algo.build(
         dir_output=os.path.join(
             os.path.dirname(__file__),
         )
