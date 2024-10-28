@@ -8,16 +8,16 @@ def main():  # noqa
     from examples_grid_cac.lk_imports_and_exports.lk_exports import lk_exports
     from examples_grid_cac.lk_imports_and_exports.lk_imports import lk_imports
 
-    Log('main')
+    Log("main")
 
     gdf_world = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
+        geopandas.datasets.get_path("naturalearth_lowres")
     )
 
     names = []
     values_imports = []
     values_exports = []
-    for name in gdf_world['name'].tolist():
+    for name in gdf_world["name"].tolist():
         value_import = lk_imports.get(name, 0)
         value_export = lk_exports.get(name, 0)
         if value_import == 0 or value_export == 0:
@@ -27,7 +27,7 @@ def main():  # noqa
         values_exports.append(value_export)
         names.append(name)
 
-    gdf_world = gdf_world[gdf_world['name'].isin(names)]
+    gdf_world = gdf_world[gdf_world["name"].isin(names)]
 
     algo_params = DCN1985AlgoParams(
         do_shrink=True,
@@ -41,8 +41,9 @@ def main():  # noqa
                 render_params=DCN1985RenderParams(
                     super_title="World",
                     title="Imports to Sri Lanka (USD M.)",
-                    footer_text="Data Source: United Nations COMTRADE database (2023)",
-                    end_value_color='red',
+                    footer_text="Data Source: "
+                    + "United Nations COMTRADE database (2023)",
+                    end_value_color="red",
                 ),
             )
         ],
@@ -54,8 +55,9 @@ def main():  # noqa
                 render_params=DCN1985RenderParams(
                     super_title="World",
                     title="Exports from Sri Lanka (USD M.)",
-                    footer_text="Data Source: United Nations COMTRADE database (2023)",
-                    end_value_color='green',
+                    footer_text="Data Source:"
+                    + " United Nations COMTRADE database (2023)",
+                    end_value_color="green",
                 ),
             )
         ],

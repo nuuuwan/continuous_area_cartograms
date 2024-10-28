@@ -4,7 +4,7 @@ from utils import Log
 
 from utils_future import file_cache
 
-log = Log('DCN1985AlgoRunner')
+log = Log("DCN1985AlgoRunner")
 
 
 class DCN1985AlgoRunner:
@@ -41,7 +41,7 @@ class DCN1985AlgoRunner:
                 polygons=dcn.polygons,
                 values=dcn.values,
                 algo_params=dcn.algo_params,
-                version='20240808.1400',
+                version="20240808.1400",
             )
         )
         def inner(dcn):
@@ -89,16 +89,16 @@ class DCN1985AlgoRunner:
         verbose=False,
     ):
         dcn_list = []
-        if verbose:
-            dcn0.log_complexity()
+        verbose and dcn0.log_complexity()
         dcn = dcn0
-        i_iter = 0
-        while True:
+
+        for i_iter in range(dcn.algo_params.max_iterations):
             dcn_list.append(dcn)
-            if verbose:
-                dcn.log_error()
+            verbose and dcn.log_error()
             if dcn.is_reasonably_complete:
-                break
+                log.debug(
+                    f"is_reasonably_complete after {i_iter + 1} iterations"
+                )
 
             if dcn.algo_params.do_shrink:
                 dcn = cls.shrink(dcn)
@@ -107,13 +107,7 @@ class DCN1985AlgoRunner:
             dcn.render_params = dcn0.render_params
             dcn.algo_params = dcn0.algo_params
 
-            i_iter += 1
-            if i_iter >= dcn.algo_params.max_iterations:
-                if verbose:
-                    log.warning(
-                        f'🛑 max_iterations({dcn.algo_params.max_iterations})'
-                        + ' reached.'
-                    )
-                break
-
+        verbose and log.warning(
+            f"🛑 max_iterations({dcn.algo_params.max_iterations})"
+        )
         return dcn_list
