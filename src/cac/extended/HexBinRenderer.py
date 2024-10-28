@@ -1,3 +1,5 @@
+import os
+
 from shapely import Point, Polygon
 from utils import JSONFile, Log, _
 
@@ -309,3 +311,4 @@ class HexBinRenderer:
 
         svg.store(hexbin_path)
         log.info(f"Wrote {hexbin_path}")
+        os.startfile(hexbin_path)

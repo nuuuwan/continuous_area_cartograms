@@ -26,7 +26,7 @@ def main():  # noqa
     values = []
 
     colors = []
-    group_label_to_group = {"all": []}
+    group_label_to_group = {"state": {}}
     for __, row in gdf.iterrows():
         state = row["name"]
         info = info_idx.get(state)
@@ -42,14 +42,14 @@ def main():  # noqa
         color = "blue" if mov.startswith("D") else "red"
         colors.append(color)
 
-        group_label_to_group["all"].append(state)
+        group_label_to_group["state"][state] = state
 
     algo = DCN1985.from_geojson(
         geojson_path=geojson_path,
         values=values,
         algo_params=DCN1985AlgoParams(
-            do_shrink=True,
-            max_iterations=20,
+            do_shrink=False,
+            max_iterations=50,
         ),
     )
 
@@ -59,8 +59,10 @@ def main():  # noqa
     labels = dcn_list[-1].labels
     values = dcn_list[-1].values
 
-    print(labels, values)
-
+    hexbin_path = os.path.join(
+        os.path.dirname(__file__),
+        "hexbin.svg",
+    )
     HexBinRenderer(
         polygons,
         labels,
@@ -69,10 +71,7 @@ def main():  # noqa
         values,
         total_value=538,
     ).write(
-        os.path.join(
-            os.path.dirname(__file__),
-            "hexbin.svg",
-        ),
+        hexbin_path=hexbin_path,
     )
 
 
