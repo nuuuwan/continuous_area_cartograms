@@ -9,9 +9,9 @@ from cac import DCN1985, DCN1985AlgoParams, DCN1985RenderParams, HexBinRenderer
 def get_random_color():
     h = random.randint(0, 240)
     s = 100
-    l = random.choice([25, 50, 75])
+    light = random.choice([25, 50, 75])
     a = 0.75
-    return f"hsla({h}, {s}%, {l}%, {a})"
+    return f"hsla({h}, {s}%, {light}%, {a})"
 
 
 def main():  # noqa
@@ -28,9 +28,9 @@ def main():  # noqa
 
     values = []
     group_label_to_group = {
-        'PD': {},
-        'ED': {},
-        'Province': {},
+        "PD": {},
+        "ED": {},
+        "Province": {},
     }
     colors = []
 
@@ -54,7 +54,7 @@ def main():  # noqa
             print(f"Skipping {ent.name} ({f_value:.2f}) due to zero value")
             continue
         print(
-            f'{value} ({f_value:.2f})'.ljust(10),
+            f"{value} ({f_value:.2f})".ljust(10),
             ent.name,
         )
         used_ents.append(ent)
@@ -62,9 +62,9 @@ def main():  # noqa
         total_value += value
         label = ent.name
 
-        group_label_to_group['PD'][label] = ent.name
-        group_label_to_group['ED'][label] = ent.ed_id
-        group_label_to_group['Province'][label] = ent.province_id
+        group_label_to_group["PD"][label] = ent.name
+        group_label_to_group["ED"][label] = ent.ed_id
+        group_label_to_group["Province"][label] = ent.province_id
 
         # color
         row2019 = ent.gig(gig_table_elec_pres_2019)
@@ -80,7 +80,7 @@ def main():  # noqa
             color = "#0c08"
         colors.append(get_random_color())
 
-    print(f'{budgeted_total_value=:.2f}, {total_value=}')
+    print(f"{budgeted_total_value=:.2f}, {total_value=}")
 
     algo = DCN1985.from_ents(
         used_ents,
@@ -101,7 +101,7 @@ def main():  # noqa
     )
 
     def post_process(data):
-        idx = data['idx']
+        idx = data["idx"]
 
         def swap(a, b):
             idx[a], idx[b] = idx[b], idx[a]
@@ -113,84 +113,84 @@ def main():  # noqa
             idx[a] = [(x + dx, y + dy) for x, y in idx[a]]
 
         # EC-04
-        swap_i('Teldeniya', 0, 'Kundasale', -1)
+        swap_i("Teldeniya", 0, "Kundasale", -1)
 
         # EC-05
-        idx['Rattota'][-1] = idx['Laggala'][0]
-        idx['Laggala'][0] = [14, 15.5]
+        idx["Rattota"][-1] = idx["Laggala"][0]
+        idx["Laggala"][0] = [14, 15.5]
 
         # EC-09
-        idx['Tangalle'][-1] = [15.0, 27.0]
-        idx['Tangalle'][1] = [16.0, 27.5]
-        move('Thissamaharama', 0, -1)
+        idx["Tangalle"][-1] = [15.0, 27.0]
+        idx["Tangalle"][1] = [16.0, 27.5]
+        move("Thissamaharama", 0, -1)
 
         # EC-10
-        move('Kilinochchi', 0, 4)
+        move("Kilinochchi", 0, 4)
         for pd_name in [
-            'Vaddukoddai',
-            'Kankesanthurai',
-            'Manipay',
-            'Kopay',
-            'Udupiddy',
-            'Point Pedro',
-            'Chavakachcheri',
-            'Nallur',
-            'Jaffna',
+            "Vaddukoddai",
+            "Kankesanthurai",
+            "Manipay",
+            "Kopay",
+            "Udupiddy",
+            "Point Pedro",
+            "Chavakachcheri",
+            "Nallur",
+            "Jaffna",
         ]:
             move(pd_name, 2, 5)
-        idx['Kayts'] = [[6.0, 6.5]]
+        idx["Kayts"] = [[6.0, 6.5]]
 
         # EC-11
-        idx['Vavuniya'] = [[9.0, 10.0], [10.0, 10.5], [11.0, 10]]
-        idx['Mannar'] = [[7.0, 10.0], [8.0, 9.5]]
+        idx["Vavuniya"] = [[9.0, 10.0], [10.0, 10.5], [11.0, 10]]
+        idx["Mannar"] = [[7.0, 10.0], [8.0, 9.5]]
         move("Mullaitivu", 0, 3)
 
         # EC-12
-        idx['Kalkudah'][-1] = [16.0, 15.5]
-        idx['Kalkudah'][0] = [17.0, 15.0]
-        move('Batticaloa', -1, -0.5)
-        idx['Paddiruppu'][0] = [18.0, 17.5]
+        idx["Kalkudah"][-1] = [16.0, 15.5]
+        idx["Kalkudah"][0] = [17.0, 15.0]
+        move("Batticaloa", -1, -0.5)
+        idx["Paddiruppu"][0] = [18.0, 17.5]
 
         # EC-13
-        idx['Pothuvil'][-1] = [19.0, 24.0]
-        idx['Ampara'][0] = [16.0, 17.5]
-        move('Samanthurai', -1, 0.5)
-        idx['Kalmunai'] = [[19.0, 19.0], [20.0, 19.5]]
+        idx["Pothuvil"][-1] = [19.0, 24.0]
+        idx["Ampara"][0] = [16.0, 17.5]
+        move("Samanthurai", -1, 0.5)
+        idx["Kalmunai"] = [[19.0, 19.0], [20.0, 19.5]]
 
         # EC-14
-        idx['Muttur'] = [[18.0, 14.5], [17, 14]]
-        idx['Seruvila'] = [[14.0, 11.5], [15.0, 12.0]]
+        idx["Muttur"] = [[18.0, 14.5], [17, 14]]
+        idx["Seruvila"] = [[14.0, 11.5], [15.0, 12.0]]
 
-        idx['Trincomalee'] = [[17.0, 13.0], [16.0, 12.5]]
+        idx["Trincomalee"] = [[17.0, 13.0], [16.0, 12.5]]
 
         # EC-17
-        idx['Kekirawa'][0] = [13.0, 12.0]
-        move('Horowpothana', 1, 0.5)
-        idx['Horowpothana'][0] = [12, 11.5]
-        idx['Mihinthale'] = [[11.0, 12.0]]
-        idx['Anuradhapura East'][-1] = [10.0, 11.5]
-        move('Medawachchiya', 1, 1.5)
+        idx["Kekirawa"][0] = [13.0, 12.0]
+        move("Horowpothana", 1, 0.5)
+        idx["Horowpothana"][0] = [12, 11.5]
+        idx["Mihinthale"] = [[11.0, 12.0]]
+        idx["Anuradhapura East"][-1] = [10.0, 11.5]
+        move("Medawachchiya", 1, 1.5)
 
         # EC-18
-        idx['Polonnaruwa'][-1] = [15.0, 15.0]
-        idx['Polonnaruwa'][0] = [16.0, 13.5]
-        idx['Medirigiriya'][-1] = [15.0, 13.0]
-        idx['Medirigiriya'][0] = [14.0, 12.5]
-        idx['Minneriya'][0] = [14.0, 13.5]
+        idx["Polonnaruwa"][-1] = [15.0, 15.0]
+        idx["Polonnaruwa"][0] = [16.0, 13.5]
+        idx["Medirigiriya"][-1] = [15.0, 13.0]
+        idx["Medirigiriya"][0] = [14.0, 12.5]
+        idx["Minneriya"][0] = [14.0, 13.5]
 
         # EC-19
-        idx['Mahiyanganaya'][0] = idx['Viyaluwa'][0]
-        idx['Viyaluwa'] = [[18, 20.5]]
+        idx["Mahiyanganaya"][0] = idx["Viyaluwa"][0]
+        idx["Viyaluwa"] = [[18, 20.5]]
 
         # EC-20
-        idx['Wellawaya'][-1] = [18, 24.5]
-        idx['Monaragala'][0] = [18, 23.5]
-        idx['Bibile'][0] = [19, 22]
+        idx["Wellawaya"][-1] = [18, 24.5]
+        idx["Monaragala"][0] = [18, 23.5]
+        idx["Bibile"][0] = [19, 22]
 
         # EC-21
-        idx['Kolonna'][-1] = [15.0, 26.0]
+        idx["Kolonna"][-1] = [15.0, 26.0]
 
-        data['idx'] = idx
+        data["idx"] = idx
         return data
 
     polygons = dcn_list[-1].polygons
