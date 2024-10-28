@@ -5,7 +5,7 @@ def main():  # noqa
 
     algo = DCN1985.from_topojson(
         topojson_path=os.path.join(
-            os.path.dirname(__file__), 'topojson_data', 'DSDivisions.json'
+            "examples_data", "topojson_data", "DSDivisions.json"
         ),
     )
 
