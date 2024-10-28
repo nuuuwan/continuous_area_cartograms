@@ -14,7 +14,7 @@ log = Log("DCN1985Renderer")
 
 
 class DCN1985Renderer(MatPlotLibUser):
-    RENDER_VERSION = "20240716.1332"
+    RENDER_VERSION = "20241028-v1"
     HEIGHT = 4.5
     BASE_SCALE = 0.8
     DPI = 240
@@ -168,6 +168,7 @@ class DCN1985Renderer(MatPlotLibUser):
             tempfile.gettempdir(), f"cac.dcn.{self.image_hash}.png"
         )
         if os.path.exists(image_path):
+            log.debug_temp(f"Already exists: {image_path}")
             return image_path, width_prev
 
         plt.close()
