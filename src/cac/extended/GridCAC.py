@@ -77,6 +77,7 @@ class GridCAC(PillowUser):
             tempfile.gettempdir(), f"cac.dnc.{h}.png"
         )
         if os.path.exists(combined_image_path):
+            log.debug(f"Already exists: {combined_image_path}")
             return combined_image_path
 
         combined_im, total_width, height = self.combine_images(
