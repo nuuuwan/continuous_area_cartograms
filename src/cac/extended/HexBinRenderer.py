@@ -35,6 +35,7 @@ class HexBinRenderer:
         values,
         total_value,
         custom_color_map,
+        rendered_svg_custom,
     ):
         self.polygons = polygons
         self.labels = labels
@@ -43,6 +44,7 @@ class HexBinRenderer:
         self.values = values
         self.total_value = total_value
         self.custom_color_map = custom_color_map or {}
+        self.rendered_svg_custom = rendered_svg_custom or []
 
     @staticmethod
     def render_group(polygons, dim, i_group):
@@ -79,7 +81,6 @@ class HexBinRenderer:
                     y=point.y,
                     fill=text_color,
                     font_size=font_size,
-                    font_family="Ubuntu Mono",
                     text_anchor="middle",
                     dominant_baseline="middle",
                 ),
@@ -108,8 +109,8 @@ class HexBinRenderer:
                             [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                         ),
                         fill=color,
-                        stroke="#888",
-                        stroke_width=dim * 0.02,
+                        stroke=text_color,
+                        stroke_width=dim * 0.01,
                     ),
                 ),
                 HexBinRenderer.render_label(label, point, dim, text_color),
@@ -141,7 +142,6 @@ class HexBinRenderer:
                 y=y,
                 fill="#ccc",
                 font_size=dim * 0.3,
-                font_family="P22 Johnston Underground Regular",
                 text_anchor="middle",
                 dominant_baseline="middle",
             ),
@@ -211,8 +211,8 @@ class HexBinRenderer:
             i_mid = HexBinRenderer.get_midpoint_i(points)
 
             for i, point in enumerate(points):
-                # label_display = "" if i != i_mid else label
-                label_display = f"{label}{i+1}"
+                label_display = "" if i != i_mid else label
+                # label_display = f"{label}{i+1}"
 
                 point_color = self.custom_color_map.get((label, i + 1)) or color
 
@@ -276,9 +276,15 @@ class HexBinRenderer:
         rendered_groups = self.get_rendered_groups(
             group_type_to_group_to_polygons, dim
         )
-        min_x, min_y, max_x, max_y, x_span, y_span = self.get_bbox_padded(
+        min_x, min_y, __, __, x_span, y_span = self.get_bbox_padded(
             points_list, dim
         )
+
+        view_box = f"{min_x} {min_y} {x_span} {y_span}"
+        log.debug(f"{view_box=}")
+        mid_x = min_x + x_span / 2
+        mid_y = min_y + y_span / 2
+        log.debug(f"{mid_x=}, {mid_y=}")
 
         return _(
             "svg",
@@ -296,11 +302,13 @@ class HexBinRenderer:
                 )
             ]
             + rendered_points
-            + rendered_groups,
+            + rendered_groups
+            + self.rendered_svg_custom,
             dict(
                 height=900,
                 width=1600,
-                viewBox=f"{min_x} {min_y} {x_span} {y_span}",
+                viewBox=view_box,
+                font_family="Ubuntu Mono",
             ),
         )
 

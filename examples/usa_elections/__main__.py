@@ -1,7 +1,8 @@
 import os
 
 import geopandas as gpd
-from utils import JSONFile, Log
+from shapely import Point
+from utils import JSONFile, Log, _
 
 from cac import DCN1985, DCN1985AlgoParams, HexBinRenderer
 from utils_future import Color
@@ -28,7 +29,7 @@ def get_color(info):
 
     MARGIN_UNCERTAIN = 1
     MARGIN_CERTAIN = 10
-    LIGHT_MIN, LIGHT_MAX = 60, 95
+    LIGHT_MIN, LIGHT_MAX = 50, 80
     if margin < MARGIN_UNCERTAIN:
         hue = 45
         p_light = 0.5
@@ -39,7 +40,7 @@ def get_color(info):
         if margin > MARGIN_CERTAIN:
             p_light = 0
         else:
-            p_light = (margin - MARGIN_UNCERTAIN) / (
+            p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
                 MARGIN_CERTAIN - MARGIN_UNCERTAIN
             )
 
@@ -96,7 +97,7 @@ def main():  # noqa
         ),
     )
 
-    _, dcn_list = algo.build(os.path.dirname(__file__))
+    __, dcn_list = algo.build(os.path.dirname(__file__))
 
     polygons = dcn_list[-1].polygons
 
@@ -214,6 +215,23 @@ def main():  # noqa
         color = get_color(info)
         custom_color_map[a_ia] = color
 
+    mid_x = 45.5
+    mid_y = 20.784609690826528
+    rendered_svg_custom = [
+        _(
+            "text",
+            "2024 US Presidential Election",
+            dict(
+                x=mid_x,
+                y=9.5,
+                fill="black",
+                font_size=0.7,
+                text_anchor="middle",
+                dominant_baseline="middle",
+            ),
+        ),
+    ]
+
     HexBinRenderer(
         polygons,
         labels,
@@ -222,6 +240,7 @@ def main():  # noqa
         values,
         total_value=total_values,
         custom_color_map=custom_color_map,
+        rendered_svg_custom=rendered_svg_custom,
     ).write(
         hexbin_path=hexbin_path,
         post_process=post_process,
