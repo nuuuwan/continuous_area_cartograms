@@ -95,10 +95,7 @@ class HexBinRenderer:
                     None,
                     dict(
                         points=" ".join(
-                            [
-                                f"{x[0]},{x[1]}"
-                                for x in polygon.exterior.coords
-                            ]
+                            [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                         ),
                         fill=color,
                         stroke="#444",
@@ -274,7 +271,7 @@ class HexBinRenderer:
             ),
         )
 
-    def write_hexbin_data(self, hexbin_path, post_process=None):
+    def save_hexbin_data(self, hexbin_path, post_process=None):
         hexbin_data_path = hexbin_path + ".json"
         HexBin(
             self.polygons,
@@ -287,7 +284,7 @@ class HexBinRenderer:
         return hexbin_data_path
 
     def save_hexbin(self, hexbin_path, post_process=None):
-        hexbin_data_path = self.write_hexbin_data(hexbin_path, post_process)
+        hexbin_data_path = self.save_hexbin_data(hexbin_path, post_process)
 
         data = JSONFile(hexbin_data_path).read()
         points_list = [

@@ -3,8 +3,12 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
-                     HexBinRenderer)
+    from cac import (
+        DCN1985,
+        DCN1985AlgoParams,
+        DCN1985RenderParams,
+        HexBinRenderer,
+    )
 
     def get_winning_party(row):
         for k in row.dict.keys():
@@ -122,7 +126,7 @@ def main():  # noqa
         colors,
         values,
         total_value=len(ents),
-    ).write_hexbin(
+    ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",

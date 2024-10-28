@@ -134,7 +134,7 @@ def main():  # noqa
         colors,
         values,
         total_value=total_value,
-    ).write_hexbin(
+    ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",

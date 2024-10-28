@@ -35,7 +35,7 @@ def main():  # noqa
 
     HexBinRenderer(
         polygons, labels, label_to_group, colors, total_value=22
-    ).write_hexbin(
+    ).save_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",
