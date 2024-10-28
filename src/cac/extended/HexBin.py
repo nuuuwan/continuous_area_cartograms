@@ -138,7 +138,9 @@ class HexBin:
     def get_group_polygons(points, dim):
         polygons = []
         for point in points:
-            polygons.append(HexBin.get_polygon(point, dim, expand_factor=1.01))
+            polygons.append(
+                HexBin.get_polygon(point, dim, expand_factor=1.01)
+            )
         combined = unary_union(polygons)
 
         polygons = []
@@ -193,7 +195,9 @@ class HexBin:
         sorted_ks = sorted(list(k_set))
         return p_to_k_to_n, sorted_ks
 
-    def get_points_list(self, optimal_assignment, sorted_ks, total_value, dim):
+    def get_points_list(
+        self, optimal_assignment, sorted_ks, total_value, dim
+    ):
         points_list = []
         ij_to_ik = dict(optimal_assignment)
         k_set = set()
@@ -290,8 +294,8 @@ class HexBin:
         if self.post_process:
             idx = self.post_process(dict(idx=idx))["idx"]
 
-        group_type_to_group_to_points = self.get_group_type_to_group_to_points(
-            idx
+        group_type_to_group_to_points = (
+            self.get_group_type_to_group_to_points(idx)
         )
         idx2 = HexBin.get_idx2(group_type_to_group_to_points)
 

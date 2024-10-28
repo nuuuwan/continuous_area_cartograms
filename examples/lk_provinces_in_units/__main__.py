@@ -3,12 +3,8 @@ def main():  # noqa
 
     from gig import Ent, EntType, GIGTable
 
-    from cac import (
-        DCN1985,
-        DCN1985AlgoParams,
-        DCN1985RenderParams,
-        HexBinRenderer,
-    )
+    from cac import (DCN1985, DCN1985AlgoParams, DCN1985RenderParams,
+                     HexBinRenderer)
 
     def get_winning_party(row):
         for k in row.dict.keys():

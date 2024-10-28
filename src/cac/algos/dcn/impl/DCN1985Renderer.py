@@ -13,13 +13,6 @@ from utils_future import Color, Log, MatPlotLibUser, Number
 log = Log("DCN1985Renderer")
 
 
-FONT_PATH = (
-    "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\p22.ttf"
-)
-FONT = FontProperties(fname=FONT_PATH)
-plt.rcParams["font.family"] = FONT.get_name()
-
-
 class DCN1985Renderer(MatPlotLibUser):
     RENDER_VERSION = "20240716.1332"
     HEIGHT = 4.5

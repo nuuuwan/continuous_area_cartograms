@@ -31,7 +31,9 @@ def expand_data(data, ent_type):
 
 
 def run(ent_type, example_name):
-    hexbin_data_path = os.path.join("examples", example_name, "hexbin.svg.json")
+    hexbin_data_path = os.path.join(
+        "examples", example_name, "hexbin.svg.json"
+    )
     data = JSONFile(hexbin_data_path).read()
     expanded_data = expand_data(data, ent_type)
 

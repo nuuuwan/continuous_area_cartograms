@@ -6,3 +6,5 @@ topojson
 geopandas
 matplotlib
 imageio
+scipy
+geodatasets

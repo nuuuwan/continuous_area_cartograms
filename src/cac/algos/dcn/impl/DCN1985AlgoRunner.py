@@ -99,6 +99,7 @@ class DCN1985AlgoRunner:
                 log.debug(
                     f"is_reasonably_complete after {i_iter + 1} iterations"
                 )
+                return dcn_list
 
             if dcn.algo_params.do_shrink:
                 dcn = cls.shrink(dcn)

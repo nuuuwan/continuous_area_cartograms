@@ -95,7 +95,10 @@ class HexBinRenderer:
                     None,
                     dict(
                         points=" ".join(
-                            [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
+                            [
+                                f"{x[0]},{x[1]}"
+                                for x in polygon.exterior.coords
+                            ]
                         ),
                         fill=color,
                         stroke="#444",
