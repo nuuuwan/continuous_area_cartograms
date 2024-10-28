@@ -9,6 +9,15 @@ from utils_future import Color
 log = Log("HexBinRenderer")
 
 
+class STYLE:
+    FONT_FAMILY = "Afacad"
+
+
+def convert_to_superscript(n):
+    s = str(f"{n:.0f}").strip()
+    return "".join(["⁰¹²³⁴⁵⁶⁷⁸⁹"[int(c)] for c in s])
+
+
 def remove_vowels(x):
     if len(x) < 2:
         return x
@@ -58,8 +67,8 @@ class HexBinRenderer:
                         [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                     ),
                     fill=None,
-                    stroke="#000",
-                    stroke_width=(1 + i_group) * dim * 0.09,
+                    stroke="#222",
+                    stroke_width=dim * 0.05,
                     opacity=0.5 + 0.1 * i_group,
                 ),
             )
@@ -70,7 +79,7 @@ class HexBinRenderer:
     def render_label(label, point, dim, text_color):
         inner = []
 
-        font_size = 1.5 * dim / max(1, len(label))
+        font_size = 0.5 * dim
 
         inner.append(
             _(
@@ -78,7 +87,7 @@ class HexBinRenderer:
                 label,
                 dict(
                     x=point.x,
-                    y=point.y,
+                    y=point.y + font_size * 0.1,
                     fill=text_color,
                     font_size=font_size,
                     text_anchor="middle",
@@ -110,7 +119,7 @@ class HexBinRenderer:
                         ),
                         fill=color,
                         stroke=text_color,
-                        stroke_width=dim * 0.01,
+                        stroke_width=dim * 0.005,
                     ),
                 ),
                 HexBinRenderer.render_label(label, point, dim, text_color),
@@ -204,17 +213,24 @@ class HexBinRenderer:
 
         rendered_points = []
 
-        for i, points in enumerate(points_list):
+        for i_points, points in enumerate(points_list):
 
-            label = self.labels[i]
-            color = self.colors[i]
+            label = self.labels[i_points]
+            color = self.colors[i_points]
             i_mid = HexBinRenderer.get_midpoint_i(points)
 
-            for i, point in enumerate(points):
-                label_display = "" if i != i_mid else label
+            value = self.values[i_points]
+            label_display_points = label + convert_to_superscript(value)
+
+            for i_point, point in enumerate(points):
+                label_display = ""
+                if i_point == i_mid:
+                    label_display = label_display_points
                 # label_display = f"{label}{i+1}"
 
-                point_color = self.custom_color_map.get((label, i + 1)) or color
+                point_color = (
+                    self.custom_color_map.get((label, i_point + 1)) or color
+                )
 
                 text_color = Color(point_color).foreground.hex
 
@@ -259,7 +275,7 @@ class HexBinRenderer:
 
         dim_x = dim
         dim_y = dim / HexBin.X_TO_Y_RATIO
-        PADDING = 1
+        PADDING = 1.7
         min_x -= dim_x * PADDING
         min_y -= dim_y * PADDING
         max_x += dim_x * PADDING
@@ -308,7 +324,7 @@ class HexBinRenderer:
                 height=900,
                 width=1600,
                 viewBox=view_box,
-                font_family="Ubuntu Mono",
+                font_family=STYLE.FONT_FAMILY,
             ),
         )
 

@@ -2,12 +2,54 @@ import os
 
 import geopandas as gpd
 from shapely import Point
-from utils import JSONFile, Log, _
+from utils import JSONFile, Log, Time, TimeFormat, _
 
 from cac import DCN1985, DCN1985AlgoParams, HexBinRenderer
 from utils_future import Color
 
 log = Log("usa_elections")
+
+
+MARGIN_UNCERTAIN = 1
+MARGIN_CERTAIN = 25
+
+
+class HUE:  # noqa
+    BLUE = 197
+    RED = 358
+    ORANGE = 45
+
+
+def render_candidate(x, y, hue, label, value):
+    color = get_color_raw(hue, 0)
+    return _(
+        "g",
+        [
+            _(
+                "text",
+                label,
+                dict(
+                    x=x,
+                    y=y,
+                    font_size=0.5,
+                ),
+            ),
+            _(
+                "text",
+                str(value),
+                dict(
+                    x=x,
+                    y=y + 1.4,
+                    font_size=2,
+                ),
+            ),
+        ],
+        dict(
+            fill=color,
+            text_anchor="middle",
+            dominant_baseline="middle",
+        ),
+    )
 
 
 def get_info_idx():
@@ -23,19 +65,25 @@ def get_state_to_code():
     ).read()
 
 
+def get_color_raw(hue, p_light):
+    # if hue == HUE.ORANGE:
+    #     return "#ccc"
+    sat = 100
+    LIGHT_MIN, LIGHT_MAX = 40, 90
+    light = LIGHT_MIN + (LIGHT_MAX - LIGHT_MIN) * p_light
+    return Color.from_hls(hue, light, sat).hex
+
+
 def get_color(info):
     mov = info["Forecasted margin of victory"]
     margin = float(mov[2:])
 
-    MARGIN_UNCERTAIN = 1
-    MARGIN_CERTAIN = 10
-    LIGHT_MIN, LIGHT_MAX = 50, 80
     if margin < MARGIN_UNCERTAIN:
-        hue = 45
+        hue = HUE.ORANGE
         p_light = 0.5
     else:
         party = mov[0]
-        hue = 240 if party == "D" else 0
+        hue = HUE.BLUE if party == "D" else HUE.RED
         margin = float(mov[2:])
         if margin > MARGIN_CERTAIN:
             p_light = 0
@@ -43,10 +91,7 @@ def get_color(info):
             p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
                 MARGIN_CERTAIN - MARGIN_UNCERTAIN
             )
-
-    sat = 100
-    light = LIGHT_MIN + (LIGHT_MAX - LIGHT_MIN) * p_light
-    return Color.from_hls(hue, light, sat).hex
+    return get_color_raw(hue, p_light)
 
 
 def main():  # noqa
@@ -198,7 +243,7 @@ def main():  # noqa
             (-1, -0.5),
         )
 
-        move_all_rel("AK", ("MT", 4), (0, -2))
+        move_all_rel("AK", ("MT", 3), (0, -2))
 
         data["idx"] = idx
         return data
@@ -216,19 +261,59 @@ def main():  # noqa
         custom_color_map[a_ia] = color
 
     mid_x = 45.5
-    mid_y = 20.784609690826528
+    n_too_close = 0
+    n_blue = 0
+    n_red = 0
+    for info in info_idx.values():
+        mov = info["Forecasted margin of victory"]
+        party = mov[0]
+        margin = float(mov[2:])
+        ev = int(round(info["EVs"]))
+        if margin < MARGIN_UNCERTAIN:
+            n_too_close += ev
+        else:
+            if party == "D":
+                n_blue += ev
+            else:
+                n_red += ev
+
+    x_legend = 65
     rendered_svg_custom = [
         _(
             "text",
-            "2024 US Presidential Election",
+            "2024 US Presidential Election - Projection",
             dict(
                 x=mid_x,
-                y=9.5,
-                fill="black",
-                font_size=0.7,
+                y=9.25,
+                fill="#444",
+                font_size=1.4,
                 text_anchor="middle",
                 dominant_baseline="middle",
             ),
+        ),
+        _(
+            "text",
+            " · ".join(
+                [
+                    "aggregation & visualization by @nuuuwan",
+                    "poll data from multiple public polls",
+                    TimeFormat("%Y-%m-%d %I:%M %p", 0).format(Time.now())
+                    + " UTC",
+                ]
+            ),
+            dict(
+                x=mid_x,
+                y=33,
+                fill="#ccc",
+                font_size=0.4,
+                text_anchor="middle",
+                dominant_baseline="middle",
+            ),
+        ),
+        render_candidate(x_legend, 24, HUE.BLUE, "Harris", n_blue),
+        render_candidate(x_legend, 27, HUE.RED, "Trump", n_red),
+        render_candidate(
+            x_legend, 30, HUE.ORANGE, f"Lead <{MARGIN_UNCERTAIN}%", n_too_close
         ),
     ]
 
