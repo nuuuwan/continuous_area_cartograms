@@ -19,8 +19,8 @@ def main():  # noqa
 
     values = []
     group_label_to_group = {
-        'ED': {},
-        'Province': {},
+        "ED": {},
+        "Province": {},
     }
     colors = []
 
@@ -45,7 +45,7 @@ def main():  # noqa
             print(f"Skipping {ent.name} ({f_value:.2f}) due to zero value")
             continue
         print(
-            f'{value} ({f_value:.2f})'.ljust(10),
+            f"{value} ({f_value:.2f})".ljust(10),
             ent.name,
         )
         used_ents.append(ent)
@@ -53,8 +53,8 @@ def main():  # noqa
         total_value += value
         label = ent.name
 
-        group_label_to_group['ED'][label] = ent.name
-        group_label_to_group['Province'][label] = ent.province_id
+        group_label_to_group["ED"][label] = ent.name
+        group_label_to_group["Province"][label] = ent.province_id
 
         # color
         row2019 = ent.gig(gig_table_elec_pres_2019)
@@ -70,7 +70,7 @@ def main():  # noqa
             color = "#0c08"
         colors.append(color)
 
-    print(f'{budgeted_total_value=:.2f}, {total_value=}')
+    print(f"{budgeted_total_value=:.2f}, {total_value=}")
 
     algo = DCN1985.from_ents(
         used_ents,
@@ -91,11 +91,7 @@ def main():  # noqa
     )
 
     def post_process(data):
-
-        idx = data['idx']
-
-        def swap(a, b):
-            idx[a], idx[b] = idx[b], idx[a]
+        idx = data["idx"]
 
         def move(a, dx, dy):
             idx[a] = [(x + dx, y + dy) for x, y in idx[a]]
@@ -106,41 +102,26 @@ def main():  # noqa
                 idx[a_list[i]] = idx[a_list[i + 1]]
             idx[a_list[-1]] = final_pos
 
-        # Phrase-I
-        multi_swap(['Galle', 'Matara', 'Hambantota'], [[3, 5.5]])
-
+        multi_swap(["Galle", "Matara", "Hambantota"], [[3, 5.5]])
         multi_swap(
-            ['Kurunegala', 'Matale', 'Digamadulla', 'Batticaloa'], [[3, 1.5]]
+            ["Kurunegala", "Matale", "Digamadulla", "Batticaloa"], [[3, 1.5]]
         )
-
-        move('Puttalam', 0, 1)
-
-        # Phrase-II
-        multi_swap(['Galle', 'Matara', 'Hambantota'], [[4, 5]])
-
-        multi_swap(['Trincomalee', 'Batticaloa', 'Digamadulla'], [[4, 3]])
-
-        # Phase III
+        move("Puttalam", 0, 1)
+        multi_swap(["Galle", "Matara", "Hambantota"], [[4, 5]])
+        multi_swap(["Trincomalee", "Batticaloa", "Digamadulla"], [[4, 3]])
         multi_swap(
             [
-                'Hambantota',
-                'Matara',
-                'Galle',
-                'Kalutara',
-                'Colombo',
-                'Gampaha',
-                'Puttalam',
+                "Hambantota",
+                "Matara",
+                "Galle",
+                "Kalutara",
+                "Colombo",
+                "Gampaha",
+                "Puttalam",
             ],
             [[0, 2]],
         )
-
-        # multi_swap([
-        #     'Digamadulla',
-        #     'Batticaloa',
-        #     'Trincomalee'
-        # ], [[2, 1]])
-
-        data['idx'] = idx
+        data["idx"] = idx
         return data
 
     polygons = dcn_list[-1].polygons
@@ -153,7 +134,7 @@ def main():  # noqa
         colors,
         values,
         total_value=total_value,
-    ).save_hexbin(
+    ).write_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",

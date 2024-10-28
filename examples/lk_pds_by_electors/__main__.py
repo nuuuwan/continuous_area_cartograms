@@ -18,12 +18,12 @@ def main():  # noqa
     gig_table_elec_parl_2020 = GIGTable(
         "government-elections-parliamentary", "regions-ec", "2020"
     )
-    gig_table_elec_pres_2019 = GIGTable(
-        "government-elections-presidential", "regions-ec", "2019"
-    )
-    gig_table_elec_parl_2015 = GIGTable(
-        "government-elections-presidential", "regions-ec", "2015"
-    )
+    # gig_table_elec_pres_2019 = GIGTable(
+    #     "government-elections-presidential", "regions-ec", "2019"
+    # )
+    # gig_table_elec_parl_2015 = GIGTable(
+    #     "government-elections-presidential", "regions-ec", "2015"
+    # )
     ents = Ent.list_from_type(EntType.PD)
 
     values = []
@@ -67,17 +67,17 @@ def main():  # noqa
         group_label_to_group["Province"][label] = ent.province_id
 
         # color
-        row2019 = ent.gig(gig_table_elec_pres_2019)
-        row2015 = ent.gig(gig_table_elec_parl_2015)
+        # row2019 = ent.gig(gig_table_elec_pres_2019)
+        # row2015 = ent.gig(gig_table_elec_parl_2015)
 
-        blue2019 = row2019.SLPP > row2019.NDF
-        blue2015 = row2015.UPFA > row2015.NDF
-        if blue2019 and blue2015:
-            color = "#8008"
-        elif blue2019:
-            color = "#f808"
-        else:
-            color = "#0c08"
+        # blue2019 = row2019.SLPP > row2019.NDF
+        # blue2015 = row2015.UPFA > row2015.NDF
+        # if blue2019 and blue2015:
+        #     color = "#8008"
+        # elif blue2019:
+        #     color = "#f808"
+        # else:
+        #     color = "#0c08"
         colors.append(get_random_color())
 
     print(f"{budgeted_total_value=:.2f}, {total_value=}")
@@ -203,7 +203,7 @@ def main():  # noqa
         colors,
         values,
         total_value=total_value,
-    ).save_hexbin(
+    ).write_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",

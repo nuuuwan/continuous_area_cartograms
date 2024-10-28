@@ -11,14 +11,14 @@ log = Log("HexBinRenderer")
 def remove_vowels(x):
     if len(x) < 2:
         return x
-    return x[0] + ''.join([c for c in x[1:] if c.lower() not in 'aeiou'])
+    return x[0] + "".join([c for c in x[1:] if c.lower() not in "aeiou"])
 
 
 def get_short_label(x):
-    words = x.split(' ')
+    words = x.split(" ")
     if len(words) == 1:
         return remove_vowels(words[0])[:3].upper()
-    return ''.join([word[0] for word in words])
+    return "".join([word[0] for word in words])
 
 
 class HexBinRenderer:
@@ -46,20 +46,20 @@ class HexBinRenderer:
         rendered_polygons = []
         for polygon in polygons:
             rendered_polygon = _(
-                'polygon',
+                "polygon",
                 None,
                 dict(
-                    points=' '.join(
-                        [f'{x[0]},{x[1]}' for x in polygon.exterior.coords]
+                    points=" ".join(
+                        [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                     ),
                     fill=None,
-                    stroke='#222',
+                    stroke="#222",
                     stroke_width=(1 + i_group) * dim * 0.07,
                     opacity=0.5 + 0.1 * i_group,
                 ),
             )
             rendered_polygons.append(rendered_polygon)
-        return _('g', rendered_polygons)
+        return _("g", rendered_polygons)
 
     @staticmethod
     def render_label(label, point, dim):
@@ -72,7 +72,7 @@ class HexBinRenderer:
 
         inner.append(
             _(
-                'text',
+                "text",
                 short_label,
                 dict(
                     x=point.x,
@@ -102,26 +102,23 @@ class HexBinRenderer:
         #     )
         # )
 
-        return _('g', inner)
+        return _("g", inner)
 
     @staticmethod
     def render_point(point, dim, color, label):
         polygon = HexBin.get_polygon(point, dim)
         return _(
-            'g',
+            "g",
             [
                 _(
-                    'polygon',
+                    "polygon",
                     None,
                     dict(
-                        points=' '.join(
-                            [
-                                f'{x[0]},{x[1]}'
-                                for x in polygon.exterior.coords
-                            ]
+                        points=" ".join(
+                            [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                         ),
                         fill=color,
-                        stroke='#444',
+                        stroke="#444",
                         stroke_width=dim * 0.01,
                     ),
                 ),
@@ -147,15 +144,15 @@ class HexBinRenderer:
 
                 inner.append(
                     _(
-                        'g',
+                        "g",
                         [
                             _(
-                                'polygon',
+                                "polygon",
                                 None,
                                 dict(
-                                    points=' '.join(
+                                    points=" ".join(
                                         [
-                                            f'{x[0]},{x[1]}'
+                                            f"{x[0]},{x[1]}"
                                             for x in polygon.exterior.coords
                                         ]
                                     ),
@@ -165,8 +162,8 @@ class HexBinRenderer:
                                 ),
                             ),
                             _(
-                                'text',
-                                f'{x / dim_x:.1f},{y / dim_y:.1f}',
+                                "text",
+                                f"{x / dim_x:.1f},{y / dim_y:.1f}",
                                 dict(
                                     x=x,
                                     y=y,
@@ -188,35 +185,9 @@ class HexBinRenderer:
             if x > max_x:
                 break
 
-        return _('g', inner)
+        return _("g", inner)
 
-    def render(self, points_list, group_type_to_group_to_polygons, dim):
-        min_x, min_y, max_x, max_y = None, None, None, None
-        for points in points_list:
-            for point in points:
-                x, y = point.x, point.y
-
-                if min_x is None or x < min_x:
-                    min_x = x
-                if min_y is None or y < min_y:
-                    min_y = y
-
-                if max_x is None or x > max_x:
-                    max_x = x
-                if max_y is None or y > max_y:
-                    max_y = y
-        dim_x = dim
-        dim_y = dim / HexBin.X_TO_Y_RATIO
-        PADDING = 1
-
-        min_x -= dim_x * PADDING
-        min_y -= dim_y * PADDING
-
-        max_x += dim_x * PADDING
-        max_y += dim_y * PADDING
-
-        x_span = max_x - min_x
-        y_span = max_y - min_y
+    def get_rendered_points(self, points_list, dim):
 
         rendered_points = []
         for i, points in enumerate(points_list):
@@ -231,28 +202,75 @@ class HexBinRenderer:
                         point, dim, color, label_display
                     )
                 )
+        return rendered_points
+
+    def get_rendered_groups(self, group_type_to_group_to_polygons, dim):
 
         rendered_groups = []
-        for i, [group_type, group_to_polygons] in enumerate(
-            group_type_to_group_to_polygons.items()
+        for i, group_to_polygons in enumerate(
+            group_type_to_group_to_polygons.values()
         ):
-            for group, polygons in group_to_polygons.items():
+            for polygons in group_to_polygons.values():
                 rendered_groups.append(
                     HexBinRenderer.render_group(polygons, dim, i)
                 )
 
+        return rendered_groups
+
+    @staticmethod
+    def get_bbox(points_list):
+        min_x, min_y, max_x, max_y = None, None, None, None
+        for points in points_list:
+            for point in points:
+                x, y = point.x, point.y
+
+                min_x = x if min_x is None else min(min_x, x)
+                min_y = y if min_y is None else min(min_y, y)
+                max_x = x if max_x is None else max(max_x, x)
+                max_y = y if max_y is None else max(max_y, y)
+
+        return min_x, min_y, max_x, max_y
+
+    @staticmethod
+    def get_bbox_padded(points_list, dim):
+
+        min_x, min_y, max_x, max_y = HexBinRenderer.get_bbox(points_list)
+
+        dim_x = dim
+        dim_y = dim / HexBin.X_TO_Y_RATIO
+        PADDING = 1
+        min_x -= dim_x * PADDING
+        min_y -= dim_y * PADDING
+        max_x += dim_x * PADDING
+        max_y += dim_y * PADDING
+
+        x_span = max_x - min_x
+        y_span = max_y - min_y
+
+        return min_x, min_y, max_x, max_y, x_span, y_span
+
+    def render(self, points_list, group_type_to_group_to_polygons, dim):
+
+        rendered_points = self.get_rendered_points(points_list, dim)
+        rendered_groups = self.get_rendered_groups(
+            group_type_to_group_to_polygons, dim
+        )
+        min_x, min_y, max_x, max_y, x_span, y_span = self.get_bbox_padded(
+            points_list, dim
+        )
+
         return _(
-            'svg',
+            "svg",
             [
                 _(
-                    'rect',
+                    "rect",
                     None,
                     dict(
                         x=min_x,
                         y=min_y,
                         width=x_span,
                         height=y_span,
-                        fill='#8881',
+                        fill="#8881",
                     ),
                 )
             ]
@@ -266,8 +284,8 @@ class HexBinRenderer:
             ),
         )
 
-    def save_hexbin(self, hexbin_path, post_process=None):
-        hexbin_data_path = hexbin_path + '.json'
+    def write_hexbin_data(self, hexbin_path, post_process=None):
+        hexbin_data_path = hexbin_path + ".json"
         HexBin(
             self.polygons,
             self.values,
@@ -276,16 +294,18 @@ class HexBinRenderer:
             self.group_to_label_to_group,
             post_process,
         ).write(hexbin_data_path)
+        return hexbin_data_path
+
+    def save_hexbin(self, hexbin_path, post_process=None):
+        hexbin_data_path = self.write_hexbin_data(hexbin_path, post_process)
 
         data = JSONFile(hexbin_data_path).read()
-
-        dim = data['dim']
         points_list = [
             [
                 Point(point[0], point[1] / HexBin.X_TO_Y_RATIO)
                 for point in points
             ]
-            for points in data['idx'].values()
+            for points in data["idx"].values()
         ]
         group_type_to_group_to_polygons = {
             group_type: {
@@ -297,11 +317,12 @@ class HexBinRenderer:
                 ]
                 for group, points in group_to_points.items()
             }
-            for group_type, group_to_points in data['idx2'].items()
+            for group_type, group_to_points in data["idx2"].items()
         }
 
-        svg = self.render(points_list, group_type_to_group_to_polygons, dim)
+        svg = self.render(
+            points_list, group_type_to_group_to_polygons, data["dim"]
+        )
 
         svg.store(hexbin_path)
         log.info(f"Wrote {hexbin_path}")
-        os.startfile(hexbin_path)

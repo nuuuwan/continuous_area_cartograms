@@ -4,7 +4,7 @@ import imageio.v2 as iio2
 import imageio.v3 as iio3
 from utils import Log
 
-log = Log('AnimatedGIF')
+log = Log("AnimatedGIF")
 
 
 class AnimatedGIF:
@@ -16,11 +16,11 @@ class AnimatedGIF:
     def write(self, x):
         if isinstance(x, str):
             if not os.path.isdir(x):
-                raise ValueError(f'{x} is not a directory')
+                raise ValueError(f"{x} is not a directory")
             return self.write_from_dir_path(x)
 
         if not isinstance(x, list):
-            raise ValueError(f'{x} is not a list')
+            raise ValueError(f"{x} is not a list")
         return self.write_from_image_path_list(x)
 
     def write_from_dir_path(self, dir_path):
@@ -35,7 +35,7 @@ class AnimatedGIF:
         duration_ms = 1_000 * self.total_duration_s / n
         with iio2.get_writer(
             self.animated_gif_path,
-            mode='I',
+            mode="I",
             duration=duration_ms,
             loop=self.loop,
         ) as writer:
@@ -47,7 +47,8 @@ class AnimatedGIF:
         # os.startfile(image_path_list[-1])
 
         file_size_m = os.path.getsize(self.animated_gif_path) / 1_000_000
-        emoji = '⚠️' if file_size_m > 15 else ''
+        emoji = "⚠️" if file_size_m > 15 else ""
         log.info(
-            f'Wrote {n} images to {self.animated_gif_path} ({file_size_m:.2f}MB {emoji})'
+            f"Wrote {n} images to"
+            + f" {self.animated_gif_path} ({file_size_m:.2f}MB {emoji})"
         )

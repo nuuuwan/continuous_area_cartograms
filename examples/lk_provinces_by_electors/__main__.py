@@ -19,7 +19,7 @@ def main():  # noqa
 
     values = []
     group_label_to_group = {
-        'Province': {},
+        "Province": {},
     }
     colors = []
 
@@ -43,7 +43,7 @@ def main():  # noqa
             print(f"Skipping {ent.name} ({f_value:.2f}) due to zero value")
             continue
         print(
-            f'{value} ({f_value:.2f})'.ljust(10),
+            f"{value} ({f_value:.2f})".ljust(10),
             ent.name,
         )
         used_ents.append(ent)
@@ -51,7 +51,7 @@ def main():  # noqa
         total_value += value
         label = ent.name
 
-        group_label_to_group['Province'][label] = ent.province_id
+        group_label_to_group["Province"][label] = ent.province_id
 
         # color
         row2019 = ent.gig(gig_table_elec_pres_2019)
@@ -67,7 +67,7 @@ def main():  # noqa
             color = "#0c08"
         colors.append(color)
 
-    print(f'{budgeted_total_value=:.2f}, {total_value=}')
+    print(f"{budgeted_total_value=:.2f}, {total_value=}")
 
     algo = DCN1985.from_ents(
         used_ents,
@@ -88,14 +88,14 @@ def main():  # noqa
     )
 
     def post_process(data):
-        idx = data['idx']
+        idx = data["idx"]
 
         def swap(a, b):
             idx[a], idx[b] = idx[b], idx[a]
 
-        idx['Uva'] = idx['Eastern']
-        idx['Eastern'] = [[2, 1]]
-        data['idx'] = idx
+        idx["Uva"] = idx["Eastern"]
+        idx["Eastern"] = [[2, 1]]
+        data["idx"] = idx
         return data
 
     polygons = dcn_list[-1].polygons
@@ -108,7 +108,7 @@ def main():  # noqa
         colors,
         values,
         total_value=total_value,
-    ).save_hexbin(
+    ).write_hexbin(
         os.path.join(
             os.path.dirname(__file__),
             "hexbin.svg",
