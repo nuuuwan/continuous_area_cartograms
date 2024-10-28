@@ -168,7 +168,7 @@ class DCN1985Renderer(MatPlotLibUser):
             tempfile.gettempdir(), f"cac.dcn.{self.image_hash}.png"
         )
         if os.path.exists(image_path):
-            log.debug_temp(f"Already exists: {image_path}")
+            log.debug(f"Already exists: {image_path}")
             return image_path, width_prev
 
         plt.close()
