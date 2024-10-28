@@ -41,5 +41,6 @@ class DCN1985Builder:
             final_image_temp_path = image_path_list[-1]
             final_image_path = os.path.join(dir_output, "final.png")
             shutil.copy(final_image_temp_path, final_image_path)
+            log.info(f"Wrote {final_image_path}")
 
         return image_path_list, dcn_list
