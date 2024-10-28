@@ -1,5 +1,3 @@
-import os
-
 from shapely import Point, Polygon
 from utils import JSONFile, Log, _
 
@@ -64,8 +62,6 @@ class HexBinRenderer:
     @staticmethod
     def render_label(label, point, dim):
         inner = []
-        # short_label = get_short_label(label)
-        # font_size =  dim * 0.4
 
         short_label = label
         font_size = dim * 0.2
@@ -85,22 +81,6 @@ class HexBinRenderer:
                 ),
             )
         )
-
-        # inner.append(
-        #     _(
-        #         'text',
-        #         f'{point.x / dim_x:.1f},{point.y / dim_y:.1f}',
-        #         dict(
-        #             x=point.x,
-        #             y=point.y + font_size * (i - (n - 1) / 2) + 0.2,
-        #             fill="white",
-        #             font_size=0.2,
-        #             font_family="P22 Johnston Underground Regular",
-        #             text_anchor="middle",
-        #             dominant_baseline="middle",
-        #         ),
-        #     )
-        # )
 
         return _("g", inner)
 
@@ -127,6 +107,41 @@ class HexBinRenderer:
         )
 
     @staticmethod
+    def render_grid_polygon(polygon, dim):
+        return (
+            _(
+                "polygon",
+                None,
+                dict(
+                    points=" ".join(
+                        [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
+                    ),
+                    fill=None,
+                    stroke="#ccc",
+                    stroke_width=dim * 0.01,
+                ),
+            ),
+        )
+
+    @staticmethod
+    def render_grid_text(x, y, dim, dim_x, dim_y):
+        return (
+            _(
+                "text",
+                f"{x / dim_x:.1f},{y / dim_y:.1f}",
+                dict(
+                    x=x,
+                    y=y,
+                    fill="#ccc",
+                    font_size=dim * 0.3,
+                    font_family="P22 Johnston Underground Regular",
+                    text_anchor="middle",
+                    dominant_baseline="middle",
+                ),
+            ),
+        )
+
+    @staticmethod
     def render_grid(min_x, min_y, max_x, max_y, dim):
         dim_x = dim
         dim_y = dim / HexBin.X_TO_Y_RATIO
@@ -137,42 +152,16 @@ class HexBinRenderer:
             ix = int(round(x / dim_x))
             if ix % 2 == 0:
                 y -= dim_y / 2
-
             while True:
                 point = Point(x, y)
                 polygon = HexBin.get_polygon(point, dim)
-
                 inner.append(
                     _(
                         "g",
                         [
-                            _(
-                                "polygon",
-                                None,
-                                dict(
-                                    points=" ".join(
-                                        [
-                                            f"{x[0]},{x[1]}"
-                                            for x in polygon.exterior.coords
-                                        ]
-                                    ),
-                                    fill=None,
-                                    stroke="#ccc",
-                                    stroke_width=dim * 0.01,
-                                ),
-                            ),
-                            _(
-                                "text",
-                                f"{x / dim_x:.1f},{y / dim_y:.1f}",
-                                dict(
-                                    x=x,
-                                    y=y,
-                                    fill="#ccc",
-                                    font_size=dim * 0.3,
-                                    font_family="P22 Johnston Underground Regular",
-                                    text_anchor="middle",
-                                    dominant_baseline="middle",
-                                ),
+                            HexBinRenderer.render_grid_polygon(polygon, dim),
+                            HexBinRenderer.render_grid_text(
+                                x, y, dim, dim_x, dim_y
                             ),
                         ],
                     )
@@ -180,11 +169,9 @@ class HexBinRenderer:
                 y += dim_y
                 if y > max_y:
                     break
-
             x += dim_x
             if x > max_x:
                 break
-
         return _("g", inner)
 
     def get_rendered_points(self, points_list, dim):
