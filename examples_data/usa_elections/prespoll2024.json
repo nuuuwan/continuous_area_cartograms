@@ -1,450 +1,394 @@
 [
     {
-        "State": "Nevada",
-        "EVs": 6,
-        "Forecasted margin of victory": "R+0.1",
-        "Vote share": 100.0,
-        "VPI": "4.6%",
-        "Tipping point": null
-    },
-    {
         "State": "Pennsylvania",
         "EVs": 19,
-        "Forecasted margin of victory": "R+0.3",
-        "Vote share": 77.6,
-        "VPI": "22.4%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+0.1",
+        "Vote share": 79.1,
+        "VPI": "26.1%"
+    },
+    {
+        "State": "Nevada",
+        "EVs": 6,
+        "Forecasted margin of victory": "EVEN",
+        "Vote share": 100.0,
+        "VPI": "4.8%"
     },
     {
         "State": "Wisconsin",
         "EVs": 10,
-        "Forecasted margin of victory": "D+0.4",
-        "Vote share": 75.8,
-        "VPI": "10.5%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+1.1",
+        "Vote share": 71.0,
+        "VPI": "11.3%"
     },
     {
         "State": "Michigan",
         "EVs": 15,
-        "Forecasted margin of victory": "D+0.6",
-        "Vote share": 69.0,
-        "VPI": "14.8%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+1.3",
+        "Vote share": 63.9,
+        "VPI": "16.0%"
     },
     {
         "State": "North Carolina",
         "EVs": 16,
-        "Forecasted margin of victory": "R+1.4",
-        "Vote share": 70.3,
-        "VPI": "15.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+1.1",
+        "Vote share": 69.8,
+        "VPI": "15.8%"
     },
     {
         "State": "Georgia",
         "EVs": 16,
-        "Forecasted margin of victory": "R+1.6",
-        "Vote share": 70.4,
-        "VPI": "13.6%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+1.1",
+        "Vote share": 70.8,
+        "VPI": "14.7%"
     },
     {
         "State": "Arizona",
         "EVs": 11,
-        "Forecasted margin of victory": "R+1.9",
-        "Vote share": 66.9,
-        "VPI": "7.3%",
-        "Tipping point": null
-    },
-    {
-        "State": "Minnesota",
-        "EVs": 10,
-        "Forecasted margin of victory": "D+5.4",
-        "Vote share": 22.4,
-        "VPI": "1.6%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+2.0",
+        "Vote share": 58.7,
+        "VPI": "6.2%"
     },
     {
         "State": "New Hampshire",
         "EVs": 4,
-        "Forecasted margin of victory": "D+5.5",
-        "Vote share": 34.8,
-        "VPI": "0.6%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+5.3",
+        "Vote share": 33.6,
+        "VPI": "0.5%"
     },
     {
-        "State": "Nebraska’s 2nd District",
-        "EVs": 1,
-        "Forecasted margin of victory": "D+5.9",
-        "Vote share": 22.4,
-        "VPI": "0.2%",
-        "Tipping point": null
+        "State": "Minnesota",
+        "EVs": 10,
+        "Forecasted margin of victory": "D+5.8",
+        "Vote share": 15.5,
+        "VPI": "0.9%"
     },
     {
         "State": "Florida",
         "EVs": 30,
-        "Forecasted margin of victory": "R+6.1",
-        "Vote share": 19.8,
-        "VPI": "4.2%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+6.4",
+        "Vote share": 14.7,
+        "VPI": "2.8%"
     },
     {
         "State": "Virginia",
         "EVs": 13,
         "Forecasted margin of victory": "D+6.6",
-        "Vote share": 14.7,
-        "VPI": "1.2%",
-        "Tipping point": null
+        "Vote share": 12.3,
+        "VPI": "0.8%"
     },
     {
-        "State": "Texas",
-        "EVs": 40,
-        "Forecasted margin of victory": "R+7.0",
-        "Vote share": 18.9,
-        "VPI": "2.2%",
-        "Tipping point": null
+        "State": "Nebraska’s 2nd District",
+        "EVs": 1,
+        "Forecasted margin of victory": "D+6.6",
+        "Vote share": 19.3,
+        "VPI": "0.1%"
     },
     {
         "State": "Maine’s 2nd District",
         "EVs": 1,
-        "Forecasted margin of victory": "R+7.3",
-        "Vote share": 12.9,
-        "VPI": "0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+6.8",
+        "Vote share": 16.5,
+        "VPI": "<0.1%"
     },
     {
         "State": "New Mexico",
         "EVs": 5,
-        "Forecasted margin of victory": "D+7.5",
-        "Vote share": 17.2,
-        "VPI": "0.3%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+7.3",
+        "Vote share": 12.9,
+        "VPI": "0.2%"
     },
     {
-        "State": "Maine",
-        "EVs": 2,
-        "Forecasted margin of victory": "D+8.0",
-        "Vote share": 11.9,
-        "VPI": "0.2%",
-        "Tipping point": null
-    },
-    {
-        "State": "Alaska",
-        "EVs": 3,
-        "Forecasted margin of victory": "R+8.3",
-        "Vote share": 30.2,
-        "VPI": "0.2%",
-        "Tipping point": null
-    },
-    {
-        "State": "Ohio",
-        "EVs": 17,
-        "Forecasted margin of victory": "R+8.7",
-        "Vote share": 5.3,
-        "VPI": "0.2%",
-        "Tipping point": null
+        "State": "Texas",
+        "EVs": 40,
+        "Forecasted margin of victory": "R+7.4",
+        "Vote share": 15.6,
+        "VPI": "1.3%"
     },
     {
         "State": "Iowa",
         "EVs": 6,
-        "Forecasted margin of victory": "R+9.6",
-        "Vote share": 5.4,
-        "VPI": "0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+7.8",
+        "Vote share": 6.2,
+        "VPI": "0.1%"
+    },
+    {
+        "State": "Maine",
+        "EVs": 2,
+        "Forecasted margin of victory": "D+8.1",
+        "Vote share": 10.8,
+        "VPI": "0.2%"
+    },
+    {
+        "State": "Ohio",
+        "EVs": 17,
+        "Forecasted margin of victory": "R+8.4",
+        "Vote share": 4.0,
+        "VPI": "0.1%"
+    },
+    {
+        "State": "Alaska",
+        "EVs": 3,
+        "Forecasted margin of victory": "R+10.1",
+        "Vote share": 10.3,
+        "VPI": "<0.1%"
     },
     {
         "State": "Colorado",
         "EVs": 10,
-        "Forecasted margin of victory": "D+11.6",
-        "Vote share": 2.4,
-        "VPI": "0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+11.8",
+        "Vote share": 1.2,
+        "VPI": "0.1%"
     },
     {
         "State": "Oregon",
         "EVs": 8,
-        "Forecasted margin of victory": "D+12.6",
-        "Vote share": 1.2,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "New Jersey",
-        "EVs": 14,
-        "Forecasted margin of victory": "D+12.9",
-        "Vote share": 0.7,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+12.7",
+        "Vote share": 0.4,
+        "VPI": "<0.1%"
     },
     {
         "State": "South Carolina",
         "EVs": 9,
-        "Forecasted margin of victory": "R+13.2",
-        "Vote share": 1.2,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+12.9",
+        "Vote share": 0.9,
+        "VPI": "<0.1%"
     },
     {
-        "State": "Illinois",
-        "EVs": 19,
-        "Forecasted margin of victory": "D+14.2",
-        "Vote share": 1.6,
-        "VPI": "0.1%",
-        "Tipping point": null
+        "State": "New Jersey",
+        "EVs": 14,
+        "Forecasted margin of victory": "D+13.0",
+        "Vote share": 0.5,
+        "VPI": "<0.1%"
     },
     {
         "State": "Missouri",
         "EVs": 10,
-        "Forecasted margin of victory": "R+14.2",
+        "Forecasted margin of victory": "R+14.4",
+        "Vote share": 0.4,
+        "VPI": "0.2%"
+    },
+    {
+        "State": "Illinois",
+        "EVs": 19,
+        "Forecasted margin of victory": "D+14.5",
         "Vote share": 0.7,
-        "VPI": "0.4%",
-        "Tipping point": null
+        "VPI": "<0.1%"
     },
     {
         "State": "Delaware",
         "EVs": 3,
-        "Forecasted margin of victory": "D+16.3",
-        "Vote share": 1.7,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+15.9",
+        "Vote share": 1.5,
+        "VPI": "<0.1%"
     },
     {
         "State": "Rhode Island",
         "EVs": 4,
-        "Forecasted margin of victory": "D+16.6",
+        "Forecasted margin of victory": "D+16.4",
         "Vote share": 0.4,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "New York",
-        "EVs": 28,
-        "Forecasted margin of victory": "D+16.7",
-        "Vote share": 0.5,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "VPI": "<0.1%"
     },
     {
         "State": "Kansas",
         "EVs": 6,
-        "Forecasted margin of victory": "R+17.1",
-        "Vote share": 0.4,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+16.5",
+        "Vote share": 0.2,
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "New York",
+        "EVs": 28,
+        "Forecasted margin of victory": "D+17.1",
+        "Vote share": 0.5,
+        "VPI": "<0.1%"
     },
     {
         "State": "Connecticut",
         "EVs": 7,
-        "Forecasted margin of victory": "D+17.3",
+        "Forecasted margin of victory": "D+17.1",
         "Vote share": 0.3,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Nebraska’s 1st District",
+        "EVs": 1,
+        "Forecasted margin of victory": "R+17.2",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Indiana",
         "EVs": 11,
         "Forecasted margin of victory": "R+17.4",
         "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Nebraska’s 1st District",
-        "EVs": 1,
-        "Forecasted margin of victory": "R+17.7",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Washington",
-        "EVs": 12,
-        "Forecasted margin of victory": "D+17.8",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Montana",
-        "EVs": 4,
-        "Forecasted margin of victory": "R+18.0",
-        "Vote share": 0.5,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Mississippi",
-        "EVs": 6,
-        "Forecasted margin of victory": "R+18.9",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "VPI": "<0.1%"
     },
     {
         "State": "Nebraska",
         "EVs": 2,
-        "Forecasted margin of victory": "R+19.0",
+        "Forecasted margin of victory": "R+17.7",
+        "Vote share": "None",
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Washington",
+        "EVs": 12,
+        "Forecasted margin of victory": "D+18.1",
+        "Vote share": "None",
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Montana",
+        "EVs": 4,
+        "Forecasted margin of victory": "R+18.2",
         "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Mississippi",
+        "EVs": 6,
+        "Forecasted margin of victory": "R+19.1",
+        "Vote share": 0.2,
+        "VPI": "<0.1%"
     },
     {
         "State": "Louisiana",
         "EVs": 8,
-        "Forecasted margin of victory": "R+20.9",
-        "Vote share": 0.2,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+21.2",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Maine’s 1st District",
         "EVs": 1,
-        "Forecasted margin of victory": "D+22.0",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+21.8",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Utah",
         "EVs": 6,
-        "Forecasted margin of victory": "R+22.9",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+22.5",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Tennessee",
         "EVs": 11,
-        "Forecasted margin of victory": "R+24.3",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+24.0",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "California",
         "EVs": 54,
-        "Forecasted margin of victory": "D+24.7",
+        "Forecasted margin of victory": "D+24.5",
         "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "VPI": "<0.1%"
     },
     {
         "State": "Hawaii",
         "EVs": 4,
         "Forecasted margin of victory": "D+27.0",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Vote share": "None",
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Maryland",
+        "EVs": 10,
+        "Forecasted margin of victory": "D+27.9",
+        "Vote share": "None",
+        "VPI": "<0.1%"
+    },
+    {
+        "State": "Massachusetts",
+        "EVs": 11,
+        "Forecasted margin of victory": "D+28.0",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Alabama",
         "EVs": 9,
         "Forecasted margin of victory": "R+28.1",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Kentucky",
-        "EVs": 8,
-        "Forecasted margin of victory": "R+28.1",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Vote share": 0.1,
+        "VPI": "<0.1%"
     },
     {
         "State": "South Dakota",
         "EVs": 3,
-        "Forecasted margin of victory": "R+28.1",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+28.2",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
-        "State": "Maryland",
-        "EVs": 10,
-        "Forecasted margin of victory": "D+28.6",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "State": "Kentucky",
+        "EVs": 8,
+        "Forecasted margin of victory": "R+28.2",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Arkansas",
         "EVs": 6,
-        "Forecasted margin of victory": "R+28.8",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
-    },
-    {
-        "State": "Massachusetts",
-        "EVs": 11,
-        "Forecasted margin of victory": "D+29.1",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+29.0",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Vermont",
         "EVs": 3,
-        "Forecasted margin of victory": "D+33.4",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+33.2",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Idaho",
         "EVs": 4,
-        "Forecasted margin of victory": "R+33.5",
-        "Vote share": 0.1,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+33.7",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "North Dakota",
         "EVs": 3,
-        "Forecasted margin of victory": "R+33.9",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+33.8",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Oklahoma",
         "EVs": 7,
-        "Forecasted margin of victory": "R+34.0",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+33.9",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "West Virginia",
         "EVs": 4,
-        "Forecasted margin of victory": "R+40.8",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+40.5",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Wyoming",
         "EVs": 3,
-        "Forecasted margin of victory": "R+45.8",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+45.5",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "Nebraska’s 3rd District",
         "EVs": 1,
-        "Forecasted margin of victory": "R+55.3",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "R+55.0",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     },
     {
         "State": "District of Columbia",
         "EVs": 3,
-        "Forecasted margin of victory": "D+85.0",
-        "Vote share": null,
-        "VPI": "<0.1%",
-        "Tipping point": null
+        "Forecasted margin of victory": "D+84.7",
+        "Vote share": "None",
+        "VPI": "<0.1%"
     }
 ]

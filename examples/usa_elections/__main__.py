@@ -10,8 +10,8 @@ from utils_future import Color
 log = Log("usa_elections")
 
 
-MARGIN_UNCERTAIN = 1
-MARGIN_CERTAIN = 25
+MARGIN_UNCERTAIN = 0.001
+MARGIN_CERTAIN = 5
 
 
 class HUE:  # noqa
@@ -69,7 +69,7 @@ def get_color_raw(hue, p_light):
     # if hue == HUE.ORANGE:
     #     return "#ccc"
     sat = 100
-    LIGHT_MIN, LIGHT_MAX = 40, 90
+    LIGHT_MIN, LIGHT_MAX = 50, 50
     light = LIGHT_MIN + (LIGHT_MAX - LIGHT_MIN) * p_light
     return Color.from_hls(hue, light, sat).hex
 
@@ -78,19 +78,23 @@ def get_color(info):
     mov = info["Forecasted margin of victory"]
     margin = float(mov[2:])
 
-    if margin < MARGIN_UNCERTAIN:
-        hue = HUE.ORANGE
-        p_light = 0.5
-    else:
-        party = mov[0]
-        hue = HUE.BLUE if party == "D" else HUE.RED
-        margin = float(mov[2:])
-        if margin > MARGIN_CERTAIN:
-            p_light = 0
-        else:
-            p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
-                MARGIN_CERTAIN - MARGIN_UNCERTAIN
-            )
+    party = mov[0]
+    hue = HUE.BLUE if party == "D" else HUE.RED
+
+    # if margin < MARGIN_UNCERTAIN:
+    #     hue = HUE.ORANGE
+    #     p_light = 0.5
+    # else:
+
+    #     margin = float(mov[2:])
+    #     if margin > MARGIN_CERTAIN:
+    #         p_light = 0
+    #     else:
+    #         p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
+    #             MARGIN_CERTAIN - MARGIN_UNCERTAIN
+    #         )
+    p_light = 0 if margin > MARGIN_CERTAIN else 1
+
     return get_color_raw(hue, p_light)
 
 
@@ -312,9 +316,6 @@ def main():  # noqa
         ),
         render_candidate(x_legend, 24, HUE.BLUE, "Harris", n_blue),
         render_candidate(x_legend, 27, HUE.RED, "Trump", n_red),
-        render_candidate(
-            x_legend, 30, HUE.ORANGE, f"Lead <{MARGIN_UNCERTAIN}%", n_too_close
-        ),
     ]
 
     HexBinRenderer(

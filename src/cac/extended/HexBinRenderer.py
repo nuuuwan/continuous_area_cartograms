@@ -313,7 +313,8 @@ class HexBinRenderer:
                         y=min_y,
                         width=x_span,
                         height=y_span,
-                        fill="#8881",
+                        fill="#fff",
+                        stroke="#ccc",
                     ),
                 )
             ]
@@ -321,8 +322,8 @@ class HexBinRenderer:
             + rendered_groups
             + self.rendered_svg_custom,
             dict(
-                height=900,
-                width=1600,
+                height=1800,
+                width=3200,
                 viewBox=view_box,
                 font_family=STYLE.FONT_FAMILY,
             ),

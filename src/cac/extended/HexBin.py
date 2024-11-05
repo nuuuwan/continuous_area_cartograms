@@ -14,7 +14,7 @@ class HexBin:
     SCALE_FACTOR = 1
     N_POLYGON_SIDES = 6
     X_TO_Y_RATIO = math.cos(math.pi / 6)
-    PADDING = 1
+    PADDING = 3
 
     def __init__(
         self,
