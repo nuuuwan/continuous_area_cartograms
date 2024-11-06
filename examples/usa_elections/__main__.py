@@ -10,8 +10,8 @@ from utils_future import Color
 log = Log("usa_elections")
 
 
-MARGIN_UNCERTAIN = 0.001
-MARGIN_CERTAIN = 5
+MARGIN_UNCERTAIN = 10
+MARGIN_CERTAIN = 30
 
 
 class HUE:  # noqa
@@ -66,8 +66,6 @@ def get_state_to_code():
 
 
 def get_color_raw(hue, p_light):
-    # if hue == HUE.ORANGE:
-    #     return "#ccc"
     sat = 100
     LIGHT_MIN, LIGHT_MAX = 50, 50
     light = LIGHT_MIN + (LIGHT_MAX - LIGHT_MIN) * p_light
@@ -81,24 +79,24 @@ def get_color(info):
     party = mov[0]
     hue = HUE.BLUE if party == "D" else HUE.RED
 
-    # if margin < MARGIN_UNCERTAIN:
-    #     hue = HUE.ORANGE
-    #     p_light = 0.5
-    # else:
+    if margin < MARGIN_UNCERTAIN:
+        hue = HUE.ORANGE
+        p_light = 0.5
+    else:
 
-    #     margin = float(mov[2:])
-    #     if margin > MARGIN_CERTAIN:
-    #         p_light = 0
-    #     else:
-    #         p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
-    #             MARGIN_CERTAIN - MARGIN_UNCERTAIN
-    #         )
-    p_light = 0 if margin > MARGIN_CERTAIN else 1
+        margin = float(mov[2:])
+        if margin > MARGIN_CERTAIN:
+            p_light = 0
+        else:
+            p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
+                MARGIN_CERTAIN - MARGIN_UNCERTAIN
+            )
 
     return get_color_raw(hue, p_light)
 
 
-def main():  # noqa
+def main(force_MARGIN_UNCERTAIN):  # noqa
+    MARGIN_UNCERTAIN = force_MARGIN_UNCERTAIN
 
     # exclude Puerto Rico
     geojson_path_original = os.path.join(
@@ -155,7 +153,7 @@ def main():  # noqa
     log.debug(f"{total_values=}")
     hexbin_path = os.path.join(
         os.path.dirname(__file__),
-        "hexbin.svg",
+        f"hexbin-{MARGIN_UNCERTAIN:03d}.svg",
     )
 
     def post_process(data):  # noqa: CFQ001
@@ -316,6 +314,13 @@ def main():  # noqa
         ),
         render_candidate(x_legend, 24, HUE.BLUE, "Harris", n_blue),
         render_candidate(x_legend, 27, HUE.RED, "Trump", n_red),
+        render_candidate(
+            x_legend,
+            30,
+            HUE.ORANGE,
+            f"Lead < {MARGIN_UNCERTAIN/100:.1%}",
+            n_too_close,
+        ),
     ]
 
     HexBinRenderer(
@@ -334,4 +339,5 @@ def main():  # noqa
 
 
 if __name__ == "__main__":
-    main()
+    for MARGIN_UNCERTAIN in range(10, -1, -1):
+        main(MARGIN_UNCERTAIN)
