@@ -10,7 +10,7 @@ log = Log("HexBinRenderer")
 
 
 class STYLE:
-    FONT_FAMILY = "Afacad"
+    FONT_FAMILY = "sans-serif"
 
 
 def convert_to_superscript(n):
@@ -68,8 +68,8 @@ class HexBinRenderer:
                     ),
                     fill=None,
                     stroke="#222",
-                    stroke_width=dim * 0.07,
-                    opacity=0.5 + 0.1 * i_group,
+                    stroke_width=dim * (0.1 + 0.07 * (i_group)),
+                    opacity=0.5,
                 ),
             )
             rendered_polygons.append(rendered_polygon)
@@ -79,7 +79,7 @@ class HexBinRenderer:
     def render_label(label, point, dim, text_color):
         inner = []
 
-        font_size = 0.5 * dim
+        font_size = 0.1 * dim
 
         inner.append(
             _(
@@ -87,9 +87,10 @@ class HexBinRenderer:
                 label,
                 dict(
                     x=point.x,
-                    y=point.y + font_size * 0.1,
+                    y=point.y + font_size * 0.2,
                     fill="#000",
                     font_size=font_size,
+                    font_family=STYLE.FONT_FAMILY,
                     text_anchor="middle",
                     dominant_baseline="middle",
                 ),
@@ -322,8 +323,8 @@ class HexBinRenderer:
             + rendered_groups
             + self.rendered_svg_custom,
             dict(
-                height=1800,
-                width=3200,
+                height=3200,
+                width=1800,
                 viewBox=view_box,
                 font_family=STYLE.FONT_FAMILY,
             ),
