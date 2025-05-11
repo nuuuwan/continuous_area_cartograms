@@ -87,7 +87,7 @@ class HexBinRenderer:
                 label,
                 dict(
                     x=point.x,
-                    y=point.y + font_size * 0.2,
+                    y=point.y + font_size * 0.1,
                     fill="#000",
                     font_size=font_size,
                     font_family=STYLE.FONT_FAMILY,
