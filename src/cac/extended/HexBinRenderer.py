@@ -68,7 +68,7 @@ class HexBinRenderer:
                     ),
                     fill=None,
                     stroke="#222",
-                    stroke_width=dim * (0.1 + 0.07 * (i_group)),
+                    stroke_width=dim * (0.06 + 0.06 * (i_group)),
                     opacity=0.5,
                 ),
             )
@@ -79,7 +79,7 @@ class HexBinRenderer:
     def render_label(label, point, dim, text_color):
         inner = []
 
-        font_size = 0.1 * dim
+        font_size = 2 * dim / len(label)
 
         inner.append(
             _(
@@ -87,7 +87,7 @@ class HexBinRenderer:
                 label,
                 dict(
                     x=point.x,
-                    y=point.y + font_size * 0.1,
+                    y=point.y + font_size * 0.4,
                     fill="#000",
                     font_size=font_size,
                     font_family=STYLE.FONT_FAMILY,
@@ -96,21 +96,21 @@ class HexBinRenderer:
                 ),
             )
         )
-        inner.append(
-            _(
-                "text",
-                f"{point.x:.1f},{point.y * HexBin.X_TO_Y_RATIO:.1f}",
-                dict(
-                    x=point.x,
-                    y=point.y + font_size * 1.4,
-                    fill="#000",
-                    font_size=font_size * 2,
-                    font_family=STYLE.FONT_FAMILY,
-                    text_anchor="middle",
-                    dominant_baseline="middle",
-                ),
-            )
-        )
+        # inner.append(
+        #     _(
+        #         "text",
+        #         f"{point.x:.1f},{point.y * HexBin.X_TO_Y_RATIO:.1f}",
+        #         dict(
+        #             x=point.x,
+        #             y=point.y + font_size * 1.4,
+        #             fill="#000",
+        #             font_size=font_size * 2,
+        #             font_family=STYLE.FONT_FAMILY,
+        #             text_anchor="middle",
+        #             dominant_baseline="middle",
+        #         ),
+        #     )
+        # )
         return _("g", inner)
 
     @staticmethod
@@ -234,8 +234,9 @@ class HexBinRenderer:
             color = self.colors[i_points]
             i_mid = HexBinRenderer.get_midpoint_i(points)
 
-            value = self.values[i_points]
-            label_display_points = label + convert_to_superscript(value)
+            # value = self.values[i_points]
+            # label_display_points = label + convert_to_superscript(value)
+            label_display_points = label
 
             for i_point, point in enumerate(points):
                 label_display = ""

@@ -13,14 +13,6 @@ def main():  # noqa
 
     log = Log("lk_lgs_in_units")
 
-    def get_random_color_hex():
-        import random
-
-        def random_color():
-            return "#{:06x}80".format(random.randint(0, 0xFFFFFF))
-
-        return random_color()
-
     ents = Ent.list_from_type(EntType.LG)
     log.debug(f"Found {len(ents)} LGs")
     group_label_to_group = {
@@ -29,16 +21,21 @@ def main():  # noqa
     }
     values = []
     colors = []
-    district_to_color = {}
+
     for ent in ents:
         values.append(1)
         label = ent.name
         district_id = ent.district_id
+
         group_label_to_group["District"][label] = district_id
         group_label_to_group["Province"][label] = ent.province_id
-        if district_id not in district_to_color:
-            district_to_color[district_id] = get_random_color_hex()
-        color = district_to_color[district_id]
+
+        lg_type = ent.name.split(" ")[-1]
+        color = {
+            "PS": "#0f04",
+            "UC": "#00f4",
+            "MC": "#f004",
+        }.get(lg_type, "#8884")
         colors.append(color)
 
     algo = DCN1985.from_ents(
@@ -71,11 +68,11 @@ def main():  # noqa
 
         # Kandy & Badulla
         swap("Minipe PS", "Rideemaliyadda PS")
-        swap("Udadumbara PS", "Mahiyanganaya PS")
-        swap("Minipe PS", "Mahiyanganaya PS")
+        swap("Udadumbara PS", "Mahiyangana PS")
+        swap("Minipe PS", "Mahiyangana PS")
 
         # Hambantota & Moonaragala
-        swap("Tissamaharama PS", "Thanamalvila PS")
+        swap("Thissamaharama PS", "Thanamalwila PS")
 
         # Jaffna
         move("Delft PS", (1, -0.5))
@@ -90,19 +87,19 @@ def main():  # noqa
         swap("Padavi Sri Pura PS", "Padaviya PS")
 
         # Trincomalee & Polonnaruwa
-        swap("Kanthalai PS", "Hingurakgoda PS")
+        swap("Kanthale PS", "Hingurakgoda PS")
 
         # Polonnaruwa & Batticaloa
         swap("Dimbulagala PS", "Koralai Pattu West PS")
 
         # Ampara & Moneragala
-        swap("Namaloya PS", "Bibile PS")
+        swap("Namaloya PS", "Bibila PS")
         swap("Ampara UC", "Madulla PS")
 
-        swap("Irakkamam PS", "Bibile PS")
+        swap("Irakkamam PS", "Bibila PS")
         swap("Sammanthurai PS", "Madulla PS")
 
-        swap("Damana PS", "Bibile PS")
+        swap("Damana PS", "Bibila PS")
         swap("Akkaraipattu PS", "Madulla PS")
 
         # Kurunegala & Puttalam

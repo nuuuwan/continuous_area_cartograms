@@ -6,16 +6,22 @@
         21.0
       ]
     ],
-    "Kolonnawa UC": [
+    "Dehiwala Mount Lavinia MC": [
       [
-        1.0,
-        20.0
+        0.0,
+        21.5
       ]
     ],
-    "Kotikawatta PS": [
+    "Sri Jayawardenepura Kotte MC": [
       [
-        2.0,
-        20.5
+        3.0,
+        21.0
+      ]
+    ],
+    "Moratuwa MC": [
+      [
+        1.0,
+        22.0
       ]
     ],
     "Kaduwela MC": [
@@ -24,16 +30,10 @@
         20.5
       ]
     ],
-    "Homagama PS": [
+    "Kollonnawa UC": [
       [
-        5.0,
-        21.0
-      ]
-    ],
-    "Seethawaka PS": [
-      [
-        6.0,
-        21.5
+        1.0,
+        20.0
       ]
     ],
     "Seethawakapura UC": [
@@ -48,21 +48,9 @@
         21.5
       ]
     ],
-    "Sri Jayawardenepura Kotte MC": [
+    "Kesbewa UC": [
       [
         3.0,
-        21.0
-      ]
-    ],
-    "Dehiwala Mt.Lavinia MC": [
-      [
-        0.0,
-        21.5
-      ]
-    ],
-    "Moratuwa MC": [
-      [
-        1.0,
         22.0
       ]
     ],
@@ -72,10 +60,22 @@
         21.5
       ]
     ],
-    "Kesbewa UC": [
+    "Kotikawatta Mulleriyawa PS": [
       [
-        3.0,
-        22.0
+        2.0,
+        20.5
+      ]
+    ],
+    "Seethawaka PS": [
+      [
+        6.0,
+        21.5
+      ]
+    ],
+    "Homagama PS": [
+      [
+        5.0,
+        21.0
       ]
     ],
     "Negombo MC": [
@@ -84,16 +84,52 @@
         17.5
       ]
     ],
+    "Gampaha MC": [
+      [
+        5.0,
+        19.0
+      ]
+    ],
+    "Wattala Mabola UC": [
+      [
+        3.0,
+        19.0
+      ]
+    ],
+    "Katunayaka Seeduwa UC": [
+      [
+        1.0,
+        18.0
+      ]
+    ],
+    "Minuwangoda UC": [
+      [
+        4.0,
+        17.5
+      ]
+    ],
+    "Ja Ela UC": [
+      [
+        2.0,
+        18.5
+      ]
+    ],
+    "Peliyagoda UC": [
+      [
+        2.0,
+        19.5
+      ]
+    ],
+    "Wattala PS": [
+      [
+        1.0,
+        19.0
+      ]
+    ],
     "Katana PS": [
       [
         2.0,
         16.5
-      ]
-    ],
-    "Katunayaka-Seeduwa UC": [
-      [
-        1.0,
-        18.0
       ]
     ],
     "Divulapitiya PS": [
@@ -114,34 +150,10 @@
         17.0
       ]
     ],
-    "Minuwangoda UC": [
+    "Attanagalla PS": [
       [
-        4.0,
-        17.5
-      ]
-    ],
-    "Wattala PS": [
-      [
-        1.0,
-        19.0
-      ]
-    ],
-    "Wattala-Mabola UC": [
-      [
-        3.0,
-        19.0
-      ]
-    ],
-    "Ja-Ela PS": [
-      [
-        3.0,
+        5.0,
         18.0
-      ]
-    ],
-    "Ja-Ela UC": [
-      [
-        2.0,
-        18.5
       ]
     ],
     "Gampaha PS": [
@@ -150,22 +162,10 @@
         18.5
       ]
     ],
-    "Gampaha MC": [
+    "Ja Ela PS": [
       [
-        5.0,
-        19.0
-      ]
-    ],
-    "Attanagalla PS": [
-      [
-        5.0,
+        3.0,
         18.0
-      ]
-    ],
-    "Dompe PS": [
-      [
-        6.0,
-        19.5
       ]
     ],
     "Mahara PS": [
@@ -174,15 +174,9 @@
         19.5
       ]
     ],
-    "Kelaniya PS": [
+    "Dompe PS": [
       [
-        3.0,
-        20.0
-      ]
-    ],
-    "Peliyagoda UC": [
-      [
-        2.0,
+        6.0,
         19.5
       ]
     ],
@@ -192,16 +186,40 @@
         20.0
       ]
     ],
-    "Panadura PS": [
+    "Kelaniya PS": [
       [
-        2.0,
-        22.5
+        3.0,
+        20.0
       ]
     ],
     "Panadura UC": [
       [
         2.0,
         23.5
+      ]
+    ],
+    "Horana UC": [
+      [
+        6.0,
+        22.5
+      ]
+    ],
+    "Kalutara MC": [
+      [
+        3.0,
+        24.0
+      ]
+    ],
+    "Beruwala UC": [
+      [
+        3.0,
+        25.0
+      ]
+    ],
+    "Panadura PS": [
+      [
+        2.0,
+        22.5
       ]
     ],
     "Bandaragama PS": [
@@ -216,10 +234,10 @@
         22.0
       ]
     ],
-    "Horana UC": [
+    "Madurawala PS": [
       [
-        6.0,
-        22.5
+        5.0,
+        23.0
       ]
     ],
     "Bulathsinhala PS": [
@@ -228,39 +246,9 @@
         23.0
       ]
     ],
-    "Madurawala PS": [
+    "Mathugama PS": [
       [
         5.0,
-        23.0
-      ]
-    ],
-    "Millaniya PS": [
-      [
-        4.0,
-        23.5
-      ]
-    ],
-    "Kalutara PS": [
-      [
-        3.0,
-        23.0
-      ]
-    ],
-    "Kalutara UC": [
-      [
-        3.0,
-        24.0
-      ]
-    ],
-    "Beruwala PS": [
-      [
-        4.0,
-        24.5
-      ]
-    ],
-    "Beruwala UC": [
-      [
-        3.0,
         25.0
       ]
     ],
@@ -270,16 +258,16 @@
         24.0
       ]
     ],
-    "Matugama PS": [
+    "Kalutara PS": [
       [
-        5.0,
-        25.0
+        3.0,
+        23.0
       ]
     ],
-    "Agalawatta PS": [
+    "Beruwala PS": [
       [
-        6.0,
-        23.5
+        4.0,
+        24.5
       ]
     ],
     "Palindanuwara PS": [
@@ -288,40 +276,22 @@
         24.0
       ]
     ],
+    "Agalawaththa PS": [
+      [
+        6.0,
+        23.5
+      ]
+    ],
+    "Millaniya PS": [
+      [
+        4.0,
+        23.5
+      ]
+    ],
     "Walallawita PS": [
       [
         6.0,
         24.5
-      ]
-    ],
-    "Thumpane PS": [
-      [
-        8.0,
-        15.5
-      ]
-    ],
-    "Pujapitiya PS": [
-      [
-        9.0,
-        16.0
-      ]
-    ],
-    "Akurana PS": [
-      [
-        10.0,
-        15.5
-      ]
-    ],
-    "Pathadumbara PS": [
-      [
-        11.0,
-        16.0
-      ]
-    ],
-    "Wattegama UC": [
-      [
-        12.0,
-        16.5
       ]
     ],
     "Kandy MC": [
@@ -330,7 +300,61 @@
         17.0
       ]
     ],
-    "Panvila PS": [
+    "Wattegama UC": [
+      [
+        12.0,
+        16.5
+      ]
+    ],
+    "Kadugannawa UC": [
+      [
+        9.0,
+        17.0
+      ]
+    ],
+    "Gampola UC": [
+      [
+        10.0,
+        18.5
+      ]
+    ],
+    "Nawalapitiya UC": [
+      [
+        9.0,
+        20.0
+      ]
+    ],
+    "Thumpane PS": [
+      [
+        8.0,
+        15.5
+      ]
+    ],
+    "Harispattuwa PS": [
+      [
+        10.0,
+        16.5
+      ]
+    ],
+    "Akurana PS": [
+      [
+        10.0,
+        15.5
+      ]
+    ],
+    "Poojapitiya PS": [
+      [
+        9.0,
+        16.0
+      ]
+    ],
+    "Pathadumbara PS": [
+      [
+        11.0,
+        16.0
+      ]
+    ],
+    "Panwila PS": [
       [
         12.0,
         15.5
@@ -360,28 +384,22 @@
         17.5
       ]
     ],
-    "Kandy Four Gravets & Gangawata Korale PS": [
+    "Pathahewaheta PS": [
+      [
+        12.0,
+        18.5
+      ]
+    ],
+    "Kandy Four Gravets And Gangawata Korale PS": [
       [
         11.0,
         18.0
-      ]
-    ],
-    "Harispattuwa PS": [
-      [
-        10.0,
-        16.5
       ]
     ],
     "Yatinuwara PS": [
       [
         10.0,
         17.5
-      ]
-    ],
-    "Kadugannawa UC": [
-      [
-        9.0,
-        17.0
       ]
     ],
     "Udunuwara PS": [
@@ -396,18 +414,6 @@
         19.0
       ]
     ],
-    "Pathahewaheta PS": [
-      [
-        12.0,
-        18.5
-      ]
-    ],
-    "Gampola UC": [
-      [
-        10.0,
-        18.5
-      ]
-    ],
     "Ganga Ihala Korale PS": [
       [
         9.0,
@@ -420,10 +426,22 @@
         19.5
       ]
     ],
-    "Nawalapitiya UC": [
+    "Dambulla MC": [
+      [
+        10.0,
+        12.5
+      ]
+    ],
+    "Matale MC": [
+      [
+        10.0,
+        14.5
+      ]
+    ],
+    "Pallepola PS": [
       [
         9.0,
-        20.0
+        13.0
       ]
     ],
     "Galewela PS": [
@@ -438,10 +456,10 @@
         12.0
       ]
     ],
-    "Dambulla MC": [
+    "Ambanganga Korale PS": [
       [
-        10.0,
-        12.5
+        11.0,
+        14.0
       ]
     ],
     "Naula PS": [
@@ -450,37 +468,7 @@
         13.0
       ]
     ],
-    "Pallepola PS": [
-      [
-        9.0,
-        13.0
-      ]
-    ],
-    "Yatawatta PS": [
-      [
-        9.0,
-        14.0
-      ]
-    ],
-    "Matale PS": [
-      [
-        10.0,
-        13.5
-      ]
-    ],
-    "Matale MC": [
-      [
-        10.0,
-        14.5
-      ]
-    ],
-    "Ambanganga Korale PS": [
-      [
-        11.0,
-        14.0
-      ]
-    ],
-    "Laggala-Pallegama PS": [
+    "Laggala Pallegama PS": [
       [
         12.0,
         14.5
@@ -492,16 +480,82 @@
         14.0
       ]
     ],
-    "Rattota PS": [
+    "Matale PS": [
       [
-        11.0,
-        15.0
+        10.0,
+        13.5
+      ]
+    ],
+    "Yatawatta PS": [
+      [
+        9.0,
+        14.0
       ]
     ],
     "Ukuwela PS": [
       [
         9.0,
         15.0
+      ]
+    ],
+    "Rattota PS": [
+      [
+        11.0,
+        15.0
+      ]
+    ],
+    "Nuwara Eliya MC": [
+      [
+        12.0,
+        20.5
+      ]
+    ],
+    "Hatton Dickoya UC": [
+      [
+        10.0,
+        21.5
+      ]
+    ],
+    "Thalawakele Lindula UC": [
+      [
+        11.0,
+        21.0
+      ]
+    ],
+    "Maskeliya PS": [
+      [
+        9.0,
+        22.0
+      ]
+    ],
+    "Norwood PS": [
+      [
+        11.0,
+        22.0
+      ]
+    ],
+    "Ambagamuwa PS": [
+      [
+        9.0,
+        21.0
+      ]
+    ],
+    "Agarapathana PS": [
+      [
+        12.0,
+        21.5
+      ]
+    ],
+    "Kotagala PS": [
+      [
+        10.0,
+        20.5
+      ]
+    ],
+    "Nuwaraeliya PS": [
+      [
+        12.0,
+        19.5
       ]
     ],
     "Kothmale PS": [
@@ -516,75 +570,45 @@
         19.0
       ]
     ],
-    "Walapone PS": [
+    "Walapane PS": [
       [
         13.0,
         18.0
       ]
     ],
-    "Kotagala PS": [
+    "Galle MC": [
       [
-        10.0,
-        20.5
+        5.0,
+        29.0
       ]
     ],
-    "Agarapatana PS": [
+    "Ambalangoda UC": [
       [
-        12.0,
-        21.5
+        3.0,
+        26.0
       ]
     ],
-    "Nuwara Eliya PS": [
-      [
-        12.0,
-        19.5
-      ]
-    ],
-    "Thalawakele-Lindula UC": [
-      [
-        11.0,
-        21.0
-      ]
-    ],
-    "Nuwara Eliya MC": [
-      [
-        12.0,
-        20.5
-      ]
-    ],
-    "Ambagamuwa PS": [
-      [
-        9.0,
-        21.0
-      ]
-    ],
-    "Maskeliya PS": [
-      [
-        9.0,
-        22.0
-      ]
-    ],
-    "Hatton - Dickoya UC": [
-      [
-        10.0,
-        21.5
-      ]
-    ],
-    "Norwood PS": [
-      [
-        11.0,
-        22.0
-      ]
-    ],
-    "Bentota PS": [
+    "Hikkaduwa UC": [
       [
         4.0,
-        25.5
+        27.5
       ]
     ],
     "Balapitiya PS": [
       [
         4.0,
+        26.5
+      ]
+    ],
+    "Ambalangoda PS": [
+      [
+        5.0,
+        27.0
+      ]
+    ],
+    "Welivitiya Divithura PS": [
+      [
+        6.0,
         26.5
       ]
     ],
@@ -594,21 +618,15 @@
         26.0
       ]
     ],
-    "Elpitiya PS": [
+    "Bentota PS": [
       [
-        6.0,
+        4.0,
         25.5
       ]
     ],
-    "Niyagama PS": [
+    "Elpitiya PS": [
       [
-        7.0,
-        25.0
-      ]
-    ],
-    "Thawalama PS": [
-      [
-        8.0,
+        6.0,
         25.5
       ]
     ],
@@ -618,10 +636,22 @@
         24.5
       ]
     ],
+    "Thawalama PS": [
+      [
+        8.0,
+        25.5
+      ]
+    ],
     "Nagoda PS": [
       [
         7.0,
         26.0
+      ]
+    ],
+    "Niyagama PS": [
+      [
+        7.0,
+        25.0
       ]
     ],
     "Baddegama PS": [
@@ -630,46 +660,16 @@
         27.5
       ]
     ],
-    "Welivitiya-Divithura PS": [
+    "Yakkalamulla PS": [
       [
-        6.0,
-        26.5
-      ]
-    ],
-    "Ambalangoda MC": [
-      [
-        3.0,
-        26.0
-      ]
-    ],
-    "Ambalangoda PS": [
-      [
-        5.0,
+        7.0,
         27.0
       ]
     ],
-    "Rathgama PS": [
+    "Rajgama PS": [
       [
         4.0,
         28.5
-      ]
-    ],
-    "Hikkaduwa UC": [
-      [
-        4.0,
-        27.5
-      ]
-    ],
-    "Bope-Poddala PS": [
-      [
-        5.0,
-        28.0
-      ]
-    ],
-    "Galle MC": [
-      [
-        5.0,
-        29.0
       ]
     ],
     "Akmeemana PS": [
@@ -678,10 +678,10 @@
         28.5
       ]
     ],
-    "Yakkalamulla PS": [
+    "Bope Poddala PS": [
       [
-        7.0,
-        27.0
+        5.0,
+        28.0
       ]
     ],
     "Imaduwa PS": [
@@ -696,6 +696,18 @@
         29.0
       ]
     ],
+    "Matara MC": [
+      [
+        9.0,
+        29.0
+      ]
+    ],
+    "Weligama UC": [
+      [
+        8.0,
+        29.5
+      ]
+    ],
     "Pitabeddara PS": [
       [
         9.0,
@@ -708,16 +720,22 @@
         25.0
       ]
     ],
-    "Pasgoda PS": [
+    "Kirinda Puhulwella PS": [
       [
-        10.0,
-        25.5
+        11.0,
+        27.0
       ]
     ],
     "Mulatiyana PS": [
       [
         10.0,
         26.5
+      ]
+    ],
+    "Pasgoda PS": [
+      [
+        10.0,
+        25.5
       ]
     ],
     "Athuraliya PS": [
@@ -732,22 +750,10 @@
         27.5
       ]
     ],
-    "Weligama PS": [
-      [
-        8.0,
-        28.5
-      ]
-    ],
     "Malimbada PS": [
       [
         9.0,
         28.0
-      ]
-    ],
-    "Kamburupitiya PS": [
-      [
-        9.0,
-        27.0
       ]
     ],
     "Hakmana PS": [
@@ -756,9 +762,9 @@
         26.0
       ]
     ],
-    "Kirinda Puhulwella PS": [
+    "Kamburupitiya PS": [
       [
-        11.0,
+        9.0,
         27.0
       ]
     ],
@@ -766,24 +772,6 @@
       [
         10.0,
         27.5
-      ]
-    ],
-    "Weligama UC": [
-      [
-        8.0,
-        29.5
-      ]
-    ],
-    "Matara PS": [
-      [
-        10.0,
-        28.5
-      ]
-    ],
-    "Matara MC": [
-      [
-        9.0,
-        29.0
       ]
     ],
     "Devinuwara PS": [
@@ -798,28 +786,16 @@
         29.0
       ]
     ],
-    "Sooriyawewa PS": [
+    "Matara PS": [
       [
-        14.0,
-        24.5
+        10.0,
+        28.5
       ]
     ],
-    "Lunugamvehera PS": [
+    "Weligama PS": [
       [
-        15.0,
-        25.0
-      ]
-    ],
-    "Tissamaharama PS": [
-      [
-        16.0,
-        24.5
-      ]
-    ],
-    "Hambantota PS": [
-      [
-        14.0,
-        26.5
+        8.0,
+        28.5
       ]
     ],
     "Hambantota MC": [
@@ -828,16 +804,10 @@
         26.0
       ]
     ],
-    "Ambalantota PS": [
+    "Tangalle UC": [
       [
-        14.0,
-        25.5
-      ]
-    ],
-    "Angunakolapelessa PS": [
-      [
-        13.0,
-        26.0
+        12.0,
+        27.5
       ]
     ],
     "Weeraketiya PS": [
@@ -858,100 +828,46 @@
         26.5
       ]
     ],
-    "Tangalla PS": [
+    "Tangalle PS": [
       [
         13.0,
         27.0
       ]
     ],
-    "Tangalla UC": [
+    "Angunakolapelessa PS": [
       [
-        12.0,
-        27.5
+        13.0,
+        26.0
       ]
     ],
-    "Kayts PS": [
+    "Ambalantota PS": [
       [
-        3.0,
-        2.0
+        14.0,
+        25.5
       ]
     ],
-    "Karainagar PS": [
+    "Thissamaharama PS": [
       [
-        2.0,
-        0.5
+        16.0,
+        24.5
       ]
     ],
-    "Valikamam West PS": [
+    "Sooriyawewa PS": [
       [
-        3.0,
-        1.0
+        14.0,
+        24.5
       ]
     ],
-    "Valikamam South-West PS": [
+    "Hambantota PS": [
       [
-        4.0,
-        1.5
+        14.0,
+        26.5
       ]
     ],
-    "Valikamam North PS": [
+    "Lunugamwehera PS": [
       [
-        4.0,
-        0.5
-      ]
-    ],
-    "Valikamam South PS": [
-      [
-        5.0,
-        1.0
-      ]
-    ],
-    "Valikamam East PS": [
-      [
-        6.0,
-        1.5
-      ]
-    ],
-    "Vadamaradchy South-West PS": [
-      [
-        6.0,
-        0.5
-      ]
-    ],
-    "Valvettithurai UC": [
-      [
-        5.0,
-        0.0
-      ]
-    ],
-    "Point Pedro PS": [
-      [
-        7.0,
-        2.0
-      ]
-    ],
-    "Point Pedro UC": [
-      [
-        7.0,
-        1.0
-      ]
-    ],
-    "Chavakachcheri PS": [
-      [
-        7.0,
-        3.0
-      ]
-    ],
-    "Chavakachcheri UC": [
-      [
-        6.0,
-        2.5
-      ]
-    ],
-    "Nallur PS": [
-      [
-        5.0,
-        2.0
+        15.0,
+        25.0
       ]
     ],
     "Jaffna MC": [
@@ -960,10 +876,34 @@
         3.0
       ]
     ],
-    "Velanai PS": [
+    "Valvettithurai UC": [
       [
-        4.0,
+        5.0,
+        0.0
+      ]
+    ],
+    "Point Pedro UC": [
+      [
+        7.0,
+        1.0
+      ]
+    ],
+    "Chavakachcheri UC": [
+      [
+        6.0,
         2.5
+      ]
+    ],
+    "Karainagar PS": [
+      [
+        2.0,
+        0.5
+      ]
+    ],
+    "Kayts PS": [
+      [
+        3.0,
+        2.0
       ]
     ],
     "Delft PS": [
@@ -972,10 +912,64 @@
         2.5
       ]
     ],
-    "Mannar PS": [
+    "Velanai PS": [
       [
         4.0,
-        6.5
+        2.5
+      ]
+    ],
+    "Valikamam West PS": [
+      [
+        3.0,
+        1.0
+      ]
+    ],
+    "Walikamam North PS": [
+      [
+        4.0,
+        0.5
+      ]
+    ],
+    "Walikamam South West PS": [
+      [
+        4.0,
+        1.5
+      ]
+    ],
+    "Walikamam South PS": [
+      [
+        5.0,
+        1.0
+      ]
+    ],
+    "Walikamam East PS": [
+      [
+        6.0,
+        1.5
+      ]
+    ],
+    "Wadamarachchi South West PS": [
+      [
+        6.0,
+        0.5
+      ]
+    ],
+    "Point Pedro PS": [
+      [
+        7.0,
+        2.0
+      ]
+    ],
+    "Chawakachcheri PS": [
+      [
+        7.0,
+        3.0
+      ]
+    ],
+    "Nallur PS": [
+      [
+        5.0,
+        2.0
       ]
     ],
     "Mannar UC": [
@@ -984,9 +978,9 @@
         7.0
       ]
     ],
-    "Manthai West PS": [
+    "Mannar PS": [
       [
-        6.0,
+        4.0,
         6.5
       ]
     ],
@@ -1002,40 +996,40 @@
         8.0
       ]
     ],
+    "Manthai West PS": [
+      [
+        6.0,
+        6.5
+      ]
+    ],
+    "Vavuniya MC": [
+      [
+        8.0,
+        8.5
+      ]
+    ],
     "Vavuniya North PS": [
       [
         8.0,
         6.5
       ]
     ],
-    "Vavuniya South (Sinhala) PS": [
-      [
-        8.0,
-        7.5
-      ]
-    ],
-    "Vavuniya South (Tamil) PS": [
-      [
-        7.0,
-        7.0
-      ]
-    ],
-    "Vavuniya UC": [
-      [
-        8.0,
-        8.5
-      ]
-    ],
-    "Vengalacheddikulam PS": [
+    "Vengalasettikulam PS": [
       [
         7.0,
         8.0
       ]
     ],
-    "Thunukkai PS": [
+    "Vavuniya South Tamil PS": [
       [
         7.0,
-        6.0
+        7.0
+      ]
+    ],
+    "Vavuniya South Sinhala PS": [
+      [
+        8.0,
+        7.5
       ]
     ],
     "Manthai East PS": [
@@ -1044,19 +1038,25 @@
         6.0
       ]
     ],
-    "Puthukudiyiruppu PS": [
+    "Thunukkai PS": [
+      [
+        7.0,
+        6.0
+      ]
+    ],
+    "Puthukkudiyiruppu PS": [
       [
         8.0,
         5.5
       ]
     ],
-    "Maritimepattu PS": [
+    "Maritime Pattu PS": [
       [
         10.0,
         6.5
       ]
     ],
-    "Pachchilaipalli PS": [
+    "Pachchilaippalli PS": [
       [
         8.0,
         3.5
@@ -1074,15 +1074,27 @@
         5.0
       ]
     ],
-    "Koralai Pattu North PS": [
+    "Batticaloa MC": [
       [
-        15.0,
-        13.0
+        17.0,
+        14.0
       ]
     ],
-    "Koralai Pattu West PS": [
+    "Eravur UC": [
       [
-        14.0,
+        15.0,
+        15.0
+      ]
+    ],
+    "Kaththankudi UC": [
+      [
+        17.0,
+        15.0
+      ]
+    ],
+    "Eravur Pattu PS": [
+      [
+        16.0,
         14.5
       ]
     ],
@@ -1092,34 +1104,22 @@
         14.0
       ]
     ],
-    "Eravur Pattu PS": [
+    "Koralai Pattu West PS": [
       [
-        16.0,
+        14.0,
         14.5
       ]
     ],
-    "Eravur UC": [
+    "Koralai Pattu North PS": [
       [
         15.0,
-        15.0
+        13.0
       ]
     ],
-    "Batticaloa MC": [
+    "Manmunai South And Eruvil Pattu PS": [
       [
-        17.0,
-        14.0
-      ]
-    ],
-    "Manmunai West PS": [
-      [
-        16.0,
-        15.5
-      ]
-    ],
-    "Kattankudy UC": [
-      [
-        17.0,
-        15.0
+        18.0,
+        16.5
       ]
     ],
     "Manmunai Pattu PS": [
@@ -1128,40 +1128,52 @@
         15.5
       ]
     ],
-    "Manmunai South-West PS": [
+    "Manmunai West PS": [
+      [
+        16.0,
+        15.5
+      ]
+    ],
+    "Mamunai South West PS": [
       [
         17.0,
         16.0
       ]
     ],
-    "Poratheevu Pattu PS": [
+    "Porthivu Pattu PS": [
       [
         17.0,
         17.0
       ]
     ],
-    "Manmunai South & Eruvil pattu PS": [
+    "Kalmunai MC": [
       [
-        18.0,
-        16.5
+        19.0,
+        17.0
       ]
     ],
-    "Dehiattakandiya PS": [
+    "Akkaraipattu MC": [
+      [
+        20.0,
+        19.5
+      ]
+    ],
+    "Ampara UC": [
+      [
+        16.0,
+        17.5
+      ]
+    ],
+    "Dehiaththakandiya PS": [
       [
         14.0,
         15.5
       ]
     ],
-    "Padiyathalawa PS": [
+    "Damana PS": [
       [
-        15.0,
-        17.0
-      ]
-    ],
-    "Mahaoya PS": [
-      [
-        15.0,
-        16.0
+        17.0,
+        19.0
       ]
     ],
     "Uhana PS": [
@@ -1170,16 +1182,22 @@
         16.5
       ]
     ],
+    "Mahaoya PS": [
+      [
+        15.0,
+        16.0
+      ]
+    ],
     "Namaloya PS": [
       [
         15.0,
         18.0
       ]
     ],
-    "Ampara UC": [
+    "Padiyathalawa PS": [
       [
-        16.0,
-        17.5
+        15.0,
+        17.0
       ]
     ],
     "Navithanveli PS": [
@@ -1194,10 +1212,40 @@
         18.0
       ]
     ],
-    "Kalmunai MC": [
+    "Irakkamam PS": [
+      [
+        16.0,
+        18.5
+      ]
+    ],
+    "Akkaraipattu PS": [
+      [
+        18.0,
+        18.5
+      ]
+    ],
+    "Potuvil PS": [
+      [
+        18.0,
+        21.5
+      ]
+    ],
+    "Addalachchenai PS": [
       [
         19.0,
-        17.0
+        19.0
+      ]
+    ],
+    "Alayadiwembu PS": [
+      [
+        19.0,
+        20.0
+      ]
+    ],
+    "Lahugala PS": [
+      [
+        18.0,
+        22.5
       ]
     ],
     "Karaitheevu PS": [
@@ -1212,76 +1260,40 @@
         18.0
       ]
     ],
-    "Addalachchenai PS": [
-      [
-        19.0,
-        19.0
-      ]
-    ],
-    "Irakkamam PS": [
-      [
-        16.0,
-        18.5
-      ]
-    ],
-    "Akkaraipattu PS": [
-      [
-        18.0,
-        18.5
-      ]
-    ],
-    "Akkaraipattu MC": [
-      [
-        20.0,
-        19.5
-      ]
-    ],
-    "Alayadiwembu PS": [
-      [
-        19.0,
-        20.0
-      ]
-    ],
-    "Damana PS": [
-      [
-        17.0,
-        19.0
-      ]
-    ],
     "Thirukkovil PS": [
       [
         18.0,
         20.5
       ]
     ],
-    "Pottuvil PS": [
+    "Trincomalee MC": [
       [
-        18.0,
-        21.5
+        13.0,
+        9.0
       ]
     ],
-    "Lahugala PS": [
+    "Kinniya UC": [
       [
-        18.0,
-        22.5
+        13.0,
+        10.0
       ]
     ],
-    "Padavi Sri Pura PS": [
+    "Verugal PS": [
       [
-        10.0,
-        7.5
+        14.0,
+        11.5
       ]
     ],
-    "Kuchchaveli PS": [
+    "Seruwila PS": [
       [
-        12.0,
-        8.5
+        14.0,
+        10.5
       ]
     ],
-    "Gomarankadawala PS": [
+    "Kanthale PS": [
       [
         11.0,
-        8.0
+        11.0
       ]
     ],
     "Morawewa PS": [
@@ -1290,39 +1302,33 @@
         9.0
       ]
     ],
-    "Trincomalee Town and Gravets PS": [
+    "Gomarankadawala PS": [
+      [
+        11.0,
+        8.0
+      ]
+    ],
+    "Padavi Sri Pura PS": [
+      [
+        10.0,
+        7.5
+      ]
+    ],
+    "Trincomalee Town And Gravets PS": [
       [
         12.0,
         9.5
       ]
     ],
-    "Trincomalee UC": [
+    "Kuchchaveli PS": [
       [
-        13.0,
-        9.0
+        12.0,
+        8.5
       ]
     ],
     "Thambalagamuwa PS": [
       [
         11.0,
-        10.0
-      ]
-    ],
-    "Kanthalai PS": [
-      [
-        11.0,
-        11.0
-      ]
-    ],
-    "Kinniya PS": [
-      [
-        12.0,
-        10.5
-      ]
-    ],
-    "Kinniya UC": [
-      [
-        13.0,
         10.0
       ]
     ],
@@ -1332,16 +1338,22 @@
         9.5
       ]
     ],
-    "Seruvila PS": [
+    "Kinniya PS": [
       [
-        14.0,
+        12.0,
         10.5
       ]
     ],
-    "Verugal PS": [
+    "Kurunegala MC": [
       [
-        14.0,
-        11.5
+        7.0,
+        15.0
+      ]
+    ],
+    "Kuliyapitiya UC": [
+      [
+        5.0,
+        15.0
       ]
     ],
     "Giribawa PS": [
@@ -1356,10 +1368,10 @@
         11.5
       ]
     ],
-    "Maho PS": [
+    "Polpithigama PS": [
       [
-        6.0,
-        12.5
+        7.0,
+        12.0
       ]
     ],
     "Nikaweratiya PS": [
@@ -1368,10 +1380,16 @@
         13.5
       ]
     ],
-    "Polpithigama PS": [
+    "Kobeigane PS": [
       [
-        7.0,
-        12.0
+        5.0,
+        13.0
+      ]
+    ],
+    "Mahawa PS": [
+      [
+        6.0,
+        12.5
       ]
     ],
     "Ibbagamuwa PS": [
@@ -1386,64 +1404,16 @@
         13.5
       ]
     ],
-    "Kobeigane PS": [
+    "Panduwasnuwara PS": [
       [
         5.0,
-        13.0
+        14.0
       ]
     ],
     "Bingiriya PS": [
       [
         4.0,
         14.5
-      ]
-    ],
-    "Paduwasnuwara PS": [
-      [
-        5.0,
-        14.0
-      ]
-    ],
-    "Kurunegala PS": [
-      [
-        7.0,
-        14.0
-      ]
-    ],
-    "Kurunegala MC": [
-      [
-        7.0,
-        15.0
-      ]
-    ],
-    "Mawathagama PS": [
-      [
-        8.0,
-        14.5
-      ]
-    ],
-    "Rideegama PS": [
-      [
-        8.0,
-        13.5
-      ]
-    ],
-    "Polgahawela PS": [
-      [
-        7.0,
-        16.0
-      ]
-    ],
-    "Kuliyapitiya PS": [
-      [
-        6.0,
-        14.5
-      ]
-    ],
-    "Kuliyapitiya UC": [
-      [
-        5.0,
-        15.0
       ]
     ],
     "Udubaddawa PS": [
@@ -1458,10 +1428,10 @@
         16.0
       ]
     ],
-    "Narammala PS": [
+    "Kuliyapitiya PS": [
       [
         6.0,
-        15.5
+        14.5
       ]
     ],
     "Alawwa PS": [
@@ -1470,13 +1440,61 @@
         16.5
       ]
     ],
+    "Narammala PS": [
+      [
+        6.0,
+        15.5
+      ]
+    ],
+    "Polgahawela PS": [
+      [
+        7.0,
+        16.0
+      ]
+    ],
+    "Kurunegala PS": [
+      [
+        7.0,
+        14.0
+      ]
+    ],
+    "Mawathagama PS": [
+      [
+        8.0,
+        14.5
+      ]
+    ],
+    "Rideegama PS": [
+      [
+        8.0,
+        13.5
+      ]
+    ],
+    "Puttalam MC": [
+      [
+        3.0,
+        12.0
+      ]
+    ],
+    "Chilaw UC": [
+      [
+        3.0,
+        14.0
+      ]
+    ],
     "Kalpitiya PS": [
       [
         3.0,
         11.0
       ]
     ],
-    "Wanathavilluwa PS": [
+    "Puttalam PS": [
+      [
+        4.0,
+        11.5
+      ]
+    ],
+    "Wanathawilluwa PS": [
       [
         5.0,
         10.0
@@ -1494,34 +1512,16 @@
         12.0
       ]
     ],
-    "Puttalam PS": [
-      [
-        4.0,
-        11.5
-      ]
-    ],
-    "Puttalam UC": [
-      [
-        3.0,
-        12.0
-      ]
-    ],
-    "Arachchikattuwa PS": [
-      [
-        3.0,
-        13.0
-      ]
-    ],
     "Anamaduwa PS": [
       [
         4.0,
         12.5
       ]
     ],
-    "Chilaw UC": [
+    "Arachchikattuwa PS": [
       [
         3.0,
-        14.0
+        13.0
       ]
     ],
     "Chilaw PS": [
@@ -1542,16 +1542,10 @@
         16.0
       ]
     ],
-    "Padaviya PS": [
+    "Anuradhapura MC": [
       [
-        9.0,
-        7.0
-      ]
-    ],
-    "Kebithigollewa PS": [
-      [
-        9.0,
-        8.0
+        8.0,
+        9.5
       ]
     ],
     "Medawachchiya PS": [
@@ -1560,22 +1554,22 @@
         9.0
       ]
     ],
-    "Nuwaragam Palatha Central PS": [
-      [
-        6.0,
-        8.5
-      ]
-    ],
-    "Anuradhapura MC": [
-      [
-        8.0,
-        9.5
-      ]
-    ],
     "Rambewa PS": [
       [
         9.0,
         9.0
+      ]
+    ],
+    "Kebithigollewa PS": [
+      [
+        9.0,
+        8.0
+      ]
+    ],
+    "Padaviya PS": [
+      [
+        9.0,
+        7.0
       ]
     ],
     "Kahatagasdigiliya PS": [
@@ -1590,28 +1584,28 @@
         8.5
       ]
     ],
-    "Galenbindunuwewa PS": [
+    "Galenbindunuweva PS": [
       [
         10.0,
         10.5
       ]
     ],
-    "Mihinthale PS": [
+    "Thalawa PS": [
       [
-        9.0,
-        10.0
+        7.0,
+        11.0
       ]
     ],
-    "Nuwaragam Palatha East PS": [
+    "Nuwaragampalatha East PS": [
       [
         7.0,
         10.0
       ]
     ],
-    "Thirappane PS": [
+    "Nuwaragampalatha Central PS": [
       [
-        8.0,
-        10.5
+        6.0,
+        8.5
       ]
     ],
     "Nochchiyagama PS": [
@@ -1626,21 +1620,9 @@
         10.5
       ]
     ],
-    "Thalawa PS": [
-      [
-        7.0,
-        11.0
-      ]
-    ],
     "Galnewa PS": [
       [
         8.0,
-        11.5
-      ]
-    ],
-    "Kekirawa PS": [
-      [
-        10.0,
         11.5
       ]
     ],
@@ -1650,10 +1632,40 @@
         11.0
       ]
     ],
+    "Mihintale PS": [
+      [
+        9.0,
+        10.0
+      ]
+    ],
+    "Thirappane PS": [
+      [
+        8.0,
+        10.5
+      ]
+    ],
+    "Kekirawa PS": [
+      [
+        10.0,
+        11.5
+      ]
+    ],
     "Palagala PS": [
       [
         8.0,
         12.5
+      ]
+    ],
+    "Polonnaruwa MC": [
+      [
+        12.0,
+        12.5
+      ]
+    ],
+    "Elahera PS": [
+      [
+        12.0,
+        13.5
       ]
     ],
     "Hingurakgoda PS": [
@@ -1692,19 +1704,25 @@
         13.0
       ]
     ],
-    "Polonnaruwa MC": [
+    "Badulla MC": [
       [
-        12.0,
-        12.5
+        14.0,
+        20.5
       ]
     ],
-    "Elahera PS": [
+    "Bandarawela MC": [
       [
-        12.0,
-        13.5
+        14.0,
+        21.5
       ]
     ],
-    "Mahiyanganaya PS": [
+    "Haputhale UC": [
+      [
+        14.0,
+        22.5
+      ]
+    ],
+    "Mahiyangana PS": [
       [
         14.0,
         16.5
@@ -1714,6 +1732,12 @@
       [
         14.0,
         17.5
+      ]
+    ],
+    "Soranathota PS": [
+      [
+        14.0,
+        19.5
       ]
     ],
     "Meegahakivula PS": [
@@ -1728,12 +1752,6 @@
         18.5
       ]
     ],
-    "Soranathota PS": [
-      [
-        14.0,
-        19.5
-      ]
-    ],
     "Passara PS": [
       [
         16.0,
@@ -1746,19 +1764,13 @@
         19.5
       ]
     ],
-    "Badulla MC": [
-      [
-        14.0,
-        20.5
-      ]
-    ],
     "Badulla PS": [
       [
         15.0,
         20.0
       ]
     ],
-    "Hali-Ela PS": [
+    "Hali Ela PS": [
       [
         15.0,
         21.0
@@ -1782,12 +1794,6 @@
         23.0
       ]
     ],
-    "Bandarawela MC": [
-      [
-        14.0,
-        21.5
-      ]
-    ],
     "Ella PS": [
       [
         15.0,
@@ -1800,28 +1806,16 @@
         22.0
       ]
     ],
-    "Haputale UC": [
-      [
-        14.0,
-        22.5
-      ]
-    ],
     "Haldummulla PS": [
       [
         14.0,
         23.5
       ]
     ],
-    "Bibile PS": [
+    "Bibila PS": [
       [
         17.0,
         20.0
-      ]
-    ],
-    "Madulla PS": [
-      [
-        18.0,
-        19.5
       ]
     ],
     "Medagama PS": [
@@ -1830,13 +1824,19 @@
         21.0
       ]
     ],
-    "Siyambalanduwa PS": [
+    "Madulla PS": [
+      [
+        18.0,
+        19.5
+      ]
+    ],
+    "Siyabalanduwa PS": [
       [
         17.0,
         22.0
       ]
     ],
-    "Moneragala PS": [
+    "Monaragala PS": [
       [
         16.0,
         22.5
@@ -1848,57 +1848,33 @@
         21.5
       ]
     ],
-    "Wellawaya PS": [
-      [
-        15.0,
-        24.0
-      ]
-    ],
     "Buttala PS": [
       [
         16.0,
         23.5
       ]
     ],
-    "Katharagama PS": [
+    "Kataragama PS": [
       [
         17.0,
         23.0
       ]
     ],
-    "Thanamalvila PS": [
+    "Wellawaya PS": [
+      [
+        15.0,
+        24.0
+      ]
+    ],
+    "Thanamalwila PS": [
       [
         17.0,
         24.0
       ]
     ],
-    "Eheliyagoda PS": [
-      [
-        7.0,
-        21.0
-      ]
-    ],
-    "Kuruvita PS": [
-      [
-        7.0,
-        22.0
-      ]
-    ],
-    "Ratnapura PS": [
-      [
-        10.0,
-        22.5
-      ]
-    ],
     "Ratnapura MC": [
       [
         8.0,
-        22.5
-      ]
-    ],
-    "Imbulpe PS": [
-      [
-        12.0,
         22.5
       ]
     ],
@@ -1908,16 +1884,28 @@
         23.0
       ]
     ],
-    "Balangoda PS": [
+    "Embilipitiya UC": [
       [
         13.0,
-        23.0
+        24.0
       ]
     ],
-    "Weligepola PS": [
+    "Eheliyagoda PS": [
       [
-        12.0,
-        23.5
+        7.0,
+        21.0
+      ]
+    ],
+    "Ratnapura PS": [
+      [
+        10.0,
+        22.5
+      ]
+    ],
+    "Kuruwita PS": [
+      [
+        7.0,
+        22.0
       ]
     ],
     "Pelmadulla PS": [
@@ -1926,7 +1914,37 @@
         23.0
       ]
     ],
-    "Nivithigala PS": [
+    "Balangoda PS": [
+      [
+        13.0,
+        23.0
+      ]
+    ],
+    "Imbulpe PS": [
+      [
+        12.0,
+        22.5
+      ]
+    ],
+    "Godakawela PS": [
+      [
+        11.0,
+        24.0
+      ]
+    ],
+    "Kahawatta PS": [
+      [
+        10.0,
+        23.5
+      ]
+    ],
+    "Weligepola PS": [
+      [
+        12.0,
+        23.5
+      ]
+    ],
+    "Niwitigala PS": [
       [
         9.0,
         24.0
@@ -1944,34 +1962,40 @@
         24.5
       ]
     ],
-    "Kahawatta PS": [
-      [
-        10.0,
-        23.5
-      ]
-    ],
-    "Godakawela PS": [
-      [
-        11.0,
-        24.0
-      ]
-    ],
     "Embilipitiya PS": [
       [
         13.0,
         25.0
       ]
     ],
-    "Embilipitiya UC": [
-      [
-        13.0,
-        24.0
-      ]
-    ],
     "Kolonna PS": [
       [
         12.0,
         24.5
+      ]
+    ],
+    "Kegalle MC": [
+      [
+        7.0,
+        17.0
+      ]
+    ],
+    "Warakapola PS": [
+      [
+        6.0,
+        17.5
+      ]
+    ],
+    "Galigamuwa PS": [
+      [
+        7.0,
+        19.0
+      ]
+    ],
+    "Kegalle PS": [
+      [
+        7.0,
+        18.0
       ]
     ],
     "Rambukkana PS": [
@@ -1992,28 +2016,16 @@
         18.5
       ]
     ],
-    "Kegalle PS": [
+    "Yatiyantotoa PS": [
       [
         7.0,
-        18.0
+        20.0
       ]
     ],
-    "Kegalle UC": [
+    "Bulatkohupitiya PS": [
       [
-        7.0,
-        17.0
-      ]
-    ],
-    "Galigamuwa PS": [
-      [
-        7.0,
-        19.0
-      ]
-    ],
-    "Warakapola PS": [
-      [
-        6.0,
-        17.5
+        8.0,
+        19.5
       ]
     ],
     "Ruwanwella PS": [
@@ -2022,28 +2034,16 @@
         18.5
       ]
     ],
-    "Bulathkohupitiya PS": [
-      [
-        8.0,
-        19.5
-      ]
-    ],
-    "Yatiyanthota PS": [
-      [
-        7.0,
-        20.0
-      ]
-    ],
-    "Dehiovita PS": [
-      [
-        8.0,
-        21.5
-      ]
-    ],
     "Deraniyagala PS": [
       [
         8.0,
         20.5
+      ]
+    ],
+    "Dehiowita PS": [
+      [
+        8.0,
+        21.5
       ]
     ]
   },
@@ -2780,14 +2780,6 @@
       "LK-23": [
         [
           [
-            10.663333333333334,
-            19.495
-          ],
-          [
-            10.329999999999998,
-            19.995
-          ],
-          [
             9.663333333333334,
             19.995
           ],
@@ -2910,11 +2902,23 @@
           [
             10.663333333333334,
             19.495
+          ],
+          [
+            10.329999999999998,
+            19.995
+          ],
+          [
+            9.663333333333334,
+            19.995
           ]
         ]
       ],
       "LK-31": [
         [
+          [
+            3.3300000000000014,
+            25.495
+          ],
           [
             2.663333333333333,
             25.495
@@ -3065,10 +3069,6 @@
           ],
           [
             3.3300000000000014,
-            25.495
-          ],
-          [
-            2.663333333333333,
             25.495
           ]
         ]

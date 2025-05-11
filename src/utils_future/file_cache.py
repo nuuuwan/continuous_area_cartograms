@@ -19,7 +19,7 @@ def file_cache(cache_key_data):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             if os.path.exists(cache_file):
-                log.debug(f"Cache hit: {cache_file}")
+                # log.debug(f"Cache hit: {cache_file}")
                 with open(cache_file, "rb") as f:
                     result = pickle.load(f)
                 return result
@@ -27,7 +27,7 @@ def file_cache(cache_key_data):
             result = func(*args, **kwargs)
             with open(cache_file, "wb") as f:
                 pickle.dump(result, f)
-            log.debug_temp(f"{cache_file=}")
+            # log.debug_temp(f"{cache_file=}")
             return result
 
         return wrapper
