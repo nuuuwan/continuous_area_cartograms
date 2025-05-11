@@ -96,7 +96,21 @@ class HexBinRenderer:
                 ),
             )
         )
-
+        inner.append(
+            _(
+                "text",
+                f"{point.x:.1f},{point.y * HexBin.X_TO_Y_RATIO:.1f}",
+                dict(
+                    x=point.x,
+                    y=point.y + font_size * 1.4,
+                    fill="#000",
+                    font_size=font_size * 2,
+                    font_family=STYLE.FONT_FAMILY,
+                    text_anchor="middle",
+                    dominant_baseline="middle",
+                ),
+            )
+        )
         return _("g", inner)
 
     @staticmethod
