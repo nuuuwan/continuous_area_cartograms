@@ -88,7 +88,7 @@ class HexBinRenderer:
                 dict(
                     x=point.x,
                     y=point.y + font_size * 0.4,
-                    fill="#000",
+                    fill=text_color,
                     font_size=font_size,
                     font_family=STYLE.FONT_FAMILY,
                     text_anchor="middle",
@@ -242,7 +242,6 @@ class HexBinRenderer:
                 label_display = ""
                 if i_point == i_mid:
                     label_display = label_display_points
-                # label_display = f"{label}{i+1}"
 
                 point_color = (
                     self.custom_color_map.get((label, i_point + 1)) or color
