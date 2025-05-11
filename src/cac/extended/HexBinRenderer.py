@@ -1,5 +1,5 @@
 import os
-
+import cairosvg
 from shapely import Point, Polygon
 from utils import JSONFile, Log, _
 
@@ -319,23 +319,7 @@ class HexBinRenderer:
 
         return _(
             "svg",
-            [
-                _(
-                    "rect",
-                    None,
-                    dict(
-                        x=min_x,
-                        y=min_y,
-                        width=x_span,
-                        height=y_span,
-                        fill="#fff",
-                        stroke="#000",
-                    ),
-                )
-            ]
-            + rendered_points
-            + rendered_groups
-            + self.rendered_svg_custom,
+            rendered_points + rendered_groups + self.rendered_svg_custom,
             dict(
                 height=3200,
                 width=1800,
@@ -387,3 +371,7 @@ class HexBinRenderer:
         svg.store(hexbin_path)
         log.info(f"Wrote {hexbin_path}")
         os.startfile(hexbin_path)
+
+        png_path = hexbin_path[:-4] + ".png"
+
+        cairosvg.svg2png(url=hexbin_path, write_to=png_path)
