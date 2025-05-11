@@ -43,8 +43,8 @@ class HexBinRenderer:
         colors,
         values,
         total_value,
-        custom_color_map,
-        rendered_svg_custom,
+        custom_color_map=None,
+        rendered_svg_custom=None,
     ):
         self.polygons = polygons
         self.labels = labels
