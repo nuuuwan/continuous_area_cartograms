@@ -68,7 +68,7 @@ class HexBinRenderer:
                     ),
                     fill=None,
                     stroke="#222",
-                    stroke_width=dim * 0.05,
+                    stroke_width=dim * 0.07,
                     opacity=0.5 + 0.1 * i_group,
                 ),
             )
@@ -88,7 +88,7 @@ class HexBinRenderer:
                 dict(
                     x=point.x,
                     y=point.y + font_size * 0.1,
-                    fill=text_color,
+                    fill="#000",
                     font_size=font_size,
                     text_anchor="middle",
                     dominant_baseline="middle",
@@ -118,8 +118,8 @@ class HexBinRenderer:
                             [f"{x[0]},{x[1]}" for x in polygon.exterior.coords]
                         ),
                         fill=color,
-                        stroke=text_color,
-                        stroke_width=dim * 0.005,
+                        stroke="#333",
+                        stroke_width=dim * 0.02,
                     ),
                 ),
                 HexBinRenderer.render_label(label, point, dim, text_color),
@@ -314,7 +314,7 @@ class HexBinRenderer:
                         width=x_span,
                         height=y_span,
                         fill="#fff",
-                        stroke="#ccc",
+                        stroke="#000",
                     ),
                 )
             ]

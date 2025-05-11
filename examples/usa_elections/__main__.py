@@ -10,8 +10,8 @@ from utils_future import Color
 log = Log("usa_elections")
 
 
-MARGIN_UNCERTAIN = 10
-MARGIN_CERTAIN = 30
+MARGIN_UNCERTAIN = 5
+MARGIN_CERTAIN = 10
 
 
 class HUE:  # noqa
@@ -67,7 +67,7 @@ def get_state_to_code():
 
 def get_color_raw(hue, p_light):
     sat = 100
-    LIGHT_MIN, LIGHT_MAX = 50, 50
+    LIGHT_MIN, LIGHT_MAX = 45, 95
     light = LIGHT_MIN + (LIGHT_MAX - LIGHT_MIN) * p_light
     return Color.from_hls(hue, light, sat).hex
 
@@ -80,23 +80,14 @@ def get_color(info):
     hue = HUE.BLUE if party == "D" else HUE.RED
 
     if margin < MARGIN_UNCERTAIN:
-        hue = HUE.ORANGE
-        p_light = 0.5
+        p_light = 0.0
     else:
-
-        margin = float(mov[2:])
-        if margin > MARGIN_CERTAIN:
-            p_light = 0
-        else:
-            p_light = 1 - (margin - MARGIN_UNCERTAIN) / (
-                MARGIN_CERTAIN - MARGIN_UNCERTAIN
-            )
+        p_light = 1.0
 
     return get_color_raw(hue, p_light)
 
 
-def main(force_MARGIN_UNCERTAIN):  # noqa
-    MARGIN_UNCERTAIN = force_MARGIN_UNCERTAIN
+def main():  # noqa
 
     # exclude Puerto Rico
     geojson_path_original = os.path.join(
@@ -263,21 +254,19 @@ def main(force_MARGIN_UNCERTAIN):  # noqa
         custom_color_map[a_ia] = color
 
     mid_x = 45.5
-    n_too_close = 0
+
     n_blue = 0
     n_red = 0
     for info in info_idx.values():
         mov = info["Forecasted margin of victory"]
         party = mov[0]
-        margin = float(mov[2:])
+
         ev = int(round(info["EVs"]))
-        if margin < MARGIN_UNCERTAIN:
-            n_too_close += ev
+
+        if party == "D":
+            n_blue += ev
         else:
-            if party == "D":
-                n_blue += ev
-            else:
-                n_red += ev
+            n_red += ev
 
     x_legend = 65
     rendered_svg_custom = [
@@ -314,13 +303,13 @@ def main(force_MARGIN_UNCERTAIN):  # noqa
         ),
         render_candidate(x_legend, 24, HUE.BLUE, "Harris", n_blue),
         render_candidate(x_legend, 27, HUE.RED, "Trump", n_red),
-        render_candidate(
-            x_legend,
-            30,
-            HUE.ORANGE,
-            f"Lead < {MARGIN_UNCERTAIN/100:.1%}",
-            n_too_close,
-        ),
+        # render_candidate(
+        #     x_legend,
+        #     30,
+        #     HUE.ORANGE,
+        #     f"Lead < {MARGIN_UNCERTAIN/100:.1%}",
+        #     n_too_close,
+        # ),
     ]
 
     HexBinRenderer(
@@ -339,5 +328,4 @@ def main(force_MARGIN_UNCERTAIN):  # noqa
 
 
 if __name__ == "__main__":
-    for MARGIN_UNCERTAIN in range(10, -1, -1):
-        main(MARGIN_UNCERTAIN)
+    main()
