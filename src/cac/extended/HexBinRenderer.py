@@ -110,7 +110,7 @@ class HexBinRenderer:
                     x=point.x,
                     y=point.y - font_size * 0.5,
                     fill=text_color,
-                    font_size=font_size * 3 / len(name_only),
+                    font_size=font_size * 3 / len(name_only.replace(".", "")),
                     font_family=STYLE.FONT_FAMILY,
                     text_anchor="middle",
                     dominant_baseline="middle",
