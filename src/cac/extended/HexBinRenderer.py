@@ -359,7 +359,7 @@ class HexBinRenderer:
             rendered_points + rendered_groups + self.rendered_svg_custom,
             dict(
                 height=2700,
-                width=1800,
+                width=2700,
                 viewBox=view_box,
                 font_family=STYLE.FONT_FAMILY,
             ),
