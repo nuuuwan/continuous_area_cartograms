@@ -10,7 +10,7 @@ log = Log("HexBinRenderer")
 
 
 class STYLE:
-    FONT_FAMILY = "sans-serif"
+    FONT_FAMILY = "Afacad"
 
 
 def convert_to_superscript(n):
@@ -29,6 +29,27 @@ def get_short_label(x):
     if len(words) == 1:
         return remove_vowels(words[0])[:3].upper()
     return "".join([word[0] for word in words])
+
+
+def get_short_label_for_lg_name(lg_name):
+    words = lg_name.split(" ")
+    lg_name_words = words[:-1]
+    lg_type = words[-1]
+
+    def get_short_label_for_name_only(lg_name_words):
+        if len(lg_name_words) > 1:
+            initialed_name = "".join([w[0] + "." for w in lg_name_words])
+            return f"{initialed_name}"
+
+        name = lg_name_words[0]
+        voweled_name = (
+            name[0] + "".join([w for w in name[1:] if w not in "aeiou"]).upper()
+        )
+        if len(voweled_name) < 3:
+            return f"{voweled_name}"
+        return f"{voweled_name[:3]}"
+
+    return get_short_label_for_name_only(lg_name_words), lg_type
 
 
 class HexBinRenderer:
@@ -79,17 +100,32 @@ class HexBinRenderer:
     def render_label(label, point, dim, text_color):
         inner = []
 
-        font_size = 2 * dim / len(label)
-
+        name_only, lg_type = get_short_label_for_lg_name(label)
+        font_size = dim * 0.4
         inner.append(
             _(
                 "text",
-                label,
+                name_only,
                 dict(
                     x=point.x,
-                    y=point.y + font_size * 0.4,
+                    y=point.y - font_size * 0.5,
                     fill=text_color,
-                    font_size=font_size,
+                    font_size=font_size * 3 / len(name_only),
+                    font_family=STYLE.FONT_FAMILY,
+                    text_anchor="middle",
+                    dominant_baseline="middle",
+                ),
+            )
+        )
+        inner.append(
+            _(
+                "text",
+                lg_type,
+                dict(
+                    x=point.x,
+                    y=point.y + font_size * 0.5,
+                    fill=text_color,
+                    font_size=font_size / 0.8,
                     font_family=STYLE.FONT_FAMILY,
                     text_anchor="middle",
                     dominant_baseline="middle",
