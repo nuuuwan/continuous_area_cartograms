@@ -356,7 +356,22 @@ class HexBinRenderer:
 
         return _(
             "svg",
-            rendered_points + rendered_groups + self.rendered_svg_custom,
+            [
+                _(
+                    "rect",
+                    None,
+                    dict(
+                        fill="white",
+                        x=min_x,
+                        y=min_y,
+                        width=x_span,
+                        height=y_span,
+                    ),
+                )
+            ]
+            + rendered_points
+            + rendered_groups
+            + self.rendered_svg_custom,
             dict(
                 height=2700,
                 width=2700,
