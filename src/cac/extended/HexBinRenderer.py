@@ -102,7 +102,7 @@ class HexBinRenderer:
 
         name_only, lg_type = get_short_label_for_lg_name(label)
         font_size = dim * 0.4
-        name_only_len = sum([0.5 if c == "." else 1 for c in name_only])
+        name_only_len = sum([0.2 if c == "." else 1 for c in name_only])
         inner.append(
             _(
                 "text",
