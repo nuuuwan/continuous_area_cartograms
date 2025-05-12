@@ -102,6 +102,7 @@ class HexBinRenderer:
 
         name_only, lg_type = get_short_label_for_lg_name(label)
         font_size = dim * 0.4
+        name_only_len = sum([0.5 if c == "." else 1 for c in name_only])
         inner.append(
             _(
                 "text",
@@ -110,7 +111,7 @@ class HexBinRenderer:
                     x=point.x,
                     y=point.y - font_size * 0.5,
                     fill=text_color,
-                    font_size=font_size * 3 / len(name_only.replace(".", "")),
+                    font_size=font_size * 3 / name_only_len,
                     font_family=STYLE.FONT_FAMILY,
                     text_anchor="middle",
                     dominant_baseline="middle",
