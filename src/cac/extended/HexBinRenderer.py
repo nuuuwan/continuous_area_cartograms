@@ -411,4 +411,3 @@ class HexBinRenderer:
         png_path = hexbin_path[:-4] + ".png"
 
         cairosvg.svg2png(url=hexbin_path, write_to=png_path)
-        os.startfile(png_path)
