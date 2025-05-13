@@ -327,7 +327,7 @@ class HexBinRenderer:
 
         dim_x = dim
         dim_y = dim / HexBin.X_TO_Y_RATIO
-        PADDING = 1.7
+        PADDING = 1
         min_x -= dim_x * PADDING
         min_y -= dim_y * PADDING
         max_x += dim_x * PADDING
@@ -344,6 +344,7 @@ class HexBinRenderer:
         rendered_groups = self.get_rendered_groups(
             group_type_to_group_to_polygons, dim
         )
+
         min_x, min_y, __, __, x_span, y_span = self.get_bbox_padded(
             points_list, dim
         )
@@ -354,27 +355,29 @@ class HexBinRenderer:
         mid_y = min_y + y_span / 2
         log.debug(f"{mid_x=}, {mid_y=}")
 
+        HEIGHT, WIDTH = 1080, 1080
+        rect_background = _(
+            "rect",
+            None,
+            dict(
+                x=mid_x - y_span / 2,
+                y=min_y,
+                width=y_span,
+                height=y_span,
+                fill="#fff",
+                stroke="#888",
+                stroke_width=dim * 0.1,
+            ),
+        )
         return _(
             "svg",
-            [
-                _(
-                    "rect",
-                    None,
-                    dict(
-                        fill="white",
-                        x=min_x,
-                        y=min_y,
-                        width=x_span,
-                        height=y_span,
-                    ),
-                )
-            ]
+            [rect_background]
             + rendered_points
             + rendered_groups
             + self.rendered_svg_custom,
             dict(
-                height=2700,
-                width=2700,
+                height=HEIGHT,
+                width=WIDTH,
                 viewBox=view_box,
                 font_family=STYLE.FONT_FAMILY,
             ),
@@ -424,5 +427,6 @@ class HexBinRenderer:
         log.info(f"Wrote {hexbin_path}")
 
         png_path = hexbin_path[:-4] + ".png"
-
-        cairosvg.svg2png(url=hexbin_path, write_to=png_path)
+        cairosvg.svg2png(url=hexbin_path, write_to=png_path, dpi=300)
+        file_size = os.path.getsize(png_path)
+        log.info(f"Wrote {png_path} ({file_size / 1024:.1f} KB)")
